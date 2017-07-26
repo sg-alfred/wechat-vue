@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/pagers/Hello'
-import Test from '@/pagers/Test'
-import Help from '@/pagers/Help'
+import Hello from '@/pages/Hello'
+import Test from '@/pages/Test'
+import Help from '@/pages/Help'
 
-import Wechat from '@/pagers/Wechat'
+import Wechat from '@/pages/Wechat'
 
-import Contacts from '@/pagers/Contacts'
+import Contacts from '@/pages/Contacts'
 
-import Discover from '@/pagers/Discover'
-import Moment from '@/pagers/Momentss'
+import Discover from '@/pages/Discover'
+import Moment from '@/pages/Momentss'
 
-import Myinfo from '@/pagers/Myinfo'
+import Myinfo from '@/pages/Myinfo'
 
 
 Vue.use(Router)
