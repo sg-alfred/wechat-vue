@@ -1,7 +1,7 @@
 <!-- 朋友圈的 每条状态组件 -->
 
 <template>
-    <div class="">
+    <div class="moment-container">
         <el-row>
             <p>单条状态详情～</p>
             <el-col :span="4">
@@ -21,6 +21,7 @@
         props: {
             moment: {
                 type: Object,
+                required: true
             }
         },
         data() {
@@ -30,6 +31,12 @@
     }
 </script>
 
-<style>
-
+<style scoped>
+    .moment-container {
+        border: lightgray solid 1px;
+        margin: 5px;
+    }
+    img {
+        height: 48px;
+    }
 </style>

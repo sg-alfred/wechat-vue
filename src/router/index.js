@@ -9,7 +9,7 @@ import Wechat from '@/pages/Wechat'
 import Contacts from '@/pages/Contacts'
 
 import Discover from '@/pages/Discover'
-import Moment from '@/pages/Momentss'
+import Moment from '@/pages/Moments'
 
 import Myinfo from '@/pages/Myinfo'
 
@@ -19,40 +19,40 @@ Vue.use(Router)
 export default new Router({
     routes: [{
         path: '/',
-        name: 'Hello',
+        name: 'hello',
         component: Hello
     }, {
         path: '/test',
-        name: 'Test',
+        name: 'test',
         component: Test
     }, {
         path: '/wechat',
-        name: 'Wechat',
+        name: 'wechat',
         component: Wechat
     }, {
         path: '/contacts',
-        name: 'Contacts',
+        name: 'contacts',
         component: Contacts
     }, {
         path: '/discover',
-        name: 'Discover',
+        name: 'discover',
         component: Discover,
         // children: [{
-        //     path: '/moment',
-        //     name: 'Moment',
+        //     path: 'moments',
+        //     name: 'moment',
         //     component: Moment
         // }]
     }, {
         path: '/myinfo',
-        name: 'Myinfo',
+        name: 'myinfo',
         component: Myinfo
     }, {
         path: '/help',
-        name: 'Help',
+        name: 'help',
         component: Help
     }, {
-        path: '/moment',
-        name: 'Moment',
+        path: '/moments',
+        name: 'moment',
         component: Moment
     }]
 })

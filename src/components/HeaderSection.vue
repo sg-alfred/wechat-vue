@@ -1,5 +1,5 @@
 <template>
-    <div class="head-container">
+    <div class="header-container">
         <span>微信(<span>{{messages}}</span>)</span>
         <span>
             <i class="el-icon-search"></i>
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style>
-.head-container {
+.header-container {
 
 }
 </style>
