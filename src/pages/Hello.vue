@@ -18,6 +18,10 @@
         off-color="#ff4949">
     </el-switch>
 
+    <div>
+        <a @click="doLogin()">登录一下</a>
+    </div>
+
     <footer-section></footer-section>
 </div>
 
@@ -40,6 +44,13 @@ export default {
             value1: true,
             msg: 'Welcome to My Wechat App',
             author: "sgchenjz"
+        }
+    },
+    methods: {
+        doLogin() {
+            this.$http.get('/test/123').then(response => {
+                console.log(response);
+            })
         }
     }
 }

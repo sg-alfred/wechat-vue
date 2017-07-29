@@ -111,9 +111,24 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .footer-container {
-        /*position: absolute; / fixed */
+        border: ghostwhite solid 2px;
+        background-color: white;
+        /*position: fixed;*/
         bottom: 0;
+        height: 75px;
+        /*width: 480px;*/
+        z-index: 1000;
+    }
+    .grid-content img {
+        /*width: 40px;*/
+        height: 30px;
+        padding-top: 5px;
+    }
+    .grid-content p {
+        margin: 0;
+        color: black;
+        padding-bottom: 0;
     }
 </style>

@@ -26,8 +26,11 @@
     }
 </script>
 
-<style>
+<style scoped>
     .contacts-container {
 
+    }
+    img {
+        width: 200px;
     }
 </style>

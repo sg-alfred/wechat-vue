@@ -1,32 +1,37 @@
-<template>
+<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="header-container">
-        <span>微信(<span>{{messages}}</span>)</span>
-        <span>
-            <i class="el-icon-search"></i>
-        </span>
-        <el-dropdown @command="handleCommand" trigger="click">
-            <span class="el-dropdown-link">
-                <!--<img src="../assets/icon-plus_u8.png">-->
-                +<i class="el-icon-caret-bottom el-icon--right"></i>
-            </span>
-            <el-dropdown-menu sole="dropdown">
-                <el-dropdown-item command="groupChat">
-                    <img src="static/image/icon-groupchat.png">发起群聊
-                </el-dropdown-item>
-                <el-dropdown-item command="addContacts">
-                    <img src="static/image/icon-addcontacts.png">添加好友
-                </el-dropdown-item>
-                <el-dropdown-item command="scanQRCode">
-                    <img src="static/image/icon-scancode.png">扫一扫
-                </el-dropdown-item>
-                <el-dropdown-item command="payment">
-                    收付款
-                </el-dropdown-item>
-                <el-dropdown-item command="help">
-                    帮助与反馈
-                </el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
+        <el-row :gutter="20">
+            <el-col :span="6">
+                <span>微信(<span>{{messages}}</span>)</span>
+            </el-col>
+            <el-col :span="6" :offset="12">
+                <div v-bind:style="iconDivStyle">
+                    <span><i class="el-icon-search"></i></span>
+                </div>
+                <el-dropdown @command="handleCommand" trigger="click">
+                    <span class="el-dropdown-link">
+                        <img src="static/image/icon-plus_u8.png">
+                    </span>
+                    <el-dropdown-menu sole="dropdown">
+                        <el-dropdown-item command="groupChat">
+                            <img src="static/image/icon-groupchat.png">发起群聊
+                        </el-dropdown-item>
+                        <el-dropdown-item command="addContacts">
+                            <img src="static/image/icon-addcontacts.png">添加好友
+                        </el-dropdown-item>
+                        <el-dropdown-item command="scanQRCode">
+                            <img src="static/image/icon-scancode.png">扫一扫
+                        </el-dropdown-item>
+                        <el-dropdown-item command="payment">
+                            收付款
+                        </el-dropdown-item>
+                        <el-dropdown-item command="help">
+                            帮助与反馈
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
@@ -35,7 +40,11 @@ export default {
     name: 'HeaderSection',
     data() {
         return {
-            messages: 0
+            messages: 0,
+            iconDivStyle: {
+                display: 'inline',
+                'padding-right': '10px'
+            }
         }
     },
     methods: {
@@ -62,16 +71,37 @@ export default {
         },
         goto(path) {
             this.$router.push(path);
+        },
+
+    },
+    computed: {
+        // 计算未读消息，还是得用 store～
+        getTotalMessages: function() {
+            return parseInt(Math.random() * 10);
         }
     },
-    mounted() {
-
+    watch: {
+        // 这个应该是要如何监控，本来是 监听 socket d的～
+        getTotalMessages: (newvalue, oldvalue) => {
+            console.log(newvalue);
+            return this.messages = newvalue;
+        }
     }
 }
 </script>
 
-<style>
-.header-container {
+<style scoped>
+    .header-container {
+        background-color: #434439;
+        color: white;
+        height: 60px;
+        font-size: 20px;
+    }
+    .el-dropdown {
 
-}
+    }
+    img {
+        margin-top: 5px;
+        height: 20px;
+    }
 </style>

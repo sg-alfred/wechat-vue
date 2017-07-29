@@ -10,6 +10,9 @@
 </template>
 
 <script>
+
+    import Vue from 'vue';
+
     import HeaderSection from '../components/HeaderSection'
     import FooterSection from '../components/FooterSection'
     import ContactItem from '../components/ContactItem'
@@ -24,24 +27,18 @@
         data() {
             return {
                 // 其实，信息并不需要这么详细！！
-                userList: [{
-                    id: 0,
-                    wechatno: 'sgchenjz',
-                    nickname: '钻',
-                    gender: '男',
-                    country: '中国',
-                    provice: '北京',
-                    city: '海淀',
-                    headimgurl: '',
-                }, {
-                    id: 2,
-                    wechatno: 'guojy',
-                    nickname: '雨',
-                    gender: '男',
-                    country: '中国',
-                    headimgurl: '',
-                }]
+                userList: []
             }
+        },
+        mounted() {
+//            let _that = this;
+            this.$http.get('../../static/data/userlist.json')
+            .then(response => {
+                // 这个闭包，this 应该不一样才对啊！
+                this.userList = response.body.userList;
+            }, response => {
+                alert("调用失败");
+            })
         }
     }
 </script>

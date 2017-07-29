@@ -6,7 +6,7 @@
             <el-col :span="4">
                 <!-- 连接到 用户详情界面 -->
                 <!--<router-link :to=""></router-link>-->
-                头像！<img v-bind:src=userinfo.headimgurl />
+                <img v-bind:src=userinfo.headimgurl />
             </el-col>
             <el-col :span="20">
                 <!-- 这个我应该 向左靠！ -->
@@ -34,3 +34,9 @@
         }
     }
 </script>
+
+<style scoped>
+    img {
+        width: 48px;
+    }
+</style>

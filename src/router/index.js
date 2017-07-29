@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+// 使用 require.ensure - 代码分割
+
 import Hello from '@/pages/Hello'
 import Test from '@/pages/Test'
 import Help from '@/pages/Help'
@@ -12,7 +15,6 @@ import Discover from '@/pages/Discover'
 import Moment from '@/pages/Moments'
 
 import Myinfo from '@/pages/Myinfo'
-
 
 Vue.use(Router)
 
