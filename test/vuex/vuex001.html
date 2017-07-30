@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>vuex001</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- <script src="https://unpkg.com/vuex@2.0.0"></script> -->
+</head>
+<body>
+
+<div id="app">
+  <p>{{count}}
+    <button @click="inc">+</button>
+    <button @click="dec">-</button>
+  </p>
+</div>
+
+<script>
+
+// 案例参考：
+// https://segmentfault.com/a/1190000007516967
+
+new Vue({
+  el:'#app',
+  data () {
+    return {
+      count: 0
+    }
+  },
+  methods: {
+    // 这样写不行嘛？
+    // inc () => this.count++,
+    // dec () => this.count--
+    inc () {
+      this.count++
+    },
+    dec () {
+      this.count--
+    }
+  }
+})
+
+// // 方法名的 简写！！
+// methods: {
+//   inc() {
+//     this.count++;
+//   }
+// }
+
+// // 等价于
+// methods : {
+//   inc: function() {
+//     this.count++;
+//   }
+// }
+
+</script>
+
+</body>
+</html>

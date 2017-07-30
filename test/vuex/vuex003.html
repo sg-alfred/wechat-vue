@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>vuex003</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入vuex -->
+    <script src="https://unpkg.com/vuex@2.0.0"></script>
+</head>
+<body>
+
+<div id="app">
+  <p>{{count}}
+    <button @click="inc">+</button>
+    <button @click="dec">-</button>
+  </p>
+</div>
+
+<script>
+// TypeError: Vuex is not a constructor!
+// const vuex = new Vuex();
+
+// import declarations may only appear at top level of a module
+// import { Store, mapGetters, mapActions } from 'vuex'
+
+// ReferenceError: require is not defined
+// var _vuex = require('Vuex');
+
+// 本来，本来简简单单的，多组件之间的 通信，认了；现在又多了这么一步，这又是为什么？
+
+// 官网的解释：https://vuex.vuejs.org/zh-cn/actions.html
+// 乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 mutation 必须同步执行这个限制么？Action 就不受约束！
+
+const store = new Vuex.Store({
+  state: {
+    counter: 0
+  },
+  // mutation 必须是同步函数!!
+  mutations: {
+    inc: state => state.counter++,
+    dec: state => state.counter--,
+  },
+  // Action 通过 store.dispatch 方法触发
+  // 为什么 要再多走这一步？
+  actions: {
+    inc: ({ commit }) => commit('inc'),
+    dec: ({ commit }) => commit('dec'),
+  }
+})
+
+new Vue({
+  el:'#app',
+  data () {
+    return {
+      // count: store.state.counter
+    }
+  },
+  computed: {
+    count () {
+        return store.state.counter
+    }
+  },
+  methods: {
+    inc () {
+      store.dispatch('inc')
+    },
+    dec () {
+      store.dispatch('dec')
+    }
+  }
+  // 这样是 不对的！！没有在根上注入 store.这是组建开发时，分发调用的 辅助函数
+  // methods: new Vuex.mapActions([
+  //   'inc',
+  //   'dec'
+  // ])
+})
+</script>
+
+</body>
+</html>

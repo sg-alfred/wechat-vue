@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>vuex002</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入vuex -->
+    <script src="https://unpkg.com/vuex@2.0.0"></script>
+</head>
+<body>
+
+<div id="app">
+  <p>{{count}}
+    <button @click="inc">+</button>
+    <button @click="dec">-</button>
+  </p>
+</div>
+
+<script>
+
+// 之前在vue实例内做的操作和数据的计算现在都不再自己做了，而是交由对象store来做了
+// store对象是Vuex.Store的实例。在store内有分为state对象和mutations对象，其中的state放置状态,mutations则是一个会引发状态改变的所有方法。
+
+// 好处：
+// 1. 多个组件依赖于同一状态。传参的方法对于多层嵌套的组件将会非常繁琐，并且对于兄弟组件间的状态传递无能为力。这需要你去学习下，vue编码中多个组件之间的通讯的做法。
+// 2. 来自不同组件的行为需要变更同一状态。我们经常会采用父子组件直接引用或者通过事件来变更和同步状态的多份拷贝。
+
+
+// 官网上说的，什么时候 使用？？  https://vuex.vuejs.org/zh-cn/intro.html
+// Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。
+// 如果您不打算开发大型单页应用，使用 Vuex 可能是繁琐冗余的。确实是如此——如果您的应用够简单，您最好不要使用 Vuex。
+
+const store = new Vuex.Store({
+  state: {
+    counter: 0
+  },
+  // 为什么要加上这个？ 多个组件间的 
+  mutations: {
+    inc: state => state.counter++,
+    dec: state => state.counter--,
+  }
+})
+
+new Vue({
+  el:'#app',
+  // data 需要返回对象，否则报错！
+  data () {
+    return {
+    }
+  },
+  // 不再是 用data! 需要计算返回！！data 是用来初始化，声明变量的吧？
+  computed: {
+    count () {
+        return store.state.counter
+    }
+  },
+  methods: {
+    inc () {
+      // 在组件中使用 this.$store.commit('xxx') 提交 mutation
+      store.commit('inc')
+      // this.count++
+    },
+    dec () {
+      store.commit('dec')
+      // this.count--
+    }
+  }
+})
+</script>
+
+</body>
+</html>
