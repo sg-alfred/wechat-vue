@@ -1,36 +1,49 @@
 require('./check-versions')()
 
-var config = require('../config')
+let config = require('../config')
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
-var opn = require('opn')
-var path = require('path')
-var express = require('express')
-var webpack = require('webpack')
-var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = require('./webpack.dev.conf')
+let opn = require('opn')
+let path = require('path')
+let express = require('express')
+let webpack = require('webpack')
+let proxyMiddleware = require('http-proxy-middleware')
+let webpackConfig = require('./webpack.dev.conf')
 
 // default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
+let port = process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false
-var autoOpenBrowser = !!config.dev.autoOpenBrowser
+let autoOpenBrowser = !!config.dev.autoOpenBrowser
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
-var proxyTable = config.dev.proxyTable
+let proxyTable = config.dev.proxyTable
 
-var app = express()
-var compiler = webpack(webpackConfig)
+global.dbHandel = require('../server/dbHandle');
+// import db from '../server/dbHandle'    // 完全用不了啊！！
 
-var appServer = require('../server/daoUtil')
+let app = express()
 
-var devMiddleware = require('webpack-dev-middleware')(compiler, {
+// 设置 session
+let session = require('express-session')
+app.use(session({
+    secret: 'wechat',
+    cookie:{
+        maxAge: 1000 * 60 * 30
+    }
+}));
+
+let compiler = webpack(webpackConfig)
+
+let appServer = require('../server/router/requestTest')
+
+let devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true
 })
 
-var hotMiddleware = require('webpack-hot-middleware')(compiler, {
+let hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {}
 })
 // force page reload when html-webpack-plugin template changes
@@ -43,7 +56,7 @@ compiler.plugin('compilation', function (compilation) {
 
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
-  var options = proxyTable[context]
+  let options = proxyTable[context]
   if (typeof options === 'string') {
     options = { target: options }
   }
@@ -61,15 +74,15 @@ app.use(devMiddleware)
 app.use(hotMiddleware)
 
 // serve pure static assets
-var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
 appServer(app)
 
-var uri = 'http://localhost:' + port
+let uri = 'http://localhost:' + port
 
-var _resolve
-var readyPromise = new Promise(resolve => {
+let _resolve
+let readyPromise = new Promise(resolve => {
   _resolve = resolve
 })
 
@@ -83,7 +96,7 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-var server = app.listen(port)
+let server = app.listen(port)
 
 module.exports = {
   ready: readyPromise,

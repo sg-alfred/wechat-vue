@@ -16,4 +16,11 @@ module.exports = function (app) {
         res.send('id为' + req.params.id + ', name为' + req.params.name);
         res.end();
     });
+
+    app.get('/user/isLogin', function(req, res) {
+        console.log('index登录否？: ', req.session.username);
+        let resultText = req.session.username ? '已登录' : '未登录';
+        res.send(resultText)
+        res.end()
+    })
 }

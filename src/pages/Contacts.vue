@@ -32,7 +32,7 @@
         },
         mounted() {
 //            let _that = this;
-            this.$http.get('../../static/data/userlist.json')
+            this.$http.get('../../static/initData/userlist.json')
             .then(response => {
                 // 这个闭包，this 应该不一样才对啊！
                 this.userList = response.body.userList;

@@ -7,7 +7,19 @@
 
 <script>
 export default {
-    name: 'app'
+    name: 'app',
+    mounted() {
+        // 发送请求,判断是否已经登录
+        console.log('判断是否已经登录')
+        this.$http.get('/user/isLogin').then(function (response) {
+            console.log(response.body)
+            if (response.body === '已登录') {
+                this.$store.dispatch('changeIsLogin', true)
+            } else {
+                this.$store.dispatch('changeIsLogin', false)
+            }
+        })
+    }
 }
 </script>
 
