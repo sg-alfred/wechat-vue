@@ -115,10 +115,10 @@ export default {
     .footer-container {
         border: ghostwhite solid 2px;
         background-color: white;
-        /*position: fixed;*/
+        position: fixed;
         bottom: 0;
         height: 75px;
-        /*width: 480px;*/
+        width: 100%;
         z-index: 1000;
     }
     .grid-content img {

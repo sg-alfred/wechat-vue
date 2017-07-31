@@ -26,12 +26,6 @@
 
     export default {
         name: 'Moment',
-        // 对象语法，提供校验
-//        props: {
-//            momentList: {
-//                type: Array
-//            }
-//        },
         components: {
             OneMoment
         },

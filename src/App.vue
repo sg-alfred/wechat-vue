@@ -3,7 +3,6 @@
         <div v-if="!isLogin">
             <p>你暂未登录！</p>
         </div>
-        <!-- <img src="./assets/logo.png"> -->
         <router-view></router-view>
     </div>
 </template>

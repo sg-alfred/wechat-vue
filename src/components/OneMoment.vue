@@ -18,6 +18,7 @@
 <script>
     export default {
         name: "OneMoment",
+        // 对象语法，提供校验
         props: {
             moment: {
                 type: Object,

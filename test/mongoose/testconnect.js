@@ -5,12 +5,6 @@ mongoose.connect('mongodb://localhost/test', {
     useMongoClient: true,
 });
 
-// 需要密码的话：
-// mongoose.connect('mongodb://readonly:ht2A605mongo@121.40.140.196:30000/orderdb');
-
-// 正式太危险，虽然就只是 find！！但还是 不要！！
-// 可以拿测试 练手～
-
 // test 就是 数据库，但是，表（集合）在哪？？
 // 首先～，
 
