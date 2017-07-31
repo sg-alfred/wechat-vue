@@ -31,14 +31,13 @@
             }
         },
         mounted() {
-//            let _that = this;
             this.$http.get('../../static/initData/userlist.json')
-            .then(response => {
-                // 这个闭包，this 应该不一样才对啊！
-                this.userList = response.body.userList;
-            }, response => {
-                alert("调用失败");
-            })
+                .then(response => {
+                    // 这个闭包，this 应该不一样才对啊！
+                    this.userList = response.body.userList;
+                }, response => {
+                    alert("调用失败");
+                })
         }
     }
 </script>
