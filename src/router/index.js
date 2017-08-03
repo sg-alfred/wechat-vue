@@ -6,10 +6,12 @@ import Router from 'vue-router'
 import Hello from '@/pages/Hello'
 import Test from '@/pages/Test'
 import Help from '@/pages/Help'
+import Login from '@/pages/Login'
 
 import Wechat from '@/pages/Wechat'
 
 import Contacts from '@/pages/Contacts'
+import Chatroom from '@/pages/Chatroom'
 
 import Discover from '@/pages/Discover'
 import Moment from '@/pages/Moments'
@@ -18,7 +20,7 @@ import Myinfo from '@/pages/Myinfo'
 
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
     routes: [{
         path: '/',
         name: 'hello',
@@ -28,6 +30,10 @@ export default new Router({
         name: 'test',
         component: Test
     }, {
+        path: '/login',
+        name: 'login',
+        component: Login
+    }, {
         path: '/wechat',
         name: 'wechat',
         component: Wechat
@@ -35,6 +41,10 @@ export default new Router({
         path: '/contacts',
         name: 'contacts',
         component: Contacts
+    }, {
+        path: '/chatroom',
+        name: 'chatroom',
+        component: Chatroom
     }, {
         path: '/discover',
         name: 'discover',
@@ -58,3 +68,5 @@ export default new Router({
         component: Moment
     }]
 })
+
+export default router

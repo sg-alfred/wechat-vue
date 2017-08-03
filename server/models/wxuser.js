@@ -75,7 +75,7 @@ const USER_SCHEMA = {
     }
 }
 
-let UserSchema = schema(USER_SCHEMA);
+const UserSchema = schema(USER_SCHEMA);
 
 // 设置虚拟属性
 UserSchema.virtual('fullname').get(function() {

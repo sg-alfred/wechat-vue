@@ -18,6 +18,8 @@ const CHATROOM_SCHEMA = {
     },
 }
 
-const Chatroom = mongoose.model('Chatroom', CHATROOM_SCHEMA)
+const ChatroomSchema = schema(CHATROOM_SCHEMA)
+
+const Chatroom = mongoose.model('Chatroom', ChatroomSchema)
 
 export default Chatroom

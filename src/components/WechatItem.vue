@@ -14,7 +14,7 @@
  -->
 
 <template>
-    <div class="">
+    <div class="" @click="getIntoChatroom">
         <!--<el-row>
             <el-col :span="">
 
@@ -45,11 +45,20 @@
 //        },
         data() {
             return {
+                // 应该是关联查询过后的结果
                 chatItem: {
-                    name: 'sha',
+                    chatname: 'sha',
+                    lastmsgid: '6ghs778',
                     lasttime: '00:00:00',
                     content: 'hello, vue!'
                 }
+            }
+        },
+        methods: {
+            getIntoChatroom() {
+                this.$http.get('/getChatroom/').then(() => {
+
+                })
             }
         }
     }

@@ -25,6 +25,10 @@ global.dbHandel = require('../server/dbHandle');
 
 let app = express()
 
+// 创建 socket
+// let socket = require('../server/controller/socket')
+// socket(app)
+
 // 设置 session
 let session = require('express-session')
 app.use(session({
@@ -96,11 +100,34 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-let server = app.listen(port)
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+// 监听 当有连接的。。
+io.on('connection', (socket) => {
+
+    socket.emit('open');//通知客户端已连接
+
+    console.log('连接信息：', socket.id);
+
+    socket.on('message', function(msg) {
+        console.log('from client: ', msg);
+    });
+
+    socket.on('disconnect', function(){
+        console.log('disconnect!');
+    });
+});
+
+// let server = app.listen(port)
+
+let server0 = server.listen(port, () => {
+    console.log("Express server listening on port " + port);
+})
 
 module.exports = {
   ready: readyPromise,
   close: () => {
-    server.close()
+      server0.close()
   }
 }

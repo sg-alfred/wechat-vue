@@ -5,6 +5,12 @@
 
 export default {
     CHANGE_ISLOGIN (state, value) {
-        state.islogin = value
+        state.isLogin = value
+    },
+    SET_USERID (state, value) {
+        state.userid = value
+    },
+    SET_USERNAME (state, value) {
+        state.username = value
     }
 }

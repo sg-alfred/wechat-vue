@@ -17,53 +17,6 @@
                 </div>
             </el-col>
         </el-row>
-
-        <!--<el-row>
-            <el-col :span="6">
-                <div class="grid-content" @click="goto('/wechat')">
-                    <div v-if="isActive" >
-                        <img src="../../static/image/icon-active_u10.png" />
-                    </div>
-                    <div v-else>
-                        <img src="../../static/image/icon-disactive_u10.png" />
-                    </div>
-                    <p>微信</p>
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content" @click="goto('/contacts')">
-                    <div v-if="isActive" >
-                        <img src="../../static/image/icon-active_u12.png" />
-                    </div>
-                    <div v-else>
-                        <img src="../../static/image/icon-disactive_u12.png" />
-                    </div>
-                    <p>通讯录</p>
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content" @click="goto('/discover')">
-                    <div v-if="isActive" >
-                        <img src="../../static/image/icon-active_u14.png" />
-                    </div>
-                    <div v-else>
-                        <img src="../../static/image/icon-disactive_u14.png" />
-                    </div>
-                    <p>发现</p>
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content" @click="goto('/myinfo')">
-                    <div v-if="isActive" >
-                        <img src="../../static/image/icon-active_u16.png" />
-                    </div>
-                    <div v-else>
-                        <img src="../../static/image/icon-disactive_u16.png" />
-                    </div>
-                    <p>我</p>
-                </div>
-            </el-col>
-        </el-row>-->
     </div>
 </template>
 

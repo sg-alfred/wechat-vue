@@ -42,7 +42,7 @@ const CONTACT_SCHEMA = {
     }
 }
 
-let ContactSchema = schema(CONTACT_SCHEMA)
+const ContactSchema = schema(CONTACT_SCHEMA)
 
 // 创建 好友映射唯一索引
 ContactSchema.index({'uid': 1, 'fid': 1}, {'unique': true})
