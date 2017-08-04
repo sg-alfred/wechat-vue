@@ -8,11 +8,11 @@ const schema = mongoose.Schema
 
 const GROUPCONTACTSCHEMA = {
     gid: {
-        type: schema.types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: Group
     },
     uid: {
-        type: schema.types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: User
     },
     alias: String,      // 群别名，默认为 nickname

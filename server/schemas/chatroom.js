@@ -3,7 +3,9 @@
  */
 'use strict'
 
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
+
+const mongoose = require('mongoose')
 const schema = mongoose.Schema
 
 const CHATROOM_SCHEMA = {
@@ -12,7 +14,7 @@ const CHATROOM_SCHEMA = {
         type: String
     },
     lastmsgid: {
-        type: schema.types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: 'Message'
         // 没必要创建唯一索引！
     },
@@ -20,6 +22,6 @@ const CHATROOM_SCHEMA = {
 
 const ChatroomSchema = schema(CHATROOM_SCHEMA)
 
-const Chatroom = mongoose.model('Chatroom', ChatroomSchema)
+// const Chatroom = mongoose.model('Chatroom', ChatroomSchema)
 
-export default Chatroom
+module.exports = ChatroomSchema

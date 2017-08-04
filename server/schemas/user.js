@@ -114,11 +114,11 @@ UserSchema.static.findByMobilephone = (mobilephone, cb) => {
 
 // 中间件
 
-module.exports = mongoose.model('User', UserSchema)
+// module.exports = mongoose.model('User', UserSchema)
 
 // export default User
 
-// module.exports= User
+module.exports = UserSchema
 
 // 这些全部外部的来干！
 // let User = mongoose.model('User', UserSchema)
@@ -128,6 +128,5 @@ module.exports = mongoose.model('User', UserSchema)
 //     firstname: 'chen',
 //     lastname: 'alfred'
 // });
-//
 // console.log('全名：', fullname)
 // console.log('JSON: ', JSON.stringify(user1));

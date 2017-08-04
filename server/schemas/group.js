@@ -3,7 +3,9 @@
  */
 'use strict'
 
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
+
+const mongoose = require('mongoose')
 const schema = mongoose.Schema
 
 const GROUP_SCHEMA = {
@@ -19,7 +21,9 @@ const GROUP_SCHEMA = {
     notice: {       // 群公告
         type: String
     },
-    createuser: ObjectId,
+    createuser: {
+        type: schema.Types.ObjectId
+    },
     createtime: Date,
     updatetime: {
         type: Date,
@@ -29,6 +33,6 @@ const GROUP_SCHEMA = {
 
 const GroupSchema = schema(GROUP_SCHEMA)
 
-const Group = mongoose.model('Group', UserSchema)
+// const Group = mongoose.model('Group', UserSchema)
 
-export default Group
+module.exports = GroupSchema

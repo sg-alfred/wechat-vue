@@ -19,17 +19,18 @@ module.exports = (app) => {
     // 用户注册
     app.post('/user/register', (req, res) => {
         let params = req.body;
-
-        console.log('注册信息', params)
+        // console.log('注册信息', params)
 
         let resultObj;
 
-        wxuserDbUtil.createWxuser(params).then((doc)=> {
+        wxuserDbUtil.createWxuser(params).then((doc) => {
+            console.log('返回结果', doc)
             resultObj = {
                 code: 0,
                 userinfo: doc
             }
         }, (err) => {
+            console.log('返回结果',err)
             resultObj = {
                 code: 2,
                 message: '创建用户失败'
@@ -48,7 +49,7 @@ module.exports = (app) => {
 
         // 直接 用 async / await !!
 
-        wxuserDbUtil.getWxuserByMobile(req.body.username).then((doc) => {
+        wxuserDbUtil.getWxuserByMobile(params.username).then((doc) => {
             console.log(doc)
             resultObj = {
                 code: 0,
@@ -56,7 +57,6 @@ module.exports = (app) => {
             }
         }, (err) => {
             console.log(err)
-
             resultObj = {
                 code: 2,
                 message: '登录失败'
