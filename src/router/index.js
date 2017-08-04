@@ -7,6 +7,7 @@ import Hello from '@/pages/Hello'
 import Test from '@/pages/Test'
 import Help from '@/pages/Help'
 import Login from '@/pages/Login'
+import Register from '@/pages/Register'
 
 import Wechat from '@/pages/Wechat'
 
@@ -33,6 +34,10 @@ const router =  new Router({
         path: '/login',
         name: 'login',
         component: Login
+    }, {
+        path: '/register',
+        name: 'register',
+        component: Register
     }, {
         path: '/wechat',
         name: 'wechat',

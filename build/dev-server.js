@@ -20,10 +20,16 @@ let autoOpenBrowser = !!config.dev.autoOpenBrowser
 // https://github.com/chimurai/http-proxy-middleware
 let proxyTable = config.dev.proxyTable
 
-global.dbHandel = require('../server/dbHandle');
+global.dbHandel = require('../server/dbService/dbHandle');
 // import db from '../server/dbHandle'    // 完全用不了啊！！
 
 let app = express()
+// 需要使用body-parser模块,要不然post方法获取不到传递的参数
+const bodyParser = require('body-parser')
+// 设置接收参数的大小,主要针对于base64的图片
+app.use(bodyParser({limit: '50mb'}))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
 // 创建 socket
 // let socket = require('../server/controller/socket')
@@ -40,7 +46,7 @@ app.use(session({
 
 let compiler = webpack(webpackConfig)
 
-let appServer = require('../server/router/requestTest')
+let appServer = require('../server')
 
 let devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
@@ -95,7 +101,7 @@ devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
   // when env is testing, don't need open it
   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
-    opn(uri)
+    // opn(uri)     // 暂时关掉自动 打开浏览器
   }
   _resolve()
 })

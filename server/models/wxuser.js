@@ -3,7 +3,10 @@
  */
 'use strict'
 
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
+
+const mongoose = require('mongoose')
+
 const schema = mongoose.Schema
 
 const USER_SCHEMA = {
@@ -111,9 +114,11 @@ UserSchema.static.findByMobilephone = (mobilephone, cb) => {
 
 // 中间件
 
-const User = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)
 
-export default User
+// export default User
+
+// module.exports= User
 
 // 这些全部外部的来干！
 // let User = mongoose.model('User', UserSchema)

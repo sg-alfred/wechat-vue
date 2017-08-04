@@ -27,19 +27,18 @@
             // 刷新一下就又️执行了。。执行顺序！！这个 只执行一次～～
             // getters, 到底什么时候可以使用？如果直接 用 加判断，提示 未定义！
 //            if (isLogin && userid) {
-                this.$http.get('/user/isLogin').then( (response) => {
-                    console.log(response.body)
-                    if (response.body === '已登录') {
-                        this.$store.dispatch('changeIsLogin', true)
-
-                        this.$router.push('/wechat');
-
-                    } else {
+//                this.$http.get('/user/isLogin').then( (response) => {
+//                    console.log(response.body)
+//                    if (response.body === '已登录') {
+//                        this.$store.dispatch('changeIsLogin', true)
+//
+//                        this.$router.push('/wechat');
+//
+//                    } else {
                         this.$store.dispatch('changeIsLogin', false)
-
                         this.$router.push('/login');
-                    }
-                })
+//                    }
+//                })
 //            }
         }
     }
