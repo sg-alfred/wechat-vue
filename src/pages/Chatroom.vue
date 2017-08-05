@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     import MessageItem from '../components/chatroom/MessageItem'
     import MessageSend from '../components/chatroom/MessageSend'
 
@@ -30,6 +31,16 @@
         name: 'chatroom',
         components: {
             MessageSend
+        },
+        computed: {
+            ...mapGetters({
+                isLogin: 'getIsLogin'
+            })
+        },
+        created() {
+            if (!this.isLogin) {
+                this.$router.push('/login');
+            }
         },
         data() {
             return {

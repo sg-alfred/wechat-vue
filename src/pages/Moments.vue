@@ -3,8 +3,6 @@
 <template>
     <div class="">
         <!-- 朋友圈界面的 头部, 貌似没有必要组件化！ 因为，只能这里使用！ -->
-        <p>为什么没有显示？？</p>
-
         <div class="block">
             <span class="demonstration">Click 指示器触发</span>
             <el-carousel trigger="click" height="150px">
@@ -22,6 +20,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     import OneMoment from '../components/OneMoment'
 
     export default {
@@ -44,6 +43,16 @@
                     nick: 'guojy',
                     content: 'hhh，大傻逼！'
                 }]
+            }
+        },
+        computed: {
+            ...mapGetters({
+                isLogin: 'getIsLogin'
+            })
+        },
+        created() {
+            if (!this.isLogin) {
+                this.$router.push('/login');
             }
         }
     }

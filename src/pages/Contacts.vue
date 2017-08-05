@@ -15,8 +15,7 @@
 
 <script>
 
-    import Vue from 'vue';
-
+    import { mapGetters } from 'vuex'
     import HeaderSection from '../components/HeaderSection'
     import FooterSection from '../components/FooterSection'
     import ContactItem from '../components/ContactItem'
@@ -27,6 +26,16 @@
             HeaderSection,
             FooterSection,
             ContactItem
+        },
+        computed: {
+            ...mapGetters({
+                isLogin: 'getIsLogin'
+            })
+        },
+        created() {
+            if (!this.isLogin) {
+                this.$router.push('/login');
+            }
         },
         data() {
             return {

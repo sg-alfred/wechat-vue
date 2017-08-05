@@ -12,7 +12,7 @@ const schema = mongoose.Schema
 const USER_SCHEMA = {
     wechatno: {     // 微信号，不是最开始需要创建的
         type: String,
-        unique: true,
+        // unique: true,
         trim: true      // 去空格
     },
     nickname : {

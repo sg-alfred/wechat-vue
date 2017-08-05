@@ -35,7 +35,6 @@ db.once('open' ,() => {
     });
 });
 
-// export default db;
 
 // 遍历文件夹下的文件，并暴露出 models
 let root = path.join(__dirname, '../schemas')
@@ -50,10 +49,13 @@ for(let m in schemas) {
     }
 }
 
+// schemas.forEach((item, type) => {
+//     mongoose.model(type, item)
+// })
+
 module.exports = {
     db,
     getModel: (type) => {
-        console.log(type)
         return mongoose.model(type);
     }
 }
@@ -63,7 +65,6 @@ function readDirSync(path) {
     let schemas = [];
     let pa = fs.readdirSync(path);
 
-    let i = 0;
     pa.forEach((ele, index) => {
         // mac 下自动生产的 .DS_store 文件！排除！！
         if (!(ele.indexOf('index') > -1 || ele.indexOf('.DS_Store') > -1)) {

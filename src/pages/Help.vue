@@ -19,9 +19,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'Help',
+    computed: {
+        ...mapGetters({
+            isLogin: 'getIsLogin'
+        })
+    },
+    created() {
+        if (!this.isLogin) {
+            this.$router.push('/login');
+        }
+    },
     data() {
         return {
             subMenus: [{

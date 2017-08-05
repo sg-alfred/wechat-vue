@@ -14,6 +14,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     import HeaderSection from '../components/HeaderSection'
     import FooterSection from '../components/FooterSection'
     import BaseItem from '../components/BaseItem'
@@ -24,6 +25,16 @@
             HeaderSection,
             FooterSection,
             BaseItem,
+        },
+        computed: {
+            ...mapGetters({
+                isLogin: 'getIsLogin'
+            })
+        },
+        created() {
+            if (!this.isLogin) {
+                this.$router.push('/login');
+            }
         },
         data() {
             return {

@@ -51,6 +51,8 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+
     export default {
         name: 'Userprofile',
         data() {
@@ -66,6 +68,16 @@
                     tags: ''
                 }
             }
-        }
+        },
+        computed: {
+            ...mapGetters({
+                isLogin: 'getIsLogin'
+            })
+        },
+        created() {
+            if (!this.isLogin) {
+                this.$router.push('/login');
+            }
+        },
     }
 </script>

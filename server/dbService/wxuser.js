@@ -13,7 +13,6 @@
 
 // import User from '../models/wxuser'
 
-// const User = global.dbHandel.getModel('User');
 const User = global.dbHandel.getModel('User');
 
 let userDbUtil = {};

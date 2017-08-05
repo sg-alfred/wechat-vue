@@ -20,10 +20,9 @@
 </template>
 
 <script>
+    import { mapGetters } from 'Vuex'
     import HeaderSection from '../components/HeaderSection'
     import FooterSection from '../components/FooterSection'
-
-    import {mapGetters} from 'Vuex'
 
     export default {
         name: 'Contacts',
@@ -34,8 +33,12 @@
         computed: mapGetters({
             isLogin: 'getIsLogin',
             userid: 'getUserid',
-            username: 'getUsername'
         }),
+        created() {
+            if (!this.isLogin) {
+                this.$router.push('/login');
+            }
+        },
         methods: {
             getLoginState() {
                 console.log(this.isLogin)

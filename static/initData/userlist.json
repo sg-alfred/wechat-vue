@@ -7,13 +7,13 @@
         "country": "中国",
         "provice": "北京",
         "city": "海淀",
-        "headimgurl": "static/image/headimg/chenjz.jpeg"
+        "headimgurl": "static/image/headimg/chenjz.png"
     }, {
         "id": 2,
         "wechatno": "guojy",
         "nickname": "雨",
         "gender": "男",
         "country": "中国",
-        "headimgurl": "static/image/headimg/chenjz.jpeg"
+        "headimgurl": "static/image/headimg/chenjz.png"
     }]
 }
