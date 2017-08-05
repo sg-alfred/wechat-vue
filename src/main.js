@@ -8,10 +8,14 @@ import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
+import util from './util'
+
 Vue.config.productionTip = false
 
 Vue.use(VueResource)
 Vue.use(ElementUI)
+
+Vue.use(util)
 
 /* eslint-disable no-new */
 new Vue({

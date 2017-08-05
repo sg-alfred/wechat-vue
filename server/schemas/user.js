@@ -3,7 +3,10 @@
  */
 'use strict'
 
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
+
+const mongoose = require('mongoose')
+
 const schema = mongoose.Schema
 
 const USER_SCHEMA = {
@@ -75,7 +78,7 @@ const USER_SCHEMA = {
     }
 }
 
-let UserSchema = schema(USER_SCHEMA);
+const UserSchema = schema(USER_SCHEMA);
 
 // 设置虚拟属性
 UserSchema.virtual('fullname').get(function() {
@@ -111,9 +114,11 @@ UserSchema.static.findByMobilephone = (mobilephone, cb) => {
 
 // 中间件
 
-const User = mongoose.model('User', UserSchema)
+// module.exports = mongoose.model('User', UserSchema)
 
-export default User
+// export default User
+
+module.exports = UserSchema
 
 // 这些全部外部的来干！
 // let User = mongoose.model('User', UserSchema)
@@ -123,6 +128,5 @@ export default User
 //     firstname: 'chen',
 //     lastname: 'alfred'
 // });
-//
 // console.log('全名：', fullname)
 // console.log('JSON: ', JSON.stringify(user1));

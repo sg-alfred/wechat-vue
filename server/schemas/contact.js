@@ -3,17 +3,19 @@
  */
 'use strict'
 
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
+
+const mongoose = require('mongoose')
 const schema = mongoose.Schema
 
 const CONTACT_SCHEMA = {
     uid : {
-        type: schema.types.ObjectId,       // 这个应该是 用户表的主键！
+        type: schema.Types.ObjectId,       // 这个应该是 用户表的主键！
         ref: 'User',        // 关联的是这个！！
         required: true
     },
     fid : {
-        type: schema.types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
@@ -31,7 +33,7 @@ const CONTACT_SCHEMA = {
         default: true
     },
     chatid: {
-        type: schema.types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: 'Chatroom',
     },
     cleartime: Date,        // 最后一次聊天记录清除时间
@@ -42,13 +44,13 @@ const CONTACT_SCHEMA = {
     }
 }
 
-let ContactSchema = schema(CONTACT_SCHEMA)
+const ContactSchema = schema(CONTACT_SCHEMA)
 
 // 创建 好友映射唯一索引
 ContactSchema.index({'uid': 1, 'fid': 1}, {'unique': true})
 
-const Contact = mongoose.model('Contact', ContactSchema)
+// const Contact = mongoose.model('Contact', ContactSchema)
 
 // 可以做一些初始化！
 
-export default Contact
+module.exports = ContactSchema

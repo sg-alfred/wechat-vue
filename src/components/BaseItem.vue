@@ -37,8 +37,8 @@
         },
         methods: {
             goto(path) {
-//                path = 'discover/' + path;
-                this.$router.push(path);
+                // 跳转之前，需要设置一下 状态吧？
+                this.$router.push(path)
             }
         }
     }

@@ -3,17 +3,19 @@
  */
 'use strict'
 
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
+
+const mongoose = require('mongoose')
 const schema = mongoose.Schema
 
 const MESSAGE_SCHAME = {
     // _id，聊天室的 lastid
     chatid: {
-        type: schema.types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: 'Chatroom'
     },
     fromid: {
-        type: schema.types.ObjectId,
+        type: schema.Types.ObjectId,
         ref: 'Wxuser'
     },
     content: String,
@@ -25,6 +27,8 @@ const MESSAGE_SCHAME = {
     }
 }
 
-const Message = mongoose.model('Message', MESSAGE_SCHAME)
+const MessageSchema = schema(MESSAGE_SCHAME)
 
-export default Message
+// const Message = mongoose.model('Message', MessageSchema)
+
+module.exports = MessageSchema

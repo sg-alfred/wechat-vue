@@ -1,7 +1,7 @@
 <!-- 通讯录组件，点击到 好友简介，长按悬浮 设置 -->
 
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
-    <div class="">
+    <div class="" @click="$emit('into-chatroom', userinfo.chatid)">
         <el-row>
             <el-col :span="4">
                 <!-- 连接到 用户详情界面 -->

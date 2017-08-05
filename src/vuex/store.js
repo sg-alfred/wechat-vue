@@ -13,7 +13,9 @@ import mutations from './mutations'
 Vue.use(Vuex)
 
 const state = {
-    isLogin: false
+    isLogin: false,
+    userid: '',
+    userinfo: {}
 }
 
 export default new Vuex.Store({

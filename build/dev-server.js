@@ -20,10 +20,20 @@ let autoOpenBrowser = !!config.dev.autoOpenBrowser
 // https://github.com/chimurai/http-proxy-middleware
 let proxyTable = config.dev.proxyTable
 
-global.dbHandel = require('../server/dbHandle');
+global.dbHandel = require('../server/dbService/dbHandle');
 // import db from '../server/dbHandle'    // 完全用不了啊！！
 
 let app = express()
+// 需要使用body-parser模块,要不然post方法获取不到传递的参数
+const bodyParser = require('body-parser')
+// 设置接收参数的大小,主要针对于base64的图片
+app.use(bodyParser({limit: '50mb'}))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
+
+// 创建 socket
+// let socket = require('../server/controller/socket')
+// socket(app)
 
 // 设置 session
 let session = require('express-session')
@@ -36,7 +46,7 @@ app.use(session({
 
 let compiler = webpack(webpackConfig)
 
-let appServer = require('../server/router/requestTest')
+let appServer = require('../server')
 
 let devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
@@ -91,16 +101,39 @@ devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
   // when env is testing, don't need open it
   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
-    opn(uri)
+    // opn(uri)     // 暂时关掉自动 打开浏览器
   }
   _resolve()
 })
 
-let server = app.listen(port)
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+// 监听 当有连接的。。
+io.on('connection', (socket) => {
+
+    socket.emit('open');//通知客户端已连接
+
+    console.log('连接信息：', socket.id);
+
+    socket.on('message', function(msg) {
+        console.log('from client: ', msg);
+    });
+
+    socket.on('disconnect', function(){
+        console.log('disconnect!');
+    });
+});
+
+// let server = app.listen(port)
+
+let server0 = server.listen(port, () => {
+    console.log("Express server listening on port " + port);
+})
 
 module.exports = {
   ready: readyPromise,
   close: () => {
-    server.close()
+      server0.close()
   }
 }

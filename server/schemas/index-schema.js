@@ -77,13 +77,13 @@ module.exports = {
     },
     contact : {
         uid : {
-            type: mongoose.Schema.types.ObjectId,       // 这个应该是 用户表的主键！
+            type: mongoose.Schema.Types.ObjectId,       // 这个应该是 用户表的主键！
             ref: 'User',        // 关联的是这个！！
             required: true,
             index: true     // 这个就是 索引了！！，但是 单个，我想要 联合索引！！
         },
         fid : {
-            type: mongoose.Schema.types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true
         },
