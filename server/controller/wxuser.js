@@ -10,32 +10,33 @@ module.exports = (app) => {
 
     // 判断用户是否登录
     app.get('/user/isLogin', (req, res) => {
-        console.log('index登录否？: ', req.session.username);
-        let resultText = req.session.username ? '已登录' : '未登录';
-        res.send(resultText)
-        res.end()
+        console.log('index登录否？: ', req.session.userid);
+        let resultObj = {
+            code: 0,
+            message: req.session.userid ? '已登录' : '未登录'
+        }
+        appResponse(res, JSON.stringify(resultObj))
     })
 
     // 用户注册
     app.post('/user/register', (req, res) => {
         let params = req.body;
-        // console.log('注册信息', params)
 
         let resultObj;
 
         wxuserDbUtil.createWxuser(params).then((doc) => {
-            console.log('返回结果', doc)
             resultObj = {
                 code: 0,
+                message: '注册成功',
                 userinfo: doc
             }
         }, (err) => {
-            console.log('返回结果',err)
             resultObj = {
                 code: 2,
                 message: '创建用户失败'
             }
         }).then(() => {
+            console.log('注册结果', resultObj)
             appResponse(res, JSON.stringify(resultObj))
         })
     })
@@ -46,35 +47,39 @@ module.exports = (app) => {
         let params = req.body;
 
         let resultObj;
-
         // 直接 用 async / await !!
 
         wxuserDbUtil.getWxuserByMobile(params.username).then((doc) => {
-            console.log(doc)
-            resultObj = {
-                code: 0,
-                userinfo: doc
+            if (!doc) {     // 没有找到！
+                resultObj = {
+                    code: 1,
+                    message: '账户或密码错误'
+                }
+            } else {
+                req.session.userid = doc._id
+                resultObj = {
+                    code: 0,
+                    message: '登录成功',
+                    userinfo: doc
+                }
             }
         }, (err) => {
-            console.log(err)
             resultObj = {
                 code: 2,
                 message: '登录失败'
             }
         }).then(() => {
-
-            console.log(resultObj)
-            // 统一返回
+            console.log('登录结果', resultObj)
             appResponse(res, JSON.stringify(resultObj))
         })
     })
 
     // 用户登出
     app.get('/user/logout', (req, res) => {
-        req.session.username = ''
+        req.session.userid = ''
         let resultObj = {
             code: 0,
-            data: '退出登录成功'
+            message: '退出登录成功'
         }
         appResponse(res, JSON.stringify(resultObj))
     })

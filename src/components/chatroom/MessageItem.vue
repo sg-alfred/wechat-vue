@@ -25,7 +25,6 @@
             // 展开运算符
             ...mapGetters({
                 userid: 'getUserid',
-                username: 'getUsername'
             }),
             // 这其实是一个简写！！ 这是计算属性！因此 不是方法！！
             sendFlag() {

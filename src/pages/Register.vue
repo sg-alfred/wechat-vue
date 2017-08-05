@@ -35,9 +35,10 @@
             submitForm() {
                 this.$http.post('/user/register', this.formInfo, (response) => {
                     if (!response.code) {
-                        console.log(response.message)
-                    } else {
+                        this.$message(response.message)
                         this.$router.push('/login')
+                    } else {
+                        this.$message(response.message)
                     }
                 })
             }

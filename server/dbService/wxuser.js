@@ -23,11 +23,11 @@ userDbUtil.createWxuser = (params) => {
 
     // 实例化
     let user = new User(params)
-    console.log('数据库层！--', user)
+    // console.log('数据库层！--', user)
 
     return new Promise((resolve, reject) => {
         user.save((err, doc) => {
-            console.log(err, doc)   // 有结果，但是没有回调回去！！
+            console.log('注册结果', err, doc)   // 有结果，但是没有回调回去！！
             if (err) {
                 reject(err)
             } else {

@@ -7,4 +7,4 @@ export const getIsLogin = state => state.isLogin
 
 export const getUserid = state => state.userid
 
-export const getUsername = state => state.username
+export const getUserinfo = state => state.userinfo

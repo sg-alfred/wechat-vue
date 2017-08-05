@@ -11,6 +11,6 @@ export const setUserid = ({commit}, value) => {
     commit('SET_USERID', value)
 }
 
-export const setUsername = ({commit}, value) => {
-    commit('SET_USERNAME', value)
+export const setUserinfo= ({commit}, value) => {
+    commit('SET_USERINFO', value)
 }

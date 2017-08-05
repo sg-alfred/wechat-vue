@@ -10,7 +10,7 @@ export default {
     SET_USERID (state, value) {
         state.userid = value
     },
-    SET_USERNAME (state, value) {
-        state.username = value
+    SET_USERINFO (state, value) {
+        state.userinfo = value
     }
 }

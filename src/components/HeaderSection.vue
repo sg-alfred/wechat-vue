@@ -28,6 +28,9 @@
                         <el-dropdown-item command="help">
                             帮助与反馈
                         </el-dropdown-item>
+                        <el-dropdown-item command="logout">
+                            退出账号
+                        </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </el-col>
@@ -66,17 +69,30 @@ export default {
                 case 'help':
                     this.$router.push('/help');
                     break;
+                case 'logout':
+                    this.logout();
+                    break;
             }
             this.$message('click on item ' + command);
         },
         goto(path) {
             this.$router.push(path);
         },
+        logout() {
+            this.$http.get('/user/logout').then((response) => {
+                let result = response.body
+                if (!result.code) {
+                    this.$store.dispatch('changeIsLogin', false)
+                    this.$message(result.message)
 
+                    this.$router.push('/login');
+                }
+            })
+        }
     },
     computed: {
         // 计算未读消息，还是得用 store～
-        getTotalMessages: function() {
+        getTotalMessages() {
             return parseInt(Math.random() * 10);
         }
     },

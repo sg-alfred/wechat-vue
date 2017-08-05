@@ -65,7 +65,8 @@ function readDirSync(path) {
 
     let i = 0;
     pa.forEach((ele, index) => {
-        if (!(ele.indexOf('index') > -1)) {
+        // mac 下自动生产的 .DS_store 文件！排除！！
+        if (!(ele.indexOf('index') > -1 || ele.indexOf('.DS_Store') > -1)) {
             let basename = ele[0].toUpperCase() + ele.substr(1, ele.length-4);
             // 需要 require 进来啊！！
             // console.log(path + '/' + ele)
