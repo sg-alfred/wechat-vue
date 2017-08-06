@@ -17,8 +17,8 @@ const USER_SCHEMA = {
     },
     nickname : {
         type: String,
-        required : true,    // 必填
-        unique: true        // 唯一索引！
+        // required : true,    // 必填
+        // unique: true        // 唯一索引！
     },
     firstname: String,
     lastname: String,

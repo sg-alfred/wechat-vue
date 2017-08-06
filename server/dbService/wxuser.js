@@ -25,6 +25,8 @@ userDbUtil.createWxuser = (params) => {
     // console.log('数据库层！--', user)
 
     return new Promise((resolve, reject) => {
+
+        // 先找！！然后再 看是否插入？ -- 没有必要！
         user.save((err, doc) => {
             console.log('注册结果', err, doc)   // 有结果，但是没有回调回去！！
             if (err) {
@@ -41,8 +43,8 @@ userDbUtil.getWxuserByMobile = (mobile, deleted) => {
     deleted = deleted | false
 
     return new Promise((resolve, reject) => {
-        User.findOne({'nickname': mobile, 'deleted': deleted}, (err, doc) => {
-            console.log(err, doc)
+        User.findOne({'mobilephone': mobile, 'deleted': deleted}, (err, doc) => {
+            console.log('查询结果', err, doc)
             if (err) {
                 reject(err)
             } else {

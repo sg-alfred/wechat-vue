@@ -5,6 +5,7 @@
 
 const wxuserDbUtil = require('../dbService/wxuser')
 const appResponse = require('./resHandle')
+const baseUtil = require('./utils/baseUtil')
 
 module.exports = (app) => {
 
@@ -18,11 +19,16 @@ module.exports = (app) => {
         appResponse(res, JSON.stringify(resultObj))
     })
 
-    // 用户注册
+    // 用户注册，如何判断验证码？
     app.post('/user/register', (req, res) => {
         let params = req.body;
 
         let resultObj;
+
+        params.salt = baseUtil.getRandomStr(4);
+        params.password = baseUtil.createMd5(params.salt+params.password)
+
+        params.createtime = new Date()
 
         wxuserDbUtil.createWxuser(params).then((doc) => {
             resultObj = {
@@ -31,9 +37,14 @@ module.exports = (app) => {
                 userinfo: doc
             }
         }, (err) => {
+            // 已存在！
+            let errmsg = '';
+            if (err.message.indexOf('duplicate key') > -1) {
+                errmsg = '该用户已存在!'
+            }
             resultObj = {
                 code: 2,
-                message: '创建用户失败'
+                message: errmsg ? errmsg : '创建用户失败!'
             }
         }).then(() => {
             console.log('注册结果', resultObj)
@@ -50,23 +61,31 @@ module.exports = (app) => {
         // 直接 用 async / await !!
 
         wxuserDbUtil.getWxuserByMobile(params.username).then((doc) => {
-            if (!doc) {     // 没有找到！
+            // 判断密码是否正确！
+            let validatePassword = baseUtil.createMd5(doc.salt+params.password) == doc.password;
+
+            if (!validatePassword) {
                 resultObj = {
-                    code: 1,
-                    message: '账户或密码错误'
+                    code: 2,
+                    message: '密码错误!'
                 }
             } else {
                 req.session.userid = doc._id
                 resultObj = {
                     code: 0,
-                    message: '登录成功',
+                    message: '登录成功!',
                     userinfo: doc
                 }
             }
         }, (err) => {
+            let errmsg = '';
+            // 这个应该是因为 用 mobile 查，类型是 数值的原因！
+            if ('CastError' == err.name || err.message.indexOf('Cast to number failed') > -1) {
+                errmsg = '用户名错误!'
+            }
             resultObj = {
                 code: 2,
-                message: '登录失败'
+                message: errmsg ? errmsg : '登录失败!'
             }
         }).then(() => {
             console.log('登录结果', resultObj)
