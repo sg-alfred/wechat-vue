@@ -1,46 +1,58 @@
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="header-container">
-        <el-row :gutter="20">
-            <el-col :span="6">
-                <span>微信(<span>{{messages}}</span>)</span>
-            </el-col>
-            <el-col :span="6" :offset="12">
-                <div v-bind:style="iconDivStyle">
-                    <span><i class="el-icon-search"></i></span>
-                </div>
-                <el-dropdown @command="handleCommand" trigger="click">
-                    <span class="el-dropdown-link">
-                        <img src="static/image/icon-plus_u8.png">
-                    </span>
-                    <el-dropdown-menu sole="dropdown">
-                        <el-dropdown-item command="groupChat">
-                            <img src="static/image/icon-groupchat.png">发起群聊
-                        </el-dropdown-item>
-                        <el-dropdown-item command="addContacts">
-                            <img src="static/image/icon-addcontacts.png">添加好友
-                        </el-dropdown-item>
-                        <el-dropdown-item command="scanQRCode">
-                            <img src="static/image/icon-scancode.png">扫一扫
-                        </el-dropdown-item>
-                        <el-dropdown-item command="payment">
-                            收付款
-                        </el-dropdown-item>
-                        <el-dropdown-item command="help">
-                            帮助与反馈
-                        </el-dropdown-item>
-                        <el-dropdown-item command="logout">
-                            退出账号
-                        </el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
-            </el-col>
-        </el-row>
+        <section class="head_goback" v-if="goBack" @click="$router.go(-1)">
+            <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <polyline points="25,15 15,25 25,35" style="fill:none;stroke:rgb(255,255,255);stroke-width:2"/>
+                <line x1="15" y1="25" x2="35" y2="25" style="stroke:rgb(255,255,255);stroke-width:2"/>
+            </svg>
+        </section>
+        <section class="head_search" v-if="canSearch">
+            <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <circle cx="8" cy="8" r="7" stroke="rgb(255,255,255)" stroke-width="1" fill="none"/>
+                <line x1="14" y1="14" x2="20" y2="20" style="stroke:rgb(255,255,255);stroke-width:2"/>
+            </svg>
+        </section>
+        <section class="head_title" v-if="headTitle">
+            <span class="title_text">{{headTitle}}</span>
+        </section>
+        <section class="head_dropdown">
+            <el-dropdown @command="handleCommand" trigger="click">
+                <span class="el-dropdown-link">
+                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <line x1="15" y1="25" x2="35" y2="25" style="stroke:rgb(255,255,255);stroke-width:2"/>
+                        <line x1="25" y1="15" x2="25" y2="35" style="stroke:rgb(255,255,255);stroke-width:2"/>
+                    </svg>
+                </span>
+                <el-dropdown-menu sole="dropdown">
+                    <el-dropdown-item command="groupChat">
+                        <img src="static/image/icon-groupchat.png">发起群聊
+                    </el-dropdown-item>
+                    <el-dropdown-item command="addFriend">
+                        <img src="static/image/icon-addFriend.png">添加好友
+                    </el-dropdown-item>
+                    <el-dropdown-item command="scanQRCode">
+                        <img src="static/image/icon-scancode.png">扫一扫
+                    </el-dropdown-item>
+                    <el-dropdown-item command="payment">
+                        收付款
+                    </el-dropdown-item>
+                    <el-dropdown-item command="help">
+                        帮助与反馈
+                    </el-dropdown-item>
+                    <el-dropdown-item command="logout">
+                        退出账号
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </section>
+
     </div>
 </template>
 
 <script>
 export default {
     name: 'HeaderSection',
+    props: ['headTitle', 'goBack', 'canSearch'],
     data() {
         return {
             messages: 0,
@@ -57,8 +69,8 @@ export default {
                 case 'groupChat':
                     this.$router.push('/groupchat');
                     break;
-                case 'addFriends':
-                    this.$router.push('/addContacts');
+                case 'addFriend':
+                    this.$router.push('/addFriend');
                     break;
                 case 'scanQRCode':
                     this.$router.push('/scancode');
@@ -113,11 +125,22 @@ export default {
         height: 60px;
         font-size: 20px;
     }
-    .el-dropdown {
-
+    svg {
+        padding: 5px;
     }
     img {
         margin-top: 5px;
         height: 20px;
     }
+    .head_goback, .head_title, .head_search {
+        display: inline;
+    }
+    /*.head_title {
+        color: #fff;
+        text-align: center;
+    }
+    .head_title .title_text{
+        text-align: center;
+        font-weight: bold;
+    }*/
 </style>

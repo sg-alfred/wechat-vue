@@ -1,11 +1,11 @@
 <template>
     <div class="">
-        <header-section></header-section>
+        <header-section :head-title="headTitle"></header-section>
         <div class="contacts-container">
             <span>这是微信 界面！</span>
 
             <div>
-                <img src="../assets/wechat.png" />
+                <img src="../../assets/wechat.png" />
             </div>
         </div>
 
@@ -21,8 +21,8 @@
 
 <script>
     import { mapGetters } from 'Vuex'
-    import HeaderSection from '../components/HeaderSection'
-    import FooterSection from '../components/FooterSection'
+    import HeaderSection from '../../components/HeaderSection'
+    import FooterSection from '../../components/FooterSection'
 
     export default {
         name: 'Contacts',
@@ -37,6 +37,11 @@
         created() {
             if (!this.isLogin) {
                 this.$router.push('/login');
+            }
+        },
+        data() {
+            return {
+                headTitle: '微信'
             }
         },
         methods: {

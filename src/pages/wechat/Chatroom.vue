@@ -2,30 +2,33 @@
 
 <template>
     <div class="">
-        <div class="head-section">
+        <header class="head-section">
             <i class="el-icon-arrow-left" @click="goback()"></i>
-        </div>
+        </header>
+
         <div class="container">
             <p>这里是聊天的滚动部分！</p>
             <ul class="message-list" ref="list">
-                <!--<message-->
-                        <!--v-for="message in sortedMessages"-->
-                        <!--:key="message.id"-->
-                        <!--:message="message">-->
-                <!--</message>-->
+                <!--<message
+                        v-for="message in sortedMessages"
+                        :key="message.id"
+                        :message="message">
+                </message>-->
             </ul>
         </div>
-        <message-send></message-send>
-        <div class="send-section">
 
-        </div>
+        <message-send></message-send>
+
+        <footer class="send-section">
+
+        </footer>
     </div>
 </template>
 
 <script>
     import { mapGetters } from 'vuex'
-    import MessageItem from '../components/chatroom/MessageItem'
-    import MessageSend from '../components/chatroom/MessageSend'
+    import MessageItem from '../../components/chatroom/MessageItem'
+    import MessageSend from '../../components/chatroom/MessageSend'
 
     export default {
         name: 'chatroom',
@@ -57,7 +60,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .head-section {
         border: ghostwhite solid 2px;
         background-color: #434439;

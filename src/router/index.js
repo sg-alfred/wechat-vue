@@ -9,15 +9,17 @@ import Help from '@/pages/Help'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 
-import Wechat from '@/pages/Wechat'
+import Wechat from '@/pages/wechat/Index'
+import Chatroom from '@/pages/wechat/Chatroom'
 
-import Contacts from '@/pages/Contacts'
-import Chatroom from '@/pages/Chatroom'
+import Contacts from '@/pages/contacts/Index'
+import AddFriend from '@/pages/contacts/addFriend'
 
-import Discover from '@/pages/Discover'
-import Moment from '@/pages/Moments'
+import Discover from '@/pages/discover/Index'
+import Moment from '@/pages/discover/Moments'
 
-import Myinfo from '@/pages/Myinfo'
+import Myinfo from '@/pages/myinfo/Index'
+import MyProfile from '@/pages/myinfo/MyProfile'
 
 Vue.use(Router)
 
@@ -71,6 +73,10 @@ const router =  new Router({
         path: '/moments',
         name: 'moment',
         component: Moment
+    }, {
+        path: '/addFriend',
+        name: 'addFriend',
+        component: AddFriend
     }]
 })
 

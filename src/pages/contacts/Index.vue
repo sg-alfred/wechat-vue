@@ -1,6 +1,7 @@
 <template>
     <div class="">
-        <header-section></header-section>
+        <header-section :goBack="true" :head-title="headTitle"></header-section>
+
         <div class="contacts-container">
             <span>这是通讯录 界面！</span>
             <contact-item
@@ -9,6 +10,7 @@
                     @into-chatroom="intoChatroom"
             ></contact-item>
         </div>
+
         <footer-section></footer-section>
     </div>
 </template>
@@ -16,9 +18,9 @@
 <script>
 
     import { mapGetters } from 'vuex'
-    import HeaderSection from '../components/HeaderSection'
-    import FooterSection from '../components/FooterSection'
-    import ContactItem from '../components/ContactItem'
+    import HeaderSection from '../../components/HeaderSection'
+    import FooterSection from '../../components/FooterSection'
+    import ContactItem from '../../components/ContactItem'
 
     export default {
         name: 'Contacts',
@@ -39,7 +41,7 @@
         },
         data() {
             return {
-                // 其实，信息并不需要这么详细！！
+                headTitle: '微信',
                 userList: []
             }
         },

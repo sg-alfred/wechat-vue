@@ -21,7 +21,7 @@
 
 <script>
     import { mapGetters } from 'vuex'
-    import OneMoment from '../components/OneMoment'
+    import OneMoment from '../../components/OneMoment'
 
     export default {
         name: 'Moment',
@@ -58,7 +58,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .el-carousel__item h3 {
         color: #475669;
         font-size: 14px;

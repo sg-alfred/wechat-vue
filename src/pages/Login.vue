@@ -96,7 +96,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 /*    .login-div {
         width: 50%;
     }*/

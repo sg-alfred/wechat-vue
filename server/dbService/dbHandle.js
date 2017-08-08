@@ -70,7 +70,7 @@ function readDirSync(path) {
         if (!(ele.indexOf('index') > -1 || ele.indexOf('.DS_Store') > -1)) {
             let basename = ele[0].toUpperCase() + ele.substr(1, ele.length-4);
             // 需要 require 进来啊！！
-            // console.log(path + '/' + ele)
+            // console.log(path + '/' + ele + '' + basename)
 
             schemas[basename] = require(path + '/' + ele)
         }

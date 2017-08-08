@@ -1,11 +1,11 @@
 <template>
     <div class="">
-        <header-section></header-section>
+        <header-section :head-title="headTitle"></header-section>
         <div class="contacts-container">
             <span>这是我的 界面！</span>
 
             <div>
-                <img src="../assets/logo.png" />
+                <img src="../../assets/logo.png" />
             </div>
 
             <base-item v-for="item in itemList" :key="item.id" :itemInfo="item"></base-item>
@@ -17,9 +17,9 @@
 
 <script>
     import { mapGetters } from 'vuex'
-    import HeaderSection from '../components/HeaderSection'
-    import FooterSection from '../components/FooterSection'
-    import BaseItem from '../components/BaseItem'
+    import HeaderSection from '../../components/HeaderSection'
+    import FooterSection from '../../components/FooterSection'
+    import BaseItem from '../../components/BaseItem'
 
     export default {
         name: 'Contacts',
@@ -40,6 +40,7 @@
         },
         data() {
             return {
+                headTitle: '微信',
                 itemList: [{
                     id: 0,
                     type: 'wallet',

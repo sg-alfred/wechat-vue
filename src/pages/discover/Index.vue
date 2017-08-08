@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <header-section></header-section>
+        <header-section :head-title="headTitle"></header-section>
         <div class="contacts-container">
             <span>这是发现 界面！</span>
 
@@ -15,9 +15,9 @@
 
 <script>
     import { mapGetters } from 'vuex'
-    import HeaderSection from '../components/HeaderSection'
-    import FooterSection from '../components/FooterSection'
-    import BaseItem from '../components/BaseItem'
+    import HeaderSection from '../../components/HeaderSection'
+    import FooterSection from '../../components/FooterSection'
+    import BaseItem from '../../components/BaseItem'
 
     export default {
         name: 'Contacts',
@@ -39,6 +39,7 @@
         data() {
             return {
                 // 这个是可以配置的！！
+                headTitle: '微信',
                 itemList: [{
                     id: 0,
                     type: 'moments',
@@ -85,7 +86,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .placeholder {
         height: 8px;
         width: auto;
