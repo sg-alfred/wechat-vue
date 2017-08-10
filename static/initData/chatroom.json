@@ -1,0 +1,21 @@
+{
+  "chatList": [{
+    "id": 0,
+    "wechatno": "sgchenjz",
+    "chatid": "1223",
+    "nickname": "钻",
+    "name": "宇",
+    "lasttime": "2017-08-10 20:53:12",
+    "content": "hello！",
+    "headimgurl": "static/image/headimg/chenjz.png"
+  }, {
+    "id": 2,
+    "wechatno": "guojy",
+    "chatid": "1222",
+    "nickname": "宇",
+    "name": "宇",
+    "lasttime": "2017-08-10 20:53:12",
+    "content": "hello, too！",
+    "headimgurl": "static/image/headimg/chenjz.png"
+  }]
+}
