@@ -54,7 +54,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .message-div {
         border: ghostwhite solid 2px;
         background-color: white;

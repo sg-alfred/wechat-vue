@@ -1,15 +1,16 @@
 <template>
     <div class="">
-        <header-section :goBack="true" :head-title="headTitle"></header-section>
+        <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <div class="contacts-container">
-            <span>这是通讯录 界面！</span>
+        <div style="height: 10px"></div>
+
+        <section class="contacts-container">
             <contact-item
                     v-for="item in userList"
                     :key="item.id" :userinfo="item"
-                    @into-chatroom="intoChatroom"
+                    @get-detail="getDetail"
             ></contact-item>
-        </div>
+        </section>
 
         <footer-section></footer-section>
     </div>
@@ -42,6 +43,7 @@
         data() {
             return {
                 headTitle: '微信',
+                searchType: 'all',
                 userList: []
             }
         },
@@ -55,10 +57,10 @@
                 })
         },
         methods: {
-            // 进入特定的聊天室
-            intoChatroom(chatid) {
-                this.$router.push('/chatroom');
-            },
+            getDetail(fid) {
+                console.log(fid)
+                this.$router.push('/userprofile/' + fid);
+            }
         }
     }
 </script>

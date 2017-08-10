@@ -1,9 +1,6 @@
 <template>
     <div class="">
-        <header class="head-section">
-            <i class="el-icon-arrow-left" @click="goback()"></i>
-            <span> | 添加朋友</span>
-        </header>
+        <header-section :goBack="true" :head-title="headTitle"></header-section>
 
         <div style="height: 20px"></div>
 
@@ -30,14 +27,17 @@
 </template>
 
 <script>
+    import HeaderSection from '../../components/HeaderSection'
     import BaseItem from '../../components/BaseItem'
     export default {
         name: 'addFriend',
         components: {
+            HeaderSection,
             BaseItem,
         },
         data() {
             return {
+                headTitle: '添加朋友',
                 itemList: [{
                     id: 0,
                     type: 'friendRadar',
@@ -72,9 +72,6 @@
             }
         },
         methods: {
-            goback() {
-                this.$router.go(-1)
-            }
         }
     }
 </script>

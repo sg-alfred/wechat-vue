@@ -1,16 +1,16 @@
 <template>
     <div class="">
-        <header-section :head-title="headTitle"></header-section>
-        <div class="contacts-container">
-            <span>这是我的 界面！</span>
+        <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-            <div>
-                <img src="../../assets/logo.png" />
-            </div>
+        <div style="height: 10px;"></div>
 
+        <section class="contacts-container">
+            <router-link :to="'/myprofile/' + userid" class="base-info">
+                <span><img src="../../assets/logo.png"></span>
+            </router-link>
             <base-item v-for="item in itemList" :key="item.id" :itemInfo="item"></base-item>
+        </section>
 
-        </div>
         <footer-section></footer-section>
     </div>
 </template>
@@ -30,7 +30,8 @@
         },
         computed: {
             ...mapGetters({
-                isLogin: 'getIsLogin'
+                isLogin: 'getIsLogin',
+                userid: 'getUserid'
             })
         },
         created() {
@@ -41,6 +42,7 @@
         data() {
             return {
                 headTitle: '微信',
+                searchType: 'all',
                 itemList: [{
                     id: 0,
                     type: 'wallet',
@@ -76,3 +78,20 @@
         }
     }
 </script>
+
+<style scoped>
+    .base-info {
+        height: 80px;
+        display: table;
+        text-align: center;
+    }
+    .base-info span {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .base-info span img {
+        height: 60px;
+        display: inline-block;
+        margin-left: 20px;
+    }
+</style>

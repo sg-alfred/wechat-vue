@@ -2,7 +2,8 @@
 
 <template>
     <div class="">
-        <!-- 朋友圈界面的 头部, 貌似没有必要组件化！ 因为，只能这里使用！ -->
+        <header-section :goBack="true" :head-title="headTitle"></header-section>
+
         <div class="block">
             <span class="demonstration">Click 指示器触发</span>
             <el-carousel trigger="click" height="150px">
@@ -21,15 +22,18 @@
 
 <script>
     import { mapGetters } from 'vuex'
+    import HeaderSection from '../../components/HeaderSection'
     import OneMoment from '../../components/OneMoment'
 
     export default {
         name: 'Moment',
         components: {
+            HeaderSection,
             OneMoment
         },
         data() {
             return {
+                headTitle: '朋友圈',
                 momentList: [{
                     id: 0,
                     nick: 'sgchenjz',

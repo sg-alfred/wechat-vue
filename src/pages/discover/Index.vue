@@ -1,8 +1,7 @@
 <template>
     <div class="">
-        <header-section :head-title="headTitle"></header-section>
+        <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
         <div class="contacts-container">
-            <span>这是发现 界面！</span>
 
             <base-item v-for="item in itemList" :key="item.id" :itemInfo="item"></base-item>
 
@@ -40,6 +39,7 @@
             return {
                 // 这个是可以配置的！！
                 headTitle: '微信',
+                searchType: 'all',
                 itemList: [{
                     id: 0,
                     type: 'moments',

@@ -8,6 +8,7 @@ import Test from '@/pages/Test'
 import Help from '@/pages/Help'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
+import Search from '@/pages/Search'
 
 import Wechat from '@/pages/wechat/Index'
 import Chatroom from '@/pages/wechat/Chatroom'
@@ -20,6 +21,7 @@ import Moment from '@/pages/discover/Moments'
 
 import Myinfo from '@/pages/myinfo/Index'
 import MyProfile from '@/pages/myinfo/MyProfile'
+import UserProfile from '@/pages/myinfo/UserProfile'
 
 Vue.use(Router)
 
@@ -40,6 +42,15 @@ const router =  new Router({
         path: '/register',
         name: 'register',
         component: Register
+    }, {
+        path: '/search',
+        name: 'search',
+        // component: Search,
+        child: [{
+            path: '/all',
+            name: 'searchAll',
+            component: Search
+        }]
     }, {
         path: '/wechat',
         name: 'wechat',
@@ -65,6 +76,14 @@ const router =  new Router({
         path: '/myinfo',
         name: 'myinfo',
         component: Myinfo
+    }, {
+        path: '/myprofile/:userid',
+        name: 'myprofile',
+        component: MyProfile
+    }, {
+        path: '/userprofile/:fid',
+        name: 'userprofile',
+        component: UserProfile
     }, {
         path: '/help',
         name: 'help',

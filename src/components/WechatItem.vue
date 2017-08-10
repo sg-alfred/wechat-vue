@@ -14,44 +14,42 @@
  -->
 
 <template>
-    <div class="" @click="getIntoChatroom">
-        <!--<el-row>
-            <el-col :span="">
-
+    <section class="" @click="$emit('into-chatroom', chatItem.chatid)">
+        <el-row>
+            <el-col :span="4">
+                <!-- 连接到 用户详情界面 -->
+                <!--<router-link :to=""></router-link>-->
+                <img :src=chatItem.headimgurl />
             </el-col>
-        </el-row>-->
-        <div class="">
-            <!--用户头像-->
-        </div>
-        <div class="">
-            <span>{{chatItem.name}}</span>
-            <span>{{chatItem.lasttime}}</span>
-        </div>
-        <div class="">
-            <span>{{chatItem.content}}</span>
-            <i class="el-icon-caret-bottom el-icon--right"></i>
-        </div>
-    </div>
+            <el-col :span="20">
+                <!-- 这个我应该 向左靠！ -->
+                <span>{{chatItem.nickname}}</span>
+
+                <div class="">
+                    <span>{{chatItem.name}}</span>
+                    <span>{{chatItem.lasttime}}</span>
+                </div>
+                <div class="">
+                    <span>{{chatItem.content}}</span>
+                    <!--<i class="el-icon-caret-bottom el-icon&#45;&#45;right"></i>-->
+                </div>
+            </el-col>
+        </el-row>
+    </section>
 </template>
 
 <script>
     export default {
         name: 'WechatItem',
-//        props: {
-//            chatItem: {
-//                type: Object,
-//                required: true
-//            }
-//        },
+        props: {
+            chatItem: {
+                type: Object,
+                required: true
+            }
+        },
         data() {
             return {
                 // 应该是关联查询过后的结果
-                chatItem: {
-                    chatname: 'sha',
-                    lastmsgid: '6ghs778',
-                    lasttime: '00:00:00',
-                    content: 'hello, vue!'
-                }
             }
         },
         methods: {
@@ -63,3 +61,9 @@
         }
     }
 </script>
+
+<style scoped>
+    img {
+        width: 48px;
+    }
+</style>

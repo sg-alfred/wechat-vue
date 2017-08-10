@@ -8,9 +8,7 @@
                     </div>
                 </el-col>
                 <el-col :span="16">
-                    <div class="item-name">
-                        <span>{{itemInfo.name}}</span>
-                    </div>
+                    <span class="item-name">{{itemInfo.name}}</span>
                 </el-col>
                 <el-col :span="4">
                     <div class="item-icon">
@@ -45,14 +43,19 @@
 </script>
 
 <style scoped>
+    .absolute-center {
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+    }
     .item-container {
         height: 30px;
         border: lightgray solid 1px;
-        margin: 5px;
         padding: 5px;
+        margin: 5px;
     }
     .item-name {
-
+        height: 30px;
     }
     img {
         padding-top: 5px;
