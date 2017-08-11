@@ -14,7 +14,8 @@ import Wechat from '@/pages/wechat/Index'
 import Chatroom from '@/pages/wechat/Chatroom'
 
 import Contacts from '@/pages/contacts/Index'
-import AddFriend from '@/pages/contacts/addFriend'
+import AddFriend from '@/pages/contacts/AddFriend'
+import AddSend from '@/pages/contacts/AddSend'
 
 import Discover from '@/pages/discover/Index'
 import Moment from '@/pages/discover/Moments'
@@ -43,14 +44,9 @@ const router =  new Router({
         name: 'register',
         component: Register
     }, {
-        path: '/search',
+        path: '/search/:type',
         name: 'search',
-        // component: Search,
-        child: [{
-            path: '/all',
-            name: 'searchAll',
-            component: Search
-        }]
+        component: Search,
     }, {
         path: '/wechat',
         name: 'wechat',
@@ -84,6 +80,10 @@ const router =  new Router({
         path: '/userprofile/:fid',
         name: 'userprofile',
         component: UserProfile
+    }, {
+        path: '/addsend/:fid',
+        name: 'addsend',
+        component: AddSend
     }, {
         path: '/help',
         name: 'help',

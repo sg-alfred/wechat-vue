@@ -9,6 +9,6 @@ const chatroom = require('./controller/chatroom')
 
 module.exports = (app) => {
     wxuser(app)
-    // contact(app)
+    contact(app)
     // chatroom(app)
 }

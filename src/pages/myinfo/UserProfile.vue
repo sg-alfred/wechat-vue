@@ -46,9 +46,20 @@
                 <span>更多</span>
             </section>
 
-            <section>
-                <el-button type="success">发送消息</el-button>
-                <el-button :plain="true" type="success">视频聊天</el-button>
+            <div style="height: 20px;"></div>
+
+            <section class="contact-section">
+                <div v-if="isFriend">
+                    <el-button type="success">发送消息</el-button>
+                    <br/>
+                    <el-button :plain="true" type="success">视频聊天</el-button>
+                </div>
+                <div v-else>
+                    <el-button type="success" @click="addFriend">添加好友</el-button>
+                </div>
+            </section>
+            <section class="add-section" >
+
             </section>
         </section>
 
@@ -71,7 +82,7 @@
         props: ['operate'],
         template: `
             <li>
-                <span><img :src="operate.icon"></span>
+                <img :src="operate.icon" />
                 <span class="operate-text">{{operate.name}}</span>
             </li>
         `,
@@ -82,6 +93,8 @@
         data() {
             return {
                 headTitle: '详细资料',
+                isFriend: false,
+                fid: '',
                 info: {
                     id: 0,
                     wechatno: 'sgchenjz',
@@ -132,36 +145,44 @@
         },
         computed: {
             ...mapGetters({
-                isLogin: 'getIsLogin'
+                isLogin: 'getIsLogin',
+                uid: 'getUserid'
             })
         },
         created() {
             if (!this.isLogin) {
                 this.$router.push('/login');
             }
+            this.fid = this.$route.params.fid;
         },
         methods: {
             showOperate() {
 
+            },
+            addFriend() {
+                this.$router.push('/addSend/' + this.fid)
             }
         }
     }
 </script>
 
 <!-- ? 加了 scoped, operate-section 的样式全变了？ -->
-<style>
+<style scoped>
     .head-operate {
         float: right;
         margin: 10px 5px 0 5px;
     }
     .operate-section {
         height: 300px;
-        background-color: white;
+        background-color: honeydew;
         overflow: scroll;
         z-index: 10;
         bottom: 0;
         position: absolute;
         width: 100%;
+    }
+    ul {
+         list-style: none;
     }
     .operate-section li {
         height: 30px;
@@ -173,8 +194,10 @@
     }
     .operate-section .operate-text {
         padding-top: -5px;
+        width: 80%;
     }
-    ol, ul {
-        list-style: none;
+    .contact-section button {
+        margin: 5px;
+        width: 60%;
     }
 </style>

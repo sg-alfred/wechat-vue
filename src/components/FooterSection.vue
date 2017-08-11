@@ -1,13 +1,13 @@
 <!-- 不是这样的！！每个都一样，为什么 用 v-for -->
 
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
-    <div class="footer-container">
+    <footer class="footer-container">
         <el-row>
             <el-col :span="6" v-for="item in subMenus" :key="item.id">
                 <!-- 如何直接 作为函数的 参数？ '/item.type' ，不要引号～没必要引号！这样是不行的！ -->
                 <div class="grid-content" @click="goto(item.type)">
                     <!-- 更加简洁的写法？ -->
-                    <div v-if="isActive" >
+                    <div v-if="activeItem === item.type" >
                         <img v-bind:src=item.active />
                     </div>
                     <div v-else>
@@ -17,7 +17,7 @@
                 </div>
             </el-col>
         </el-row>
-    </div>
+    </footer>
 </template>
 
 <script>
@@ -25,7 +25,7 @@ export default {
     name: 'FooterSection',
     data() {
         return {
-            isActive: false,     // 就用一个，可以 正常进行切换吗？
+            activeItem: '',     // 就用一个，可以 正常进行切换吗？
             subMenus: [{
                 id: 0,
                 type: 'wechat',
@@ -56,8 +56,7 @@ export default {
     methods: {
         goto(path) {
             // 跳转之前，需要设置一下 状态吧？
-            console.log();
-
+            this.activeItem = path;
             this.$router.push(path)
         }
     }

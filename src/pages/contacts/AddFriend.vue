@@ -4,9 +4,13 @@
 
         <div style="height: 20px"></div>
 
-        <section class="search-section">
-            <i class="el-icon-search"></i>
-        </section>
+        <!-- 需要双引号，再单引号？ -->
+        <router-link :to="'/search/friend'" >
+            <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <circle cx="18" cy="18" r="7" stroke="rgb(00,80,00)" stroke-width="1" fill="none"/>
+                <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(00,80,00);stroke-width:2"/>
+            </svg>
+        </router-link>
 
         <section>
             <span>我的微信号：{{}}</span>

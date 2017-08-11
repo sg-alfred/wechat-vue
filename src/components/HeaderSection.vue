@@ -1,5 +1,5 @@
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
-    <div class="header-container">
+    <header class="header-container">
         <!-- 微信聊天室的 右上角的用户icon，点击 跳转到 聊天信息 的功能-->
         <slot name="userIcon"></slot>
 
@@ -25,22 +25,25 @@
                 </span>
                 <el-dropdown-menu sole="dropdown">
                     <el-dropdown-item command="groupChat">
-                        <img src="static/image/icon-groupchat.png">发起群聊
+                        <img src="static/image/icon-groupchat.png">
+                        <span>发起群聊</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="addFriend">
-                        <img src="static/image/icon-addFriend.png">添加好友
+                        <img src="static/image/icon-addFriend.png">
+                        <span>添加好友</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="scanQRCode">
-                        <img src="static/image/icon-scancode.png">扫一扫
+                        <img src="static/image/icon-scancode.png">
+                        <span>扫一扫</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="payment">
-                        收付款
+                        <span>收付款</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="help">
-                        帮助与反馈
+                        <span>帮助与反馈</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="logout">
-                        退出账号
+                        <span>退出账号</span>
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -51,7 +54,9 @@
                 <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(255,255,255);stroke-width:2"/>
             </svg>
         </router-link>
-    </div>
+        <slot name="searchFrm"></slot>
+        <slot name="sendBtn"></slot>
+    </header>
 </template>
 
 <script>
@@ -90,7 +95,6 @@ export default {
                     this.logout();
                     break;
             }
-            this.$message('click on item ' + command);
         },
         goto(path) {
             this.$router.push(path);
@@ -138,6 +142,7 @@ export default {
     img {
         margin-top: 5px;
         height: 20px;
+        width: 20px;
     }
     .head_goback {
         float: left;
@@ -155,5 +160,21 @@ export default {
         margin: 20px 0 0 20px;
         text-align: center;
         font-weight: bold;
+    }
+    .el-dropdown-menu {
+        background-color: #434439;
+        color: white;
+        width: 40%;
+        opacity: 0.8;
+        margin: 0;
+        border: 0;
+    }
+    .el-dropdown-menu .el-dropdown-menu__item span{
+        padding: 0 0 0 10px;
+    }
+    .el-dropdown-menu .el-dropdown-menu__item:hover {
+        /*background-color: #434439;*/
+        background-color: wheat;
+        opacity: 1;
     }
 </style>

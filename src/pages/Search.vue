@@ -1,8 +1,16 @@
 <template>
     <div class="">
-        <header-section :goBack="true" ></header-section>
+        <header-section :goBack="true">
+            <section slot="searchFrm" class="search-frm">
+                <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                    <circle cx="18" cy="18" r="7" stroke="rgb(255,255,255)" stroke-width="1" fill="none"/>
+                    <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(255,255,255);stroke-width:2"/>
+                </svg>
+                <input v-model="keyword" type="text" @keyup.enter="search"/>
+            </section>
+        </header-section>
 
-        <section class="search-container">
+        <section class="search-container" v-if="'all' === type">
             <span>我是搜索界面！！</span>
             <ul>
                 <li>全局搜索</li>
@@ -20,6 +28,70 @@
         name: 'Search',
         components: {
             HeaderSection
+        },
+        data() {
+            return {
+                type: 'all',
+                keyword: '',
+                searchResult: []
+            }
+        },
+        created() {
+            this.type = this.$route.params.type;
+        },
+        methods: {
+            search() {
+                console.log(this.keyword)
+                switch (this.type) {
+                    case 'all':
+                        console.log('searchAll');
+                        break;
+                    case 'friend':
+                        console.log('searchFriend')
+                        this.$http.post('/user/searchUser', {username: this.keyword}).then((response) => {
+                            let result = response.body;
+                            if (!result.code) {
+                                if (!result.fuserinfo) {
+                                    this.$message('用户不存在')
+                                } else {
+                                    this.searchResult = result.fuserinfo;
+
+                                    // 有跳转到用户的 详情界面！
+                                    this.$router.push('/userprofile/' + result.fuserinfo.id)
+                                }
+                            } else {
+                                this.$message(result.message)
+                            }
+                        })
+                        break;
+                    default:
+                        console.log('参数有误：', this.type)
+                        break;
+                }
+            }
         }
     }
 </script>
+
+<style scoped>
+    .search-frm {
+        float: left;
+        padding: 10px 5px 0 5px;
+        margin-left: 20px;
+        height: 40px;
+        border-bottom: 1px solid greenyellow;
+        width: 80%;
+    }
+    .search-frm svg {
+        left: 0;
+    }
+    .search-frm input {
+        border: hidden;
+        background-color: #434439;
+        color: white;
+        float: right;
+        font-size: 16px;
+        height: 38px;
+        width: 80%;
+    }
+</style>

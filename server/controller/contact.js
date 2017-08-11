@@ -23,7 +23,11 @@ module.exports = (app) => {
         params.addtime = new Date();
 
         contactDbUtil.createContact(params).then((doc) => {
-
+            resultObj = {
+                code: 0,
+                message: '申请成功，等待对方确认',
+                data: doc
+            }
         }, (err) => {
             resultObj = {
                 code: 2,

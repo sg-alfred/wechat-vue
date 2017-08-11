@@ -34,9 +34,7 @@
                     password: '1234',
                     validcode: ''
                 },
-                formRules: {
-
-                }
+                formRules: {}
             }
         },
         computed: {
