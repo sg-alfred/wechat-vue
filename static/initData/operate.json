@@ -1,0 +1,35 @@
+{
+  "operateList": [{
+    "id": 0,
+    "icon": "static/image/operate/icon-setRemark.png",
+    "name": "设置备注及标签"
+  }, {
+    "id": 1,
+    "icon": "static/image/operate/icon-starred.png",
+    "name": "标为星标朋友"
+  }, {
+    "id": 2,
+    "icon": "static/image/operate/icon-moment.png",
+    "name": "朋友圈设置"
+  }, {
+    "id": 3,
+    "icon": "static/image/operate/icon-shareContact.png",
+    "name": "发送该名片"
+  }, {
+    "id": 4,
+    "icon": "static/image/operate/icon-report.png",
+    "name": "投诉"
+  }, {
+    "id": 5,
+    "icon": "static/image/operate/icon-addToBlock.png",
+    "name": "加入黑名单"
+  }, {
+    "id": 6,
+    "icon": "static/image/operate/icon-delete.png",
+    "name": "删除"
+  }, {
+    "id": 7,
+    "icon": "static/image/operate/icon-addToDesk.png",
+    "name": "添加到桌面"
+  }]
+}
