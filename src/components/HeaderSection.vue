@@ -37,9 +37,11 @@
                         <span>扫一扫</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="payment">
+                        <img src="static/image/icon-payment.png">
                         <span>收付款</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="help">
+                        <img src="static/image/icon-help.png">
                         <span>帮助与反馈</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="logout">
@@ -128,53 +130,61 @@ export default {
 </script>
 
 <style scoped>
-    .absolute-center {
-        margin: auto;
-        position: absolute;
-        top: 0; left: 0; bottom: 0; right: 0;
-    }
     .header-container {
         background-color: #434439;
         color: white;
         height: 60px;
         font-size: 20px;
     }
-    img {
-        margin-top: 5px;
-        height: 20px;
-        width: 20px;
-    }
     .head_goback {
         float: left;
         margin: 10px 0 0 5px;
     }
-    .head_dropdown, .head_search {
-        float: right;
-        margin: 10px 5px 0 5px;
-    }
     .head_title {
         float: left;
-        margin-top: 15px;
+        margin-top: 18px;
+        text-align: left;
     }
     .head_title .title_text{
-        margin: 20px 0 0 20px;
-        text-align: center;
+        margin: 0 0 0 20px;
         font-weight: bold;
     }
+    .head_dropdown, .head_search {
+        float: right;
+        margin: 10px 10px 0 5px;
+    }
+
+    /* 下拉菜单！ */
     .el-dropdown-menu {
-        background-color: #434439;
-        color: white;
-        width: 40%;
-        opacity: 0.8;
         margin: 0;
         border: 0;
+        background-color: #434439;
+        color: white;
+        width: 240px;
+    }
+    .el-dropdown-menu .el-dropdown-menu__item {
+        display: table;
+        height: 40px;
+        border-top: 1px solid #000000;
+        text-align: left;
+        width: 220px;
+    }
+    .el-dropdown-menu .el-dropdown-menu__item img {
+        width: 25px;
+        padding: 0 10px;
+        display: table-cell;
+        vertical-align: middle;
     }
     .el-dropdown-menu .el-dropdown-menu__item span{
-        padding: 0 0 0 10px;
+        padding-left: 10px;
+        display: table-cell;
+        vertical-align: middle;
     }
     .el-dropdown-menu .el-dropdown-menu__item:hover {
         /*background-color: #434439;*/
         background-color: wheat;
         opacity: 1;
+        color: white;
+        vertical-align: middle;
     }
 </style>

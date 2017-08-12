@@ -5,8 +5,7 @@
         <el-row>
             <el-col :span="6" v-for="item in subMenus" :key="item.id">
                 <!-- 如何直接 作为函数的 参数？ '/item.type' ，不要引号～没必要引号！这样是不行的！ -->
-                <div class="grid-content" @click="goto(item.type)">
-                    <!-- 更加简洁的写法？ -->
+                <section class="grid-content" @click="goto(item.type)">
                     <div v-if="activeItem === item.type" >
                         <img v-bind:src=item.active />
                     </div>
@@ -14,7 +13,7 @@
                         <img v-bind:src=item.disactive />
                     </div>
                     <p>{{item.name}}</p>
-                </div>
+                </section>
             </el-col>
         </el-row>
     </footer>
@@ -66,17 +65,18 @@ export default {
 <style scoped>
     .footer-container {
         border: ghostwhite solid 2px;
-        background-color: white;
         position: fixed;
         bottom: 0;
-        height: 75px;
+        height: 70px;
         width: 100%;
         z-index: 1000;
     }
-    .grid-content img {
-        /*width: 40px;*/
-        height: 30px;
+    .grid-content {
         padding-top: 5px;
+    }
+    .grid-content img {
+        height: 30px;
+        padding: 5px 0;
     }
     .grid-content p {
         margin: 0;

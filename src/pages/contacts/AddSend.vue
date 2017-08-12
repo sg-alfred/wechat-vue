@@ -6,28 +6,7 @@
             </section>
         </header-section>
 
-        <div style="height: 20px;"></div>
-
         <section class="form-section">
-            <!--<el-form ref="addSetFrm" :label-position="labelPosition" label-width="80px" :model="formInfo" :rules="formRules">
-                &lt;!&ndash; 隐藏用户id，或者，其实也不需要吧～额，要是 改了链接呢？ &ndash;&gt;
-                <el-form-item label="用户id" prop="fid" style="display: none;">
-                    <el-input v-model="formInfo.fid"></el-input>
-                </el-form-item>
-                <el-form-item label="你需要发送验证申请，等待对方通过" prop="remark">
-                    <el-input v-model="formInfo.remark"></el-input>
-                </el-form-item>
-                <el-form-item label="为朋友设置备注" prop="alias">
-                    <el-input type="text" v-model="formInfo.alias"></el-input>
-                </el-form-item>
-                <el-form-item label="不让他(她)看我的朋友圈" prop="share">
-                    <el-switch v-model="formInfo.share"
-                               on-color="#13ce66"
-                               off-color="grey">
-                    </el-switch>
-                </el-form-item>
-            </el-form>-->
-
             <article>
                 <p>你需要发送验证申请，等待对方通过</p>
                 <input v-model="formInfo.remark" />
@@ -36,7 +15,7 @@
                 <p>为朋友设置备注</p>
                 <input v-model="formInfo.alias" />
             </article>
-            <article>
+            <article class="share-div">
                 <p>设置朋友圈权限</p>
                 <label>不让他(她)看我的朋友圈</label>
                 <el-switch v-model="formInfo.share" class="switch-label"
@@ -95,11 +74,16 @@
         margin: 10px 10px 0 0;
     }
     .form-section {
-
+        background-color: lightgrey;
+        overflow: scroll;
+        /*height: 100px;*/
+        width: 100%;
+        position: fixed;
     }
     .form-section article {
         margin: 10px 0;
         padding: 10px 0;
+        background-color: white;
     }
     .form-section article p {
         text-align: left;
@@ -117,5 +101,11 @@
     .form-section article .switch-label {
         float: right;
         margin-right: 20px;
+    }
+    .form-section .share-div {
+        text-align: left;
+    }
+    .form-section .share-div label{
+        margin: 0 10px;
     }
 </style>

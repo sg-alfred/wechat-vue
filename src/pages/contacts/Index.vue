@@ -2,7 +2,18 @@
     <div class="">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <div style="height: 10px"></div>
+        <section class="nav-item">
+            <el-row v-for="navItem in navList" :key="navItem.id">
+                <el-col :span="6">
+                    <span><img :src=navItem.imgurl /></span>
+                </el-col>
+                <el-col :span="18">
+                    <span>{{navItem.name}}</span>
+                </el-col>
+            </el-row>
+        </section>
+
+        <div class="placeholder"></div>
 
         <section class="contacts-container">
             <contact-item
@@ -44,7 +55,24 @@
             return {
                 headTitle: '微信',
                 searchType: 'all',
-                userList: []
+                userList: [],
+                navList: [{
+                    id: 0,
+                    imgurl: '',
+                    name: '新的朋友'
+                }, {
+                    id: 1,
+                    imgurl: '',
+                    name: '群聊'
+                }, {
+                    id: 2,
+                    imgurl: '',
+                    name: '标签'
+                }, {
+                    id: 3,
+                    imgurl: '',
+                    name: '公众号'
+                }]
             }
         },
         mounted() {
@@ -64,3 +92,30 @@
         }
     }
 </script>
+
+<style scoped>
+    .placeholder {
+        height: 20px;
+        width: auto;
+        background-color: lightgray;
+    }
+
+    img {
+        width: 30px;
+    }
+    .nav-item {
+        height: auto;
+    }
+    .nav-item .el-col {
+        height: 40px;
+        padding: 5px;
+        margin-top: 5px;
+        display: table;
+        text-align: left;
+        border-bottom: 1px solid lightgrey;
+    }
+    .nav-item .el-col span {
+        display: table-cell;
+        vertical-align: middle;
+    }
+</style>

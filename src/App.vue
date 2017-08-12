@@ -6,6 +6,7 @@
 
 <script>
     import { mapGetters } from 'vuex'
+    import 'normalize.css'
 
     export default {
         name: 'app',

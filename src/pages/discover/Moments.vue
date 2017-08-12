@@ -5,7 +5,6 @@
         <header-section :goBack="true" :head-title="headTitle"></header-section>
 
         <div class="block">
-            <span class="demonstration">Click 指示器触发</span>
             <el-carousel trigger="click" height="150px">
                 <el-carousel-item v-for="item in 4" :key="item">
                     <h3>{{ item }}</h3>

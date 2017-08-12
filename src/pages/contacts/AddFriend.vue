@@ -1,10 +1,10 @@
 <template>
-    <div class="">
+    <div class="addFriend-div">
+
         <header-section :goBack="true" :head-title="headTitle"></header-section>
 
-        <div style="height: 20px"></div>
+        <div class="placeholder"></div>
 
-        <!-- 需要双引号，再单引号？ -->
         <router-link :to="'/search/friend'" >
             <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 <circle cx="18" cy="18" r="7" stroke="rgb(00,80,00)" stroke-width="1" fill="none"/>
@@ -16,7 +16,7 @@
             <span>我的微信号：{{}}</span>
         </section>
 
-        <div style="height: 20px"></div>
+        <div class="placeholder"></div>
 
         <section class="menu-section">
             <base-item v-for="item in itemList"
@@ -81,15 +81,8 @@
 </script>
 
 <style scoped>
-    .head-section {
-        border: ghostwhite solid 2px;
-        background-color: #434439;
-        color: white;
-        /*position: fixed;*/
-        /*top: 0;*/
-        height: 60px;
-        font-size: 20px;
-        width: 100%;
-        z-index: 1000;
+    .placeholder {
+        height: 20px;
+        width: auto;
     }
 </style>

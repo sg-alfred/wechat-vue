@@ -11,13 +11,16 @@
         </header-section>
 
         <section class="search-container" v-if="'all' === type">
-            <span>我是搜索界面！！</span>
+            <p class="search-title">指定搜索内容</p>
             <ul>
-                <li>全局搜索</li>
-                <li>只搜索好友</li>
-                <li>只搜索群</li>
-                <li>只搜索公众号等等</li>
+                <li class="show">朋友圈</li>
+                <li class="show">文章</li>
+                <li>公众号</li>
+                <li class="show">小说</li>
+                <li class="show">音乐</li>
+                <li>表情</li>
             </ul>
+            <p class="search-title clearfix">看一看</p>
         </section>
     </div>
 </template>
@@ -55,7 +58,6 @@
                                     this.$message('用户不存在')
                                 } else {
                                     this.searchResult = result.fuserinfo;
-
                                     // 有跳转到用户的 详情界面！
                                     this.$router.push('/userprofile/' + result.fuserinfo.id)
                                 }
@@ -74,6 +76,10 @@
 </script>
 
 <style scoped>
+    * {
+        margin: 0;
+        padding: 0;
+    }
     .search-frm {
         float: left;
         padding: 10px 5px 0 5px;
@@ -81,17 +87,38 @@
         height: 40px;
         border-bottom: 1px solid greenyellow;
         width: 80%;
+        text-align: left;
     }
     .search-frm svg {
-        left: 0;
+        text-align: left;
     }
     .search-frm input {
         border: hidden;
         background-color: #434439;
         color: white;
         float: right;
-        font-size: 16px;
+        font-size: 18px;
         height: 38px;
-        width: 80%;
+        width: 85%;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0 5%;
+    }
+    li {
+        float: left;
+        width: 33%;
+        color: limegreen;
+        margin: 15px 0;
+    }
+    .search-container .show {
+        border-right: 1px solid silver;
+    }
+    .search-title {
+        padding: 20px;
+    }
+    .clearfix {
+        clear: both;
     }
 </style>

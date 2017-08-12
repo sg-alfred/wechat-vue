@@ -1,13 +1,13 @@
 <template>
     <div class="">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
-        <div class="contacts-container">
+        <section class="contacts-container">
 
             <base-item v-for="item in itemList" :key="item.id" :itemInfo="item"></base-item>
 
             <div class="placeholder"></div>
 
-        </div>
+        </section>
         <footer-section></footer-section>
     </div>
 </template>
@@ -88,7 +88,7 @@
 
 <style scoped>
     .placeholder {
-        height: 8px;
+        height: 20px;
         width: auto;
     }
 </style>

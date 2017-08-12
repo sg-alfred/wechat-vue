@@ -14,12 +14,17 @@
         </header-section>
 
         <section class="profile-container">
+
+            <div class="placeholder"></div>
+
             <section class="base-info">
-                <!-- 还不如直接用 table -->
                 <el-row>
-                    <el-col :span="4">
+                    <el-col :span="6">
+                        <router-link :to="'/myprofile/' + userid" class="headimg-div">
+                            <img src="../../assets/logo.png">
+                        </router-link>
                     </el-col>
-                    <el-col :span="20">
+                    <el-col :span="18" class="name-info">
                         <p>{{info.remark}}</p><i></i>
                         <p>微信号：{{info.wechatno}}</p>
                         <p>昵称：{{info.nickname}}</p>
@@ -27,26 +32,49 @@
                 </el-row>
             </section>
 
-            <section class="tag">
+            <div class="placeholder"></div>
+
+            <section class="tag-section">
+                <div v-if="!info.tags" @click="setAlias">
+                    <span>设置备注和标签</span>
+                </div>
+                <div v-else>
+                    <el-row>
+                        <el-col :span="6">
+                            标签
+                        </el-col>
+                        <el-col :span="18">
+                            family
+                        </el-col>
+                    </el-row>
+                </div>
+            </section>
+
+            <div class="placeholder"></div>
+
+            <section class="more-section">
                 <el-row>
-                    <el-col :span="4">
-                        标签
+                    <el-col :span="6">
+                        地区
                     </el-col>
-                    <el-col :span="20">
-                        family
+                    <el-col :span="18">
+                        {{info.country}}
                     </el-col>
+                </el-row>
+                <el-row class="album-div">
+                    <el-col :span="6" class="album-text">
+                        个人相册
+                    </el-col>
+                    <el-col :span="18" class="album">
+                        <img src="../../assets/logo.png">
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <span>更多</span>
                 </el-row>
             </section>
 
-            <section class="">
-                <span>{{info.country}}</span>
-                <div class="album">
-                    图片展示
-                </div>
-                <span>更多</span>
-            </section>
-
-            <div style="height: 20px;"></div>
+            <div class="placeholder"></div>
 
             <section class="contact-section">
                 <div v-if="isFriend">
@@ -58,16 +86,15 @@
                     <el-button type="success" @click="addFriend">添加好友</el-button>
                 </div>
             </section>
-            <section class="add-section" >
-
-            </section>
         </section>
 
-        <section class="operate-section">
+        <section class="operate-section" v-if="isShowOperate">
             <ul>
-                <operate-item v-for="item in operateList"
-                              :key="item.id" :operate="item">
-                </operate-item>
+                <!-- 需要拆开？因为每个操作功能都不一样！！？ -->
+                <li v-for="item in operateList" :key="item.id">
+                    <img :src="item.icon" />
+                    <span class="operate-text">{{item.name}}</span>
+                </li>
             </ul>
         </section>
     </div>
@@ -77,16 +104,6 @@
     import Vue from 'vue'
     import { mapGetters } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
-
-    Vue.component('operate-item', {
-        props: ['operate'],
-        template: `
-            <li>
-                <img :src="operate.icon" />
-                <span class="operate-text">{{operate.name}}</span>
-            </li>
-        `,
-    })
 
     export default {
         name: 'UserProfile',
@@ -105,39 +122,8 @@
                     headimgurl: '',
                     tags: ''
                 },
-                operateList: [{
-                    id: 0,
-                    icon: 'static/image/operate/icon-setRemark.png',
-                    name: '设置备注及标签'
-                }, {
-                    id: 1,
-                    icon: 'static/image/operate/icon-starred.png',
-                    name: '标为星标朋友'
-                }, {
-                    id: 2,
-                    icon: 'static/image/operate/icon-moment.png',
-                    name: '朋友圈设置'
-                }, {
-                    id: 3,
-                    icon: 'static/image/operate/icon-shareContact.png',
-                    name: '发送该名片'
-                }, {
-                    id: 4,
-                    icon: 'static/image/operate/icon-report.png',
-                    name: '投诉'
-                }, {
-                    id: 5,
-                    icon: 'static/image/operate/icon-addToBlock.png',
-                    name: '加入黑名单'
-                }, {
-                    id: 6,
-                    icon: 'static/image/operate/icon-delete.png',
-                    name: '删除'
-                }, {
-                    id: 7,
-                    icon: 'static/image/operate/icon-addToDesk.png',
-                    name: '添加到桌面'
-                }]
+                isShowOperate: false,
+                operateList: []
             }
         },
         components: {
@@ -146,7 +132,7 @@
         computed: {
             ...mapGetters({
                 isLogin: 'getIsLogin',
-                uid: 'getUserid'
+                userid: 'getUserid'
             })
         },
         created() {
@@ -155,12 +141,26 @@
             }
             this.fid = this.$route.params.fid;
         },
+        mounted() {
+            this.$http.get('../../static/initData/operate.json')
+                .then(response => {
+                    // 这个闭包，this 应该不一样才对啊！
+                    this.operateList = response.body.operateList;
+                }, response => {
+                    alert("调用失败");
+                })
+        },
         methods: {
             showOperate() {
+                this.isShowOperate = !this.isShowOperate;
+                // 界面置灰
 
             },
             addFriend() {
                 this.$router.push('/addSend/' + this.fid)
+            },
+            setAlias() {
+
             }
         }
     }
@@ -168,33 +168,80 @@
 
 <!-- ? 加了 scoped, operate-section 的样式全变了？ -->
 <style scoped>
+    * {
+        margin: 0;
+    }
+    .profile-container {
+        background-color: lightgrey;
+        overflow: scroll;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+    }
+    .placeholder {
+        height: 20px;
+        width: auto;
+    }
+    .base-info, .tag-section, .more-section, .operate-section {
+        text-align: left;
+        background-color: white;
+        padding: 10px 20px;
+    }
+    .more-section .el-row {
+        padding: 10px 0;
+    }
+    .album {
+        height: 100px;
+    }
+    .base-info {
+        height: 80px;
+    }
+    .base-info .name-info p {
+        padding: 5px 0;
+    }
+    .headimg-div {
+        height: 80px;
+        display: table;
+        text-align: center;
+    }
+    .headimg-div img {
+        display: table-cell;
+        vertical-align: middle;
+        height: 60px;
+    }
     .head-operate {
         float: right;
         margin: 10px 5px 0 5px;
     }
     .operate-section {
         height: 300px;
-        background-color: honeydew;
+        width: 90%;
         overflow: scroll;
         z-index: 10;
         bottom: 0;
         position: absolute;
-        width: 100%;
+        border-top: 1px solid lightgrey;
     }
     ul {
-         list-style: none;
+        list-style: none;
+        padding-left: 0;
     }
-    .operate-section li {
+    li {
         height: 30px;
-        padding: 5px;
+        padding: 10px;
+        width: auto;
+        display: table;
     }
-    .operate-section li img {
+    img {
         height: 20px;
         padding: 5px;
+        display: table-cell;
+        vertical-align: middle;
     }
     .operate-section .operate-text {
-        padding-top: -5px;
-        width: 80%;
+        padding: 0 0 0 20px;
+        display: table-cell;
+        vertical-align: middle;
     }
     .contact-section button {
         margin: 5px;

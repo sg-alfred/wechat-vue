@@ -1,6 +1,6 @@
 <template>
 
-    <div class="register-div">
+    <section class="register-div">
         <!-- 这算是坑吧？需要 配合vuex 才能够使用！！ -->
         <el-form ref="registerForm" :label-position="labelPosition" label-width="80px" :model="formInfo" :rules="formRules">
             <el-form-item label="手机号" prop="mobilephone">
@@ -20,7 +20,7 @@
                 <!--<el-button @click="resetForm('registerForm')">重置</el-button>-->
             </el-form-item>
         </el-form>
-    </div>
+    </section>
 
 </template>
 
@@ -97,3 +97,14 @@
         }
     }
 </script>
+
+<style scoped>
+    .register-div {
+        margin: auto;
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        vertical-align: middle;
+        width: 80%;
+        height: 50%;
+    }
+</style>
