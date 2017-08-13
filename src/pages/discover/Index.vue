@@ -1,14 +1,17 @@
 <template>
-    <div class="">
+    <div class="discover-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
         <section class="contacts-container">
 
             <base-item v-for="item in itemList" :key="item.id" :itemInfo="item"></base-item>
 
             <div class="placeholder"></div>
-
         </section>
         <footer-section></footer-section>
+
+        <transition name="router-slid" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -19,7 +22,7 @@
     import BaseItem from '../../components/BaseItem'
 
     export default {
-        name: 'Contacts',
+        name: 'Discover',
         components: {
             HeaderSection,
             FooterSection,
@@ -90,5 +93,13 @@
     .placeholder {
         height: 20px;
         width: auto;
+    }
+    .discover-page {
+        background-color: #e8e8e8;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
 </style>

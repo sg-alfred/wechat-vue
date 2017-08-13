@@ -1,7 +1,7 @@
 <!-- 朋友圈界面 -->
 
 <template>
-    <div class="">
+    <div class="moments-page">
         <header-section :goBack="true" :head-title="headTitle"></header-section>
 
         <div class="block">
@@ -62,6 +62,14 @@
 </script>
 
 <style scoped>
+    .moments-page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+    }
     .el-carousel__item h3 {
         color: #475669;
         font-size: 14px;
@@ -69,11 +77,9 @@
         line-height: 150px;
         margin: 0;
     }
-
     .el-carousel__item:nth-child(2n) {
         background-color: #99a9bf;
     }
-
     .el-carousel__item:nth-child(2n+1) {
         background-color: #d3dce6;
     }

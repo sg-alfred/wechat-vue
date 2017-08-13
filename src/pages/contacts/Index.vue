@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="contacts-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
         <section class="nav-item">
@@ -97,9 +97,8 @@
     .placeholder {
         height: 20px;
         width: auto;
-        background-color: lightgray;
+        background-color: #e8e8e8;
     }
-
     img {
         width: 30px;
     }
@@ -112,7 +111,7 @@
         margin-top: 5px;
         display: table;
         text-align: left;
-        border-bottom: 1px solid lightgrey;
+        border-bottom: 1px solid #e8e8e8;
     }
     .nav-item .el-col span {
         display: table-cell;

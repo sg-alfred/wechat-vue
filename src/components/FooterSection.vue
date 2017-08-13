@@ -56,7 +56,7 @@ export default {
         goto(path) {
             // 跳转之前，需要设置一下 状态吧？
             this.activeItem = path;
-            this.$router.push(path)
+            this.$router.push('/' + path)
         }
     }
 }
@@ -69,7 +69,8 @@ export default {
         bottom: 0;
         height: 70px;
         width: 100%;
-        z-index: 1000;
+        z-index: 100;
+        background-color: white;
     }
     .grid-content {
         padding-top: 5px;

@@ -34,7 +34,7 @@
 
 <style scoped>
     .moment-container {
-        border: lightgray solid 1px;
+        border: 1px solid #e8e8e8;
         margin: 5px;
     }
     img {

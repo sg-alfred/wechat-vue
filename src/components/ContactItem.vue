@@ -33,7 +33,7 @@
         height: 40px;
         padding: 5px;
         margin: 5px;
-        border-bottom: 1px solid lightgrey;
+        border-bottom: 1px solid #e8e8e8;
     }
     .contact-item .el-col {
         height: 40px;

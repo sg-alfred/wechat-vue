@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="addsend-page">
         <header-section :head-title="headTitle" :goBack="true">
             <section slot="sendBtn" class="header-btn">
                 <el-button type="success">发送</el-button>
@@ -69,12 +69,15 @@
 </script>
 
 <style scoped>
+    .addsend-page {
+        position: absolute;
+        background-color: #e8e8e8;
+    }
     .header-btn {
         float: right;
         margin: 10px 10px 0 0;
     }
     .form-section {
-        background-color: lightgrey;
         overflow: scroll;
         /*height: 100px;*/
         width: 100%;

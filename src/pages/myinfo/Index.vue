@@ -1,17 +1,29 @@
 <template>
-    <div class="">
+    <div class="myinfo-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <div style="height: 10px;"></div>
-
         <section class="contacts-container">
-            <router-link :to="'/myprofile/' + userid" class="base-info">
-                <span><img src="../../assets/logo.png"></span>
-            </router-link>
+            <el-row>
+                <el-col :span="6">
+                    <router-link :to="'/myinfo/profile/' + userid" class="base-info">
+                        <span><img src="../../assets/logo.png"></span>
+                    </router-link>
+                </el-col>
+                <el-col :span="18" class="name-info">
+                    <p>{{info.remark}}</p><i></i>
+                    <p>微信号：{{info.wechatno}}</p>
+                    <p>昵称：{{info.nickname}}</p>
+                </el-col>
+            </el-row>
+
             <base-item v-for="item in itemList" :key="item.id" :itemInfo="item"></base-item>
         </section>
 
         <footer-section></footer-section>
+
+        <transition name="router-slid" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -22,7 +34,7 @@
     import BaseItem from '../../components/BaseItem'
 
     export default {
-        name: 'Contacts',
+        name: 'MyInfo',
         components: {
             HeaderSection,
             FooterSection,
@@ -43,6 +55,16 @@
             return {
                 headTitle: '微信',
                 searchType: 'all',
+                info: {
+                    id: 0,
+                    wechatno: 'sgchenjz',
+                    nickname: '钻',
+                    remark: 'hehe',
+                    gender: '男',
+                    country: '中国',
+                    headimgurl: '',
+                    tags: ''
+                },
                 itemList: [{
                     id: 0,
                     type: 'wallet',
@@ -80,10 +102,19 @@
 </script>
 
 <style scoped>
+    .myinfo-page {
+        background-color: #e8e8e8;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
     .base-info {
         height: 80px;
         display: table;
         text-align: center;
+        background-color: white;
     }
     .base-info span {
         display: table-cell;
@@ -93,5 +124,12 @@
         height: 60px;
         display: inline-block;
         margin-left: 20px;
+    }
+    .router-slid-enter-active, .router-slid-leave-active {
+        transition: all .4s;
+    }
+    .router-slid-enter, .router-slid-leave-active {
+        transform: translate3d(2rem, 0, 0);
+        opacity: 0;
     }
 </style>

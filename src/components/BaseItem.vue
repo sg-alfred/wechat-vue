@@ -1,5 +1,5 @@
 <template>
-    <section class="item-container" @click="goto(itemInfo.type)">
+<!--    <section class="item-container" @click="goto('/discover/' + itemInfo.type)">
         <el-row type="flex" justify="end">
             <el-col :span="6">
                 <span><img :src=itemInfo.imgUrl /></span>
@@ -7,10 +7,25 @@
             <el-col :span="18">
                 <span>{{itemInfo.name}}</span>
             </el-col>
-            <!--<el-col :span="4" class="item-icon">
+            &lt;!&ndash;<el-col :span="4" class="item-icon">
                 <i class="el-icon-arrow-right el-icon&#45;&#45;right"></i>
-            </el-col>-->
+            </el-col>&ndash;&gt;
         </el-row>
+    </section>-->
+    <section class="item-container">
+        <router-link :to="'/discover/' + itemInfo.type">
+            <el-row>
+                <el-col :span="6">
+                    <span><img :src=itemInfo.imgUrl /></span>
+                </el-col>
+                <el-col :span="18">
+                    <span>{{itemInfo.name}}</span>
+                </el-col>
+                <!--<el-col :span="4" class="item-icon">
+                    <i class="el-icon-arrow-right el-icon--right"></i>
+                </el-col>-->
+            </el-row>
+        </router-link>
     </section>
 </template>
 
@@ -39,9 +54,10 @@
 <style scoped>
     .item-container {
         height: 40px;
-        border: 1px solid lightgray;
+        border: 1px solid #e8e8e8;
         padding: 5px;
         margin: 5px;
+        background-color: white;
     }
     .item-container .el-col {
         height: 40px;
@@ -53,8 +69,11 @@
         display: table-cell;
         vertical-align: middle;
     }
-    img {
-        padding-top: 5px;
+    .item-container .el-col span img {
         width: 20px;
+        display: inline-block;
+    }
+    a {
+        color: #000000;
     }
 </style>

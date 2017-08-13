@@ -68,6 +68,6 @@
     }
     .wechat-item {
         padding: 5px;
-        border-bottom: 1px solid lightgrey;
+        border-bottom: 1px solid #e8e8e8;
     }
 </style>

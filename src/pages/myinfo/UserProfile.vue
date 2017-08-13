@@ -2,7 +2,7 @@
     可能从 通讯录点击，或者朋友圈的头像和 昵称点击 进来～
  -->
 <template>
-    <div class="">
+    <div class="userprofile-page">
         <header-section :goBack="true" :head-title="headTitle">
             <section slot="userOperate" class="head-operate" @click="showOperate">
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -20,7 +20,7 @@
             <section class="base-info">
                 <el-row>
                     <el-col :span="6">
-                        <router-link :to="'/myprofile/' + userid" class="headimg-div">
+                        <router-link :to="'/userprofile/' + userid" class="headimg-div">
                             <img src="../../assets/logo.png">
                         </router-link>
                     </el-col>
@@ -171,12 +171,16 @@
     * {
         margin: 0;
     }
+    .userprofile-page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #e8e8e8;
+    }
     .profile-container {
-        background-color: lightgrey;
         overflow: scroll;
-        height: 100%;
-        width: 100%;
-        position: fixed;
     }
     .placeholder {
         height: 20px;
@@ -220,7 +224,7 @@
         z-index: 10;
         bottom: 0;
         position: absolute;
-        border-top: 1px solid lightgrey;
+        border-top: 1px solid #e8e8e8;
     }
     ul {
         list-style: none;
