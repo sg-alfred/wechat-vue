@@ -54,7 +54,7 @@ userDbUtil.getWxuserByMobile = (mobile, deleted) => {
     })
 }
 
-// 注册时,查找用户
+// 注册时,查找用户，判别是否 用户名重复
 userDbUtil.getUserByRegister = (email, nickname) => {
 
 }

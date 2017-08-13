@@ -1,6 +1,6 @@
 <template>
 
-    <div class="login-div">
+    <section class="login-div">
         <el-form ref="loginForm" :label-position="labelPosition" label-width="80px" :model="formInfo" :rules="formRules">
             <el-form-item label="用户名" prop="username">
                 <el-input v-model="formInfo.username"></el-input>
@@ -16,7 +16,7 @@
                 <el-button @click="goto('register')">立即注册</el-button>
             </el-form-item>
         </el-form>
-    </div>
+    </section>
 
 </template>
 
@@ -34,9 +34,7 @@
                     password: '1234',
                     validcode: ''
                 },
-                formRules: {
-
-                }
+                formRules: {}
             }
         },
         computed: {
@@ -97,7 +95,12 @@
 </script>
 
 <style scoped>
-/*    .login-div {
-        width: 50%;
-    }*/
+    .login-div {
+        margin: auto;
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        vertical-align: middle;
+        width: 80%;
+        height: 50%;
+    }
 </style>

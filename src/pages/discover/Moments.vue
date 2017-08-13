@@ -1,11 +1,10 @@
 <!-- 朋友圈界面 -->
 
 <template>
-    <div class="">
+    <div class="moments-page">
         <header-section :goBack="true" :head-title="headTitle"></header-section>
 
         <div class="block">
-            <span class="demonstration">Click 指示器触发</span>
             <el-carousel trigger="click" height="150px">
                 <el-carousel-item v-for="item in 4" :key="item">
                     <h3>{{ item }}</h3>
@@ -63,6 +62,14 @@
 </script>
 
 <style scoped>
+    .moments-page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+    }
     .el-carousel__item h3 {
         color: #475669;
         font-size: 14px;
@@ -70,11 +77,9 @@
         line-height: 150px;
         margin: 0;
     }
-
     .el-carousel__item:nth-child(2n) {
         background-color: #99a9bf;
     }
-
     .el-carousel__item:nth-child(2n+1) {
         background-color: #d3dce6;
     }

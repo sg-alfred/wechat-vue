@@ -1,23 +1,22 @@
 <!-- 不是这样的！！每个都一样，为什么 用 v-for -->
 
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
-    <div class="footer-container">
+    <footer class="footer-container">
         <el-row>
             <el-col :span="6" v-for="item in subMenus" :key="item.id">
                 <!-- 如何直接 作为函数的 参数？ '/item.type' ，不要引号～没必要引号！这样是不行的！ -->
-                <div class="grid-content" @click="goto(item.type)">
-                    <!-- 更加简洁的写法？ -->
-                    <div v-if="isActive" >
+                <section class="grid-content" @click="goto(item.type)">
+                    <div v-if="activeItem === item.type" >
                         <img v-bind:src=item.active />
                     </div>
                     <div v-else>
                         <img v-bind:src=item.disactive />
                     </div>
                     <p>{{item.name}}</p>
-                </div>
+                </section>
             </el-col>
         </el-row>
-    </div>
+    </footer>
 </template>
 
 <script>
@@ -25,7 +24,7 @@ export default {
     name: 'FooterSection',
     data() {
         return {
-            isActive: false,     // 就用一个，可以 正常进行切换吗？
+            activeItem: '',     // 就用一个，可以 正常进行切换吗？
             subMenus: [{
                 id: 0,
                 type: 'wechat',
@@ -56,9 +55,8 @@ export default {
     methods: {
         goto(path) {
             // 跳转之前，需要设置一下 状态吧？
-            console.log();
-
-            this.$router.push(path)
+            this.activeItem = path;
+            this.$router.push('/' + path)
         }
     }
 }
@@ -67,17 +65,19 @@ export default {
 <style scoped>
     .footer-container {
         border: ghostwhite solid 2px;
-        background-color: white;
         position: fixed;
         bottom: 0;
-        height: 75px;
+        height: 70px;
         width: 100%;
-        z-index: 1000;
+        z-index: 100;
+        background-color: white;
+    }
+    .grid-content {
+        padding-top: 5px;
     }
     .grid-content img {
-        /*width: 40px;*/
         height: 30px;
-        padding-top: 5px;
+        padding: 5px 0;
     }
     .grid-content p {
         margin: 0;

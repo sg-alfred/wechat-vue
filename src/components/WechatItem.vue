@@ -14,7 +14,7 @@
  -->
 
 <template>
-    <section class="" @click="$emit('into-chatroom', chatItem.chatid)">
+    <section class="wechat-item" @click="$emit('into-chatroom', chatItem.chatid)">
         <el-row>
             <el-col :span="4">
                 <!-- 连接到 用户详情界面 -->
@@ -65,5 +65,9 @@
 <style scoped>
     img {
         width: 48px;
+    }
+    .wechat-item {
+        padding: 5px;
+        border-bottom: 1px solid #e8e8e8;
     }
 </style>

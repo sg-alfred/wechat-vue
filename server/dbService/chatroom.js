@@ -10,11 +10,12 @@ let chatroomDbUtil = {}
 /**
  * 创建新的聊天室
  *
- * @param params
  * @returns {Promise}
+ *
+ * @update 2017-08-13
  */
-chatroomDbUtil.createNewChatroom =  (params) => {
-    let chatroom = new Chatroom(params)
+chatroomDbUtil.createNewChatroom =  () => {
+    let chatroom = new Chatroom()
 
     return new Promise((resolve, reject) => {
         chatroom.save((err, doc) => {

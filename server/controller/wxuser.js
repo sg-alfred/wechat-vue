@@ -104,6 +104,7 @@ module.exports = (app) => {
     })
 
     // 添加好友，用电话等号码搜索，精确查询！！
+    // 如果 要用 get方式，需要 /ttest/:id/:name， 用 req.params 接收！
     app.post('/user/searchUser', (req, res) => {
         let params = req.body
         let resultObj = {}
@@ -129,6 +130,7 @@ module.exports = (app) => {
             appResponse(res, JSON.stringify(resultObj))
         })
     })
+
 
     // 获取好友通讯录
     app.get('/user/getContacts', (req, res) => {

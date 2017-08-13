@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="wechat-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
         <div style="height: 10px"></div>
@@ -33,7 +33,7 @@
     import WechatItem from '../../components/WechatItem'
 
     export default {
-        name: 'Contacts',
+        name: 'Wechat',
         components: {
             HeaderSection,
             FooterSection,
@@ -87,9 +87,6 @@
 </script>
 
 <style scoped>
-    .contacts-container {
-
-    }
     img {
         width: 200px;
     }

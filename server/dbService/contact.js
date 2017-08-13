@@ -15,7 +15,6 @@ let contactUtil = {}
  */
 contactUtil.createContact = (params) => {
     let contact = new Contact(params)
-
     return new Promise((resolve, reject) => {
         contact.save((err, doc) => {
             console.log('插入通讯录数据库结果', err, doc)
@@ -53,6 +52,21 @@ contactUtil.updateContact = (params) => {
                 } else {
                     resolve(doc)
                 }
+        })
+    })
+}
+
+contactUtil.getNewFriends = (userid) => {
+
+    // 需要联表查询，至少要知道 用户名和手机号等～
+    return new Promise((resolve, reject) => {
+        Contact.find({'fid': userid}, (err, doc) => {
+            console.log('查询结果', err, doc)
+            if (err) {
+                reject(err)
+            } else {
+                resolve(doc)
+            }
         })
     })
 }

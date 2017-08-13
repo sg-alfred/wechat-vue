@@ -1,5 +1,5 @@
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
-    <div class="header-container">
+    <header class="header-container">
         <!-- 微信聊天室的 右上角的用户icon，点击 跳转到 聊天信息 的功能-->
         <slot name="userIcon"></slot>
 
@@ -25,22 +25,27 @@
                 </span>
                 <el-dropdown-menu sole="dropdown">
                     <el-dropdown-item command="groupChat">
-                        <img src="static/image/icon-groupchat.png">发起群聊
+                        <span><img src="static/image/icon-groupchat.png"></span>
+                        <span>发起群聊</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="addFriend">
-                        <img src="static/image/icon-addFriend.png">添加好友
+                        <span><img src="static/image/icon-addFriend.png"></span>
+                        <span>添加好友</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="scanQRCode">
-                        <img src="static/image/icon-scancode.png">扫一扫
+                        <span><img src="static/image/icon-scancode.png"></span>
+                        <span>扫一扫</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="payment">
-                        收付款
+                        <span><img src="static/image/icon-payment.png"></span>
+                        <span>收付款</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="help">
-                        帮助与反馈
+                        <span><img src="static/image/icon-help.png"></span>
+                        <span>帮助与反馈</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="logout">
-                        退出账号
+                        <span><span>退出账号</span></span>
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -51,7 +56,14 @@
                 <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(255,255,255);stroke-width:2"/>
             </svg>
         </router-link>
-    </div>
+
+        <!--  -->
+        <slot name="searchFrm"></slot>
+
+        <slot name="addFriend"></slot>
+        <!-- 发送好友申请 按钮 -->
+        <slot name="sendBtn"></slot>
+    </header>
 </template>
 
 <script>
@@ -68,32 +80,12 @@ export default {
         }
     },
     methods: {
-        // 为什么不用 goto()，其实没有什么一步的操作！
         handleCommand(command) {
-            switch (command) {
-                case 'groupChat':
-                    this.$router.push('/groupchat');
-                    break;
-                case 'addFriend':
-                    this.$router.push('/addFriend');
-                    break;
-                case 'scanQRCode':
-                    this.$router.push('/scancode');
-                    break;
-                case 'payment':
-                    this.$router.push('/payment');
-                    break;
-                case 'help':
-                    this.$router.push('/help');
-                    break;
-                case 'logout':
-                    this.logout();
-                    break;
+            if ('logout' == command) {
+                this.logout();
+            } else {
+                this.$router.push(command);
             }
-            this.$message('click on item ' + command);
-        },
-        goto(path) {
-            this.$router.push(path);
         },
         logout() {
             this.$http.get('/user/logout').then((response) => {
@@ -124,36 +116,55 @@ export default {
 </script>
 
 <style scoped>
-    .absolute-center {
-        margin: auto;
-        position: absolute;
-        top: 0; left: 0; bottom: 0; right: 0;
-    }
     .header-container {
         background-color: #434439;
         color: white;
         height: 60px;
         font-size: 20px;
     }
-    img {
-        margin-top: 5px;
-        height: 20px;
-    }
     .head_goback {
         float: left;
         margin: 10px 0 0 5px;
     }
-    .head_dropdown, .head_search {
-        float: right;
-        margin: 10px 5px 0 5px;
-    }
     .head_title {
         float: left;
-        margin-top: 15px;
+        margin-top: 18px;
+        text-align: left;
     }
     .head_title .title_text{
-        margin: 20px 0 0 20px;
-        text-align: center;
-        font-weight: bold;
+        margin: 0 0 0 20px;
+    }
+    .head_dropdown, .head_search {
+        float: right;
+        margin: 10px 10px 0 5px;
+    }
+
+    /* 下拉菜单！ */
+    .el-dropdown-menu {
+        margin: 0;
+        border: 0;
+        background-color: #434439;
+        color: white;
+        width: 240px;
+    }
+    .el-dropdown-menu .el-dropdown-menu__item {
+        display: table;
+        height: 40px;
+        width: 200px;
+        border-top: 1px solid #000000;
+        text-align: left;
+        padding: 0 20px;
+    }
+    .el-dropdown-menu .el-dropdown-menu__item:hover {
+        background-color: wheat;
+        color: white;
+    }
+    .el-dropdown-menu .el-dropdown-menu__item span {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .el-dropdown-menu .el-dropdown-menu__item span img {
+        width: 25px;
+        display: inline-block;
     }
 </style>

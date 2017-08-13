@@ -6,6 +6,7 @@
 
 <script>
     import { mapGetters } from 'vuex'
+    import 'normalize.css'
 
     export default {
         name: 'app',
@@ -46,6 +47,14 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 5px;
+}
+a {
+    color: #000000;
+}
+.router-fade-enter-active, .router-fade-leave-active {
+    transition: opacity .3s;
+}
+.router-fade-enter, .router-fade-leave-active {
+    opacity: 0;
 }
 </style>

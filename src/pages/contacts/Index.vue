@@ -1,8 +1,22 @@
 <template>
-    <div class="">
+    <div class="contacts-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <div style="height: 10px"></div>
+        <section class="nav-item">
+            <el-row v-for="navItem in navList" :key="navItem.id">
+                <router-link :to="'/contacts/' + navItem.type">
+                    <el-col :span="6">
+                        <span><img :src=navItem.imgurl /></span>
+                    </el-col>
+                    <el-col :span="18">
+                        <span>{{navItem.name}}</span>
+                    </el-col>
+                </router-link>
+
+            </el-row>
+        </section>
+
+        <div class="placeholder"></div>
 
         <section class="contacts-container">
             <contact-item
@@ -13,6 +27,10 @@
         </section>
 
         <footer-section></footer-section>
+
+        <transition name="router-slid" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -44,7 +62,28 @@
             return {
                 headTitle: '微信',
                 searchType: 'all',
-                userList: []
+                userList: [],
+                navList: [{
+                    id: 0,
+                    type: 'newFriends',
+                    name: '新的朋友',
+                    imgurl: ''
+                }, {
+                    id: 1,
+                    type: 'groupChat',
+                    name: '群聊',
+                    imgurl: ''
+                }, {
+                    id: 2,
+                    type: 'tags',
+                    name: '标签',
+                    imgurl: ''
+                }, {
+                    id: 3,
+                    type: 'office',
+                    name: '公众号',
+                    imgurl: ''
+                }]
             }
         },
         mounted() {
@@ -64,3 +103,24 @@
         }
     }
 </script>
+
+<style scoped>
+    .placeholder {
+        height: 20px;
+        width: auto;
+        background-color: #e8e8e8;
+    }
+    img {
+        width: 30px;
+    }
+    .nav-item .el-col {
+        height: 50px;
+        display: table;
+        text-align: left;
+        border-bottom: 1px solid #e8e8e8;
+    }
+    .nav-item .el-col span {
+        display: table-cell;
+        vertical-align: middle;
+    }
+</style>
