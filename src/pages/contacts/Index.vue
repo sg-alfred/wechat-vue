@@ -4,12 +4,15 @@
 
         <section class="nav-item">
             <el-row v-for="navItem in navList" :key="navItem.id">
-                <el-col :span="6">
-                    <span><img :src=navItem.imgurl /></span>
-                </el-col>
-                <el-col :span="18">
-                    <span>{{navItem.name}}</span>
-                </el-col>
+                <router-link :to="'/contacts/' + navItem.type">
+                    <el-col :span="6">
+                        <span><img :src=navItem.imgurl /></span>
+                    </el-col>
+                    <el-col :span="18">
+                        <span>{{navItem.name}}</span>
+                    </el-col>
+                </router-link>
+
             </el-row>
         </section>
 
@@ -24,6 +27,10 @@
         </section>
 
         <footer-section></footer-section>
+
+        <transition name="router-slid" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -58,20 +65,24 @@
                 userList: [],
                 navList: [{
                     id: 0,
-                    imgurl: '',
-                    name: '新的朋友'
+                    type: 'newFriends',
+                    name: '新的朋友',
+                    imgurl: ''
                 }, {
                     id: 1,
-                    imgurl: '',
-                    name: '群聊'
+                    type: 'groupChat',
+                    name: '群聊',
+                    imgurl: ''
                 }, {
                     id: 2,
-                    imgurl: '',
-                    name: '标签'
+                    type: 'tags',
+                    name: '标签',
+                    imgurl: ''
                 }, {
                     id: 3,
-                    imgurl: '',
-                    name: '公众号'
+                    type: 'office',
+                    name: '公众号',
+                    imgurl: ''
                 }]
             }
         },
@@ -102,13 +113,8 @@
     img {
         width: 30px;
     }
-    .nav-item {
-        height: auto;
-    }
     .nav-item .el-col {
-        height: 40px;
-        padding: 5px;
-        margin-top: 5px;
+        height: 50px;
         display: table;
         text-align: left;
         border-bottom: 1px solid #e8e8e8;

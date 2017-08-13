@@ -87,12 +87,12 @@
 
 <style>
 .myprofile-page {
+    background-color: #e8e8e8;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #e8e8e8;
     z-index: 202;
 }
 
@@ -115,8 +115,5 @@
     padding: 20px;
     background-color: white;
     text-align: left;
-}
-a {
-    color: #000000;
 }
 </style>

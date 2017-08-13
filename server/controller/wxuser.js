@@ -131,6 +131,7 @@ module.exports = (app) => {
         })
     })
 
+
     // 获取好友通讯录
     app.get('/user/getContacts', (req, res) => {
         // 直接根据session 的值！！

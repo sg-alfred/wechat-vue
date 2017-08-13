@@ -101,7 +101,6 @@
         height: 38px;
         width: 85%;
     }
-
     ul {
         list-style: none;
         padding: 0 5%;

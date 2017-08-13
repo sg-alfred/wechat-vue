@@ -12,6 +12,7 @@ import Wechat from '@/pages/wechat/Index'
 import Chatroom from '@/pages/wechat/Chatroom'
 
 import Contacts from '@/pages/contacts/Index'
+import NewFriends from '@/pages/contacts/NewFriends'
 import AddFriend from '@/pages/contacts/AddFriend'
 import AddSend from '@/pages/contacts/AddSend'
 
@@ -36,11 +37,14 @@ const router =  new Router({
         component: Search,
     }, {
         path: '/wechat',
-        component: Wechat,
-        meta: { keepAlive: true }
+        component: Wechat
     }, {
         path: '/contacts',
-        component: Contacts
+        component: Contacts,
+        children: [{
+            path: 'newFriends',
+            component: NewFriends
+        }]
     }, {
         path: '/chatroom',
         component: Chatroom
@@ -62,10 +66,6 @@ const router =  new Router({
         path: '/myinfo/:type',
         component: Myinfo
     }, {
-        // 怎么做到啊？？为什么 嵌套就不能够呢？，但是 用了 router-view 又只能～
-    //     path: '/myinfo/profile/:userid',
-    //     component: MyProfile
-    // }, {
         path: '/userprofile/:fid',
         component: UserProfile
     }, {

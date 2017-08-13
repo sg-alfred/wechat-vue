@@ -3,17 +3,17 @@
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
         <section class="contacts-container">
-            <el-row>
-                <el-col :span="6">
-                    <router-link :to="'/myinfo/profile/' + userid" class="base-info">
+            <el-row class="base-info">
+                <router-link :to="'/myinfo/profile/' + userid">
+                    <el-col :span="6" class="headimg-div">
                         <span><img src="../../assets/logo.png"></span>
-                    </router-link>
-                </el-col>
-                <el-col :span="18" class="name-info">
-                    <p>{{info.remark}}</p><i></i>
-                    <p>微信号：{{info.wechatno}}</p>
-                    <p>昵称：{{info.nickname}}</p>
-                </el-col>
+                    </el-col>
+                    <el-col :span="18" class="name-info">
+                        <p>{{info.remark}}</p><i></i>
+                        <p>微信号：{{info.wechatno}}</p>
+                        <p>昵称：{{info.nickname}}</p>
+                    </el-col>
+                </router-link>
             </el-row>
 
             <base-item v-for="item in itemList" :key="item.id" :itemInfo="item"></base-item>
@@ -102,6 +102,9 @@
 </script>
 
 <style scoped>
+    * {
+        margin: 0;
+    }
     .myinfo-page {
         background-color: #e8e8e8;
         position: absolute;
@@ -111,19 +114,23 @@
         bottom: 0;
     }
     .base-info {
-        height: 80px;
-        display: table;
-        text-align: center;
         background-color: white;
+        padding: 20px 20px;
+        text-align: left;
     }
-    .base-info span {
+    .base-info .headimg-div {
+        display: table;
+        height: 80px;
+    }
+    .base-info .headimg-div span {
         display: table-cell;
         vertical-align: middle;
     }
-    .base-info span img {
+    .base-info .headimg-div span img {
         height: 60px;
-        display: inline-block;
-        margin-left: 20px;
+    }
+    .base-info .name-info p {
+        padding: 5px 0;
     }
     .router-slid-enter-active, .router-slid-leave-active {
         transition: all .4s;

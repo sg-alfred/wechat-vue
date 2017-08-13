@@ -73,7 +73,4 @@
         width: 20px;
         display: inline-block;
     }
-    a {
-        color: #000000;
-    }
 </style>

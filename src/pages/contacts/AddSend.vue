@@ -2,11 +2,12 @@
     <div class="addsend-page">
         <header-section :head-title="headTitle" :goBack="true">
             <section slot="sendBtn" class="header-btn">
-                <el-button type="success">发送</el-button>
+                <el-button type="success" @click="addFriend">发送</el-button>
             </section>
         </header-section>
 
         <section class="form-section">
+            <input v-model="formInfo.fid" hidden>
             <article>
                 <p>你需要发送验证申请，等待对方通过</p>
                 <input v-model="formInfo.remark" />
@@ -46,6 +47,9 @@
         components: {
             HeaderSection
         },
+        created() {
+            this.formInfo.fid = this.$route.params.fid;
+        },
         computed: {
             ...mapGetters({
                 isLogin: 'getIsLogin',
@@ -70,8 +74,13 @@
 
 <style scoped>
     .addsend-page {
-        position: absolute;
         background-color: #e8e8e8;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 202;
     }
     .header-btn {
         float: right;

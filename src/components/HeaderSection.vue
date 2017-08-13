@@ -56,7 +56,12 @@
                 <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(255,255,255);stroke-width:2"/>
             </svg>
         </router-link>
+
+        <!--  -->
         <slot name="searchFrm"></slot>
+
+        <slot name="addFriend"></slot>
+        <!-- 发送好友申请 按钮 -->
         <slot name="sendBtn"></slot>
     </header>
 </template>
@@ -128,7 +133,6 @@ export default {
     }
     .head_title .title_text{
         margin: 0 0 0 20px;
-        font-weight: bold;
     }
     .head_dropdown, .head_search {
         float: right;

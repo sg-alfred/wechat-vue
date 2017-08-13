@@ -13,16 +13,14 @@
             </section>
         </header-section>
 
-        <section class="profile-container">
+        <div class="placeholder"></div>
 
-            <div class="placeholder"></div>
+        <section class="">
 
             <section class="base-info">
                 <el-row>
-                    <el-col :span="6">
-                        <router-link :to="'/userprofile/' + userid" class="headimg-div">
-                            <img src="../../assets/logo.png">
-                        </router-link>
+                    <el-col :span="6" class="headimg-div">
+                        <span><img src="../../assets/logo.png"></span>
                     </el-col>
                     <el-col :span="18" class="name-info">
                         <p>{{info.remark}}</p><i></i>
@@ -84,6 +82,11 @@
                 </div>
                 <div v-else>
                     <el-button type="success" @click="addFriend">添加好友</el-button>
+                </div>
+                <div>
+                    <el-button type="success">通过验证</el-button>
+                    <br/>
+                    <el-button :plain="true" type="success">加入黑名单</el-button>
                 </div>
             </section>
         </section>
@@ -166,56 +169,54 @@
     }
 </script>
 
-<!-- ? 加了 scoped, operate-section 的样式全变了？ -->
 <style scoped>
     * {
         margin: 0;
-    }
-    .userprofile-page {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #e8e8e8;
-    }
-    .profile-container {
-        overflow: scroll;
     }
     .placeholder {
         height: 20px;
         width: auto;
     }
+    .userprofile-page {
+        background-color: #e8e8e8;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .head-operate {
+        float: right;
+        margin: 10px 10px 0;
+    }
     .base-info, .tag-section, .more-section, .operate-section {
         text-align: left;
         background-color: white;
-        padding: 10px 20px;
+        padding: 20px;
     }
-    .more-section .el-row {
-        padding: 10px 0;
-    }
-    .album {
-        height: 100px;
-    }
-    .base-info {
+    .base-info .headimg-div {
+        display: table;
         height: 80px;
+    }
+    .base-info .headimg-div span {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .base-info .headimg-div span img {
+        height: 60px;
     }
     .base-info .name-info p {
         padding: 5px 0;
     }
-    .headimg-div {
-        height: 80px;
-        display: table;
-        text-align: center;
+    .more-section .el-row {
+        padding: 10px 0;
     }
-    .headimg-div img {
-        display: table-cell;
-        vertical-align: middle;
-        height: 60px;
+    .more-section .album {
+        height: 100px;
     }
-    .head-operate {
-        float: right;
-        margin: 10px 5px 0 5px;
+    .contact-section button {
+        margin: 5px;
+        width: 60%;
     }
     .operate-section {
         height: 300px;
@@ -246,9 +247,5 @@
         padding: 0 0 0 20px;
         display: table-cell;
         vertical-align: middle;
-    }
-    .contact-section button {
-        margin: 5px;
-        width: 60%;
     }
 </style>

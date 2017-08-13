@@ -1,19 +1,20 @@
 <template>
-    <div class="addFriend-div">
+    <div class="addfriend-page">
 
         <header-section :goBack="true" :head-title="headTitle"></header-section>
 
-        <div class="placeholder"></div>
+        <section class="searchFriend-section">
+            <router-link :to="'/search/friend'" >
+                <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                    <circle cx="18" cy="18" r="7" stroke="rgb(00,80,00)" stroke-width="1" fill="none"/>
+                    <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(00,80,00);stroke-width:2"/>
+                </svg>
+            </router-link>
+        </section>
 
-        <router-link :to="'/search/friend'" >
-            <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
-                <circle cx="18" cy="18" r="7" stroke="rgb(00,80,00)" stroke-width="1" fill="none"/>
-                <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(00,80,00);stroke-width:2"/>
-            </svg>
-        </router-link>
-
-        <section>
-            <span>我的微信号：{{}}</span>
+        <section class="code-section">
+            <span>我的微信号：{{wechatno}}</span>
+            <img alt="二维码"/>
         </section>
 
         <div class="placeholder"></div>
@@ -42,6 +43,7 @@
         data() {
             return {
                 headTitle: '添加朋友',
+                wechatno: 'sgchenjz',
                 itemList: [{
                     id: 0,
                     type: 'friendRadar',
@@ -84,5 +86,22 @@
     .placeholder {
         height: 20px;
         width: auto;
+    }
+    .addfriend-page {
+        background-color: #e8e8e8;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 202;
+    }
+    .searchFriend-section {
+        background-color: white;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .code-section {
+        padding: 10px;
     }
 </style>
