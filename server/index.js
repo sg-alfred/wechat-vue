@@ -5,10 +5,10 @@
 
 const wxuser = require('./controller/wxuser')
 const contact = require('./controller/contact')
-// const chatroom = require('./controller/chatroom')
+const chatroom = require('./controller/chatroom')
 
 module.exports = (app) => {
     wxuser(app)
     contact(app)
-    // chatroom(app)
+    chatroom(app)
 }

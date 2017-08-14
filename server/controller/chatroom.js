@@ -5,7 +5,17 @@
 
 module.exports = (app) => {
 
-    app.post('/chat/sendMessage', (req, res) => {
+    /**
+     * 根据好友获取聊天室的设置
+     */
+    app.get('/chatroom/getChatById', (req, res) => {
+
+    })
+
+    /**
+     * 发送信息
+     */
+    app.post('/chatroom/sendMessage', (req, res) => {
         console.log(req.body);
 
         // 触发 socket,
