@@ -44,7 +44,7 @@ contactUtil.updateContact = (params) => {
 
         // 使用语法要 知道～ 但是，有些东西不知道啊！！ 可以设定多传一些 参数～
         Contact.update({uid: params.uid, fid: params.fid},
-            {status: params.status, },
+            {status: params.status},
             (err, doc) => {
                 console.log('更新通讯录数据库结果', err, doc)
                 if (err) {
@@ -56,11 +56,36 @@ contactUtil.updateContact = (params) => {
     })
 }
 
-contactUtil.getNewFriends = (userid) => {
+/**
+ * 获取添加我为好友的用户列表
+ *
+ * @param fid
+ * @returns {Promise}
+ */
+contactUtil.getNewFriends = (fid) => {
 
     // 需要联表查询，至少要知道 用户名和手机号等～
     return new Promise((resolve, reject) => {
-        Contact.find({'fid': userid}, (err, doc) => {
+        Contact.find({'fid': fid}).populate('uid').exec((err, doc) => {
+            console.log('查询结果', err, doc)
+            if (err) {
+                reject(err)
+            } else {
+                resolve(doc)
+            }
+        })
+    })
+}
+
+/**
+ * 获取通讯录, status 为1，好友状态！
+ *
+ * @param uid
+ * @returns {Promise}
+ */
+contactUtil.getContacts = (uid) => {
+    return new Promise((resolve, reject) => {
+        Contact.find({'uid': uid, status: 1}).populate('fid').exec((err, doc) => {
             console.log('查询结果', err, doc)
             if (err) {
                 reject(err)

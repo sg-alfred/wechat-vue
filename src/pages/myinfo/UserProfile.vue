@@ -3,7 +3,7 @@
  -->
 <template>
     <div class="userprofile-page">
-        <header-section :goBack="true" :head-title="headTitle">
+        <header-section :go-back="true" :head-title="headTitle">
             <section slot="userOperate" class="head-operate" @click="showOperate">
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <circle cx="20" cy="12" r="2" stroke-width="1" fill="rgb(255,255,255)"/>

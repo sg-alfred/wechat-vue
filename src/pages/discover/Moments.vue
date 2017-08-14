@@ -2,7 +2,7 @@
 
 <template>
     <div class="moments-page">
-        <header-section :goBack="true" :head-title="headTitle"></header-section>
+        <header-section :go-back="true" :head-title="headTitle"></header-section>
 
         <div class="block">
             <el-carousel trigger="click" height="150px">

@@ -1,13 +1,13 @@
 <!-- 通讯录组件，点击到 好友简介，长按悬浮 设置 -->
 
 <template>
-    <section class="contact-item" @click="$emit('get-detail', userinfo.fid)">
+    <section class="contact-item" @click="$emit('get-detail', userinfo.id)">
         <el-row>
             <el-col :span="6">
-                <span><img :src=userinfo.headimgurl /></span>
+                <span><img src="../assets/logo.png" /></span>
             </el-col>
             <el-col :span="18">
-                <span>{{userinfo.nickname}}</span>
+                <span>{{userinfo.mobilephone}}</span>
             </el-col>
         </el-row>
     </section>
@@ -31,15 +31,14 @@
     }
     .contact-item {
         height: 40px;
-        padding: 5px;
-        margin: 5px;
+        padding: 10px;
+        margin: 0 10px;
         border-bottom: 1px solid #e8e8e8;
     }
     .contact-item .el-col {
         height: 40px;
         display: table;
         text-align: left;
-        padding-left: 20px;
     }
     .contact-item .el-col span {
         display: table-cell;

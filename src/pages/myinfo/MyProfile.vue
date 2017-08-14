@@ -1,6 +1,6 @@
 <template>
     <div class="myprofile-page">
-        <header-section :goBack="true" :head-title="headTitle"></header-section>
+        <header-section :go-back="true" :head-title="headTitle"></header-section>
 
         <section class="detail-section">
             <!-- 每一个都是 链接，可以跳转编辑！ router-link , 动态加载！-->

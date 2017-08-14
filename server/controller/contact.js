@@ -10,6 +10,26 @@ const appResponse = require('./resHandle')
 
 module.exports = (app) => {
 
+    app.get('/contact/getContacts', (req, res) => {
+        // 直接根据session 的值！！
+        let resultObj = {};
+        contactDbUtil.getContacts(req.session.userid).then((doc) => {
+            resultObj = {
+                code: 0,
+                message: '获取列表成功',
+                data: doc
+            }
+        }, (err) => {
+            resultObj = {
+                code: 0,
+                message: '获取列表失败',
+            }
+        }).then(() => {
+            console.log('获取结果', resultObj)
+            appResponse(res, JSON.stringify(resultObj))
+        })
+    })
+
     /**
      * 请求添加好友，，这时候应该用到推送了！至少要写在那里！！
      */

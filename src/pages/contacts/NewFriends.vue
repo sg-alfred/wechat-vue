@@ -1,6 +1,6 @@
 <template>
     <div class="newfriends-page">
-        <header-section :goBack="true" :head-title="headTitle">
+        <header-section :go-back="true" :head-title="headTitle">
             <section class="head-addFriend" slot="addFriend" @click="$router.push('/addFriend')">
                 <span>添加朋友</span>
             </section>
@@ -23,7 +23,7 @@
                         <span><img src="../../assets/logo.png" alt="头像"/></span>
                     </el-col>
                     <el-col :span="16">
-                        <span>{{item.uid}}</span>
+                        <span>{{item.uid.mobilephone}}</span>
                     </el-col>
                     <el-col :span="4">
                         <span v-if="item.status == 0">

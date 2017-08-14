@@ -1,7 +1,7 @@
 <template>
     <div class="addfriend-page">
 
-        <header-section :goBack="true" :head-title="headTitle"></header-section>
+        <header-section :go-back="true" :head-title="headTitle"></header-section>
 
         <section class="searchFriend-section">
             <router-link :to="'/search/friend'" >
