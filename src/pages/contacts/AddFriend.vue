@@ -20,25 +20,21 @@
         <div class="placeholder"></div>
 
         <section class="menu-section">
-            <base-item v-for="item in itemList"
+            <menu-item v-for="item in itemList"
                        :key="item.id" :itemInfo="item"
-            ></base-item>
+            ></menu-item>
         </section>
-
-        <footer>
-
-        </footer>
     </div>
 </template>
 
 <script>
     import HeaderSection from '../../components/HeaderSection'
-    import BaseItem from '../../components/BaseItem'
+    import MenuItem from '../../components/MenuItem'
     export default {
         name: 'addFriend',
         components: {
             HeaderSection,
-            BaseItem,
+            MenuItem
         },
         data() {
             return {

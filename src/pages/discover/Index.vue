@@ -1,12 +1,11 @@
 <template>
     <div class="discover-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
-        <section class="contacts-container">
 
-            <base-item v-for="item in itemList" :key="item.id" :itemInfo="item"></base-item>
-
-            <div class="placeholder"></div>
+        <section class="menu-section">
+            <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item"></menu-item>
         </section>
+
         <footer-section></footer-section>
 
         <transition name="router-slid" mode="out-in">
@@ -19,14 +18,14 @@
     import { mapGetters } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
-    import BaseItem from '../../components/BaseItem'
+    import MenuItem from '../../components/MenuItem'
 
     export default {
         name: 'Discover',
         components: {
             HeaderSection,
             FooterSection,
-            BaseItem,
+            MenuItem
         },
         computed: {
             ...mapGetters({
@@ -45,11 +44,13 @@
                 searchType: 'all',
                 itemList: [{
                     id: 0,
+                    isFirst: true,
                     type: 'moments',
                     name: '朋友圈',
                     imgUrl: 'static/image/discover/icon-moments.png'
                 }, {
                     id: 1,
+                    isFirst: true,
                     type: 'scancode',
                     name: '扫一扫',
                     imgUrl: 'static/image/discover/icon-scancode.png'
@@ -60,16 +61,19 @@
                     imgUrl: 'static/image/discover/icon-shake.png'
                 }, {
                     id: 3,
+                    isFirst: true,
                     type: 'topstories',
                     name: '看一看',
                     imgUrl: 'static/image/discover/icon-topstories.png'
                 }, {
                     id: 4,
+                    isFirst: true,
                     type: 'nearby',
                     name: '附近的人',
                     imgUrl: 'static/image/discover/icon-nearby.png'
                 }, {
                     id: 5,
+                    isFirst: true,
                     type: 'games',
                     name: '游戏',
                     imgUrl: 'static/image/discover/icon-games.png'
@@ -80,6 +84,7 @@
                     imgUrl: 'static/image/discover/icon-shopping.png'
                 }, {
                     id: 7,
+                    isFirst: true,
                     type: 'miniprograms',
                     name: '小程序',
                     imgUrl: 'static/image/discover/icon-miniprograms.png'
@@ -90,10 +95,6 @@
 </script>
 
 <style scoped>
-    .placeholder {
-        height: 20px;
-        width: auto;
-    }
     .discover-page {
         background-color: #e8e8e8;
         position: absolute;
@@ -101,5 +102,8 @@
         left: 0;
         right: 0;
         bottom: 0;
+    }
+    .menu-section {
+        background-color: white;
     }
 </style>

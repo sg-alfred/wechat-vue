@@ -70,7 +70,7 @@
         flex: 0 1 0;
     }
     .message-section div:nth-child(2) {
-        flex-grow: 2;
+        flex-grow: 1;
     }
     .message-section input {
         border: hidden;
