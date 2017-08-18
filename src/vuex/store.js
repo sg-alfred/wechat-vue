@@ -15,7 +15,8 @@ Vue.use(Vuex)
 const state = {
     isLogin: false,
     userid: '',
-    userinfo: {}
+    userinfo: {},
+    currentSubMenu: 'wechat'
 }
 
 export default new Vuex.Store({

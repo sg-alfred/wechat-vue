@@ -1,18 +1,21 @@
 <template>
-    <section class="item-section">
-        <!-- 头部占位、分割 -->
-        <div :class="{placeholder: itemInfo.isFirst}"></div>
-        <!-- 真正的功能菜单 -->
-        <router-link :to="'/' + parent + '/' + itemInfo.type">
-            <span><img :src=itemInfo.imgUrl /></span>
+<section class="item-section">
+    <!-- 头部占位、分割 -->
+    <div :class="{placeholder: itemInfo.isFirst}"></div>
+    <!-- 真正的功能菜单 -->
+    <router-link :to="'/' + parent + '/' + itemInfo.type">
+        <span><img :src=itemInfo.imgUrl /></span>
+        <span>
             <span>{{itemInfo.name}}</span>
-        </router-link>
-    </section>
+            <span>{{itemInfo.subname}}</span>
+        </span>
+    </router-link>
+</section>
 </template>
 
 <script>
     export default {
-        name: 'MenuItem',
+        name: 'MenuItem2',
         props: {
             parent: String,
             itemInfo: {
@@ -40,11 +43,11 @@
         z-index: 50;
     }
     img {
-        width: 20px;
+        width: 40px;
     }
     .item-section a {
         margin: 0 10px;
-        padding: 15px;
+        padding: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -58,5 +61,12 @@
     }
     .item-section span:nth-child(2) {
         flex-grow: 1;
+    }
+    .item-section span span {
+        display: block;
+        margin: 5px 0;
+    }
+    .item-section span span:nth-child(2) {
+        color: #878787;
     }
 </style>

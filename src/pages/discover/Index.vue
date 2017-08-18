@@ -3,7 +3,7 @@
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
         <section class="menu-section">
-            <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item"></menu-item>
+            <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'discover'"></menu-item>
         </section>
 
         <footer-section></footer-section>

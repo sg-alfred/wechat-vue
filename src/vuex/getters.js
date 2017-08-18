@@ -8,3 +8,5 @@ export const getIsLogin = state => state.isLogin
 export const getUserid = state => state.userid
 
 export const getUserinfo = state => state.userinfo
+
+export const currentSubMenu = state => state.currentSubMenu

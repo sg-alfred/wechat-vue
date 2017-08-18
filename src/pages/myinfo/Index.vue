@@ -17,7 +17,7 @@
             </el-row>
 
             <section class="menu-section">
-                <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item"></menu-item>
+                <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item>
             </section>
 
         </section>

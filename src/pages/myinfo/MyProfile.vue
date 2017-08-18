@@ -15,7 +15,7 @@
                 </router-link>
             </el-row>
         </section>
-        <router-link>
+        <router-link :to="'/myinfo/profile/edit/more'">
             <span>更多</span>
         </router-link>
 
