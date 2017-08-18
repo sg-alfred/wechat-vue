@@ -1,7 +1,7 @@
 <template>
     <div class="addfriend-page">
 
-        <header-section :goBack="true" :head-title="headTitle"></header-section>
+        <header-section :go-back="true" :head-title="headTitle"></header-section>
 
         <section class="searchFriend-section">
             <router-link :to="'/search/friend'" >
@@ -20,25 +20,22 @@
         <div class="placeholder"></div>
 
         <section class="menu-section">
-            <base-item v-for="item in itemList"
+            <menu-item2 v-for="item in itemList"
                        :key="item.id" :itemInfo="item"
-            ></base-item>
+                       :parent="'addFriend'"
+            ></menu-item2>
         </section>
-
-        <footer>
-
-        </footer>
     </div>
 </template>
 
 <script>
     import HeaderSection from '../../components/HeaderSection'
-    import BaseItem from '../../components/BaseItem'
+    import MenuItem2 from '../../components/MenuItem2'
     export default {
-        name: 'addFriend',
+        name: 'AddFriend',
         components: {
             HeaderSection,
-            BaseItem,
+            MenuItem2
         },
         data() {
             return {
@@ -49,31 +46,31 @@
                     type: 'friendRadar',
                     name: '雷达加朋友',
                     subname: '添加身边的朋友',
-                    imgUrl: 'static/image/discover/icon-moments.png'
+                    imgUrl: 'static/image/friends/icon-radar.png'
                 }, {
                     id: 1,
                     type: 'jointGroup',
                     name: '面对面建群',
                     subname: '与身边的朋友进入同一个群聊',
-                    imgUrl: 'static/image/discover/icon-scancode.png'
+                    imgUrl: 'static/image/friends/icon-group.png'
                 }, {
                     id: 2,
                     type: 'scancode',
                     name: '扫一扫',
                     subname: '扫码二维码名片',
-                    imgUrl: 'static/image/discover/icon-scancode.png'
+                    imgUrl: 'static/image/friends/icon-scancode.png'
                 }, {
                     id: 3,
                     type: 'mobileContacts',
                     name: '手机联系人',
                     subname: '添加或邀请通讯录中的朋友',
-                    imgUrl: 'static/image/discover/icon-topstories.png'
+                    imgUrl: 'static/image/friends/icon-mobile.png'
                 }, {
                     id: 4,
                     type: 'official',
                     name: '公众号',
                     subname: '获取更多资讯和服务',
-                    imgUrl: 'static/image/discover/icon-nearby.png'
+                    imgUrl: 'static/image/friends/icon-official.png'
                 }]
             }
         },
@@ -103,5 +100,8 @@
     }
     .code-section {
         padding: 10px;
+    }
+    .menu-section {
+        background-color: #ffffff;
     }
 </style>

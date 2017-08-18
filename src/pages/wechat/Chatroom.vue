@@ -2,15 +2,12 @@
 
 <template>
     <div class="">
-        <header-section :goBack="true" :head-title="headTitle">
-            <router-link :to="'/userProfile/' + fid" slot="userIcon" class="head-usericon">
-                <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
-                    <line x1="10" y1="20" x2="30" y2="20" style="stroke:rgb(255,255,255);stroke-width:2"/>
-                    <line x1="20" y1="10" x2="20" y2="30" style="stroke:rgb(255,255,255);stroke-width:2"/>
-                </svg>
+        <header-section :go-back="true" :head-title="headTitle">
+            <router-link :to="'/chatroom/chatsetting/' + fid" slot="userIcon" class="head-usericon">
                 <!--<svg class="user_avatar">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
                 </svg>-->
+                <i class="fa fa-user fa-15x" aria-hidden="true"></i>
             </router-link>
         </header-section>
 
@@ -27,9 +24,9 @@
 
         <message-send></message-send>
 
-        <footer class="send-section">
-
-        </footer>
+        <transition name="router-slid" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -54,11 +51,20 @@
             if (!this.isLogin) {
                 this.$router.push('/login');
             }
+            this.chatid = this.$route.params.chatid;
+        },
+        mounted() {
+            // 应该是要获取 历史聊天记录！
+            this.$http.get('/chatroom/getChatById', this.chatid).then((response) => {
+                this.chatroomInfo = response.body.data;
+            })
         },
         data() {
             return {
                 headTitle: 'nihao',
+                chatid: '',
                 fid: '好友的用户id',
+                chatroomInfo: {},
                 sortedMessages: [{
 
                 }]
@@ -72,6 +78,10 @@
 <style scoped>
     .head-usericon {
         float: right;
-        margin: 10px 5px 0 0;
+        padding: 15px 20px;
+        color: white;
+    }
+    .fa-15x {
+        font-size: 1.5em;
     }
 </style>

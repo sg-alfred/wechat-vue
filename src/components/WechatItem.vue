@@ -22,14 +22,11 @@
                 <img :src=chatItem.headimgurl />
             </el-col>
             <el-col :span="20">
-                <!-- 这个我应该 向左靠！ -->
-                <span>{{chatItem.nickname}}</span>
-
-                <div class="">
-                    <span>{{chatItem.name}}</span>
-                    <span>{{chatItem.lasttime}}</span>
+                <div class="padding-5">
+                    <span>{{chatItem.nickname}}</span>
+                    <span class="lasttime-text">{{chatItem.lasttime}}</span>
                 </div>
-                <div class="">
+                <div class="padding-5">
                     <span>{{chatItem.content}}</span>
                     <!--<i class="el-icon-caret-bottom el-icon&#45;&#45;right"></i>-->
                 </div>
@@ -67,7 +64,15 @@
         width: 48px;
     }
     .wechat-item {
-        padding: 5px;
+        padding: 10px;
+        margin: 0 10px;
         border-bottom: 1px solid #e8e8e8;
+        text-align: left;
+    }
+    .lasttime-text {
+        float: right;
+    }
+    .padding-5 {
+        padding: 5px;
     }
 </style>

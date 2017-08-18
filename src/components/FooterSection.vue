@@ -6,7 +6,7 @@
             <el-col :span="6" v-for="item in subMenus" :key="item.id">
                 <!-- 如何直接 作为函数的 参数？ '/item.type' ，不要引号～没必要引号！这样是不行的！ -->
                 <section class="grid-content" @click="goto(item.type)">
-                    <div v-if="activeItem === item.type" >
+                    <div v-if="active" >
                         <img v-bind:src=item.active />
                     </div>
                     <div v-else>
@@ -20,11 +20,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     name: 'FooterSection',
     data() {
         return {
-            activeItem: '',     // 就用一个，可以 正常进行切换吗？
+            active: false,
             subMenus: [{
                 id: 0,
                 type: 'wechat',
@@ -38,19 +40,24 @@ export default {
                 active: 'static/image/menus/icon-active_u12.png',
                 disactive: 'static/image/menus/icon-disactive_u12.png' ,
             },{
-                id: 0,
+                id: 2,
                 type: 'discover',
                 name: '发现',
                 active: 'static/image/menus/icon-active_u14.png',
                 disactive: 'static/image/menus/icon-disactive_u14.png' ,
             },{
-                id: 0,
+                id: 3,
                 type: 'myinfo',
                 name: '我',
                 active: 'static/image/menus/icon-active_u16.png',
                 disactive: 'static/image/menus/icon-disactive_u16.png' ,
             }]
         }
+    },
+    computed: {
+//        ...mapGetters({
+//            currentSubMenu
+//        })
     },
     methods: {
         goto(path) {

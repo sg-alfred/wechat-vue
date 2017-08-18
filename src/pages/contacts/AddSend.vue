@@ -1,6 +1,6 @@
 <template>
     <div class="addsend-page">
-        <header-section :head-title="headTitle" :goBack="true">
+        <header-section :go-back="true" :head-title="headTitle">
             <section slot="sendBtn" class="header-btn">
                 <el-button type="success" @click="addFriend">发送</el-button>
             </section>

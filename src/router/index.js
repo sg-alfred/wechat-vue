@@ -10,6 +10,7 @@ import Help from '@/pages/Help'
 
 import Wechat from '@/pages/wechat/Index'
 import Chatroom from '@/pages/wechat/Chatroom'
+import ChatSetting from '@/pages/wechat/ChatSetting'
 
 import Contacts from '@/pages/contacts/Index'
 import NewFriends from '@/pages/contacts/NewFriends'
@@ -47,7 +48,11 @@ const router =  new Router({
         }]
     }, {
         path: '/chatroom',
-        component: Chatroom
+        component: Chatroom,
+        children: [{
+            path: 'chatsetting/:fid',
+            component: ChatSetting
+        }]
     }, {
         path: '/discover',
         component: Discover,
@@ -69,14 +74,14 @@ const router =  new Router({
         path: '/userprofile/:fid',
         component: UserProfile
     }, {
+        path: '/addFriend',
+        component: AddFriend
+    }, {
         path: '/addsend/:fid',
         component: AddSend
     }, {
         path: '/help',
         component: Help
-    }, {
-        path: '/addFriend',
-        component: AddFriend
     }]
 })
 

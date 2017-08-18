@@ -12,7 +12,6 @@
                         <span>{{navItem.name}}</span>
                     </el-col>
                 </router-link>
-
             </el-row>
         </section>
 
@@ -21,7 +20,7 @@
         <section class="contacts-container">
             <contact-item
                     v-for="item in userList"
-                    :key="item.id" :userinfo="item"
+                    :key="item.id" :userinfo="item.fid"
                     @get-detail="getDetail"
             ></contact-item>
         </section>
@@ -87,13 +86,17 @@
             }
         },
         mounted() {
-            this.$http.get('../../static/initData/userlist.json')
-                .then(response => {
-                    // 这个闭包，this 应该不一样才对啊！
-                    this.userList = response.body.userList;
-                }, response => {
-                    alert("调用失败");
-                })
+//            this.$http.get('../../static/initData/userlist.json').then(response => {
+//                // 这个闭包，this 应该不一样才对啊！
+//                this.userList = response.body.userList;
+//            }, response => {
+//                alert("调用失败");
+//            })
+
+            this.$http.get('/contact/getContacts').then(response => {
+                this.userList = response.body.data;
+            })
+
         },
         methods: {
             getDetail(fid) {
@@ -113,11 +116,15 @@
     img {
         width: 30px;
     }
+    .nav-item .el-row {
+        margin: 0 10px;
+        padding: 10px;
+        border-bottom: 1px solid #e8e8e8;
+    }
     .nav-item .el-col {
-        height: 50px;
         display: table;
         text-align: left;
-        border-bottom: 1px solid #e8e8e8;
+        height: 40px;
     }
     .nav-item .el-col span {
         display: table-cell;

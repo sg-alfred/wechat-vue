@@ -23,7 +23,7 @@ let proxyTable = config.dev.proxyTable
 global.dbHandel = require('../server/dbService/dbHandle');
 // import db from '../server/dbHandle'    // 完全用不了啊！！
 
-let app = express()
+let app = express()   // Express服务
 // 需要使用body-parser模块,要不然post方法获取不到传递的参数
 const bodyParser = require('body-parser')
 // 设置接收参数的大小,主要针对于base64的图片
@@ -106,8 +106,8 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const server = require('http').createServer(app);   // 原生Http服务
+const io = require('socket.io')(server);  // Socket.io服务
 
 // 监听 当有连接的。。
 io.on('connection', (socket) => {

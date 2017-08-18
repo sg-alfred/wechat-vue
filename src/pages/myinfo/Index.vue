@@ -2,7 +2,7 @@
     <div class="myinfo-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <section class="contacts-container">
+        <section class="myinfo-container">
             <el-row class="base-info">
                 <router-link :to="'/myinfo/profile/' + userid">
                     <el-col :span="6" class="headimg-div">
@@ -16,7 +16,10 @@
                 </router-link>
             </el-row>
 
-            <base-item v-for="item in itemList" :key="item.id" :itemInfo="item"></base-item>
+            <section class="menu-section">
+                <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item>
+            </section>
+
         </section>
 
         <footer-section></footer-section>
@@ -31,14 +34,14 @@
     import { mapGetters } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
-    import BaseItem from '../../components/BaseItem'
+    import MenuItem from '../../components/MenuItem'
 
     export default {
         name: 'MyInfo',
         components: {
             HeaderSection,
             FooterSection,
-            BaseItem
+            MenuItem
         },
         computed: {
             ...mapGetters({
@@ -67,11 +70,13 @@
                 },
                 itemList: [{
                     id: 0,
+                    isFirst: true,
                     type: 'wallet',
                     name: '钱包',
                     imgUrl: 'static/image/myinfo/icon-wallet.png'
                 }, {
                     id: 1,
+                    isFirst: true,
                     type: 'favorite',
                     name: '收藏',
                     imgUrl: 'static/image/myinfo/icon-favorite.png'
@@ -92,6 +97,7 @@
                     imgUrl: 'static/image/myinfo/icon-sticker.png'
                 }, {
                     id: 5,
+                    isFirst: true,
                     type: 'setting',
                     name: '设置',
                     imgUrl: 'static/image/myinfo/icon-setting.png'
@@ -112,6 +118,9 @@
         left: 0;
         right: 0;
         bottom: 0;
+    }
+    .menu-section {
+        background-color: #ffffff;
     }
     .base-info {
         background-color: white;

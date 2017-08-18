@@ -3,7 +3,7 @@
  -->
 <template>
     <div class="userprofile-page">
-        <header-section :goBack="true" :head-title="headTitle">
+        <header-section :go-back="true" :head-title="headTitle">
             <section slot="userOperate" class="head-operate" @click="showOperate">
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <circle cx="20" cy="12" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
@@ -13,11 +13,9 @@
             </section>
         </header-section>
 
-        <div class="placeholder"></div>
+        <section class="main-section">
 
-        <section class="">
-
-            <section class="base-info">
+            <section class="base-info placeholder">
                 <el-row>
                     <el-col :span="6" class="headimg-div">
                         <span><img src="../../assets/logo.png"></span>
@@ -30,9 +28,7 @@
                 </el-row>
             </section>
 
-            <div class="placeholder"></div>
-
-            <section class="tag-section">
+            <section class="tag-section placeholder">
                 <div v-if="!info.tags" @click="setAlias">
                     <span>设置备注和标签</span>
                 </div>
@@ -48,9 +44,7 @@
                 </div>
             </section>
 
-            <div class="placeholder"></div>
-
-            <section class="more-section">
+            <section class="more-section placeholder">
                 <el-row>
                     <el-col :span="6">
                         地区
@@ -72,9 +66,7 @@
                 </el-row>
             </section>
 
-            <div class="placeholder"></div>
-
-            <section class="contact-section">
+            <section class="contact-section placeholder">
                 <div v-if="isFriend">
                     <el-button type="success">发送消息</el-button>
                     <br/>
@@ -91,8 +83,8 @@
             </section>
         </section>
 
-        <section class="operate-section" v-if="isShowOperate">
-            <ul>
+        <section v-if="isShowOperate">
+            <ul class="operate-section">
                 <!-- 需要拆开？因为每个操作功能都不一样！！？ -->
                 <li v-for="item in operateList" :key="item.id">
                     <img :src="item.icon" />
@@ -174,8 +166,7 @@
         margin: 0;
     }
     .placeholder {
-        height: 20px;
-        width: auto;
+        margin-top: 20px;
     }
     .userprofile-page {
         background-color: #e8e8e8;
@@ -189,7 +180,7 @@
         float: right;
         margin: 10px 10px 0;
     }
-    .base-info, .tag-section, .more-section, .operate-section {
+    .base-info, .tag-section {
         text-align: left;
         background-color: white;
         padding: 20px;
@@ -208,8 +199,14 @@
     .base-info .name-info p {
         padding: 5px 0;
     }
+    .more-section {
+        text-align: left;
+        background-color: white;
+        padding: 0 20px;
+    }
     .more-section .el-row {
         padding: 10px 0;
+        border-bottom: 1px solid #e8e8e8;
     }
     .more-section .album {
         height: 100px;
@@ -219,8 +216,10 @@
         width: 60%;
     }
     .operate-section {
+        text-align: left;
+        background-color: white;
         height: 300px;
-        width: 90%;
+        width: 100%;
         overflow: scroll;
         z-index: 10;
         bottom: 0;
@@ -233,7 +232,7 @@
     }
     li {
         height: 30px;
-        padding: 10px;
+        padding: 10px 20px;
         width: auto;
         display: table;
     }
