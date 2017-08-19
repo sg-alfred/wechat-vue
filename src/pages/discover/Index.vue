@@ -94,14 +94,11 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import '../../style/mixin.scss';
+
     .discover-page {
-        background-color: #e8e8e8;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        @include page();
     }
     .menu-section {
         background-color: white;

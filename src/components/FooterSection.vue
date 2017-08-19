@@ -71,7 +71,7 @@ export default {
 
 <style scoped>
     .footer-container {
-        border: ghostwhite solid 2px;
+        border: 2px solid ghostwhite;
         position: fixed;
         bottom: 0;
         height: 70px;

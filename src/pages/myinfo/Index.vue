@@ -119,6 +119,9 @@
         right: 0;
         bottom: 0;
     }
+    .myinfo-container {
+        padding-top: 60px;
+    }
     .menu-section {
         background-color: #ffffff;
     }

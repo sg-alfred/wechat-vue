@@ -4,18 +4,20 @@
     <div class="moments-page">
         <header-section :go-back="true" :head-title="headTitle"></header-section>
 
-        <div class="block">
-            <el-carousel trigger="click" height="150px">
-                <el-carousel-item v-for="item in 4" :key="item">
-                    <h3>{{ item }}</h3>
-                </el-carousel-item>
-            </el-carousel>
-        </div>
+        <article class="moments-container">
+            <section class="">
+                <el-carousel trigger="click" height="150px">
+                    <el-carousel-item v-for="item in 4" :key="item">
+                        <h3>{{ item }}</h3>
+                    </el-carousel-item>
+                </el-carousel>
+            </section>
 
-        <div v-if="momentList.length">
-            <!-- 如果直接 使用 moment="item" 报了 moment expected Object,String got !-->
-            <one-moment v-for="item in momentList" :key="item.id" v-bind:moment="item"></one-moment>
-        </div>
+            <section v-if="momentList.length">
+                <!-- 如果直接 使用 moment="item" 报了 moment expected Object,String got !-->
+                <one-moment v-for="item in momentList" :key="item.id" v-bind:moment="item"></one-moment>
+            </section>
+        </article>
     </div>
 </template>
 
@@ -69,6 +71,9 @@
         right: 0;
         bottom: 0;
         background-color: white;
+    }
+    .moments-container {
+        padding-top: 60px;
     }
     .el-carousel__item h3 {
         color: #475669;

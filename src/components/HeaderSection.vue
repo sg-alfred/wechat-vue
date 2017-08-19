@@ -122,6 +122,10 @@ export default {
         color: white;
         height: 60px;
         font-size: 20px;
+        top: 0;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
     }
     .head_goback {
         float: left;

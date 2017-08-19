@@ -95,6 +95,14 @@
                     fromid: '5986e71f72eff410624cb874',
                     content: '傲娇！',
                     sendtime: '2017-08-19 14:10:40'
+                }, {
+                    fromid: '5986e71f72eff410624cb874',
+                    content: '傲娇！',
+                    sendtime: '2017-08-19 14:10:40'
+                }, {
+                    fromid: '5986e71f72eff410624cb874',
+                    content: '傲娇！',
+                    sendtime: '2017-08-19 14:10:40'
                 }]
             }
         },
@@ -110,15 +118,19 @@
         color: white;
     }
     .chatroom-page {
+        padding: 60px 0;
         background-color: #e8e8e8;
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
+        height: 100%;
     }
     .container {
         overflow: auto;
+        width: 100%;
+        height: 100%;
     }
     .fa-15x {
         font-size: 1.5em;

@@ -13,7 +13,7 @@
             </section>
         </header-section>
 
-        <section class="main-section">
+        <section class="profile-container">
 
             <section class="base-info placeholder">
                 <el-row>
@@ -169,6 +169,7 @@
         margin-top: 20px;
     }
     .userprofile-page {
+        padding-top: 60px;
         background-color: #e8e8e8;
         position: absolute;
         top: 0;

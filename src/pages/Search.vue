@@ -111,6 +111,9 @@
         color: limegreen;
         margin: 15px 0;
     }
+    .search-container {
+        padding-top: 60px;
+    }
     .search-container .show {
         border-right: 1px solid silver;
     }

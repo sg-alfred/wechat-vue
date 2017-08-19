@@ -6,7 +6,7 @@ import Router from 'vue-router'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Search from '@/pages/Search'
-import Help from '@/pages/Help'
+import Help from '@/pages/Help/Index'
 
 import Wechat from '@/pages/wechat/Index'
 import Chatroom from '@/pages/wechat/Chatroom'
@@ -85,7 +85,11 @@ const router =  new Router({
         component: AddSend
     }, {
         path: '/help',
-        component: Help
+        component: Help,
+        children: [{
+            path: 'wallet',
+            component: Wallet
+        }]
     }]
 })
 

@@ -86,34 +86,34 @@
 </script>
 
 <style>
-.myprofile-page {
-    background-color: #e8e8e8;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 202;
-}
+    .myprofile-page {
+        padding-top: 60px;
+        background-color: #e8e8e8;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 202;
+    }
+    .detail-section .el-row {
+        height: auto;
+        padding: 20px;
+        background-color: white;
+        border-bottom: 1px solid #e8e8e8;
+    }
+    .detail-section .el-row .col1{
+        text-align: left;
+        padding-left: 10px;
+    }
+    .detail-section .el-row .col2{
+        text-align: right;
+    }
 
-.detail-section .el-row {
-    height: auto;
-    padding: 20px;
-    background-color: white;
-    border-bottom: 1px solid #e8e8e8;
-}
-.detail-section .el-row .col1{
-    text-align: left;
-    padding-left: 10px;
-}
-.detail-section .el-row .col2{
-    text-align: right;
-}
-
-.address-section {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: white;
-    text-align: left;
-}
+    .address-section {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: white;
+        text-align: left;
+    }
 </style>

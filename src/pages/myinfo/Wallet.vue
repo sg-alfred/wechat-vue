@@ -9,12 +9,15 @@
                 </svg>
             </section>
         </header-section>
-        这是 钱包界面！
 
-        <section class="base-section"></section>
-        <section class="hot-section"></section>
-        <section class="promotion-section"></section>
-        <section class="third-section"></section>
+        <article class="wallet-container">
+            这是 钱包界面！
+
+            <section class="base-section"></section>
+            <section class="hot-section"></section>
+            <section class="promotion-section"></section>
+            <section class="third-section"></section>
+        </article>
 
     </div>
 </template>
@@ -41,6 +44,7 @@
 
 <style scoped>
     .wallet-page {
+        padding-top: 60px;
         position: absolute;
         top: 0;
         left: 0;

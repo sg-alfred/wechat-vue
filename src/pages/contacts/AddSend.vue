@@ -74,6 +74,7 @@
 
 <style scoped>
     .addsend-page {
+        padding-top: 60px;
         background-color: #e8e8e8;
         position: absolute;
         top: 0;

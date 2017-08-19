@@ -113,6 +113,9 @@
         width: auto;
         background-color: #e8e8e8;
     }
+    .contacts-page {
+        padding-top: 60px;
+    }
     img {
         width: 40px;
     }

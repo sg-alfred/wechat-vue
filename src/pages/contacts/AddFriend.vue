@@ -79,12 +79,15 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
     .placeholder {
         height: 20px;
         width: auto;
     }
     .addfriend-page {
+        padding-top: 60px;
         background-color: #e8e8e8;
         position: absolute;
         top: 0;

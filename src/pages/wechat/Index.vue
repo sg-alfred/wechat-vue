@@ -2,8 +2,6 @@
     <div class="wechat-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <div style="height: 10px"></div>
-
         <section class="wechat-container">
             <!--<img src="../../assets/wechat.png" />-->
             <wechat-item
@@ -86,7 +84,12 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
+    .wechat-page {
+        @include page(#fff);
+    }
     img {
         width: 200px;
     }
