@@ -1,12 +1,19 @@
 <template>
-    <div class="">
-        <div v-if="!sendFlag">
-            <p>我是接收方！</p>
+    <section class="">
+        <span class="sendtime-info">{{message.sendtime}}</span>
+        <div v-if="message.fromid != userid">
+            <div class="message-friend">
+                <span><img alt="好友头像"></span>
+                <span>{{message.content}}</span>
+            </div>
         </div>
-        <div v-else="sendFlag">
-            <p>我是发送方！</p>
+        <div v-else>
+            <div class="message-self">
+                <span>{{message.content}}</span>
+                <span><img alt="自己头像"></span>
+            </div>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -15,7 +22,7 @@
     export default {
         name: 'MessageItem',
         props: {
-            chatItemDetail: {
+            message: {
                 type: Object,
             }
         },
@@ -26,12 +33,6 @@
             ...mapGetters({
                 userid: 'getUserid',
             }),
-            // 这其实是一个简写！！ 这是计算属性！因此 不是方法！！
-            sendFlag() {
-                // 如果 消息来源是 当前用户名的话，
-                // 这样写 还真是 简便～ 反正结果就是 true/false
-                sendFlag = chatItemDetail.fromid == userid;
-            }
         },
         data() {
             return {
@@ -39,3 +40,41 @@
         },
     }
 </script>
+
+<style scoped>
+    .sendtime-info {
+        font-size: 0.8rem;
+        background-color: #e3e3e3;
+        padding: 5px;
+    }
+    .message-friend, .message-self {
+        display: flex;
+        align-items: center;
+    }
+    .message-friend {
+        justify-content: flex-start;
+    }
+    .message-self {
+        justify-content: flex-end;
+    }
+    .message-friend span, .message-self span {
+        text-align: left;
+        margin: 0 20px;
+        flex: 0 1 0;
+    }
+    .message-friend span:nth-child(2) {
+        background-color: white;
+        margin: 10px 50px 10px 10px;
+        padding: 10px;
+        flex-grow: 1;
+    }
+    .message-self span:nth-child(1) {
+        background-color: #92e748;
+        margin: 10px 10px 10px 50px;
+        padding: 10px;
+        flex-grow: 1;
+    }
+    img {
+        width: 30px;
+    }
+</style>

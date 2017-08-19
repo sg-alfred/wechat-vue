@@ -23,6 +23,7 @@ import Moments from '@/pages/discover/Moments'
 import Myinfo from '@/pages/myinfo/Index'
 import MyProfile from '@/pages/myinfo/MyProfile'
 import UserProfile from '@/pages/myinfo/UserProfile'
+import Wallet from '@/pages/myinfo/Wallet'
 
 Vue.use(Router)
 
@@ -66,6 +67,9 @@ const router =  new Router({
         children: [{
             path: 'profile/:id',
             component: MyProfile
+        }, {
+            path: 'wallet',
+            component: Wallet
         }]
     }, {
         path: '/myinfo/:type',

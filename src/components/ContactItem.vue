@@ -27,7 +27,7 @@
 
 <style scoped>
     img {
-        width: 30px;
+        width: 40px;
     }
     .contact-item {
         height: 40px;

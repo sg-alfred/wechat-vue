@@ -1,25 +1,18 @@
 <!-- 聊天室，一对一或者群聊 -->
-
 <template>
-    <div class="">
+    <div class="chatroom-page">
         <header-section :go-back="true" :head-title="headTitle">
             <router-link :to="'/chatroom/chatsetting/' + fid" slot="userIcon" class="head-usericon">
-                <!--<svg class="user_avatar">
-                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
-                </svg>-->
                 <i class="fa fa-user fa-15x" aria-hidden="true"></i>
             </router-link>
         </header-section>
 
         <div class="container">
-            <p>这里是聊天的滚动部分！</p>
-            <ul class="message-list" ref="list">
-                <!--<message
-                        v-for="message in sortedMessages"
-                        :key="message.id"
-                        :message="message">
-                </message>-->
-            </ul>
+            <message-item
+                    v-for="message in sortedMessages"
+                    :key="message.id"
+                    :message="message">
+            </message-item>
         </div>
 
         <message-send></message-send>
@@ -40,6 +33,7 @@
         name: 'chatroom',
         components: {
             HeaderSection,
+            MessageItem,
             MessageSend
         },
         computed: {
@@ -66,7 +60,41 @@
                 fid: '好友的用户id',
                 chatroomInfo: {},
                 sortedMessages: [{
-
+                    fromid: '5986e71f72eff410624cb879',
+                    content: '你吃了吗？',
+                    sendtime: '2017-08-19 14:10:00'
+                }, {
+                    fromid: '5986e71f72eff410624cb874',
+                    content: '吃了啊～',
+                    sendtime: '2017-08-19 14:10:40'
+                }, {
+                    fromid: '5986e71f72eff410624cb879',
+                    content: '吃啥了？',
+                    sendtime: '2017-08-19 14:10:40'
+                }, {
+                    fromid: '5986e71f72eff410624cb874',
+                    content: '不告诉你～',
+                    sendtime: '2017-08-19 14:10:40'
+                }, {
+                    fromid: '5986e71f72eff410624cb874',
+                    content: '你呢？',
+                    sendtime: '2017-08-19 14:10:40'
+                }, {
+                    fromid: '5986e71f72eff410624cb879',
+                    content: '吃了啊～',
+                    sendtime: '2017-08-19 14:10:40'
+                }, {
+                    fromid: '5986e71f72eff410624cb874',
+                    content: '那你吃啥了？',
+                    sendtime: '2017-08-19 14:10:40'
+                }, {
+                    fromid: '5986e71f72eff410624cb879',
+                    content: '我也不告诉你～',
+                    sendtime: '2017-08-19 14:10:40'
+                }, {
+                    fromid: '5986e71f72eff410624cb874',
+                    content: '傲娇！',
+                    sendtime: '2017-08-19 14:10:40'
                 }]
             }
         },
@@ -80,6 +108,17 @@
         float: right;
         padding: 15px 20px;
         color: white;
+    }
+    .chatroom-page {
+        background-color: #e8e8e8;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .container {
+        overflow: auto;
     }
     .fa-15x {
         font-size: 1.5em;

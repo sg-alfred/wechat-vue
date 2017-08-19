@@ -66,22 +66,22 @@
                     id: 0,
                     type: 'newFriends',
                     name: '新的朋友',
-                    imgurl: ''
+                    imgurl: 'static/image/contacts/icon-mobile.png'
                 }, {
                     id: 1,
                     type: 'groupChat',
                     name: '群聊',
-                    imgurl: ''
+                    imgurl: 'static/image/contacts/icon-group.png'
                 }, {
                     id: 2,
                     type: 'tags',
                     name: '标签',
-                    imgurl: ''
+                    imgurl: 'static/image/contacts/icon-tag.png'
                 }, {
                     id: 3,
                     type: 'office',
                     name: '公众号',
-                    imgurl: ''
+                    imgurl: 'static/image/contacts/icon-official.png'
                 }]
             }
         },
@@ -114,7 +114,7 @@
         background-color: #e8e8e8;
     }
     img {
-        width: 30px;
+        width: 40px;
     }
     .nav-item .el-row {
         margin: 0 10px;

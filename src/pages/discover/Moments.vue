@@ -25,7 +25,7 @@
     import OneMoment from '../../components/OneMoment'
 
     export default {
-        name: 'Moment',
+        name: 'Moments',
         components: {
             HeaderSection,
             OneMoment

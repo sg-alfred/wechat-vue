@@ -1,3 +1,4 @@
+<!-- 菜单基本样式之一，一个图标，跟着一行！， -->
 <template>
     <section class="item-section">
         <!-- 头部占位、分割 -->

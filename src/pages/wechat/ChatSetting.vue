@@ -55,7 +55,7 @@
     section {
         margin-top: 20px;
         background-color: white;
-        padding: 10px 20px 10px;
+        padding: 15px 20px;
         text-align: left;
     }
 </style>
