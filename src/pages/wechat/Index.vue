@@ -86,7 +86,12 @@
     @import "../../style/mixin.scss";
 
     .wechat-page {
-        @include page(#fff);
+        @include page(#ffffff);
+        padding-bottom: 70px;
+    }
+    .wechat-container {
+        overflow: auto;
+        height: 100%;
     }
     img {
         width: 200px;

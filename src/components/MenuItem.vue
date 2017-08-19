@@ -8,6 +8,7 @@
             <span><img :src=itemInfo.imgUrl /></span>
             <span>{{itemInfo.name}}</span>
         </router-link>
+        <div :class="{placeholder: itemInfo.isEnd}"></div>
     </section>
 </template>
 

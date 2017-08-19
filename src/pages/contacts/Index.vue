@@ -2,27 +2,31 @@
     <div class="contacts-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <section class="nav-item">
-            <el-row v-for="navItem in navList" :key="navItem.id">
-                <router-link :to="'/contacts/' + navItem.type">
-                    <el-col :span="6">
-                        <span><img :src=navItem.imgurl /></span>
-                    </el-col>
-                    <el-col :span="18">
-                        <span>{{navItem.name}}</span>
-                    </el-col>
-                </router-link>
-            </el-row>
-        </section>
-
-        <div class="placeholder"></div>
-
         <section class="contacts-container">
-            <contact-item
-                    v-for="item in userList"
-                    :key="item.id" :userinfo="item.fid"
-                    @get-detail="getDetail"
-            ></contact-item>
+
+            <nav class="nav-section">
+                <el-row v-for="navItem in navList" :key="navItem.id">
+                    <router-link :to="'/contacts/' + navItem.type">
+                        <el-col :span="6">
+                            <span><img :src=navItem.imgurl /></span>
+                        </el-col>
+                        <el-col :span="18">
+                            <span>{{navItem.name}}</span>
+                        </el-col>
+                    </router-link>
+                </el-row>
+            </nav>
+
+            <div class="placeholder"></div>
+
+            <section class="contacts-section">
+                <contact-item
+                        v-for="item in userList"
+                        :key="item.id" :userinfo="item.fid"
+                        @get-detail="getDetail"
+                ></contact-item>
+            </section>
+
         </section>
 
         <footer-section></footer-section>
@@ -116,22 +120,27 @@
         background-color: #e8e8e8;
     }
     .contacts-page {
-        @include page(#fff);
+        @include page(#ffffff);
+        padding-bottom: 70px;
+    }
+    .contacts-container {
+        overflow: auto;
+        height: 100%;
     }
     img {
         width: 40px;
     }
-    .nav-item .el-row {
+    .nav-section .el-row {
         margin: 0 10px;
         padding: 10px;
         border-bottom: 1px solid #e8e8e8;
     }
-    .nav-item .el-col {
+    .nav-section .el-col {
         display: table;
         text-align: left;
         height: 40px;
     }
-    .nav-item .el-col span {
+    .nav-section .el-col span {
         display: table-cell;
         vertical-align: middle;
     }

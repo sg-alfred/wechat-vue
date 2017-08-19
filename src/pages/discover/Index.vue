@@ -2,9 +2,11 @@
     <div class="discover-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <section class="menu-section">
-            <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'discover'"></menu-item>
-        </section>
+        <article class="discover-container">
+            <section class="menu-section">
+                <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'discover'"></menu-item>
+            </section>
+        </article>
 
         <footer-section></footer-section>
 
@@ -85,6 +87,7 @@
                 }, {
                     id: 7,
                     isFirst: true,
+                    isEnd: true,
                     type: 'miniprograms',
                     name: '小程序',
                     imgUrl: 'static/image/discover/icon-miniprograms.png'
@@ -99,8 +102,13 @@
 
     .discover-page {
         @include page();
+        padding-bottom: 70px;
+    }
+    .discover-container {
+        overflow: auto;
+        height: 100%;
     }
     .menu-section {
-        background-color: white;
+        background-color: #ffffff;
     }
 </style>

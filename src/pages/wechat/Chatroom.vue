@@ -111,21 +111,17 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
     .head-usericon {
         float: right;
         padding: 15px 20px;
         color: white;
     }
     .chatroom-page {
-        padding: 60px 0;
-        background-color: #e8e8e8;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 100%;
+        @include page();
+        padding-bottom: 60px;
     }
     .container {
         overflow: auto;

@@ -2,7 +2,7 @@
     <div class="myinfo-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <section class="myinfo-container">
+        <article class="myinfo-container">
             <el-row class="base-info">
                 <router-link :to="'/myinfo/profile/' + userid">
                     <el-col :span="6" class="headimg-div">
@@ -19,8 +19,7 @@
             <section class="menu-section">
                 <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item>
             </section>
-
-        </section>
+        </article>
 
         <footer-section></footer-section>
 
@@ -98,6 +97,7 @@
                 }, {
                     id: 5,
                     isFirst: true,
+                    isEnd: true,
                     type: 'setting',
                     name: '设置',
                     imgUrl: 'static/image/myinfo/icon-setting.png'
@@ -110,11 +110,13 @@
 <style lang="scss" scoped>
     @import "../../style/mixin.scss";
 
-    * {
-        margin: 0;
-    }
     .myinfo-page {
         @include page();
+        padding-bottom: 70px;
+    }
+    .myinfo-container {
+        overflow: auto;
+        height: 100%;
     }
     .menu-section {
         background-color: #ffffff;

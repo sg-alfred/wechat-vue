@@ -67,7 +67,7 @@
     @import "../../style/mixin.scss";
 
     .moments-page {
-        @include page(#fff);
+        @include page(#ffffff);
         z-index: 202;
     }
     .el-carousel__item h3 {
