@@ -25,28 +25,29 @@
                 </span>
                 <el-dropdown-menu sole="dropdown">
                     <el-dropdown-item command="groupChat">
-                        <span><img src="static/image/icon-groupchat.png"></span>
+                        <img src="static/image/icon-groupchat.png">
                         <span>发起群聊</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="addFriend">
-                        <span><img src="static/image/icon-addFriend.png"></span>
+                        <img src="static/image/icon-addFriend.png">
                         <span>添加好友</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="scanQRCode">
-                        <span><img src="static/image/icon-scancode.png"></span>
+                        <img src="static/image/icon-scancode.png">
                         <span>扫一扫</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="payment">
-                        <span><img src="static/image/icon-payment.png"></span>
+                        <img src="static/image/icon-payment.png">
                         <span>收付款</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="help">
-                        <span><img src="static/image/icon-help.png"></span>
+                        <img src="static/image/icon-help.png">
                         <span>帮助与反馈</span>
                     </el-dropdown-item>
-                    <el-dropdown-item command="logout">
-                        <span><span>退出账号</span></span>
-                    </el-dropdown-item>
+                    <!--<el-dropdown-item command="logout">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        <span>退出账号</span></span>
+                    </el-dropdown-item>-->
                 </el-dropdown-menu>
             </el-dropdown>
         </section>
@@ -121,6 +122,10 @@ export default {
         color: white;
         height: 60px;
         font-size: 20px;
+        top: 0;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
     }
     .head_goback {
         float: left;
@@ -141,30 +146,34 @@ export default {
 
     /* 下拉菜单！ */
     .el-dropdown-menu {
-        margin: 0;
+        margin-top: 6px;
+        padding: 0;
         border: 0;
         background-color: #434439;
         color: white;
-        width: 240px;
     }
     .el-dropdown-menu .el-dropdown-menu__item {
-        display: table;
-        height: 40px;
+        display: flex;
+        height: 45px;
         width: 200px;
         border-top: 1px solid #000000;
         text-align: left;
         padding: 0 20px;
+        justify-content: center;
+        align-items: center;
     }
     .el-dropdown-menu .el-dropdown-menu__item:hover {
-        background-color: wheat;
+        background-color: #000000;
         color: white;
     }
     .el-dropdown-menu .el-dropdown-menu__item span {
-        display: table-cell;
-        vertical-align: middle;
+        flex: 0 1 0;
+        margin: 0 20px;
     }
-    .el-dropdown-menu .el-dropdown-menu__item span img {
+    .el-dropdown-menu .el-dropdown-menu__item span:nth-child(2) {
+        flex-grow: 1;
+    }
+    .el-dropdown-menu .el-dropdown-menu__item img {
         width: 25px;
-        display: inline-block;
     }
 </style>

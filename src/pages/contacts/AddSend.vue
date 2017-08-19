@@ -18,10 +18,10 @@
             </article>
             <article class="share-div">
                 <p>设置朋友圈权限</p>
-                <label>不让他(她)看我的朋友圈</label>
                 <el-switch v-model="formInfo.share" class="switch-label"
                            on-color="#13ce66" off-color="grey">
                 </el-switch>
+                <p class="share-text">不让他(她)看我的朋友圈</p>
             </article>
         </section>
     </div>
@@ -72,14 +72,11 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import '../../style/mixin.scss';
+
     .addsend-page {
-        background-color: #e8e8e8;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        @include page();
         z-index: 202;
     }
     .header-btn {
@@ -88,36 +85,31 @@
     }
     .form-section {
         overflow: scroll;
-        /*height: 100px;*/
         width: 100%;
         position: fixed;
     }
     .form-section article {
-        margin: 10px 0;
-        padding: 10px 0;
+        margin: 20px 0;
+        padding: 10px;
         background-color: white;
     }
     .form-section article p {
         text-align: left;
         color: #adadad;
-        padding: 5px 10px;
-        margin: 0;
+        padding: 10px;
     }
     .form-section article input {
         border: hidden;
         border-bottom: 1px solid green;
         padding: 5px;
-        font-size: 16px;
-        width: 94%;
+        font-size: 18px;
+        width: 96%;
     }
-    .form-section article .switch-label {
+    .form-section .share-div .share-text {
+        color: #000000;
+    }
+    .form-section .share-div .switch-label {
         float: right;
-        margin-right: 20px;
-    }
-    .form-section .share-div {
-        text-align: left;
-    }
-    .form-section .share-div label{
-        margin: 0 10px;
+        margin: 6px 20px;
     }
 </style>

@@ -46,31 +46,31 @@
                     type: 'friendRadar',
                     name: '雷达加朋友',
                     subname: '添加身边的朋友',
-                    imgUrl: 'static/image/friends/icon-radar.png'
+                    imgUrl: 'static/image/contacts/icon-radar.png'
                 }, {
                     id: 1,
                     type: 'jointGroup',
                     name: '面对面建群',
                     subname: '与身边的朋友进入同一个群聊',
-                    imgUrl: 'static/image/friends/icon-group.png'
+                    imgUrl: 'static/image/contacts/icon-group.png'
                 }, {
                     id: 2,
                     type: 'scancode',
                     name: '扫一扫',
                     subname: '扫码二维码名片',
-                    imgUrl: 'static/image/friends/icon-scancode.png'
+                    imgUrl: 'static/image/contacts/icon-scancode.png'
                 }, {
                     id: 3,
                     type: 'mobileContacts',
                     name: '手机联系人',
                     subname: '添加或邀请通讯录中的朋友',
-                    imgUrl: 'static/image/friends/icon-mobile.png'
+                    imgUrl: 'static/image/contacts/icon-mobile.png'
                 }, {
                     id: 4,
                     type: 'official',
                     name: '公众号',
                     subname: '获取更多资讯和服务',
-                    imgUrl: 'static/image/friends/icon-official.png'
+                    imgUrl: 'static/image/contacts/icon-official.png'
                 }]
             }
         },
@@ -79,18 +79,15 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
     .placeholder {
         height: 20px;
         width: auto;
     }
     .addfriend-page {
-        background-color: #e8e8e8;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        @include page();
         z-index: 202;
     }
     .searchFriend-section {

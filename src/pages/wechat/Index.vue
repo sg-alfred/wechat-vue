@@ -2,8 +2,6 @@
     <div class="wechat-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <div style="height: 10px"></div>
-
         <section class="wechat-container">
             <!--<img src="../../assets/wechat.png" />-->
             <wechat-item
@@ -13,9 +11,7 @@
             ></wechat-item>
         </section>
 
-        <div style="height: 20px;"></div>
-
-        <section>
+        <section class="absoluteCenter">
             <p @click="getLoginState">isLogin? {{isLogin}}</p>
             <p>userid的值：{{userid}}</p>
 
@@ -86,8 +82,26 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
+    .wechat-page {
+        @include page(#ffffff);
+        padding-bottom: 70px;
+    }
+    .wechat-container {
+        overflow: auto;
+        height: 100%;
+    }
     img {
         width: 200px;
+    }
+    .absoluteCenter {
+        @include absoluteCenter();
+        width: 80%;
+        height: 20%;
+    }
+    .absoluteCenter p {
+        padding: 5px;
     }
 </style>

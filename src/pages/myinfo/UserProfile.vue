@@ -13,7 +13,7 @@
             </section>
         </header-section>
 
-        <section class="main-section">
+        <section class="profile-container">
 
             <section class="base-info placeholder">
                 <el-row>
@@ -161,20 +161,14 @@
     }
 </script>
 
-<style scoped>
-    * {
-        margin: 0;
-    }
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
     .placeholder {
         margin-top: 20px;
     }
     .userprofile-page {
-        background-color: #e8e8e8;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        @include page();
     }
     .head-operate {
         float: right;
@@ -205,7 +199,7 @@
         padding: 0 20px;
     }
     .more-section .el-row {
-        padding: 10px 0;
+        padding: 15px 0;
         border-bottom: 1px solid #e8e8e8;
     }
     .more-section .album {

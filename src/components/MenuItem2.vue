@@ -1,16 +1,17 @@
+<!-- 菜单基本样式之二，一个图标，但是后面两行！ -->
 <template>
-<section class="item-section">
-    <!-- 头部占位、分割 -->
-    <div :class="{placeholder: itemInfo.isFirst}"></div>
-    <!-- 真正的功能菜单 -->
-    <router-link :to="'/' + parent + '/' + itemInfo.type">
-        <span><img :src=itemInfo.imgUrl /></span>
-        <span>
-            <span>{{itemInfo.name}}</span>
-            <span>{{itemInfo.subname}}</span>
-        </span>
-    </router-link>
-</section>
+    <section class="item-section">
+        <!-- 头部占位、分割 -->
+        <div :class="{placeholder: itemInfo.isFirst}"></div>
+        <!-- 真正的功能菜单 -->
+        <router-link :to="'/' + parent + '/' + itemInfo.type">
+            <span><img :src=itemInfo.imgUrl /></span>
+            <span>
+                <span>{{itemInfo.name}}</span>
+                <span>{{itemInfo.subname}}</span>
+            </span>
+        </router-link>
+    </section>
 </template>
 
 <script>

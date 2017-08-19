@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="search-page">
         <header-section :go-back="true">
             <section slot="searchFrm" class="search-frm">
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -75,31 +75,31 @@
     }
 </script>
 
-<style scoped>
-    * {
-        margin: 0;
-        padding: 0;
+<style lang="scss" scoped>
+    @import "../style/mixin.scss";
+
+    .search-page {
+        @include page();
     }
     .search-frm {
-        float: left;
-        padding: 10px 5px 0 5px;
-        margin-left: 20px;
-        height: 40px;
+        display: flex;
+        padding: 5px 5px 0;
+        margin: 0 20px;
         border-bottom: 1px solid greenyellow;
-        width: 80%;
-        text-align: left;
+        float: left;
+        width: 80vw;
     }
     .search-frm svg {
         text-align: left;
     }
     .search-frm input {
+        flex-grow: 1;
         border: hidden;
         background-color: #434439;
         color: white;
-        float: right;
-        font-size: 18px;
-        height: 38px;
-        width: 85%;
+        font-size: 20px;
+        margin-top: 5px;
+        padding: 5px;
     }
     ul {
         list-style: none;

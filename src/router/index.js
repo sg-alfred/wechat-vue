@@ -6,7 +6,7 @@ import Router from 'vue-router'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Search from '@/pages/Search'
-import Help from '@/pages/Help'
+import Help from '@/pages/Help/Index'
 
 import Wechat from '@/pages/wechat/Index'
 import Chatroom from '@/pages/wechat/Chatroom'
@@ -23,6 +23,7 @@ import Moments from '@/pages/discover/Moments'
 import Myinfo from '@/pages/myinfo/Index'
 import MyProfile from '@/pages/myinfo/MyProfile'
 import UserProfile from '@/pages/myinfo/UserProfile'
+import Wallet from '@/pages/myinfo/Wallet'
 
 Vue.use(Router)
 
@@ -66,6 +67,9 @@ const router =  new Router({
         children: [{
             path: 'profile/:id',
             component: MyProfile
+        }, {
+            path: 'wallet',
+            component: Wallet
         }]
     }, {
         path: '/myinfo/:type',
@@ -81,7 +85,11 @@ const router =  new Router({
         component: AddSend
     }, {
         path: '/help',
-        component: Help
+        component: Help,
+        children: [{
+            path: 'wallet',
+            component: Wallet
+        }]
     }]
 })
 
