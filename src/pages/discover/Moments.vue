@@ -63,17 +63,12 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
     .moments-page {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: white;
-    }
-    .moments-container {
-        padding-top: 60px;
+        @include page(#fff);
+        z-index: 202;
     }
     .el-carousel__item h3 {
         color: #475669;

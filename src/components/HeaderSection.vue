@@ -146,11 +146,11 @@ export default {
 
     /* 下拉菜单！ */
     .el-dropdown-menu {
-        margin: 0;
+        margin-top: 6px;
+        padding: 0;
         border: 0;
         background-color: #434439;
         color: white;
-        width: 240px;
     }
     .el-dropdown-menu .el-dropdown-menu__item {
         display: flex;

@@ -107,20 +107,14 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
     * {
         margin: 0;
     }
     .myinfo-page {
-        background-color: #e8e8e8;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
-    .myinfo-container {
-        padding-top: 60px;
+        @include page();
     }
     .menu-section {
         background-color: #ffffff;

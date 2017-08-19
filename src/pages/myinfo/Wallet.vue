@@ -42,16 +42,12 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
     .wallet-page {
-        padding-top: 60px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        @include page();
         z-index: 202;
-        background-color: #e3e3e3;
     }
     .head-operate {
         float: right;
@@ -59,6 +55,5 @@
     }
     .hot-section, .promotion-section, .third-section {
         display: flex;
-
     }
 </style>

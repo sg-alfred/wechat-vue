@@ -11,9 +11,7 @@
             ></wechat-item>
         </section>
 
-        <div style="height: 20px;"></div>
-
-        <section>
+        <section class="absoluteCenter">
             <p @click="getLoginState">isLogin? {{isLogin}}</p>
             <p>userid的值：{{userid}}</p>
 
@@ -92,5 +90,13 @@
     }
     img {
         width: 200px;
+    }
+    .absoluteCenter {
+        @include absoluteCenter();
+        width: 80%;
+        height: 20%;
+    }
+    .absoluteCenter p {
+        padding: 5px;
     }
 </style>

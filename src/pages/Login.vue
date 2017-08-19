@@ -13,7 +13,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
-                <el-button @click="goto('register')">立即注册</el-button>
+                <el-button @click="$router.push('register')">立即注册</el-button>
             </el-form-item>
         </el-form>
     </section>
@@ -86,20 +86,16 @@
                     // 如何区分客户端？ 然后 让服务端 给特定的客户端 下发信息？
                     socket.send('hello, server..')
                 })
-            },
-            goto(path) {
-                this.$router.push(path);
             }
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../style/mixin.scss";
+
     .login-div {
-        margin: auto;
-        position: absolute;
-        top: 0; bottom: 0; left: 0; right: 0;
-        vertical-align: middle;
+        @include absoluteCenter();
         width: 80%;
         height: 50%;
     }

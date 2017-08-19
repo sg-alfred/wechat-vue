@@ -30,7 +30,6 @@
         width: 40px;
     }
     .contact-item {
-        height: 40px;
         padding: 10px;
         margin: 0 10px;
         border-bottom: 1px solid #e8e8e8;

@@ -69,9 +69,11 @@
     }
 </script>
 
-<style scoped>
-    .help-container {
-        padding-top: 60px;
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
+    .help-page {
+        @include page();
     }
     footer {
         border: 2px solid ghostwhite;

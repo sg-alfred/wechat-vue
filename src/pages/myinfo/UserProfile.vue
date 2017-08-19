@@ -161,21 +161,14 @@
     }
 </script>
 
-<style scoped>
-    * {
-        margin: 0;
-    }
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
     .placeholder {
         margin-top: 20px;
     }
     .userprofile-page {
-        padding-top: 60px;
-        background-color: #e8e8e8;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        @include page();
     }
     .head-operate {
         float: right;

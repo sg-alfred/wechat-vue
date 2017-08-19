@@ -87,13 +87,7 @@
         width: auto;
     }
     .addfriend-page {
-        padding-top: 60px;
-        background-color: #e8e8e8;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        @include page();
         z-index: 202;
     }
     .searchFriend-section {

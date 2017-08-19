@@ -107,14 +107,16 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "../../style/mixin.scss";
+
     .placeholder {
         height: 20px;
         width: auto;
         background-color: #e8e8e8;
     }
     .contacts-page {
-        padding-top: 60px;
+        @include page(#fff);
     }
     img {
         width: 40px;
