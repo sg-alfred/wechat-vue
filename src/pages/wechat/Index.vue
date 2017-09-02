@@ -3,7 +3,6 @@
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
         <section class="wechat-container">
-            <!--<img src="../../assets/wechat.png" />-->
             <wechat-item
                     v-for="item in userList"
                     :key="item.id" :chatItem="item"
@@ -92,9 +91,6 @@
     .wechat-container {
         overflow: auto;
         height: 100%;
-    }
-    img {
-        width: 200px;
     }
     .absoluteCenter {
         @include absoluteCenter();

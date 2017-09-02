@@ -65,7 +65,7 @@
                     id: 5,
                     type: 'gender',
                     name: '性别',
-                    value: ''
+                    value: '男'
                 }, {
                     id: 6,
                     type: 'area',
@@ -92,23 +92,25 @@
         @include page();
         z-index: 202;
     }
+    .detail-section {
+        background-color: white;
+    }
     .detail-section .el-row {
         height: auto;
-        padding: 20px;
-        background-color: white;
+        margin: 0 10px;
+        padding: 15px;
         border-bottom: 1px solid #e8e8e8;
+        .col1{
+            text-align: left;
+            padding-left: 10px;
+        }
+        .col2{
+            text-align: right;
+        }
     }
-    .detail-section .el-row .col1{
-        text-align: left;
-        padding-left: 10px;
-    }
-    .detail-section .el-row .col2{
-        text-align: right;
-    }
-
     .address-section {
         margin-top: 20px;
-        padding: 20px;
+        padding: 15px 35px;
         background-color: white;
         text-align: left;
     }

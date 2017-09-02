@@ -3,18 +3,18 @@
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
         <article class="myinfo-container">
-            <el-row class="base-info">
+            <section class="base-info">
                 <router-link :to="'/myinfo/profile/' + userid">
-                    <el-col :span="6" class="headimg-div">
-                        <span><img src="../../assets/logo.png"></span>
-                    </el-col>
-                    <el-col :span="18" class="name-info">
+                    <span>
+                        <img src="../../assets/logo.png">
+                    </span>
+                    <div>
                         <p>{{info.remark}}</p><i></i>
                         <p>微信号：{{info.wechatno}}</p>
                         <p>昵称：{{info.nickname}}</p>
-                    </el-col>
+                    </div>
                 </router-link>
-            </el-row>
+            </section>
 
             <section class="menu-section">
                 <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item>
@@ -121,24 +121,26 @@
     .menu-section {
         background-color: #ffffff;
     }
-    .base-info {
+    .base-info a {
+        display: flex;
         background-color: white;
         padding: 20px 20px;
         text-align: left;
-    }
-    .base-info .headimg-div {
-        display: table;
-        height: 80px;
-    }
-    .base-info .headimg-div span {
-        display: table-cell;
-        vertical-align: middle;
-    }
-    .base-info .headimg-div span img {
-        height: 60px;
-    }
-    .base-info .name-info p {
-        padding: 5px 0;
+        span {
+            margin: 0 20px;
+            flex: 0 1 0;
+            justify-content: center;
+            align-items: center;
+            img {
+                height: 80px;
+            }
+        }
+        div {
+            flex-grow: 1;
+            p {
+                padding: 5px 0;
+            }
+        }
     }
     .router-slid-enter-active, .router-slid-leave-active {
         transition: all .4s;

@@ -2,8 +2,8 @@
 <template>
     <div class="chatroom-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <router-link :to="'/chatroom/chatsetting/' + fid" slot="userIcon" class="head-usericon">
-                <i class="fa fa-user fa-15x" aria-hidden="true"></i>
+            <router-link :to="'/chatroom/chatsetting/' + fid" slot="specialIcon" class="head-usericon">
+                <i class="fa fa-user fa-12x" aria-hidden="true"></i>
             </router-link>
         </header-section>
 
@@ -66,43 +66,43 @@
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '吃了啊～',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:42'
                 }, {
                     fromid: '5986e71f72eff410624cb879',
                     content: '吃啥了？',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:45'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '不告诉你～',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:47'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '你呢？',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:49'
                 }, {
                     fromid: '5986e71f72eff410624cb879',
                     content: '吃了啊～',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:50'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '那你吃啥了？',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:54'
                 }, {
                     fromid: '5986e71f72eff410624cb879',
                     content: '我也不告诉你～',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:59'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '傲娇！',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:12:23'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '傲娇！',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:12:25'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '傲娇！',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:12:27'
                 }]
             }
         },
@@ -116,7 +116,7 @@
 
     .head-usericon {
         float: right;
-        padding: 15px 20px;
+        padding: 18px 20px;
         color: white;
     }
     .chatroom-page {
@@ -128,7 +128,7 @@
         width: 100%;
         height: 100%;
     }
-    .fa-15x {
-        font-size: 1.5em;
+    .fa-12x {
+        font-size: 1.2em;
     }
 </style>
