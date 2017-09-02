@@ -60,19 +60,22 @@
     .message-friend span, .message-self span {
         text-align: left;
         margin: 0 20px;
-        flex: 0 1 0;
+        /*flex: 0 1 0;*/
+        border-radius: 8px;
     }
     .message-friend span:nth-child(2) {
         background-color: white;
         margin: 10px 50px 10px 10px;
         padding: 10px;
-        flex-grow: 1;
+        max-width: 80%;
+        /*flex-grow: 1;*/
     }
     .message-self span:nth-child(1) {
         background-color: #92e748;
         margin: 10px 10px 10px 50px;
         padding: 10px;
-        flex-grow: 1;
+        max-width: 80%;
+        /*flex-grow: 1;*/
     }
     img {
         width: 30px;

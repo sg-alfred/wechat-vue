@@ -13,7 +13,14 @@
                         <p>微信号：{{info.wechatno}}</p>
                         <p>昵称：{{info.nickname}}</p>
                     </div>
+                    <span id="code-div" @click="showCode($event)">
+                        <img alt="二维码">
+                    </span>
                 </router-link>
+
+                <!-- 但是这样是不对的！！ 因为，事件不是这样的！应该阻止 冒泡
+                不能够 写在这个 a标签外面！-->
+
             </section>
 
             <section class="menu-section">
@@ -103,6 +110,16 @@
                     imgUrl: 'static/image/myinfo/icon-setting.png'
                 }]
             }
+        },
+        methods: {
+            showCode(event) {
+//                event.cancelBubble = true;
+                event.preventDefault();     // 阻止默认事件
+                event.stopPropagation();    // 阻止冒泡
+
+                // 跳转到二维码界面
+                this.$router.push('/myinfo/mycode');
+            }
         }
     }
 </script>
@@ -118,19 +135,18 @@
         overflow: auto;
         height: 100%;
     }
-    .menu-section {
-        background-color: #ffffff;
+    .base-info {
+        background-color: white;
+        padding: 20px;
+        text-align: left;
+        width: 100%;
     }
     .base-info a {
         display: flex;
-        background-color: white;
-        padding: 20px 20px;
-        text-align: left;
+        align-items: center;
         span {
             margin: 0 20px;
             flex: 0 1 0;
-            justify-content: center;
-            align-items: center;
             img {
                 height: 80px;
             }
@@ -141,6 +157,10 @@
                 padding: 5px 0;
             }
         }
+    }
+    .menu-section {
+        background-color: #ffffff;
+        clear: both;
     }
     .router-slid-enter-active, .router-slid-leave-active {
         transition: all .4s;

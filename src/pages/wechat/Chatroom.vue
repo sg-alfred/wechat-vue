@@ -7,7 +7,7 @@
             </router-link>
         </header-section>
 
-        <div class="container">
+        <div id="container">
             <message-item
                     v-for="message in sortedMessages"
                     :key="message.id"
@@ -51,7 +51,8 @@
             // 应该是要获取 历史聊天记录！
             this.$http.get('/chatroom/getChatById', this.chatid).then((response) => {
                 this.chatroomInfo = response.body.data;
-            })
+            });
+            this.scrollToBottom();
         },
         data() {
             return {
@@ -65,7 +66,7 @@
                     sendtime: '2017-08-19 14:10:00'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
-                    content: '吃了啊～',
+                    content: '吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～',
                     sendtime: '2017-08-19 14:10:42'
                 }, {
                     fromid: '5986e71f72eff410624cb879',
@@ -107,6 +108,15 @@
             }
         },
         methods: {
+            scrollToBottom() {
+                this.$nextTick(() => {
+                    let container = this.$el.querySelector("#container");
+                    container.scrollTop = container.scrollHeight;
+                })
+            }
+        },
+        watch: {
+            // 有新消息的时候自动最下方！
         }
     }
 </script>
@@ -123,7 +133,7 @@
         @include page();
         padding-bottom: 60px;
     }
-    .container {
+    #container {
         overflow: auto;
         width: 100%;
         height: 100%;

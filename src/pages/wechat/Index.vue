@@ -10,7 +10,7 @@
             ></wechat-item>
         </section>
 
-        <section class="absoluteCenter">
+        <section class="absolute-center">
             <p @click="getLoginState">isLogin? {{isLogin}}</p>
             <p>userid的值：{{userid}}</p>
 
@@ -74,8 +74,7 @@
             },
             // 进入特定的聊天室
             intoChatroom(chatid) {
-                console.log(chatid)
-                this.$router.push('/chatroom');
+                this.$router.push('/chatroom/' + chatid);
             }
         }
     }
@@ -92,7 +91,7 @@
         overflow: auto;
         height: 100%;
     }
-    .absoluteCenter {
+    .absolute-center {
         @include absoluteCenter();
         width: 80%;
         height: 20%;
