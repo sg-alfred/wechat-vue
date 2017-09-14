@@ -55,9 +55,7 @@
             }
         },
         computed: {
-            ...mapGetters({
-                isLogin: 'getIsLogin'
-            })
+            isLogin: localStorage.getItem('isLogin')
         },
         created() {
             if (!this.isLogin) {

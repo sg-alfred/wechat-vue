@@ -13,9 +13,11 @@
                 <line x1="10" y1="20" x2="30" y2="20" style="stroke:rgb(255,255,255);stroke-width:2"/>
             </svg>
         </section>
+        
         <section class="head_title" v-if="headTitle">
             <span class="title_text">{{headTitle}}</span>
         </section>
+
         <section class="head_dropdown" v-if="hasDropdown">
             <el-dropdown @command="handleCommand" trigger="click">
                 <span class="el-dropdown-link">
@@ -52,6 +54,7 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </section>
+
         <router-link :to="'/search/' + searchType" class="head_search" v-if="searchType">
             <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 <circle cx="18" cy="18" r="7" stroke="rgb(255,255,255)" stroke-width="1" fill="none"/>
@@ -92,9 +95,8 @@ export default {
         },
         logout() {
             this.$http.get('/user/logout').then((response) => {
-                let result = response.body
+                let result = response.data
                 if (!result.code) {
-                    this.$store.dispatch('changeIsLogin', false)
                     this.$message(result.message)
 
                     this.$router.push('/login');

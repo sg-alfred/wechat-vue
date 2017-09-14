@@ -34,10 +34,9 @@
             FooterSection,
             WechatItem
         },
-        computed: mapGetters({
-            isLogin: 'getIsLogin',
-            userid: 'getUserid'
-        }),
+        computed: {
+            isLogin: localStorage.getItem('isLogin')
+        },
         created() {
             if (!this.isLogin) {
                 this.$router.push('/login');
@@ -54,7 +53,7 @@
             this.$http.get('../../static/initData/chatroom.json')
                 .then(response => {
                 // 这个闭包，this 应该不一样才对啊！
-                this.userList = response.body.chatList;
+                this.userList = response.data.chatList;
             }, response => {
                 alert("调用失败");
             })

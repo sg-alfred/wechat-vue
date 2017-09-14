@@ -38,10 +38,7 @@
             }
         },
         computed: {
-            ...mapGetters({
-                isLogin: 'getIsLogin',
-                userid: 'getUserid'
-            })
+            isLogin: localStorage.getItem('isLogin')
         },
         created() {     // 如果已登陆，直接跳到 wechat 界面～
             if (this.isLogin) {
@@ -51,20 +48,15 @@
         methods: {
             submitForm(formName) {
 //                 简单的数据校验！！
-                this.$refs[formName].validate( (valid) => {
+                this.$refs[formName].validate( valid => {
                     if (valid) {
                         // 需要加上 body-parser 模块！！不然nodejs 解析不了！！
                         this.$http.post('/user/login', this.formInfo).then((response) => {
-                            let result = response.body
+                            let result = response.data
                             if (!result.code) {
-                                let userinfo = result.userinfo
-
-                                this.connectSocket()
-
-                                // 确实没有这么多必要，比如，
-                                this.$store.dispatch('setUserid', userinfo.id)
-                                this.$store.dispatch('changeIsLogin', true)
-
+//                                this.connectSocket()
+                                localStorage.setItem('isLogin', true);
+                                localStorage.setItem('userinfo', result.userinfo);
                                 this.$message(result.message)
                                 this.$router.push('/wechat');
                             } else {
@@ -72,10 +64,10 @@
                             }
                         })
                     } else {
-                        alert('error submit!!');
+                        alert('error submit!!')
                         return false;
                     }
-                });
+                })
             },
             connectSocket() {
                 // 登录成功 创建与 服务端的 socket 的连接～～

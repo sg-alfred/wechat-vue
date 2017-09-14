@@ -54,13 +54,13 @@
         },
         mounted() {
             this.$http.get('/contact/getFriends').then((response) => {
-                this.friendList = response.body.data;
+                this.friendList = response.data.data;
             })
         },
         methods: {
             acceptFriend(fid, id) {
                 this.$http.post('/contact/acceptFriend', {fid: fid}).then((response) => {
-                    let responseData = response.body;
+                    let responseData = response.data;
                     this.$message(responseData.message)
                     if (!responseData.code) {
                         this.friendList[id].status = 1;

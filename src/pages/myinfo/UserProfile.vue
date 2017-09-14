@@ -140,7 +140,7 @@
             this.$http.get('../../static/initData/operate.json')
                 .then(response => {
                     // 这个闭包，this 应该不一样才对啊！
-                    this.operateList = response.body.operateList;
+                    this.operateList = response.data.operateList;
                 }, response => {
                     alert("调用失败");
                 })

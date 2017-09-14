@@ -127,13 +127,13 @@ io.on('connection', (socket) => {
 
 // let server = app.listen(port)
 
-let server0 = server.listen(port, () => {
+server.listen(port, () => {
     console.log("Express server listening on port " + port);
 })
 
 module.exports = {
   ready: readyPromise,
   close: () => {
-      server0.close()
+      server.close()
   }
 }

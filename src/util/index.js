@@ -3,24 +3,48 @@
  */
 'use strict'
 
-// export const gotoAddress = (path) => {
-//     console.log('调转路径：', path);
-//
-//     this.$router.push(path)
-// }
+let localStorage = {
 
-// 这个 this，$router 未定义！！
+    /**
+     * 存储localStorage
+     */
+    setItem : (name, content) => {
+        if (!name) return;
+        if (typeof content !== 'string') {
+            content = JSON.stringify(content);
+        }
+        window.localStorage.setItem(name, content);
+    },
 
-export default {
-    install(Vue, options) {
-        Vue.prototype.gotoAddress =  (path) => {
-            console.log('调转到：', path);
-            this.$router.push(path)
-        }
-        Vue.prototype.goback = () => {
-            this.$router.go(-1)
-        }
+    /**
+     * 获取localStorage
+     */
+    getItem : name => {
+        if (!name) return;
+        return window.localStorage.getItem(name);
+    },
+
+    /**
+     * 删除localStorage
+     */
+    removeItem : name => {
+        if (!name) return;
+        window.localStorage.removeItem(name);
     }
-}
+};
+
+export default localStorage
+
+// export default {
+//     install(Vue, options) {
+//         Vue.prototype.gotoAddress =  (path) => {
+//             console.log('调转到：', path);
+//             this.$router.push(path)
+//         }
+//         Vue.prototype.goback = () => {
+//             this.$router.go(-1)
+//         }
+//     }
+// }
 
 

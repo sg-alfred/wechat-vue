@@ -4,17 +4,17 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './vuex/store'
-import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
 import util from './util'
 
+import axios from 'axios'
+Vue.prototype.$http = axios
+
 Vue.config.productionTip = false
 
-Vue.use(VueResource)
 Vue.use(ElementUI)
-
 Vue.use(util)
 
 /* eslint-disable no-new */

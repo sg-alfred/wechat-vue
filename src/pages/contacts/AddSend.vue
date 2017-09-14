@@ -60,7 +60,7 @@
             addFriend() {
                 // 数据校验！ 可以 把好友写入
                 this.$http.post('/contact/addNewFriend', this.formInfo).then((response) => {
-                    let result = response.body;
+                    let result = response.data;
 //                    if (!result.code) {
 //
 //                    } else {

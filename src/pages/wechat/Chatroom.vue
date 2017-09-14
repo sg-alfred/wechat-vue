@@ -50,7 +50,7 @@
         mounted() {
             // 应该是要获取 历史聊天记录！
             this.$http.get('/chatroom/getChatById', this.chatid).then((response) => {
-                this.chatroomInfo = response.body.data;
+                this.chatroomInfo = response.data.data;
             });
             this.scrollToBottom();
         },
