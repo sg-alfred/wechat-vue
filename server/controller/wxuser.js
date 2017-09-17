@@ -28,7 +28,7 @@ module.exports = (app) => {
         params.salt = baseUtil.getRandomStr(4);
         params.password = baseUtil.createMd5(params.salt+params.password)
 
-        params.createtime = new Date()
+        // params.createtime = new Date()       // 更加底层～
 
         wxuserDbUtil.createWxuser(params).then((doc) => {
             resultObj = {

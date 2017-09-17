@@ -3,19 +3,21 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './vuex/store'
-import VueResource from 'vue-resource'
+import axios from 'axios'
+import store from './store/index'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
-import util from './util'
+import { changeLoginInfo } from './store/actions'
+
+import { localStorage, kindOf } from './util'
+
+Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
 
-Vue.use(VueResource)
 Vue.use(ElementUI)
-
-Vue.use(util)
+Vue.use(localStorage, kindOf)
 
 /* eslint-disable no-new */
 new Vue({
@@ -25,3 +27,5 @@ new Vue({
     template: '<App/>',
     components: { App }
 })
+
+changeLoginInfo(store);

@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://localhost/test', {
@@ -11,21 +11,21 @@ mongoose.connect('mongodb://localhost/test', {
 // 好吧，它建了一个 叫做 ‘books’ 的集合！！ books！！
 
 // 验证是否 连接成功？
-// var db = mongoose.connection;
+// let db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'connection error:'));
 // db.once('open', function (callback) {
 //     // yay!
 //     console.log('connect success');
 // });
 
-var UserSchema = mongoose.Schema({
+let UserSchema = mongoose.Schema({
     username: String,
     gender: String
 })
 
 
 // Schema, 数据结构
-var BookSchema = mongoose.Schema({
+let BookSchema = mongoose.Schema({
     title : String,
     author : {
         // mongoose.Schema.ObjectId，这个是把整个都插进去了；而下面，就是一个 id ，这才是想要的！
@@ -44,5 +44,5 @@ var BookSchema = mongoose.Schema({
 
 // Model
 mongoose.model('User', UserSchema)
-mongoose.model('Book', BookSchema);
+mongoose.model('Book', BookSchema)
 

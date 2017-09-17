@@ -53,13 +53,8 @@
         },
         computed: {
             ...mapGetters({
-                isLogin: 'getIsLogin'
+                userinfo: 'getUserinfo'
             })
-        },
-        created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
         },
         data() {
             return {
@@ -90,21 +85,12 @@
             }
         },
         mounted() {
-//            this.$http.get('../../static/initData/userlist.json').then(response => {
-//                // 这个闭包，this 应该不一样才对啊！
-//                this.userList = response.body.userList;
-//            }, response => {
-//                alert("调用失败");
-//            })
-
             this.$http.get('/contact/getContacts').then(response => {
-                this.userList = response.body.data;
+                this.userList = response.data.data;
             })
-
         },
         methods: {
             getDetail(fid) {
-                console.log(fid)
                 this.$router.push('/userprofile/' + fid);
             }
         }

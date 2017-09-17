@@ -3,21 +3,28 @@
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
         <article class="myinfo-container">
-            <el-row class="base-info">
+            <section class="base-info">
                 <router-link :to="'/myinfo/profile/' + userid">
-                    <el-col :span="6" class="headimg-div">
-                        <span><img src="../../assets/logo.png"></span>
-                    </el-col>
-                    <el-col :span="18" class="name-info">
+                    <span>
+                        <img src="../../assets/logo.png">
+                    </span>
+                    <div>
                         <p>{{info.remark}}</p><i></i>
                         <p>微信号：{{info.wechatno}}</p>
                         <p>昵称：{{info.nickname}}</p>
-                    </el-col>
+                    </div>
+                    <span id="code-div" @click="showCode($event)">
+                        <img alt="二维码">
+                    </span>
                 </router-link>
-            </el-row>
+
+                <!-- 但是这样是不对的！！ 因为，事件不是这样的！应该阻止 冒泡
+                不能够 写在这个 a标签外面！-->
+
+            </section>
 
             <section class="menu-section">
-                <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item>
+                <menu-item1 v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item1>
             </section>
         </article>
 
@@ -33,25 +40,19 @@
     import { mapGetters } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
-    import MenuItem from '../../components/MenuItem'
+    import MenuItem1 from '../../components/MenuItem1'
 
     export default {
         name: 'MyInfo',
         components: {
             HeaderSection,
             FooterSection,
-            MenuItem
+            MenuItem1
         },
         computed: {
             ...mapGetters({
-                isLogin: 'getIsLogin',
                 userid: 'getUserid'
             })
-        },
-        created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
         },
         data() {
             return {
@@ -103,6 +104,16 @@
                     imgUrl: 'static/image/myinfo/icon-setting.png'
                 }]
             }
+        },
+        methods: {
+            showCode(event) {
+//                event.cancelBubble = true;
+                event.preventDefault();     // 阻止默认事件
+                event.stopPropagation();    // 阻止冒泡
+
+                // 跳转到二维码界面
+                this.$router.push('/myinfo/mycode');
+            }
         }
     }
 </script>
@@ -118,27 +129,32 @@
         overflow: auto;
         height: 100%;
     }
-    .menu-section {
-        background-color: #ffffff;
-    }
     .base-info {
         background-color: white;
-        padding: 20px 20px;
+        padding: 20px;
         text-align: left;
+        width: 100%;
     }
-    .base-info .headimg-div {
-        display: table;
-        height: 80px;
+    .base-info a {
+        display: flex;
+        align-items: center;
+        span {
+            margin: 0 20px;
+            flex: 0 1 0;
+            img {
+                height: 80px;
+            }
+        }
+        div {
+            flex-grow: 1;
+            p {
+                padding: 5px 0;
+            }
+        }
     }
-    .base-info .headimg-div span {
-        display: table-cell;
-        vertical-align: middle;
-    }
-    .base-info .headimg-div span img {
-        height: 60px;
-    }
-    .base-info .name-info p {
-        padding: 5px 0;
+    .menu-section {
+        background-color: #ffffff;
+        clear: both;
     }
     .router-slid-enter-active, .router-slid-leave-active {
         transition: all .4s;

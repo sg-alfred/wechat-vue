@@ -2,7 +2,11 @@
 
 <template>
     <div class="moments-page">
-        <header-section :go-back="true" :head-title="headTitle"></header-section>
+        <header-section :go-back="true" :head-title="headTitle">
+            <section slot="specialIcon" class="head-cameraicon">
+                <i class="fa fa-camera" aria-hidden="true"></i>
+            </section>
+        </header-section>
 
         <article class="moments-container">
             <section class="">
@@ -52,13 +56,8 @@
         },
         computed: {
             ...mapGetters({
-                isLogin: 'getIsLogin'
+                userid: 'getUserid'
             })
-        },
-        created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
         }
     }
 </script>
@@ -69,6 +68,11 @@
     .moments-page {
         @include page(#ffffff);
         z-index: 202;
+    }
+    .head-cameraicon {
+        float: right;
+        padding: 18px 20px;
+        color: white;
     }
     .el-carousel__item h3 {
         color: #475669;

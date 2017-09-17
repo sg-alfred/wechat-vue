@@ -66,15 +66,17 @@ const USER_SCHEMA = {
     provice: String,
     city: String,
     whatsup: String,
-    createtime : Date,
-    updatetime: {
-        type: Date,
-        default: Date.now
-    },
     deleted : {
         type : Boolean,
         default: false
         // enum : [true, false]    // 枚举值～
+    },
+    meta: {
+        createtime : Date,
+        updatetime: {
+            type: Date,
+            default: Date.now
+        },
     }
 }
 
@@ -111,6 +113,27 @@ UserSchema.static.findByMobilephone = (mobilephone, cb) => {
         cb(err, doc)
     })
 }
+
+
+UserSchema.pre('save', function(next) {
+    if (this.isNew) {
+        this.meta.createtime = this.meta.updatetime = Date.now()
+    } else {
+        this.meta.updatetime = Date.now()
+    }
+    next()
+
+    // 掩码～
+    // bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+    //     if (err) return next(err)
+    //
+    //     bcrypt.hash(user.password, salt, function(err, hash) {
+    //         if (err) return next(err)
+    //         user.password = hash
+    //         next()
+    //     })
+    // })
+})
 
 // 中间件
 

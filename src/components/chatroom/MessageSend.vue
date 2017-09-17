@@ -1,18 +1,28 @@
 <template>
-    <section class="message-section">
-        <div @click="speak">
-            <i class="fa fa-volume-up fa-15x" aria-hidden="true"></i>
-        </div>
-        <div>
-            <input v-model="contents" @keyup.enter="sendMessage">
-        </div>
-        <div @click="">
-            <i class="fa fa-smile-o fa-15x" aria-hidden="true"></i>
-        </div>
-        <div>
-            <el-button v-if="!sendFlag" icon="plus"></el-button>
-            <el-button v-else type="success" @click="sendMessage">发送</el-button>
-        </div>
+    <section class="send-section">
+        <section class="message-section">
+            <div @click="speak">
+                <i class="fa fa-volume-up fa-15x" aria-hidden="true"></i>
+            </div>
+            <div>
+                <input v-model="contents" @keyup.enter="sendMessage">
+            </div>
+            <div @click="showEmoji">
+                <i class="fa fa-smile-o fa-15x" aria-hidden="true"></i>
+            </div>
+            <div>
+                <el-button v-if="!this.contents" icon="plus" @click=""></el-button>
+                <el-button v-else type="success" @click="sendMessage">发送</el-button>
+            </div>
+        </section>
+        <section class="emoji-section" v-if="isShowEmoji">
+            <!-- 表情包 -->
+            <img src="/static/image/send-emoji.png">
+        </section>
+        <section class="item-section" v-if="isShowShortcuts">
+            <!-- 快捷 发送选项 -->
+            <img src="/static/image/send-shortcut.png">
+        </section>
     </section>
 </template>
 
@@ -20,11 +30,12 @@
     import { mapGetters } from 'vuex'
 
     export default {
-        name: 'Massege',
+        name: 'Message',
         data() {
             return {
-                contents: '',
-                imgurl: '',
+                contents: '',       // 文字
+                isShowEmoji: false,
+                isShowShortcuts: false,
                 chatroomInfo: {}
             }
         },
@@ -32,9 +43,6 @@
             ...mapGetters({
                 userid: 'getUserid'
             }),
-            sendFlag () {
-                return this.contents || this.imgurl;
-            }
         },
         methods: {
             speak() {
@@ -46,13 +54,21 @@
 
                 })
                 this.contents = '';
+            },
+            showShortcuts() {
+                this.isShowEmoji = false;
+                this.isShowShortcuts = !this.isShowShortcuts;
+            },
+            showEmoji() {
+                this.isShowShortcuts = false;
+                this.isShowEmoji = !this.isShowEmoji;
             }
         }
     }
 </script>
 
-<style scoped>
-    .message-section {
+<style lang="scss" scoped>
+    .send-section {
         border: ghostwhite solid 2px;
         background-color: white;
         position: fixed;
@@ -61,6 +77,9 @@
         font-size: 20px;
         width: 100%;
         z-index: 101;
+        padding-top: 8px;
+    }
+    .message-section {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -76,6 +95,9 @@
         border: hidden;
         border-bottom: 1px solid green;
         width: 100%;
+    }
+    .item-section {
+        height: 250px;
     }
     .fa-15x {
         font-size: 1.5em;

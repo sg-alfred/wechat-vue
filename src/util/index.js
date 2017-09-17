@@ -3,24 +3,64 @@
  */
 'use strict'
 
-// export const gotoAddress = (path) => {
-//     console.log('调转路径：', path);
-//
-//     this.$router.push(path)
-// }
+import kindOf from './kind-of'
 
-// 这个 this，$router 未定义！！
+const localStorage = {
 
-export default {
-    install(Vue, options) {
-        Vue.prototype.gotoAddress =  (path) => {
-            console.log('调转到：', path);
-            this.$router.push(path)
+    /**
+     * 存储localStorage
+     */
+    setItem : (name, content) => {
+        if (!name) return;
+        if (typeof content !== 'string') {
+            content = JSON.stringify(content);
         }
-        Vue.prototype.goback = () => {
-            this.$router.go(-1)
-        }
+        window.localStorage.setItem(name, content);
+    },
+
+    /**
+     * 获取localStorage
+     */
+    getItem : name => {
+        if (!name) return;
+        return window.localStorage.getItem(name);
+    },
+
+    /**
+     * 删除localStorage
+     */
+    removeItem : name => {
+        if (!name) return;
+        window.localStorage.removeItem(name);
     }
+};
+
+
+// 这里面的 this 早就已经变样了！不指向 Vue !
+export const gotoAddress = (path) => {
+    console.log('调转到：', path);
+    this.$router.push(path)
 }
+
+export const goback = () => {
+    this.$router.go(-1)
+}
+
+export {
+    kindOf,
+    localStorage
+}
+
+// export default {
+//     install(Vue, options) {
+//         Vue.prototype.gotoAddress =  (path) => {
+//             console.log('调转到：', path);
+//             this.$router.push(path)
+//         }
+//         Vue.prototype.goback = () => {
+//             this.$router.go(-1)
+//         }
+//     }
+// }
 
 

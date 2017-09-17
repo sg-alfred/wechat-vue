@@ -97,7 +97,7 @@
 
 <script>
     import Vue from 'vue'
-    import { mapGetters } from 'vuex'
+    import { mapState, mapGetters } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
 
     export default {
@@ -126,21 +126,17 @@
         },
         computed: {
             ...mapGetters({
-                isLogin: 'getIsLogin',
                 userid: 'getUserid'
-            })
+            }),
         },
         created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
             this.fid = this.$route.params.fid;
         },
         mounted() {
             this.$http.get('../../static/initData/operate.json')
                 .then(response => {
                     // 这个闭包，this 应该不一样才对啊！
-                    this.operateList = response.body.operateList;
+                    this.operateList = response.data.operateList;
                 }, response => {
                     alert("调用失败");
                 })

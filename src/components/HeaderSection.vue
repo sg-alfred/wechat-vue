@@ -1,7 +1,8 @@
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <header class="header-container">
         <!-- 微信聊天室的 右上角的用户icon，点击 跳转到 聊天信息 的功能-->
-        <slot name="userIcon"></slot>
+        <!-- 朋友圈右上角的 icon,点击弹出 视频或图片 发布  -->
+        <slot name="specialIcon"></slot>
 
         <!-- 通讯录点击 进入 详细资料后，右上角有用户设置，点击下弹出，比如屏蔽、设置用户名等-->
         <slot name="userOperate"></slot>
@@ -12,9 +13,11 @@
                 <line x1="10" y1="20" x2="30" y2="20" style="stroke:rgb(255,255,255);stroke-width:2"/>
             </svg>
         </section>
+        
         <section class="head_title" v-if="headTitle">
             <span class="title_text">{{headTitle}}</span>
         </section>
+
         <section class="head_dropdown" v-if="hasDropdown">
             <el-dropdown @command="handleCommand" trigger="click">
                 <span class="el-dropdown-link">
@@ -44,13 +47,14 @@
                         <img src="static/image/icon-help.png">
                         <span>帮助与反馈</span>
                     </el-dropdown-item>
-                    <!--<el-dropdown-item command="logout">
+                    <el-dropdown-item command="logout">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                         <span>退出账号</span></span>
-                    </el-dropdown-item>-->
+                    </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </section>
+
         <router-link :to="'/search/' + searchType" class="head_search" v-if="searchType">
             <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 <circle cx="18" cy="18" r="7" stroke="rgb(255,255,255)" stroke-width="1" fill="none"/>
@@ -58,9 +62,10 @@
             </svg>
         </router-link>
 
-        <!--  -->
+        <!-- 搜索输入框 -->
         <slot name="searchFrm"></slot>
 
+        <!-- 汉字，添加好友 -->
         <slot name="addFriend"></slot>
         <!-- 发送好友申请 按钮 -->
         <slot name="sendBtn"></slot>
@@ -68,6 +73,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
     name: 'HeaderSection',
     props: ['headTitle', 'goBack', 'hasDropdown', 'searchType'],
@@ -81,26 +88,37 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['changeLoginInfo']),
         handleCommand(command) {
             if ('logout' == command) {
                 this.logout();
             } else {
-                this.$router.push(command);
+                this.$router.push('/' + command);
             }
         },
         logout() {
             this.$http.get('/user/logout').then((response) => {
-                let result = response.body
+                let result = response.data
                 if (!result.code) {
-                    this.$store.dispatch('changeIsLogin', false)
                     this.$message(result.message)
+
+                    localStorage.removeItem('userinfo');
+                    this.changeLoginInfo(false);
 
                     this.$router.push('/login');
                 }
             })
         }
     },
+    created() {
+        if (!this.isLogin) {
+            this.$router.push('/login');
+        }
+    },
     computed: {
+        ...mapGetters({
+            isLogin: 'isLogin'
+        }),
         // 计算未读消息，还是得用 store～
         getTotalMessages() {
             return parseInt(Math.random() * 10);

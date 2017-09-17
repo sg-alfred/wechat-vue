@@ -2,12 +2,12 @@
 <template>
     <div class="chatroom-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <router-link :to="'/chatroom/chatsetting/' + fid" slot="userIcon" class="head-usericon">
-                <i class="fa fa-user fa-15x" aria-hidden="true"></i>
+            <router-link :to="'/chatroom/chatsetting/' + fid" slot="specialIcon" class="head-usericon">
+                <i class="fa fa-user fa-12x" aria-hidden="true"></i>
             </router-link>
         </header-section>
 
-        <div class="container">
+        <div id="container">
             <message-item
                     v-for="message in sortedMessages"
                     :key="message.id"
@@ -37,21 +37,16 @@
             MessageSend
         },
         computed: {
-            ...mapGetters({
-                isLogin: 'getIsLogin'
-            })
         },
         created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
             this.chatid = this.$route.params.chatid;
         },
         mounted() {
             // 应该是要获取 历史聊天记录！
             this.$http.get('/chatroom/getChatById', this.chatid).then((response) => {
-                this.chatroomInfo = response.body.data;
-            })
+                this.chatroomInfo = response.data.data;
+            });
+            this.scrollToBottom();
         },
         data() {
             return {
@@ -65,48 +60,57 @@
                     sendtime: '2017-08-19 14:10:00'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
-                    content: '吃了啊～',
-                    sendtime: '2017-08-19 14:10:40'
+                    content: '吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～',
+                    sendtime: '2017-08-19 14:10:42'
                 }, {
                     fromid: '5986e71f72eff410624cb879',
                     content: '吃啥了？',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:45'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '不告诉你～',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:47'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '你呢？',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:49'
                 }, {
                     fromid: '5986e71f72eff410624cb879',
                     content: '吃了啊～',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:50'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '那你吃啥了？',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:54'
                 }, {
                     fromid: '5986e71f72eff410624cb879',
                     content: '我也不告诉你～',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:10:59'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '傲娇！',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:12:23'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '傲娇！',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:12:25'
                 }, {
                     fromid: '5986e71f72eff410624cb874',
                     content: '傲娇！',
-                    sendtime: '2017-08-19 14:10:40'
+                    sendtime: '2017-08-19 14:12:27'
                 }]
             }
         },
         methods: {
+            scrollToBottom() {
+                this.$nextTick(() => {
+                    let container = this.$el.querySelector("#container");
+                    container.scrollTop = container.scrollHeight;
+                })
+            }
+        },
+        watch: {
+            // 有新消息的时候自动最下方！
         }
     }
 </script>
@@ -116,19 +120,19 @@
 
     .head-usericon {
         float: right;
-        padding: 15px 20px;
+        padding: 18px 20px;
         color: white;
     }
     .chatroom-page {
         @include page();
         padding-bottom: 60px;
     }
-    .container {
+    #container {
         overflow: auto;
         width: 100%;
         height: 100%;
     }
-    .fa-15x {
-        font-size: 1.5em;
+    .fa-12x {
+        font-size: 1.2em;
     }
 </style>

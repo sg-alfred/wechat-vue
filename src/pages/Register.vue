@@ -79,7 +79,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.$http.post('/user/register', this.formInfo).then( (response) => {
-                            let result = response.body;
+                            let result = response.data;
                             console.log(result)
                             if (!result.code) {
                                 this.$message(result.message)

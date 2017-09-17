@@ -52,7 +52,7 @@
                     case 'friend':
                         console.log('searchFriend')
                         this.$http.post('/user/searchUser', {username: this.keyword}).then((response) => {
-                            let result = response.body;
+                            let result = response.data;
                             if (!result.code) {
                                 if (!result.fuserinfo) {
                                     this.$message('用户不存在')
