@@ -37,14 +37,8 @@
             MessageSend
         },
         computed: {
-            ...mapGetters({
-                isLogin: 'getIsLogin'
-            })
         },
         created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
             this.chatid = this.$route.params.chatid;
         },
         mounted() {

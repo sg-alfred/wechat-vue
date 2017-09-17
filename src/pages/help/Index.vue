@@ -23,22 +23,11 @@
 
 <script>
     import HeaderSection from '../../components/HeaderSection'
-    import { mapGetters } from 'vuex'
 
     export default {
         name: 'Help',
-        computed: {
-            ...mapGetters({
-                isLogin: 'getIsLogin'
-            })
-        },
         components: {
             HeaderSection
-        },
-        created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
         },
         data() {
             return {

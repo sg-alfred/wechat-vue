@@ -5,7 +5,6 @@
 
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 import * as getters from './getters'
 import * as actions from './actions'
 import mutations from './mutations'
@@ -15,8 +14,20 @@ Vue.use(Vuex)
 const state = {
     isLogin: false,
     userid: '',
-    userinfo: {},
-    currentSubMenu: 'wechat'
+    userinfo: {
+        /*
+        id: '',
+        username: ''
+        */
+    },
+    currentSubMenu: 'wechat',
+    messages: {
+       /*
+       id: {
+
+        }
+        */
+    }
 }
 
 export default new Vuex.Store({

@@ -3,9 +3,9 @@
  */
 'use strict'
 
-export const getIsLogin = state => state.isLogin
+export const isLogin = state => state.isLogin
 
-export const getUserid = state => state.userid
+export const getUserid = state => state.userinfo.id
 
 export const getUserinfo = state => state.userinfo
 

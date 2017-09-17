@@ -47,10 +47,10 @@
                         <img src="static/image/icon-help.png">
                         <span>帮助与反馈</span>
                     </el-dropdown-item>
-                    <!--<el-dropdown-item command="logout">
+                    <el-dropdown-item command="logout">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                         <span>退出账号</span></span>
-                    </el-dropdown-item>-->
+                    </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </section>
@@ -73,6 +73,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
     name: 'HeaderSection',
     props: ['headTitle', 'goBack', 'hasDropdown', 'searchType'],
@@ -86,6 +88,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['changeIsLogin']),
         handleCommand(command) {
             if ('logout' == command) {
                 this.logout();
@@ -99,12 +102,23 @@ export default {
                 if (!result.code) {
                     this.$message(result.message)
 
+                    localStorage.removeItem('userinfo');
+                    this.changeIsLogin(false);
+
                     this.$router.push('/login');
                 }
             })
         }
     },
+    created() {
+        if (!this.isLogin) {
+            this.$router.push('/login');
+        }
+    },
     computed: {
+        ...mapGetters({
+            isLogin: 'isLogin'
+        }),
         // 计算未读消息，还是得用 store～
         getTotalMessages() {
             return parseInt(Math.random() * 10);

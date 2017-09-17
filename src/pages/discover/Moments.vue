@@ -55,12 +55,9 @@
             }
         },
         computed: {
-            isLogin: localStorage.getItem('isLogin')
-        },
-        created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
+            ...mapGetters({
+                userid: 'getUserid'
+            })
         }
     }
 </script>

@@ -22,7 +22,7 @@
 
 <script>
     import io from 'socket.io-client';
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
 
     export default {
         name: 'Login',
@@ -37,15 +37,17 @@
                 formRules: {}
             }
         },
-        computed: {
-            isLogin: localStorage.getItem('isLogin')
-        },
+        computed: mapGetters([
+            'isLogin'
+        ]),
         created() {     // 如果已登陆，直接跳到 wechat 界面～
+            console.log('是否登录：', this.isLogin);
             if (this.isLogin) {
                 this.$router.push('/wechat');
             }
         },
         methods: {
+            ...mapActions(['changeIsLogin']),
             submitForm(formName) {
 //                 简单的数据校验！！
                 this.$refs[formName].validate( valid => {
@@ -55,8 +57,10 @@
                             let result = response.data
                             if (!result.code) {
 //                                this.connectSocket()
-                                localStorage.setItem('isLogin', true);
-                                localStorage.setItem('userinfo', result.userinfo);
+                                localStorage.setItem('userinfo', JSON.stringify(result.userinfo));
+
+                                this.changeIsLogin(true);
+
                                 this.$message(result.message)
                                 this.$router.push('/wechat');
                             } else {

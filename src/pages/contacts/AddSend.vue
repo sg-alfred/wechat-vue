@@ -52,7 +52,7 @@
         },
         computed: {
             ...mapGetters({
-                isLogin: 'getIsLogin',
+                isLogin: 'isLogin',
                 uid: 'getUserid'
             })
         },

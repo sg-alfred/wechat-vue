@@ -50,20 +50,9 @@
             MenuItem
         },
         computed: {
-//            ...mapGetters({
-//                isLogin: 'getIsLogin',
-//                userid: 'getUserid'
-//            })
-            isLogin: localStorage.getItem('isLogin'),
-            userinfo: localStorage.getItem('userinfo'),
-            userid () {
-                return JSON.parse(this.userinfo).id;
-            }
-        },
-        created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
+            ...mapGetters({
+                userid: 'getUserid'
+            })
         },
         data() {
             return {

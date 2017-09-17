@@ -52,16 +52,9 @@
             ContactItem
         },
         computed: {
-//            ...mapGetters({
-//                isLogin: 'getIsLogin'
-//            })
-            isLogin: localStorage.getItem('isLogin'),
-            userinfo: localStorage.getItem('userinfo')
-        },
-        created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
+            ...mapGetters({
+                userinfo: 'getUserinfo'
+            })
         },
         data() {
             return {

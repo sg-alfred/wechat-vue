@@ -78,9 +78,6 @@
                     value: ''
                 }]
             }
-        },
-        methods: {
-
         }
     }
 </script>

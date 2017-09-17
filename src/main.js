@@ -3,13 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './vuex/store'
+import axios from 'axios'
+import store from './store/index'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
+import { changeIsLogin, setUserinfo } from './store/actions'
+
 import util from './util'
 
-import axios from 'axios'
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
@@ -25,3 +27,6 @@ new Vue({
     template: '<App/>',
     components: { App }
 })
+
+changeIsLogin(store);
+setUserinfo(store);

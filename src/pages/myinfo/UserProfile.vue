@@ -97,7 +97,7 @@
 
 <script>
     import Vue from 'vue'
-    import { mapGetters } from 'vuex'
+    import { mapState, mapGetters } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
 
     export default {
@@ -126,14 +126,10 @@
         },
         computed: {
             ...mapGetters({
-                isLogin: 'getIsLogin',
                 userid: 'getUserid'
-            })
+            }),
         },
         created() {
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            }
             this.fid = this.$route.params.fid;
         },
         mounted() {
