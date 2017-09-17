@@ -16,9 +16,7 @@
             ])
         },
         mounted() {
-            // 发送请求,判断是否已经登录
-            console.log('判断是否已经登录？')
-
+            // 已登录，跳转
             if (this.isLogin) {
                 this.$router.push('/wechat');
             } else {        // 如果没有登录

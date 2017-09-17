@@ -24,7 +24,7 @@
             </section>
 
             <section class="menu-section">
-                <menu-item v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item>
+                <menu-item1 v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item1>
             </section>
         </article>
 
@@ -40,14 +40,14 @@
     import { mapGetters } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
-    import MenuItem from '../../components/MenuItem'
+    import MenuItem1 from '../../components/MenuItem1'
 
     export default {
         name: 'MyInfo',
         components: {
             HeaderSection,
             FooterSection,
-            MenuItem
+            MenuItem1
         },
         computed: {
             ...mapGetters({

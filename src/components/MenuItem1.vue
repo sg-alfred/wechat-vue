@@ -14,7 +14,7 @@
 
 <script>
     export default {
-        name: 'MenuItem',
+        name: 'MenuItem1',
         props: {
             parent: String,
             itemInfo: {

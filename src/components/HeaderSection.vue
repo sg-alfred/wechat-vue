@@ -88,7 +88,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['changeIsLogin']),
+        ...mapActions(['changeLoginInfo']),
         handleCommand(command) {
             if ('logout' == command) {
                 this.logout();
@@ -103,7 +103,7 @@ export default {
                     this.$message(result.message)
 
                     localStorage.removeItem('userinfo');
-                    this.changeIsLogin(false);
+                    this.changeLoginInfo(false);
 
                     this.$router.push('/login');
                 }

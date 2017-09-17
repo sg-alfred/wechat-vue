@@ -8,16 +8,16 @@ import store from './store/index'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
-import { changeIsLogin, setUserinfo } from './store/actions'
+import { changeLoginInfo } from './store/actions'
 
-import util from './util'
+import { localStorage, kindOf } from './util'
 
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
-Vue.use(util)
+Vue.use(localStorage, kindOf)
 
 /* eslint-disable no-new */
 new Vue({
@@ -28,5 +28,4 @@ new Vue({
     components: { App }
 })
 
-changeIsLogin(store);
-setUserinfo(store);
+changeLoginInfo(store);

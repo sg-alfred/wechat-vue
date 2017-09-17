@@ -5,6 +5,5 @@
 
 export const CHANGE_ISLOGIN = 'CHANGE_ISLOGIN'
 export const SET_USERINFO = 'SET_USERINFO'
-export const SET_USERID = 'SET_USERID'
 
 // export const

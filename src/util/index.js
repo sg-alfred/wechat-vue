@@ -3,7 +3,9 @@
  */
 'use strict'
 
-let localStorage = {
+import kindOf from './kind-of'
+
+const localStorage = {
 
     /**
      * 存储localStorage
@@ -33,7 +35,21 @@ let localStorage = {
     }
 };
 
-export default localStorage
+
+// 这里面的 this 早就已经变样了！不指向 Vue !
+export const gotoAddress = (path) => {
+    console.log('调转到：', path);
+    this.$router.push(path)
+}
+
+export const goback = () => {
+    this.$router.go(-1)
+}
+
+export {
+    kindOf,
+    localStorage
+}
 
 // export default {
 //     install(Vue, options) {

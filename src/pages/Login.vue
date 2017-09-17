@@ -41,13 +41,12 @@
             'isLogin'
         ]),
         created() {     // 如果已登陆，直接跳到 wechat 界面～
-            console.log('是否登录：', this.isLogin);
             if (this.isLogin) {
                 this.$router.push('/wechat');
             }
         },
         methods: {
-            ...mapActions(['changeIsLogin']),
+            ...mapActions(['changeLoginInfo']),
             submitForm(formName) {
 //                 简单的数据校验！！
                 this.$refs[formName].validate( valid => {
@@ -58,8 +57,7 @@
                             if (!result.code) {
 //                                this.connectSocket()
                                 localStorage.setItem('userinfo', JSON.stringify(result.userinfo));
-
-                                this.changeIsLogin(true);
+                                this.changeLoginInfo(true);
 
                                 this.$message(result.message)
                                 this.$router.push('/wechat');

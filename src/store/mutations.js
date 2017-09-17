@@ -10,8 +10,5 @@ export default {
     },
     [types.SET_USERINFO] (state, value) {
         state.userinfo = value
-    },
-    [types.SET_USERID] (state, value) {
-        state.userid = value
-    },
+    }
 }
