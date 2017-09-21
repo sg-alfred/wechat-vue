@@ -2,20 +2,26 @@
  * Created by chenjz on 2017/8/3.
  */
 'use strict'
+const baseUtil = require('./utils/baseUtil')
 
 module.exports = (app) => {
+
+
+    app.get('/chatrooms', async (req, res) => {
+
+    })
 
     /**
      * 根据好友获取聊天室的设置
      */
-    app.get('/chatroom/getChatById', (req, res) => {
+    app.get('/chatrooms/:id', async (req, res) => {
 
     })
 
     /**
      * 发送信息
      */
-    app.post('/chatroom/sendMessage', (req, res) => {
+    app.post('/chatroom/sendMessage', async (req, res) => {
         console.log(req.body);
 
         // 触发 socket,

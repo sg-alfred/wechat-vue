@@ -25,6 +25,7 @@
 
 <script>
     import { mapGetters } from 'vuex'
+    import { getMessage } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
     import MessageItem from '../../components/chatroom/MessageItem'
     import MessageSend from '../../components/chatroom/MessageSend'
@@ -41,11 +42,10 @@
         created() {
             this.chatid = this.$route.params.chatid;
         },
+        beforeMount() {
+            this.initMessage();
+        },
         mounted() {
-            // 应该是要获取 历史聊天记录！
-            this.$http.get('/chatroom/getChatById', this.chatid).then((response) => {
-                this.chatroomInfo = response.data.data;
-            });
             this.scrollToBottom();
         },
         data() {
@@ -102,6 +102,10 @@
             }
         },
         methods: {
+            async initMessage() {
+                const response = await getMessage()
+                this.chatroomInfo = response.data.data;
+            },
             scrollToBottom() {
                 this.$nextTick(() => {
                     let container = this.$el.querySelector("#container");

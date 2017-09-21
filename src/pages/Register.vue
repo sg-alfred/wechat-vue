@@ -15,7 +15,7 @@
                 <el-input v-model="formInfo.valicode"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('registerForm')">立即注册</el-button>
+                <el-button type="primary" @click="doRegister('registerForm')">立即注册</el-button>
                 <el-button @click="$router.push('login')">返回登录</el-button>
                 <!--<el-button @click="resetForm('registerForm')">重置</el-button>-->
             </el-form-item>
@@ -26,6 +26,7 @@
 
 <script>
     import { mapGetters } from 'vuex'
+    import { userRegister } from '../api'
 
     export default {
         name: 'Register',
@@ -75,19 +76,18 @@
             }
         },
         methods: {
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
+            doRegister(formName) {
+                this.$refs[formName].validate( async (valid) => {
                     if (valid) {
-                        this.$http.post('/user/register', this.formInfo).then( (response) => {
-                            let result = response.data;
-                            console.log(result)
-                            if (!result.code) {
-                                this.$message(result.message)
-                                this.$router.push('/login')
-                            } else {
-                                this.$message(result.message)
-                            }
-                        })
+                        const response = await userRegister(this.formInfo)
+                        const result = response.data
+
+                        if (!result.code) {
+                            this.$message(result.message)
+                            this.$router.push('/login')
+                        } else {
+                            this.$message(result.message)
+                        }
                     } else {
                         console.log('error submit!!');
                         return false;

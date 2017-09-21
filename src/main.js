@@ -3,21 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import axios from 'axios'
 import store from './store/index'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
 import { changeLoginInfo } from './store/actions'
 
-import { localStorage, kindOf } from './util'
-
-Vue.prototype.$http = axios
-
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
-Vue.use(localStorage, kindOf)
 
 /* eslint-disable no-new */
 new Vue({
@@ -28,4 +22,6 @@ new Vue({
     components: { App }
 })
 
+console.log('登录-00-')
 changeLoginInfo(store);
+console.log('登录-11-')

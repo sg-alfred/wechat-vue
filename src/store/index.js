@@ -13,6 +13,7 @@ Vue.use(Vuex)
 
 const state = {
     isLogin: false,
+    currentSubMenu: 'wechat',
     userid: '',
     userinfo: {
         /*
@@ -20,11 +21,34 @@ const state = {
         username: ''
         */
     },
-    currentSubMenu: 'wechat',
+    contacts: {     // 通讯录
+        /*
+        id: {
+            id,
+            alias,
+            mobilephone,
+        }
+        */
+    },
+    chatrooms: {      // 聊天室！
+        /*
+        id: {
+            id,         // chatid，聊天室id
+            name,       // chatname, 聊天室名称
+            messages:[...ids],      // 消息id 列表
+            lastMessage             // 最后一条消息
+        }
+        */
+    },
     messages: {
-       /*
-       id: {
-
+        /*
+        id: {
+            id,     // 消息id
+            chatid,       // 聊天室id
+            fromid,       // 发送方id
+            content,
+            imgurl,
+            sendtime
         }
         */
     }
@@ -36,6 +60,3 @@ export default new Vuex.Store({
     getters,
     actions
 })
-
-
-

@@ -1,13 +1,13 @@
 <!-- 通讯录组件，点击到 好友简介，长按悬浮 设置 -->
 
 <template>
-    <section class="contact-item" @click="$emit('get-detail', userinfo.id)">
+    <section class="contact-item" @click="$emit('get-detail', contactid)">
         <el-row>
             <el-col :span="6">
                 <span><img src="../assets/logo.png" /></span>
             </el-col>
             <el-col :span="18">
-                <span>{{userinfo.mobilephone}}</span>
+                <span>{{contact.mobilephone}}</span>
             </el-col>
         </el-row>
     </section>
@@ -17,7 +17,8 @@
     export default {
         name: 'ContactItem',
         props: {
-            userinfo: {
+            contactid: String,
+            contact: {
                 type: Object,
                 required: true
             }

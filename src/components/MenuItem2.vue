@@ -53,7 +53,6 @@
         justify-content: center;
         align-items: center;
         border-bottom: 1px solid #e8e8e8;
-        text-decoration:none;
         text-align: left;
     }
     .item-section span {

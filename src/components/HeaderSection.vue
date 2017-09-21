@@ -74,6 +74,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { userLogout } from '../api'
 
 export default {
     name: 'HeaderSection',
@@ -87,6 +88,20 @@ export default {
             }
         }
     },
+    computed: {
+        ...mapGetters([
+            'isLogin'
+        ]),
+        // 计算未读消息，还是得用 store～
+        totalMessages: () => parseInt(Math.random() * 10)
+    },
+    created() {     // 不能是 beforeCreate ? 为什么？这时候是 连数据都还没有初始化吗？
+        // 是的，beforeCreate 之后才监听 data，初始化 内部事件。如此，才到了 created！！
+        // 放心，created 完了之后 才会 渲染模板 ……
+        if (!this.isLogin) {
+            this.$router.push('/login');
+        }
+    },
     methods: {
         ...mapActions(['changeLoginInfo']),
         handleCommand(command) {
@@ -96,37 +111,43 @@ export default {
                 this.$router.push('/' + command);
             }
         },
-        logout() {
-            this.$http.get('/user/logout').then((response) => {
-                let result = response.data
+        async logout() {
+
+            try {
+                // 这样的话，需要 userLogout 是个异步函数
+                let response = await userLogout();      // 更不能直接处理到 data ?
+                let result = response.data;
+
+                console.log('返回结果？', result);
+
                 if (!result.code) {
                     this.$message(result.message)
 
-                    localStorage.removeItem('userinfo');
+                    localStorage('userinfo', null);
                     this.changeLoginInfo(false);
 
                     this.$router.push('/login');
                 }
-            })
-        }
-    },
-    created() {
-        if (!this.isLogin) {
-            this.$router.push('/login');
-        }
-    },
-    computed: {
-        ...mapGetters({
-            isLogin: 'isLogin'
-        }),
-        // 计算未读消息，还是得用 store～
-        getTotalMessages() {
-            return parseInt(Math.random() * 10);
+            } catch (err) {
+                console.log('退出出错了！', err.message)
+            }
+
+            /*this.$http.get('/user/logout').then((response) => {
+                let result = response.data
+                if (!result.code) {
+                    this.$message(result.message)
+
+                    localStorage('userinfo', null);
+                    this.changeLoginInfo(false);
+
+                    this.$router.push('/login');
+                }
+            })*/
         }
     },
     watch: {
         // 这个应该是要如何监控，本来是 监听 socket d的～
-        getTotalMessages: (newvalue, oldvalue) => {
+        totalMessages: (newvalue, oldvalue) => {
             console.log(newvalue);
             return this.messages = newvalue;
         }

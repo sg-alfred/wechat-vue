@@ -15,30 +15,13 @@
                 'isLogin'
             ])
         },
-        mounted() {
-            // 已登录，跳转
-            if (this.isLogin) {
-                this.$router.push('/wechat');
-            } else {        // 如果没有登录
-
+        created() {
+            // 这个之前
+            console.log('没有跳转？', this.isLogin);
+            if (!this.isLogin) {
                 this.$router.push('/login');
-
-                // 不合理吧，前端浏览器 清楚了缓存，总不能 可以直接登录吧～
-//                this.$http.get('/user/isLogin').then( (response) => {
-//                    let result = response.data;
-//                    console.log('请求后端 isLogin的响应：', result)
-//                    if (!result.code && '已登陆' == result.message) {
-//
-//                        localStorage.setItem('islogin', true);      //
-//                        this.$router.push('/wechat');
-//                    } else {
-//                        localStorage.setItem('islogin', false);
-//
-//                        // 需要判断一下，如果是注册界面，那就是可以刷新！
-//                        this.$message(result.message)
-//                        this.$router.push('/login');
-//                    }
-//                })
+            } else {
+                this.$router.push('/wechat');
             }
         }
     }

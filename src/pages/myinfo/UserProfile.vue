@@ -2,7 +2,8 @@
     可能从 通讯录点击，或者朋友圈的头像和 昵称点击 进来～
  -->
 <template>
-    <div class="userprofile-page">
+    <div class="userprofile-page" :class="{overlay: isShowOperate}">
+
         <header-section :go-back="true" :head-title="headTitle">
             <section slot="userOperate" class="head-operate" @click="showOperate">
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -16,16 +17,14 @@
         <section class="profile-container">
 
             <section class="base-info placeholder">
-                <el-row>
-                    <el-col :span="6" class="headimg-div">
-                        <span><img src="../../assets/logo.png"></span>
-                    </el-col>
-                    <el-col :span="18" class="name-info">
-                        <p>{{info.remark}}</p><i></i>
-                        <p>微信号：{{info.wechatno}}</p>
-                        <p>昵称：{{info.nickname}}</p>
-                    </el-col>
-                </el-row>
+                <span>
+                    <img src="../../assets/logo.png">
+                </span>
+                <div class="name-info">
+                    <p>{{info.remark}}</p><i></i>
+                    <p>微信号：{{info.wechatno}}</p>
+                    <p>昵称：{{info.nickname}}</p>
+                </div>
             </section>
 
             <section class="tag-section placeholder">
@@ -33,37 +32,23 @@
                     <span>设置备注和标签</span>
                 </div>
                 <div v-else>
-                    <el-row>
-                        <el-col :span="6">
-                            标签
-                        </el-col>
-                        <el-col :span="18">
-                            family
-                        </el-col>
-                    </el-row>
+                    <span>标签</span>
+                    <span>family</span>
                 </div>
             </section>
 
             <section class="more-section placeholder">
-                <el-row>
-                    <el-col :span="6">
-                        地区
-                    </el-col>
-                    <el-col :span="18">
-                        {{info.country}}
-                    </el-col>
-                </el-row>
-                <el-row class="album-div">
-                    <el-col :span="6" class="album-text">
-                        个人相册
-                    </el-col>
-                    <el-col :span="18" class="album">
-                        <img src="../../assets/logo.png">
-                    </el-col>
-                </el-row>
-                <el-row>
+                <span class="item">
+                    <span>地区</span>
+                    <span>{{info.country}}</span>
+                </span>
+                <span class="item">
+                    <span>个人相册</span>
+                    <span class="album"><img src="../../assets/logo.png"></span>
+                </span>
+                <span class="item">
                     <span>更多</span>
-                </el-row>
+                </span>
             </section>
 
             <section class="contact-section placeholder">
@@ -96,8 +81,8 @@
 </template>
 
 <script>
-    import Vue from 'vue'
     import { mapState, mapGetters } from 'vuex'
+    import { getUserOperate, getFUserinfo } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
 
     export default {
@@ -108,14 +93,16 @@
                 isFriend: false,
                 fid: '',
                 info: {
-                    id: 0,
-                    wechatno: 'sgchenjz',
-                    nickname: '钻',
-                    remark: 'hehe',
-                    gender: '男',
-                    country: '中国',
-                    headimgurl: '',
-                    tags: ''
+                    /*:
+                     id: 0,
+                     wechatno: 'sgchenjz',
+                     nickname: '钻',
+                     remark: 'hehe',
+                     gender: '男',
+                     country: '中国',
+                     headimgurl: '',
+                     tags: ''
+                    */
                 },
                 isShowOperate: false,
                 operateList: []
@@ -126,26 +113,35 @@
         },
         computed: {
             ...mapGetters({
-                userid: 'getUserid'
-            }),
+                userid: 'getUserid',
+                contactMap: 'getContacts'
+            })
         },
-        created() {
-            this.fid = this.$route.params.fid;
+        beforeCreate() {
+            // 放在这里错了？这个之后才会执行 beforeMount，没有问题啊！
+//            this.fid = this.$route.params.fid
+//            console.log('有啊！--', this.fid)
         },
-        mounted() {
-            this.$http.get('../../static/initData/operate.json')
-                .then(response => {
-                    // 这个闭包，this 应该不一样才对啊！
-                    this.operateList = response.data.operateList;
-                }, response => {
-                    alert("调用失败");
-                })
+        beforeMount() {
+            this.fid = this.$route.params.fid
+            console.log('好友信息-聊天室id-', this.fid)     // 为嘛取不到 fid??
+//            console.log('好友信息-聊天-', JSON.stringify(this.contactMap[this.fid]))
+            this.info = this.contactMap[this.fid]
         },
         methods: {
-            showOperate() {
+            async initFuserinfo() {
+//                const response = await getFuserinfo()
+//                this.fuserinfo = response.data
+            },
+            async showOperate() {
                 this.isShowOperate = !this.isShowOperate;
-                // 界面置灰
 
+                if (this.isShowOperate) {
+                    const response = await getUserOperate();
+                    this.operateList = response.data.operateList;
+
+                    console.log('没有显示？--', this.operateList)
+                }
             },
             addFriend() {
                 this.$router.push('/addSend/' + this.fid)
@@ -175,35 +171,41 @@
         background-color: white;
         padding: 20px;
     }
-    .base-info .headimg-div {
-        display: table;
-        height: 80px;
-    }
-    .base-info .headimg-div span {
-        display: table-cell;
-        vertical-align: middle;
-    }
-    .base-info .headimg-div span img {
-        height: 60px;
-    }
-    .base-info .name-info p {
-        padding: 5px 0;
+    .base-info {
+        display: flex;
+        align-items: center;
+        span {
+            margin: 0 20px;
+            flex: 0 1 0;
+            img {
+                height: 80px;
+            }
+        }
+        div {
+            flex-grow: 1;
+            p {
+                padding: 5px 0;
+            }
+        }
     }
     .more-section {
         text-align: left;
         background-color: white;
+        /*margin: 0 10px;*/
         padding: 0 20px;
-    }
-    .more-section .el-row {
-        padding: 15px 0;
-        border-bottom: 1px solid #e8e8e8;
+        .item {
+            padding: 15px;
+            border-bottom: 1px solid #e8e8e8;
+            display: flex;
+            align-items: center;
+        }
     }
     .more-section .album {
         height: 100px;
     }
     .contact-section button {
         margin: 5px;
-        width: 60%;
+        width: 80%;
     }
     .operate-section {
         text-align: left;
@@ -211,29 +213,31 @@
         height: 300px;
         width: 100%;
         overflow: scroll;
-        z-index: 10;
+        z-index: 1000;
         bottom: 0;
         position: absolute;
         border-top: 1px solid #e8e8e8;
+        .operate-text {
+            padding: 0 0 0 20px;
+            display: table-cell;
+            vertical-align: middle;
+        }
     }
-    ul {
-        list-style: none;
-        padding-left: 0;
-    }
-    li {
-        height: 30px;
-        padding: 10px 20px;
-        width: auto;
-        display: table;
+    /* 不能放在这个界面！需要像 下拉框一样！是一个与 app 同级的界面！！ */
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 300;
+        background-color: #000000;
+        opacity: 0.9;
     }
     img {
         height: 20px;
         padding: 5px;
-        display: table-cell;
-        vertical-align: middle;
-    }
-    .operate-section .operate-text {
-        padding: 0 0 0 20px;
         display: table-cell;
         vertical-align: middle;
     }

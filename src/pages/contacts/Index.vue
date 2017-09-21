@@ -21,8 +21,8 @@
 
             <section class="contacts-section">
                 <contact-item
-                        v-for="item in userList"
-                        :key="item.id" :userinfo="item.fid"
+                        v-for="(item, id) in contactMap"
+                        :key="id" :contactid="id" :contact="item"
                         @get-detail="getDetail"
                 ></contact-item>
             </section>
@@ -39,7 +39,8 @@
 
 <script>
 
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
+    import { isEmptyObject } from '../../util'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
     import ContactItem from '../../components/ContactItem'
@@ -53,14 +54,15 @@
         },
         computed: {
             ...mapGetters({
-                userinfo: 'getUserinfo'
+//                userinfo: 'getUserinfo',
+                userid: 'getUserid',
+                contactMap: 'getContacts'
             })
         },
         data() {
             return {
                 headTitle: '微信',
                 searchType: 'all',
-                userList: [],
                 navList: [{
                     id: 0,
                     type: 'newFriends',
@@ -84,12 +86,19 @@
                 }]
             }
         },
-        mounted() {
-            this.$http.get('/contact/getContacts').then(response => {
-                this.userList = response.data.data;
-            })
+        created() {
+            console.log('这个是啥？', JSON.stringify(this.contactMap), isEmptyObject(this.contactMap))
+            if (isEmptyObject(this.contactMap)) {        // vuex 没有，则调用
+                this.initContacts(this.userid)
+            }
         },
         methods: {
+            ...mapActions(['initContacts']),
+//            async initContacts() {
+//                const response = await getContacts();
+//                // 保存到 vuex，如果有，直接取，否则再取
+//                this.contactMap = response.data.data;
+//            },
             getDetail(fid) {
                 this.$router.push('/userprofile/' + fid);
             }

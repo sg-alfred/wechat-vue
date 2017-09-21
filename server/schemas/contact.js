@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 const schema = mongoose.Schema
 
 const CONTACT_SCHEMA = {
+    _id: false,         // 不设置 id
     uid : {
         type: schema.Types.ObjectId,       // 这个应该是 用户表的主键！
         ref: 'User',        // 关联的是这个！！
@@ -38,9 +39,9 @@ const CONTACT_SCHEMA = {
     },
     cleartime: Date,        // 最后一次聊天记录清除时间
     createtime : Date,
-    updatetime : {
-        type : Date,
-        default : Date.now
+    updatetime: {
+        type: Date,
+        default: Date.now
     }
 }
 
@@ -48,6 +49,16 @@ const ContactSchema = schema(CONTACT_SCHEMA)
 
 // 创建 好友映射唯一索引
 ContactSchema.index({'uid': 1, 'fid': 1}, {'unique': true})
+
+ContactSchema.pre('save', function(next) {
+    if (this.isNew) {
+        this.createtime = this.updatetime = Date.now()
+    } else {
+        this.updatetime = Date.now()
+    }
+    next()
+})
+
 
 // const Contact = mongoose.model('Contact', ContactSchema)
 

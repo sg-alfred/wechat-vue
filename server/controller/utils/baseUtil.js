@@ -6,14 +6,26 @@
 
 const crypto = require('crypto');
 
+let appResponse = (response, respObj) => {
+    response.writeHead(200, {
+        'Content-type': 'application/json'
+    })
+    response.end(respObj)
+}
+
+
+let mobileValidate = (mobile) => {
+    return mobile.test(/^\d{11}$/)
+}
+
+
 /**
  * 获取随机长度的字符串
- *
+ * ---------------------------------------------
  * @param length
  * @returns {string}
  */
-let getRandomStr = (length) => {
-    length = length || 4;
+let getRandomStr = (length = 4) => {
 
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let res = '';
@@ -27,7 +39,7 @@ let getRandomStr = (length) => {
 
 /**
  * md5加密字符串
- *
+ * ---------------------------------------------
  * @param str
  * @returns {string}
  */
@@ -37,7 +49,9 @@ let createMd5 = (str) => {
     return hash.digest('hex');
 }
 
+
 module.exports = {
+    appResponse,
     getRandomStr,
     createMd5
 }

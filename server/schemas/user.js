@@ -71,12 +71,10 @@ const USER_SCHEMA = {
         default: false
         // enum : [true, false]    // 枚举值～
     },
-    meta: {
-        createtime : Date,
-        updatetime: {
-            type: Date,
-            default: Date.now
-        },
+    createtime : Date,
+    updatetime: {
+        type: Date,
+        default: Date.now
     }
 }
 
@@ -117,9 +115,9 @@ UserSchema.static.findByMobilephone = (mobilephone, cb) => {
 
 UserSchema.pre('save', function(next) {
     if (this.isNew) {
-        this.meta.createtime = this.meta.updatetime = Date.now()
+        this.createtime = this.updatetime = Date.now()
     } else {
-        this.meta.updatetime = Date.now()
+        this.updatetime = Date.now()
     }
     next()
 

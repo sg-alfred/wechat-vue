@@ -17,6 +17,17 @@ a, p, h1, h2, h3, h4,h5, h6, i, b, textarea, button, input, select, figure, figc
     }
 }
 
+ul {
+    list-style: none;
+    padding-left: 0;
+    li {
+        height: 30px;
+        padding: 10px 20px;
+        width: auto;
+        display: table;
+    }
+}
+
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
 ::-webkit-scrollbar  
 {  

@@ -12,7 +12,7 @@
                 <el-input v-model="formInfo.validcode"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
+                <el-button type="primary" @click="doLogin('loginForm')">登录</el-button>
                 <el-button @click="$router.push('register')">立即注册</el-button>
             </el-form-item>
         </el-form>
@@ -21,8 +21,11 @@
 </template>
 
 <script>
-    import io from 'socket.io-client';
+
     import { mapGetters, mapActions } from 'vuex'
+    import { userLogin } from '../api'
+    import { localStorage } from '../util'
+    import io from 'socket.io-client';
 
     export default {
         name: 'Login',
@@ -41,22 +44,35 @@
             'isLogin'
         ]),
         created() {     // 如果已登陆，直接跳到 wechat 界面～
+            console.log('登录-334-', this.isLogin)
             if (this.isLogin) {
                 this.$router.push('/wechat');
             }
         },
         methods: {
             ...mapActions(['changeLoginInfo']),
-            submitForm(formName) {
-//                 简单的数据校验！！
-                this.$refs[formName].validate( valid => {
+            doLogin(formName) {
+            //  简单的数据校验！！
+                this.$refs[formName].validate( async (valid) => {
                     if (valid) {
-                        // 需要加上 body-parser 模块！！不然nodejs 解析不了！！
-                        this.$http.post('/user/login', this.formInfo).then((response) => {
+                        const response = await userLogin(this.formInfo)
+                        const result = response.data
+
+                        this.$message(result.message)
+
+                        if (!result.code) {
+                            console.log('hello')
+                            localStorage('userinfo', JSON.stringify(result.userinfo))
+                            console.log('hello22')
+                            this.changeLoginInfo(true)
+
+                            this.$router.push('/wechat')
+                        }
+
+                        /*this.$http.post('/user/login', this.formInfo).then((response) => {
                             let result = response.data
                             if (!result.code) {
-//                                this.connectSocket()
-                                localStorage.setItem('userinfo', JSON.stringify(result.userinfo));
+                                localStorage('userinfo', JSON.stringify(result.userinfo));
                                 this.changeLoginInfo(true);
 
                                 this.$message(result.message)
@@ -64,9 +80,9 @@
                             } else {
                                 this.$message(result.message)
                             }
-                        })
+                        })*/
                     } else {
-                        alert('error submit!!')
+                        this.$message('error submit!!')
                         return false;
                     }
                 })
