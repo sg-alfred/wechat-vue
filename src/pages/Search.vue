@@ -26,7 +26,11 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+    import { searchUser } from '../api'
+    import { isEmptyObject } from '../util'
     import HeaderSection from '../components/HeaderSection'
+
     export default {
         name: 'Search',
         components: {
@@ -39,32 +43,55 @@
                 searchResult: []
             }
         },
+        computed: {
+            ...mapGetters({
+                userid: 'getUserid',
+                contactMap: 'getContacts'
+            })
+        },
         created() {
             this.type = this.$route.params.type;
         },
         methods: {
-            search() {
+            async search() {
                 console.log(this.keyword)
                 switch (this.type) {
                     case 'all':
                         console.log('searchAll');
                         break;
                     case 'friend':
-                        console.log('searchFriend')
-                        this.$http.post('/user/searchUser', {username: this.keyword}).then((response) => {
-                            let result = response.data;
-                            if (!result.code) {
-                                if (!result.fuserinfo) {
-                                    this.$message('用户不存在')
-                                } else {
-                                    this.searchResult = result.fuserinfo;
-                                    // 有跳转到用户的 详情界面！
-                                    this.$router.push('/userprofile/' + result.fuserinfo.id)
+                        console.log('searchFriend', '搜索-00-', this.contactMap)
+
+                        let searchid = '',
+                            isFriend = false;
+
+                        if (!isEmptyObject(this.contactMap)) {
+                            for (let ele of this.contactMap) {
+                                if (ele.mobilephone === this.keyword || ele.wechatno === this.keyword) {
+                                    searchid = ele.id
+                                    isFriend = true
+                                    break ;
                                 }
-                            } else {
-                                this.$message(result.message)
                             }
-                        })
+                        }
+
+                        if (!searchid) {
+                            const response = await searchUser(this.keyword)
+                            const searchResult = response.data;
+
+                            // 缓存起来～
+
+                            if (!searchResult.code && !!searchResult.data) {
+                                this.searchResult = searchResult.data;
+                            } else {
+                                this.$message(searchResult.message)
+                            }
+                        }
+
+                        // 有跳转到用户的 详情界面！
+                        if (searchid) {
+                            this.$router.push('/userprofile/' + searchid + '?friend=' + isFriend)
+                        }
                         break;
                     default:
                         console.log('参数有误：', this.type)

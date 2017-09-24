@@ -3,10 +3,15 @@
  */
 'use strict'
 const baseUtil = require('./utils/baseUtil')
+const ChatroomModel = global.dbHandel.getModel('Chatroom')
 
 module.exports = (app) => {
 
-
+    /**
+     * 获取未被清除历史消息的聊天室列表
+     *
+     * 用 userid 关联查好友，再查聊天室信息
+     */
     app.get('/chatrooms', async (req, res) => {
 
     })
@@ -15,7 +20,27 @@ module.exports = (app) => {
      * 根据好友获取聊天室的设置
      */
     app.get('/chatrooms/:id', async (req, res) => {
+        let resultObj = {}
 
+        const _id = req.params.id;
+
+        // 关联信息表～
+        try {
+            const allMessages = await ChatroomModel.find({_id})
+            resultObj = {
+                code: 2,
+                message: '查询历史记录成功！',
+                data: allMessages
+            }
+        } catch (err) {
+            resultObj = {
+                code: 2,
+                message: err.message
+            }
+        } finally {
+            console.log('获取结果', resultObj)
+            baseUtil.appResponse(res, JSON.stringify(resultObj))
+        }
     })
 
     /**

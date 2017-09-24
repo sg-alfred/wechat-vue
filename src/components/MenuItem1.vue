@@ -35,7 +35,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .placeholder {
         height: 20px;
         background-color: #e8e8e8;
@@ -52,12 +52,12 @@
         align-items: center;
         border-bottom: 1px solid #e8e8e8;
         text-align: left;
-    }
-    .item-section span {
-        margin: 0 20px;
-        flex: 0 1 0;
-    }
-    .item-section span:nth-child(2) {
-        flex-grow: 1;
+        span {
+            margin: 0 20px;
+            flex: 0 1 0;
+        }
+        span:nth-child(2) {
+            flex-grow: 1;
+        }
     }
 </style>

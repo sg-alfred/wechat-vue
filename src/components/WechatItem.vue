@@ -15,23 +15,21 @@
 
 <template>
     <section class="wechat-item" @click="$emit('into-chatroom', chatItem.chatid)">
-        <el-row>
-            <el-col :span="4">
-                <!-- 连接到 用户详情界面 -->
-                <!--<router-link :to=""></router-link>-->
-                <img :src=chatItem.headimgurl />
-            </el-col>
-            <el-col :span="20">
-                <div class="padding-5">
-                    <span>{{chatItem.nickname}}</span>
-                    <span class="lasttime-text">{{chatItem.lasttime}}</span>
-                </div>
-                <div class="padding-5">
-                    <span>{{chatItem.content}}</span>
-                    <!--<i class="el-icon-caret-bottom el-icon&#45;&#45;right"></i>-->
-                </div>
-            </el-col>
-        </el-row>
+
+        <span>
+            <!-- 连接到 用户详情界面 -->
+            <!--<router-link :to=""></router-link>-->
+            <img :src=chatItem.headimgurl />
+        </span>
+        <div class="padding-5">
+            <span>{{chatItem.nickname}}</span>
+            <span class="lasttime-text">{{chatItem.lasttime}}</span>
+        </div>
+        <div class="padding-5">
+            <span>{{chatItem.content}}</span>
+            <!--<i class="el-icon-caret-bottom el-icon&#45;&#45;right"></i>-->
+        </div>
+
     </section>
 </template>
 
@@ -51,9 +49,7 @@
         },
         methods: {
             getIntoChatroom() {
-                this.$http.get('/getChatroom/').then(() => {
 
-                })
             }
         }
     }

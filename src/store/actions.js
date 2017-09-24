@@ -34,15 +34,18 @@ export const changeLoginInfo = async ({ commit }, isLogin = null) => {
 }
 
 
-export const initContacts = async ({ commit }, userid) => {
 
+export const initContacts = async ({ commit }, userid) => {
     console.log('初始化通讯录', userid);
+
     // 这个时候调用接口！
     const response = await getContacts(userid);
+    commit(types.ALL_CONTACTS, response.data.data)
+}
 
-    // 必须需要 修改一下数据格式！
 
-    commit(types.GET_CONTACTS, response.data.data)
+export const storeSearchUser = async ({ commit }, userinfo) => {
+    commit(types.SEARCH_STRANGERS, userinfo)
 }
 
 

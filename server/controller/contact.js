@@ -74,6 +74,7 @@ module.exports = (app) => {
         })*/
     })
 
+
     /**
      * 请求添加好友，，这时候应该用到推送了！至少要写在那里！！
      * ---------------------------------------------
@@ -112,11 +113,11 @@ module.exports = (app) => {
      * 未必同意吧，如果拒绝怎么办？
      * ---------------------------------------------
      */
-    app.post('/contact/acceptFriend', async (req, res) => {
-        let fid = req.body.fid
-        let uid = req.session.userid
-
+    app.post('/contact/handleFriend', async (req, res) => {
         let resultObj = {}
+
+        const fid = req.body.fid
+        const uid = req.session.userid
 
         let commonParams = {
             status: 1,      // 标记为好友状态！
@@ -228,7 +229,7 @@ module.exports = (app) => {
      * ---------------------------------------------
      * @since 2017-08-13
      */
-    app.get('/contact/getFriends', async (req, res) => {
+    app.get('/contact/friends', async (req, res) => {
         // 直接根据session 的值！！
         let resultObj = {};
         let fid = req.session.userid;

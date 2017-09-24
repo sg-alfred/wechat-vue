@@ -3,7 +3,10 @@
     <div class="chatroom-page">
         <header-section :go-back="true" :head-title="headTitle">
             <router-link :to="'/chatroom/chatsetting/' + fid" slot="specialIcon" class="head-usericon">
-                <i class="fa fa-user fa-12x" aria-hidden="true"></i>
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-myinfo-active"></use>
+                </svg>
+                <!--<i class="fa fa-user fa-12x" aria-hidden="true"></i>-->
             </router-link>
         </header-section>
 
@@ -103,7 +106,7 @@
         },
         methods: {
             async initMessage() {
-                const response = await getMessage()
+                const response = await getMessage(this.chatid)
                 this.chatroomInfo = response.data.data;
             },
             scrollToBottom() {

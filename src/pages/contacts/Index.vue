@@ -5,16 +5,11 @@
         <section class="contacts-container">
 
             <nav class="nav-section">
-                <el-row v-for="navItem in navList" :key="navItem.id">
-                    <router-link :to="'/contacts/' + navItem.type">
-                        <el-col :span="6">
-                            <span><img :src=navItem.imgurl /></span>
-                        </el-col>
-                        <el-col :span="18">
-                            <span>{{navItem.name}}</span>
-                        </el-col>
-                    </router-link>
-                </el-row>
+                <router-link :to="'/contacts/' + navItem.type"
+                             v-for="navItem in navList" :key="navItem.id">
+                    <span><img :src=navItem.imgurl /></span>
+                    <span>{{navItem.name}}</span>
+                </router-link>
             </nav>
 
             <div class="placeholder"></div>
@@ -54,7 +49,6 @@
         },
         computed: {
             ...mapGetters({
-//                userinfo: 'getUserinfo',
                 userid: 'getUserid',
                 contactMap: 'getContacts'
             })
@@ -125,18 +119,19 @@
     img {
         width: 40px;
     }
-    .nav-section .el-row {
+    .nav-section a {
+        text-align: left;
         margin: 0 10px;
         padding: 10px;
         border-bottom: 1px solid #e8e8e8;
-    }
-    .nav-section .el-col {
-        display: table;
-        text-align: left;
-        height: 40px;
-    }
-    .nav-section .el-col span {
-        display: table-cell;
-        vertical-align: middle;
+        display: flex;
+        align-items: center;
+        span {
+            padding: 0 10px;
+            flex: 0 1 0;
+        }
+        span:nth-child(2) {
+            flex-grow: 1;
+        }
     }
 </style>

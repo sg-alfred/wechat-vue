@@ -7,6 +7,9 @@
 
 const baseUtil = require('./utils/baseUtil')
 const UserModel = global.dbHandel.getModel('User');
+const ContactModel = global.dbHandel.getModel('Contact')
+
+const baseinfo = ''     // 基本信息，不包含敏感信息
 
 module.exports = (app) => {
 
@@ -78,12 +81,21 @@ module.exports = (app) => {
                 mobilephone: params.username, deleted: false
             })
 
+            // 这样 也是一种写法吧～，但是像密码错误，不好弄啊，try的话，抛一下就好了～
+            /*dbUserinfo.then((userinfo) => {
+
+            }).catch(() => {
+
+            }).then(() => {
+
+            })*/
+
             if (!dbUserinfo) {
                 throw new Error('用户名错误!');
             } else {
-                let validatePassword = baseUtil.createMd5(dbUserinfo.salt + params.password) === dbUserinfo.password;
+                const frontpwd = baseUtil.createMd5(dbUserinfo.salt + baseUtil.createMd5(params.password))
 
-                if (!validatePassword) {
+                if (frontpwd !== dbUserinfo.password ) {
                     throw new Error('密码错误!');
                 } else {
                     req.session.userid = dbUserinfo._id
@@ -105,11 +117,9 @@ module.exports = (app) => {
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         }
 
-
         /*wxuserDbUtil.getWxuserByMobile(params.username).then((doc) => {
             // 判断密码是否正确！
             let validatePassword = baseUtil.createMd5(doc.salt+params.password) == doc.password;
-
             if (!validatePassword) {
                 resultObj = {
                     code: 2,
@@ -139,34 +149,49 @@ module.exports = (app) => {
         })*/
     })
 
+
     /**
      * Restful API 的风格！
      * 添加好友，用手机号码、微信号，精确查询！！只有这两个，还必须是精确的！
      *
-     * 需要判断 可能是哪一个！！
+     * 规定：微信id 不能是 11位的手机号码！！
+     *
+     * 1、判断是否位好友关系！
+     * 2、如果不是再查其他的～
+     *
+     * 不对，是先查用户获取id，之后再查关系！如果有关系，返回关系，没有则为一般信息
+     * 等等，那还不如，先前端查一下 vuex，如果有直接取，没有的话就是 非好友关系，再查后端
      */
     app.get('/users/:keyword', async (req, res) => {
         let resultObj = {}
         let userinfo;
 
-        const keyword = req.param.keyword
-        const deleted = false
+        const keyword = req.params.keyword
 
         try {
+            if (typeof keyword === 'undefined') {
+                throw new Error('查询条件不能为空！');
+            }
+
             // 如果是 11位，按照手机号码尝试，不行这用微信号查找
             if (/^\d{11}$/.test(keyword)) {
-                userinfo = await UserModel.findOne({mobilephone: keyword, deleted})
+                userinfo = await UserModel.findOne({mobilephone: keyword, deleted: false})
+            } else {
+                // 用微信号查询。
+                userinfo = await UserModel.findOne({wechatno: keyword, deleted: false})
             }
-            // 查到退出，否则用微信号查询
+
             if (!userinfo) {
-                userinfo = await UserModel.findOne({wechatno: keyword, deleted})
+                throw new Error('没有查到此用户！');
             }
-            // if () {
-            //
-            // }
+
+            // const contact = await ContactModel.find({
+            //     uid, fid: userinfo._id, status: 1
+            // }).populate('fid', '-salt -password -createtime -updatetime').exec()
+
             resultObj = {
                 code: 0,
-                message: userinfo ? '查询成功' : '没有此用户',
+                message: '查询成功',
                 data: userinfo
             }
         } catch (err) {
@@ -175,15 +200,41 @@ module.exports = (app) => {
                 message: err.message
             }
         } finally {
-            console.log('登录结果', resultObj)
+            console.log('查询结果', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         }
     })
 
-    // 获取好友通讯录
-    app.get('/user/contacts', (req, res) => {
-        // 直接根据session 的值！！
+    /**
+     * 增量 更新用户信息
+     */
+    app.patch('/users/:id', async (req, res) => {
+        let resultObj = {}
 
+        const _id = req.session.userid
+        const updateParams = req.body
+
+        console.log('入参：', _id, updateParams)
+
+        try {
+            const oldUserinfo = UserModel.findById({_id}, 'mobilephone')
+            console.log('旧信息：', {_id}, oldUserinfo);
+
+            const newUserinfo = UserModel.findByIdAndUpdate({_id}, {$set: {updateParams}}, {new: true})
+            resultObj = {
+                code: 0,
+                message: '更新成功',
+                data: newUserinfo
+            }
+        } catch (err) {
+            resultObj = {
+                code: 2,
+                message: err.message
+            }
+        } finally {
+            console.log('更新结果：', resultObj)
+            baseUtil.appResponse(res, JSON.stringify(resultObj))
+        }
     })
 
 }

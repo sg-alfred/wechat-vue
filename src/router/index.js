@@ -23,6 +23,7 @@ import Moments from '@/pages/discover/Moments'
 import Myinfo from '@/pages/myinfo/Index'
 import MyCode from '@/pages/myinfo/QRCode'
 import MyProfile from '@/pages/myinfo/MyProfile'
+import MyAlias from '@/pages/myinfo/MyAlias'
 import UserProfile from '@/pages/myinfo/UserProfile'
 import Wallet from '@/pages/myinfo/Wallet'
 
@@ -74,10 +75,10 @@ const router =  new Router({
         }, {
             path: 'wallet',
             component: Wallet
+        }, {
+            path: 'profile/edit/alias',
+            component: MyAlias
         }]
-    }, {
-        path: '/myinfo/:type',
-        component: Myinfo
     }, {
         path: '/userprofile/:fid',
         component: UserProfile

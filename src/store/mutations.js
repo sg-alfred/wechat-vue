@@ -14,14 +14,14 @@ export default {
     },
 
     // 保存 通讯录
-    [types.GET_CONTACTS] (state, contacts) {
+    [types.ALL_CONTACTS] (state, contacts) {
 
         console.log('没到这里！', JSON.stringify(contacts))
 
         // 不仅仅这样啊！还要 拉平了！
         contacts.forEach(contact => {
 
-            const finfo = Object.assign({}, contact.fid);
+            let finfo = Object.assign({}, contact.fid);
             delete finfo._id
             delete finfo.id     // 为嘛还有这一个～
 
@@ -30,6 +30,11 @@ export default {
 
             Vue.set(state.contacts, contact._id, contact)
         })
+    },
+
+    // 缓存查询到的用户信息
+    [types.SEARCH_STRANGERS] (state, userinfo) {
+        Vue.set(state.strangers, userinfo._id, userinfo)
     },
 
     // 获取所有信息

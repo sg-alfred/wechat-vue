@@ -1,8 +1,10 @@
 <!-- 用户的详情界面，展示 ……
     可能从 通讯录点击，或者朋友圈的头像和 昵称点击 进来～
+
+    还可能没有好友关系，搜索进来的！
  -->
 <template>
-    <div class="userprofile-page" :class="{overlay: isShowOperate}">
+    <div class="userprofile-page">
 
         <header-section :go-back="true" :head-title="headTitle">
             <section slot="userOperate" class="head-operate" @click="showOperate">
@@ -21,7 +23,7 @@
                     <img src="../../assets/logo.png">
                 </span>
                 <div class="name-info">
-                    <p>{{info.remark}}</p><i></i>
+                    <p>{{info.mobilephone}}</p><i></i>
                     <p>微信号：{{info.wechatno}}</p>
                     <p>昵称：{{info.nickname}}</p>
                 </div>
@@ -126,12 +128,17 @@
             this.fid = this.$route.params.fid
             console.log('好友信息-聊天室id-', this.fid)     // 为嘛取不到 fid??
 //            console.log('好友信息-聊天-', JSON.stringify(this.contactMap[this.fid]))
-            this.info = this.contactMap[this.fid]
+
+            let info = this.contactMap[this.fid]
+            if (!info) {
+                info = this.initFuserinfo();
+            }
+            this.info = info;
         },
         methods: {
             async initFuserinfo() {
-//                const response = await getFuserinfo()
-//                this.fuserinfo = response.data
+                const response = await getFuserinfo()
+                this.fuserinfo = response.data
             },
             async showOperate() {
                 this.isShowOperate = !this.isShowOperate;

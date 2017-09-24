@@ -28,23 +28,38 @@
                 </span>
                 <el-dropdown-menu sole="dropdown">
                     <el-dropdown-item command="groupChat">
-                        <img src="static/image/icon-groupchat.png">
+                        <!--<img src="static/image/icon-groupchat.png">-->
+                        <svg class="icon fa-20x" aria-hidden="true">
+                            <use xlink:href="#icon-message-active"></use>
+                        </svg>
                         <span>发起群聊</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="addFriend">
-                        <img src="static/image/icon-addFriend.png">
+                        <!--<img src="static/image/icon-addFriend.png">-->
+                        <svg class="icon fa-20x" aria-hidden="true">
+                            <use xlink:href="#icon-contacts-active"></use>
+                        </svg>
                         <span>添加好友</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="scanQRCode">
-                        <img src="static/image/icon-scancode.png">
+                        <!--<img src="static/image/icon-scancode.png">-->
+                        <svg class="icon fa-20x" aria-hidden="true">
+                            <use xlink:href="#icon-saoyisao"></use>
+                        </svg>
                         <span>扫一扫</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="payment">
-                        <img src="static/image/icon-payment.png">
+                        <!--<img src="static/image/icon-payment.png">-->
+                        <svg class="icon fa-20x" aria-hidden="true">
+                            <use xlink:href="#icon-shoufukuan"></use>
+                        </svg>
                         <span>收付款</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="help">
-                        <img src="static/image/icon-help.png">
+                        <!--<img src="static/image/icon-help.png">-->
+                        <svg class="icon fa-20x" aria-hidden="true">
+                            <use xlink:href="#icon-xiaoxi"></use>
+                        </svg>
                         <span>帮助与反馈</span>
                     </el-dropdown-item>
                     <el-dropdown-item command="logout">
@@ -66,9 +81,11 @@
         <slot name="searchFrm"></slot>
 
         <!-- 汉字，添加好友 -->
-        <slot name="addFriend"></slot>
+        <slot name="addFriendText"></slot>
         <!-- 发送好友申请 按钮 -->
         <slot name="sendBtn"></slot>
+        <!-- 保存 按钮 -->
+        <slot name="setAliasBtn"></slot>
     </header>
 </template>
 
@@ -155,7 +172,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .header-container {
         background-color: #434439;
         color: white;
@@ -189,21 +206,21 @@ export default {
         padding: 0;
         border: 0;
         background-color: #434439;
-        color: white;
-    }
-    .el-dropdown-menu .el-dropdown-menu__item {
-        display: flex;
-        height: 45px;
-        width: 200px;
-        border-top: 1px solid #000000;
-        text-align: left;
-        padding: 0 20px;
-        justify-content: center;
-        align-items: center;
-    }
-    .el-dropdown-menu .el-dropdown-menu__item:hover {
-        background-color: #000000;
-        color: white;
+        color: #ffffff;
+        .el-dropdown-menu__item {
+            display: flex;
+            height: 45px;
+            width: 200px;
+            border-top: 1px solid #000000;
+            text-align: left;
+            padding: 0 20px;
+            justify-content: center;
+            align-items: center;
+        }
+        .el-dropdown-menu__item:hover {
+            background-color: #000000;
+            color: white;
+        }
     }
     .el-dropdown-menu .el-dropdown-menu__item span {
         flex: 0 1 0;
@@ -214,5 +231,8 @@ export default {
     }
     .el-dropdown-menu .el-dropdown-menu__item img {
         width: 25px;
+    }
+    .fa-20x {
+        font-size: 1.2em;
     }
 </style>

@@ -10,16 +10,12 @@ const mongoose = require('mongoose')
 const schema = mongoose.Schema
 
 const USER_SCHEMA = {
-    wechatno: {     // 微信号，不是最开始需要创建的
+    wechatid: {     // 微信号，不是最开始需要创建的, 6-20，必须以字母开头
         type: String,
         // unique: true,
         trim: true      // 去空格
     },
-    nickname : {
-        type: String,
-        // required : true,    // 必填
-        // unique: true        // 唯一索引！
-    },
+    alias: String,    // 自己设置的昵称
     firstname: String,
     lastname: String,
     salt: {         // 密码掩码
@@ -98,21 +94,7 @@ UserSchema.static.findOneByField = (field, cb) => {
     })
 }
 
-// 根据微信号查询
-UserSchema.static.findByWechatno = (wechatno, cb) => {
-    this.findOne({wechatno: wechatno, deleted: false}, (err, doc) => {
-        cb(err, doc)
-    })
-}
-
-// 根据手机号查询！这个也是做过判断的 —— 如果时 11为数字，我才用 手机号查询 —— 并不会模糊查询
-UserSchema.static.findByMobilephone = (mobilephone, cb) => {
-    this.findOne({mobilephone: mobilephone, deleted: false}, (err, doc) => {
-        cb(err, doc)
-    })
-}
-
-
+//
 UserSchema.pre('save', function(next) {
     if (this.isNew) {
         this.createtime = this.updatetime = Date.now()
@@ -120,24 +102,15 @@ UserSchema.pre('save', function(next) {
         this.updatetime = Date.now()
     }
     next()
+})
 
-    // 掩码～
-    // bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-    //     if (err) return next(err)
-    //
-    //     bcrypt.hash(user.password, salt, function(err, hash) {
-    //         if (err) return next(err)
-    //         user.password = hash
-    //         next()
-    //     })
-    // })
+UserSchema.pre('update', function(next) {
+    this.updatetime = Date.now()
 })
 
 // 中间件
 
 // module.exports = mongoose.model('User', UserSchema)
-
-// export default User
 
 module.exports = UserSchema
 

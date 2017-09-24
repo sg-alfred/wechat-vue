@@ -30,6 +30,14 @@ const state = {
         }
         */
     },
+    strangers: {    // 查询过的好友信息
+        /*
+         id: {
+             id,
+             mobilephone,
+         }
+         */
+    },
     chatrooms: {      // 聊天室！
         /*
         id: {
