@@ -1,21 +1,68 @@
 <!-- 不是这样的！！每个都一样，为什么 用 v-for -->
 
-<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<template>
     <footer class="footer-container">
-        <el-row>
+
+        <!-- 不知道如何解决 xlink:href="" 加入变量 的问题～ -->
+        <section @click="goto('wechat')" :class="{'active-color': isActive.wechat}">
+            <svg class="icon fa-20x" aria-hidden="true">
+                <!--<use xlink:href="isActive.wechat ? '#icon-message-active' : '#icon-message'"></use>-->
+                <use v-if="isActive.wechat" xlink:href="#icon-message-active"></use>
+                <use v-else xlink:href="#icon-message"></use>
+            </svg>
+            <p>微信</p>
+        </section>
+        <section @click="goto('contacts')" :class="{'active-color': isActive.contacts}">
+            <svg class="icon fa-20x" aria-hidden="true">
+                <!--<use xlink:href="isActive.contacts ? '#icon-contacts-active' : '#icon-contacts'"></use>-->
+                <use v-if="isActive.contacts" xlink:href="#icon-contacts-active"></use>
+                <use v-else xlink:href="#icon-contacts"></use>
+            </svg>
+            <p>通讯录</p>
+        </section>
+        <section @click="goto('discover')" :class="{'active-color': isActive.discover}">
+            <svg class="icon fa-20x" aria-hidden="true">
+                <!--<use xlink:href="isActive.discover ? '#icon-discover-active' : '#icon-discover'"></use>-->
+                <use v-if="isActive.discover" xlink:href="#icon-discover-active"></use>
+                <use v-else xlink:href="#icon-discover"></use>
+            </svg>
+            <p>发现</p>
+        </section>
+        <section @click="goto('myinfo')" :class="{'active-color': isActive.myinfo}">
+            <svg class="icon fa-20x" aria-hidden="true">
+                <!--<use xlink:href="isActive.myinfo ? '#icon-myinfo-active' : '#icon-myinfo'"></use>-->
+                <use v-if="isActive.myinfo" xlink:href="#icon-myinfo-active"></use>
+                <use v-else xlink:href="#icon-myinfo"></use>
+            </svg>
+            <p>我</p>
+        </section>
+
+        <!--<el-row>
             <el-col :span="6" v-for="item in subMenus" :key="item.id">
-                <!-- 如何直接 作为函数的 参数？ '/item.type' ，不要引号～没必要引号！这样是不行的！ -->
+                &lt;!&ndash; 如何直接 作为函数的 参数？ '/item.type' ，不要引号～没必要引号！这样是不行的！ &ndash;&gt;
                 <section class="grid-content" @click="goto(item.type)">
-                    <div v-if="active" >
-                        <img v-bind:src=item.active />
+                    &lt;!&ndash; 使用png 图片 &ndash;&gt;
+                    &lt;!&ndash; <div v-if="active" >
+                        &lt;!&ndash;<img v-bind:src=item.active />&ndash;&gt;
                     </div>
                     <div v-else>
-                        <img v-bind:src=item.disactive />
-                    </div>
+                        &lt;!&ndash;<img v-bind:src=item.disactive />&ndash;&gt;
+                    </div>&ndash;&gt;
+
+                    &lt;!&ndash; 使用 阿里矢量图 - font-class引用 &ndash;&gt;
+                    &lt;!&ndash; <div class="icon-div">
+                        <i class="iconfont fa-12x" :class="[active ? item.active : item.disactive, {'active-color': active}]"></i>
+                    </div>&ndash;&gt;
+
+                    &lt;!&ndash; 使用 阿里矢量图 - symbol引用 &ndash;&gt;
+                    <svg class="icon" aria-hidden="true">
+                        <use v-if="active" xlink:href="'#'+item.active"></use>
+                        <use v-else xlink:href="'#'+item.disactive"></use>
+                    </svg>
                     <p>{{item.name}}</p>
                 </section>
             </el-col>
-        </el-row>
+        </el-row>-->
     </footer>
 </template>
 
@@ -26,50 +73,56 @@ export default {
     name: 'FooterSection',
     data() {
         return {
-            active: false,
+            isActive: {
+                wechat: false,
+                contacts: false,
+                discover: false,
+                myinfo: false
+            },
             subMenus: [{
                 id: 0,
                 type: 'wechat',
                 name: '微信',
-                active: 'static/image/menus/icon-active_u10.png',
-                disactive: 'static/image/menus/icon-disactive_u10.png' ,
+                active: 'icon-wechat-active',
+                disactive: 'icon-wechat'
             },{
                 id: 1,
                 type: 'contacts',
                 name: '通讯录',
-                active: 'static/image/menus/icon-active_u12.png',
-                disactive: 'static/image/menus/icon-disactive_u12.png' ,
+                active: 'icon-contact-active',
+                disactive: 'icon-contact'
             },{
                 id: 2,
                 type: 'discover',
                 name: '发现',
-                active: 'static/image/menus/icon-active_u14.png',
-                disactive: 'static/image/menus/icon-disactive_u14.png' ,
+                active: 'icon-discover-active',
+                disactive: 'icon-discover'
             },{
                 id: 3,
                 type: 'myinfo',
                 name: '我',
-                active: 'static/image/menus/icon-active_u16.png',
-                disactive: 'static/image/menus/icon-disactive_u16.png' ,
+                active: 'icon-myinfo-active',
+                disactive: 'icon-myinfo'
             }]
         }
     },
-    computed: {
-//        ...mapGetters({
-//            currentSubMenu
-//        })
+    beforeMount() {
+        const current = this.$route.path
+        for (let index in this.isActive) {
+            if (this.isActive.hasOwnProperty(index)) {
+                this.isActive[index] = current.indexOf(index) !== -1
+            }
+        }
     },
     methods: {
         goto(path) {
-            // 跳转之前，需要设置一下 状态吧？
-            this.activeItem = path;
             this.$router.push('/' + path)
         }
     }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .footer-container {
         border: 2px solid ghostwhite;
         position: fixed;
@@ -78,17 +131,26 @@ export default {
         width: 100%;
         z-index: 100;
         background-color: white;
+        display: flex;
+        align-items: center;
+        section {
+            height: 50px;
+            flex-grow: 1;
+            p {
+                margin-top: 5px;
+            }
+        }
     }
-    .grid-content {
-        padding-top: 5px;
-    }
-    .grid-content img {
+
+    img {
         height: 30px;
         padding: 5px 0;
     }
-    .grid-content p {
-        margin: 0;
-        color: black;
-        padding-bottom: 0;
+
+    .fa-20x {
+        font-size: 2em;
+    }
+    .active-color {
+        color: #60B521;
     }
 </style>

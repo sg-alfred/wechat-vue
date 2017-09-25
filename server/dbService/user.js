@@ -13,16 +13,24 @@
 
 // import User from '../models/wxuser'
 
-const User = global.dbHandel.getModel('User');
+const UserModel = global.dbHandel.getModel('User');
 
 let userDbUtil = {};
 
 // 保存用户
-userDbUtil.createWxuser = (params) => {
+userDbUtil.createWxuser = async (params) => {
 
     // 实例化
     let user = new User(params)
     // console.log('数据库层！--', user)
+
+    // 如何使用？
+    try {
+        await user.save();
+
+    } catch (err) {
+
+    }
 
     return new Promise((resolve, reject) => {
 
@@ -38,12 +46,20 @@ userDbUtil.createWxuser = (params) => {
     })
 }
 
-// 根据手机号码查询
-userDbUtil.getWxuserByMobile = (mobile, deleted) => {
-    deleted = deleted | false
+// 根据手机号码查询，这样的话，确实没有必要 再这样一层！！ 因为 对数据库操作太简单了！两句话的事。。
+
+// 根据特定的字段查找，这个应该 不能这么写！
+
+// 或许只要 findOneByMobile 就搞定了！
+
+userDbUtil.getWxuserByMobile = async (mobile, deleted = false) => {
+
+    let userinfo = await UserModel.findOne({'mobilephone': mobile, deleted})
+
+    console.log()
 
     return new Promise((resolve, reject) => {
-        User.findOne({'mobilephone': mobile, 'deleted': deleted}, (err, doc) => {
+        User.findOne({'mobilephone': mobile, deleted}, (err, doc) => {
             console.log('查询结果', err, doc)
             if (err) {
                 reject(err)

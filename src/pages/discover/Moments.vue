@@ -4,7 +4,10 @@
     <div class="moments-page">
         <header-section :go-back="true" :head-title="headTitle">
             <section slot="specialIcon" class="head-cameraicon">
-                <i class="fa fa-camera" aria-hidden="true"></i>
+                <!--<i class="fa fa-camera" aria-hidden="true"></i>-->
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-zhaoxiangji"></use>
+                </svg>
             </section>
         </header-section>
 
@@ -73,6 +76,7 @@
         float: right;
         padding: 18px 20px;
         color: white;
+        font-size: 1.2em;
     }
     .el-carousel__item h3 {
         color: #475669;

@@ -4,50 +4,28 @@
 'use strict'
 
 import kindOf from './kind-of'
+import localStorage from './localstorage'
 
-const localStorage = {
-
-    /**
-     * 存储localStorage
-     */
-    setItem : (name, content) => {
-        if (!name) return;
-        if (typeof content !== 'string') {
-            content = JSON.stringify(content);
-        }
-        window.localStorage.setItem(name, content);
-    },
-
-    /**
-     * 获取localStorage
-     */
-    getItem : name => {
-        if (!name) return;
-        return window.localStorage.getItem(name);
-    },
-
-    /**
-     * 删除localStorage
-     */
-    removeItem : name => {
-        if (!name) return;
-        window.localStorage.removeItem(name);
-    }
-};
-
-
-// 这里面的 this 早就已经变样了！不指向 Vue !
-export const gotoAddress = (path) => {
-    console.log('调转到：', path);
-    this.$router.push(path)
+// 判断对象是否为空
+const isEmptyObject = (value) => {
+    if (kindOf(value) !== 'object') return false
+    for (let t in value) return false
+    return true
 }
 
-export const goback = () => {
-    this.$router.go(-1)
+// this ！！
+export const gotoAddress = (path) => {
+    console.log('调转到：', path);
+    if (-1 === path) {
+        this.$router.go(-1)
+    } else {
+        this.$router.push(path)
+    }
 }
 
 export {
     kindOf,
+    isEmptyObject,
     localStorage
 }
 
@@ -62,5 +40,3 @@ export {
 //         }
 //     }
 // }
-
-

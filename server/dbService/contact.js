@@ -43,7 +43,8 @@ contactUtil.updateContact = (params) => {
         // Model.findOneAndUpdate([conditions], [update], [options], [callback])
 
         // 使用语法要 知道～ 但是，有些东西不知道啊！！ 可以设定多传一些 参数～
-        Contact.update({uid: params.uid, fid: params.fid},
+        Contact.update(
+            {uid: params.uid, fid: params.fid},
             {status: params.status},
             (err, doc) => {
                 console.log('更新通讯录数据库结果', err, doc)

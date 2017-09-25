@@ -3,7 +3,10 @@
     <div class="chatroom-page">
         <header-section :go-back="true" :head-title="headTitle">
             <router-link :to="'/chatroom/chatsetting/' + fid" slot="specialIcon" class="head-usericon">
-                <i class="fa fa-user fa-12x" aria-hidden="true"></i>
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-myinfo-active"></use>
+                </svg>
+                <!--<i class="fa fa-user fa-12x" aria-hidden="true"></i>-->
             </router-link>
         </header-section>
 
@@ -25,6 +28,7 @@
 
 <script>
     import { mapGetters } from 'vuex'
+    import { getMessage } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
     import MessageItem from '../../components/chatroom/MessageItem'
     import MessageSend from '../../components/chatroom/MessageSend'
@@ -41,11 +45,10 @@
         created() {
             this.chatid = this.$route.params.chatid;
         },
+        beforeMount() {
+            this.initMessage();
+        },
         mounted() {
-            // 应该是要获取 历史聊天记录！
-            this.$http.get('/chatroom/getChatById', this.chatid).then((response) => {
-                this.chatroomInfo = response.data.data;
-            });
             this.scrollToBottom();
         },
         data() {
@@ -102,6 +105,10 @@
             }
         },
         methods: {
+            async initMessage() {
+                const response = await getMessage(this.chatid)
+                this.chatroomInfo = response.data.data;
+            },
             scrollToBottom() {
                 this.$nextTick(() => {
                     let container = this.$el.querySelector("#container");

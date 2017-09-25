@@ -3,7 +3,7 @@
  */
 'use strict'
 
-const wxuser = require('./controller/wxuser')
+const wxuser = require('./controller/user')
 const contact = require('./controller/contact')
 const chatroom = require('./controller/chatroom')
 

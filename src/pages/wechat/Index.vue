@@ -25,6 +25,7 @@
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
     import WechatItem from '../../components/WechatItem'
+    import { getChatrooms } from '../../api'
 
     export default {
         name: 'Wechat',
@@ -45,16 +46,15 @@
                 userList: []
             }
         },
-        mounted() {
-            this.$http.get('../../static/initData/chatroom.json')
-                .then(response => {
-                // 这个闭包，this 应该不一样才对啊！
-                this.userList = response.data.chatList;
-            }, response => {
-                alert("调用失败");
-            })
+        beforeMount() {
+            this.initChatroom()
         },
         methods: {
+            // 只能这样？貌似不能放进 beforeMount() ..
+            async initChatroom() {
+                const response = await getChatrooms()
+                this.userList = response.data.chatList;
+            },
             emitTest() {
 
                 // 显然，这个socket shi 没有定义的！！应该是 保存起来，以 用户id 为键值！！这样，才能够正在这里调用！

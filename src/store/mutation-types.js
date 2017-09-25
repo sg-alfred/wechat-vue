@@ -3,7 +3,10 @@
  */
 'use strict'
 
-export const CHANGE_ISLOGIN = 'CHANGE_ISLOGIN'
-export const SET_USERINFO = 'SET_USERINFO'
+export const CHANGE_LOGININFO = 'CHANGE_LOGININFO'
 
-// export const
+export const ALL_CONTACTS = 'ALL_CONTACTS'
+export const SEARCH_STRANGERS = 'SEARCH_STRANGERS'
+
+export const RECEIVE_ALL = 'RECEIVE_ALL'
+export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE'

@@ -50,9 +50,9 @@
             },
             sendMessage() {
                 this.$message(this.contents);
-                this.$http.post('/chatroom/sendMessage', this.message).then((response) => {
-
-                })
+//                this.$http.post('/chatroom/sendMessage', this.message).then((response) => {
+//
+//                })
                 this.contents = '';
             },
             showShortcuts() {

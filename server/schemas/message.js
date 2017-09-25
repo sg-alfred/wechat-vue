@@ -10,11 +10,11 @@ const schema = mongoose.Schema
 
 const MESSAGE_SCHAME = {
     // _id，聊天室的 lastid
-    chatid: {
+    chatid: {       // 必然会 先得道聊天室 id 然后在 得到消息，没有必要双向，一样的，前端处理！
         type: schema.Types.ObjectId,
         ref: 'Chatroom'
     },
-    fromid: {
+    fromid: {       // 没有必要 带！ 这样数据量会太大！ 前端处理一下就好！
         type: schema.Types.ObjectId,
         ref: 'Wxuser'
     },

@@ -1,15 +1,9 @@
 <!-- 通讯录组件，点击到 好友简介，长按悬浮 设置 -->
 
 <template>
-    <section class="contact-item" @click="$emit('get-detail', userinfo.id)">
-        <el-row>
-            <el-col :span="6">
-                <span><img src="../assets/logo.png" /></span>
-            </el-col>
-            <el-col :span="18">
-                <span>{{userinfo.mobilephone}}</span>
-            </el-col>
-        </el-row>
+    <section class="contact-item" @click="$emit('get-detail', contactid)">
+        <span><img src="../assets/logo.png" /></span>
+        <span>{{contact.mobilephone}}</span>
     </section>
 </template>
 
@@ -17,7 +11,8 @@
     export default {
         name: 'ContactItem',
         props: {
-            userinfo: {
+            contactid: String,
+            contact: {
                 type: Object,
                 required: true
             }
@@ -25,22 +20,23 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     img {
         width: 40px;
     }
     .contact-item {
-        padding: 10px;
         margin: 0 10px;
+        padding: 10px;
         border-bottom: 1px solid #e8e8e8;
-    }
-    .contact-item .el-col {
-        height: 40px;
-        display: table;
+        display: flex;
+        align-items: center;
         text-align: left;
-    }
-    .contact-item .el-col span {
-        display: table-cell;
-        vertical-align: middle;
+        span {
+            padding: 0 10px;
+            flex: 0 1 0;
+        }
+        span:nth-child(2) {
+            flex-grow: 1;
+        }
     }
 </style>

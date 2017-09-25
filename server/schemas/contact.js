@@ -19,7 +19,8 @@ const CONTACT_SCHEMA = {
         ref: 'User',
         required: true
     },
-    alias : String,
+    nickname : String,         // 好友设置的昵称
+    remark: String,            // 发送给好友的第一句话，我是……
     description: String,
     status: {       // 0: 添加好友; 1: 已被同意; 2: 被拒绝; 3: 主动删除好友; 4: 被删除
         type: Number,
@@ -38,9 +39,9 @@ const CONTACT_SCHEMA = {
     },
     cleartime: Date,        // 最后一次聊天记录清除时间
     createtime : Date,
-    updatetime : {
-        type : Date,
-        default : Date.now
+    updatetime: {
+        type: Date,
+        default: Date.now
     }
 }
 
@@ -48,6 +49,15 @@ const ContactSchema = schema(CONTACT_SCHEMA)
 
 // 创建 好友映射唯一索引
 ContactSchema.index({'uid': 1, 'fid': 1}, {'unique': true})
+
+ContactSchema.pre('save', function(next) {
+    if (this.isNew) {
+        this.createtime = this.updatetime = Date.now()
+    } else {
+        this.updatetime = Date.now()
+    }
+    next()
+})
 
 // const Contact = mongoose.model('Contact', ContactSchema)
 

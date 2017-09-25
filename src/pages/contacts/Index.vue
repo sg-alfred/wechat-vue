@@ -5,24 +5,19 @@
         <section class="contacts-container">
 
             <nav class="nav-section">
-                <el-row v-for="navItem in navList" :key="navItem.id">
-                    <router-link :to="'/contacts/' + navItem.type">
-                        <el-col :span="6">
-                            <span><img :src=navItem.imgurl /></span>
-                        </el-col>
-                        <el-col :span="18">
-                            <span>{{navItem.name}}</span>
-                        </el-col>
-                    </router-link>
-                </el-row>
+                <router-link :to="'/contacts/' + navItem.type"
+                             v-for="navItem in navList" :key="navItem.id">
+                    <span><img :src=navItem.imgurl /></span>
+                    <span>{{navItem.name}}</span>
+                </router-link>
             </nav>
 
             <div class="placeholder"></div>
 
             <section class="contacts-section">
                 <contact-item
-                        v-for="item in userList"
-                        :key="item.id" :userinfo="item.fid"
+                        v-for="(item, id) in contactMap"
+                        :key="id" :contactid="id" :contact="item"
                         @get-detail="getDetail"
                 ></contact-item>
             </section>
@@ -39,7 +34,8 @@
 
 <script>
 
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
+    import { isEmptyObject } from '../../util'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
     import ContactItem from '../../components/ContactItem'
@@ -53,14 +49,14 @@
         },
         computed: {
             ...mapGetters({
-                userinfo: 'getUserinfo'
+                userid: 'getUserid',
+                contactMap: 'getContacts'
             })
         },
         data() {
             return {
                 headTitle: '微信',
                 searchType: 'all',
-                userList: [],
                 navList: [{
                     id: 0,
                     type: 'newFriends',
@@ -84,14 +80,21 @@
                 }]
             }
         },
-        mounted() {
-            this.$http.get('/contact/getContacts').then(response => {
-                this.userList = response.data.data;
-            })
+        created() {
+            console.log('这个是啥？', JSON.stringify(this.contactMap), isEmptyObject(this.contactMap))
+            if (isEmptyObject(this.contactMap)) {        // vuex 没有，则调用
+                this.initContacts(this.userid)
+            }
         },
         methods: {
+            ...mapActions(['initContacts']),
+//            async initContacts() {
+//                const response = await getContacts();
+//                // 保存到 vuex，如果有，直接取，否则再取
+//                this.contactMap = response.data.data;
+//            },
             getDetail(fid) {
-                this.$router.push('/userprofile/' + fid);
+                this.$router.push('/userprofile/' + fid  + '?friend=true');
             }
         }
     }
@@ -116,18 +119,19 @@
     img {
         width: 40px;
     }
-    .nav-section .el-row {
+    .nav-section a {
+        text-align: left;
         margin: 0 10px;
         padding: 10px;
         border-bottom: 1px solid #e8e8e8;
-    }
-    .nav-section .el-col {
-        display: table;
-        text-align: left;
-        height: 40px;
-    }
-    .nav-section .el-col span {
-        display: table-cell;
-        vertical-align: middle;
+        display: flex;
+        align-items: center;
+        span {
+            padding: 0 10px;
+            flex: 0 1 0;
+        }
+        span:nth-child(2) {
+            flex-grow: 1;
+        }
     }
 </style>

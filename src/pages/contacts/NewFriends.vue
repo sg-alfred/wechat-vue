@@ -1,7 +1,7 @@
 <template>
     <div class="newfriends-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <section class="head-addFriend" slot="addFriend" @click="$router.push('/addFriend')">
+            <section class="head-addFriend" slot="addFriendText" @click="$router.push('/addFriend')">
                 <span>添加朋友</span>
             </section>
         </header-section>
@@ -16,29 +16,31 @@
         </section>
 
         <article class="request-article">
-            <label>新的朋友</label>
-            <section class="request-section">
-                <el-row v-for="item in friendList" :key="item.id">
-                    <el-col :span="4">
-                        <span><img src="../../assets/logo.png" alt="头像"/></span>
-                    </el-col>
-                    <el-col :span="16">
-                        <span>{{item.uid.mobilephone}}</span>
-                    </el-col>
-                    <el-col :span="4">
-                        <span v-if="item.status == 0">
-                            <el-button type="success" @click="acceptFriend(item.uid, item.id)">接受</el-button>
-                        </span>
-                        <span v-else>已添加</span>
-                    </el-col>
-                </el-row>
-            </section>
+            <div><label>新的朋友</label></div>
 
+            <!-- 组件化！和微信界面一致，头像也是比较大的那个！但是 点击进去 不一样啊，一个用户详情，一个是聊天室 -->
+            <section class="request-section" v-for="(item, id) in newFriendList" :key="id">
+                <span>
+                    <img src="../../assets/logo.png" alt="头像" />
+                </span>
+                <span>
+                    <span>{{item.uid.mobilephone}}</span>
+                    <span>{{item.uid.alias}}</span>
+                </span>
+                <span>
+                    <span v-if="item.status === 0">
+                        <el-button type="success" @click="handleFriend(item.uid, item._id)">接受</el-button>
+                    </span>
+                    <span v-else style="white-space: nowrap">已添加</span>
+                </span>
+            </section>
         </article>
     </div>
 </template>
 
 <script>
+    import Vue from 'vue'
+    import { getNewFriends, handleNewFriend } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
 
     export default {
@@ -49,23 +51,38 @@
         data() {
             return {
                 headTitle: '添加好友',
-                friendList: []
+                newFriendList: {}
             }
         },
-        mounted() {
-            this.$http.get('/contact/getFriends').then((response) => {
-                this.friendList = response.data.data;
-            })
+        beforeMount() {
+            this.initNewFriends()
         },
         methods: {
-            acceptFriend(fid, id) {
-                this.$http.post('/contact/acceptFriend', {fid: fid}).then((response) => {
-                    let responseData = response.data;
-                    this.$message(responseData.message)
-                    if (!responseData.code) {
-                        this.friendList[id].status = 1;
-                    }
+            async initNewFriends() {
+                const response = await getNewFriends();
+//                this.newFriendList = response.data.data;
+
+                // TODO 处理一下数据格式，以方便 状态更改～
+                response.data.data.forEach((item) => {
+                    Vue.set(this.newFriendList, item._id, item)
                 })
+//                console.log(JSON.stringify(this.newFriendList))
+            },
+            async handleFriend(friendInfo, id) {
+
+                console.log('处理好友请求', friendInfo._id, id)
+
+                const response = await handleNewFriend({
+                    fid: friendInfo._id,
+                    type: 'accept'          // 同意，或者加入黑名单等等～
+                })
+                let handleResult = response.data;
+                this.$message(handleResult.message)
+
+                // 界面刷新？不需要，只要 假装成功就好！
+                if (!handleResult.code) {
+                    this.newFriendList[id].status = 1;
+                }
             }
         }
     }
@@ -92,26 +109,25 @@
     .request-article {
         text-align: left;
     }
-    .request-article label {
+    .request-article > div {
         font-size: 16px;
         padding: 10px;
     }
     .request-article .request-section {
         background-color: white;
-        margin-top: 5px;
-    }
-    .request-section .el-row {
-         padding: 10px;
-     }
-    .request-section .el-row .el-col {
-        display: table;
-        height: 40px;
-    }
-    .request-section .el-row .el-col span {
-        display: table-cell;
-        vertical-align: middle;
-    }
-    .request-section .el-row .el-col span img {
-        height: 40px;
+        height: 60px;
+        border-bottom: 1px solid #e8e8e8;
+        display: flex;
+        align-items: center;
+        span {
+            margin: 0 20px;
+            flex: 0 1 0;
+        }
+        span:nth-child(2) {
+            flex-grow: 1;
+        }
+        img {
+            height: 40px;
+        }
     }
 </style>

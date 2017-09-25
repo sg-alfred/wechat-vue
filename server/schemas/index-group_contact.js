@@ -7,15 +7,18 @@ import mongoose from 'mongoose'
 const schema = mongoose.Schema
 
 const GROUPCONTACTSCHEMA = {
+    _id: false,
     gid: {
         type: schema.Types.ObjectId,
-        ref: Group
+        ref: 'Group',
+        required: true
     },
     uid: {
         type: schema.Types.ObjectId,
-        ref: User
+        ref: 'User',
+        required: true
     },
-    alias: String,      // 群别名，默认为 nickname
+    alias: String,  // 群别名，默认为 nickname
     rank: {         // 排名，升级群主
         type: Number,
         required: true
@@ -35,5 +38,7 @@ const GROUPCONTACTSCHEMA = {
 }
 
 const GroupContactSchema = schema('GroupContact', GROUPCONTACTSCHEMA)
+
+GroupContactSchema.index({'gid': 1, 'uid': 1}, {'unique': true})
 
 export default GroupContactSchema
