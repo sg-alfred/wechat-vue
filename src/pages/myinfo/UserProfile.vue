@@ -62,11 +62,11 @@
                 <div v-else>
                     <el-button type="success" @click="addFriend">添加好友</el-button>
                 </div>
-                <div>
+                <!--<div>
                     <el-button type="success">通过验证</el-button>
                     <br/>
                     <el-button :plain="true" type="success">加入黑名单</el-button>
-                </div>
+                </div>-->
             </section>
         </section>
 
@@ -84,7 +84,8 @@
 
 <script>
     import { mapState, mapGetters } from 'vuex'
-    import { getUserOperate, getFUserinfo } from '../../api'
+    import { getUserOperate } from '../../api'
+    import { localStorage } from '../../util'
     import HeaderSection from '../../components/HeaderSection'
 
     export default {
@@ -119,26 +120,26 @@
                 contactMap: 'getContacts'
             })
         },
-        beforeCreate() {
-            // 放在这里错了？这个之后才会执行 beforeMount，没有问题啊！
-//            this.fid = this.$route.params.fid
-//            console.log('有啊！--', this.fid)
-        },
-        beforeMount() {
-            this.fid = this.$route.params.fid
-            console.log('好友信息-聊天室id-', this.fid)     // 为嘛取不到 fid??
-//            console.log('好友信息-聊天-', JSON.stringify(this.contactMap[this.fid]))
+        created() {
+            // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
+            // 但是 create之前，根本还没有获取 data!! —— 可以改成 created
 
-            let info = this.contactMap[this.fid]
-            if (!info) {
-                info = this.initFuserinfo();
-            }
-            this.info = info;
+            this.fid = this.$route.params.fid
+            this.isFriend = this.$route.query.friend === 'true'
+
+//            let info = this.contactMap[this.fid]
+//            if (!info) {
+//                info = this.initFuserinfo();        // 这个进程并不会 被阻塞！！
+//            }
+//            this.info = info;   // 首先执行！因此，第一次还是 空的！
+
+            this.info = this.isFriend ? this.contactMap[this.fid] : JSON.parse(localStorage(this.fid));
         },
         methods: {
             async initFuserinfo() {
-                const response = await getFuserinfo()
-                this.fuserinfo = response.data
+                // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
+//                const response = await getFuserinfo()
+//                this.fuserinfo = response.data
             },
             async showOperate() {
                 this.isShowOperate = !this.isShowOperate;

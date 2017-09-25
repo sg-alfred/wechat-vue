@@ -7,8 +7,6 @@ import store from './store/index'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
-import { changeLoginInfo } from './store/actions'
-
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
@@ -21,7 +19,3 @@ new Vue({
     template: '<App/>',
     components: { App }
 })
-
-console.log('登录-00-')
-changeLoginInfo(store);
-console.log('登录-11-')

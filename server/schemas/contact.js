@@ -9,7 +9,6 @@ const mongoose = require('mongoose')
 const schema = mongoose.Schema
 
 const CONTACT_SCHEMA = {
-    // _id: false,         // 不设置 id
     uid : {
         type: schema.Types.ObjectId,       // 这个应该是 用户表的主键！
         ref: 'User',        // 关联的是这个！！
@@ -21,6 +20,7 @@ const CONTACT_SCHEMA = {
         required: true
     },
     nickname : String,         // 好友设置的昵称
+    remark: String,            // 发送给好友的第一句话，我是……
     description: String,
     status: {       // 0: 添加好友; 1: 已被同意; 2: 被拒绝; 3: 主动删除好友; 4: 被删除
         type: Number,
@@ -45,7 +45,7 @@ const CONTACT_SCHEMA = {
     }
 }
 
-const ContactSchema = schema(CONTACT_SCHEMA, {_id: false})
+const ContactSchema = schema(CONTACT_SCHEMA)
 
 // 创建 好友映射唯一索引
 ContactSchema.index({'uid': 1, 'fid': 1}, {'unique': true})

@@ -13,39 +13,6 @@ const isEmptyObject = (value) => {
     return true
 }
 
-
-/*
-const localStorage = {
-
-    /!**
-     * 存储localStorage
-     *!/
-    setItem : (name, content) => {
-        if (!name) return;
-        if (typeof content !== 'string') {
-            content = JSON.stringify(content);
-        }
-        window.localStorage.setItem(name, content);
-    },
-
-    /!**
-     * 获取localStorage
-     *!/
-    getItem : name => {
-        if (!name) return;
-        return window.localStorage.getItem(name);
-    },
-
-    /!**
-     * 删除localStorage
-     *!/
-    removeItem : name => {
-        if (!name) return;
-        window.localStorage.removeItem(name);
-    }
-};
-*/
-
 // this ！！
 export const gotoAddress = (path) => {
     console.log('调转到：', path);
@@ -73,5 +40,3 @@ export {
 //         }
 //     }
 // }
-
-

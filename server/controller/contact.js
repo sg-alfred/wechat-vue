@@ -84,14 +84,19 @@ module.exports = (app) => {
         let params = req.body
 
         // 还有 uid,fid,alias,
+        params.isshare = params.isshare === 'true'      // 字符串转化为 布尔值
         params.uid = req.session.userid;
         params.status = 0;      // 添加好友 标志位！
         params.addtime = new Date();
 
-        console.log('添加好友的信息--', params)
+        console.log('添加好友的信息-00-', params)
 
         try {
-            const doc = await new ContactModel(params).save();
+            const contactObj = new ContactModel(params);
+
+            console.log('添加好友的信息-11-', contactObj)
+
+            const doc = await contactObj.save();
             resultObj = {
                 code: 0,
                 message: '申请成功，等待对方确认',
@@ -119,10 +124,21 @@ module.exports = (app) => {
         const fid = req.body.fid
         const uid = req.session.userid
 
+        /*switch (req.body.type) {        // 处理类型
+            case 'accept':
+
+                break;
+            case 'setblack':    // 拉入黑名单，对方是不知道的！
+                break;
+            default:
+                break;
+        }*/
+
         let commonParams = {
             status: 1,      // 标记为好友状态！
             agreetime: new Date()
         }
+        console.log('处理好友请求-00-', fid, uid, commonParams)
 
         try {
             // 这里如果出错了 会怎么样？
@@ -138,13 +154,20 @@ module.exports = (app) => {
                 uid: fid, fid: uid
             }, commonParams)
 
+            console.log('更新好友信息：', commonParams)
+
             if (!updateFriendInfo) {
                 throw new Error('同意好友请求异常');
             }
 
             // 创建自身的通讯录 参数
             let selfParams = Object.assign({uid, fid}, commonParams)
+
+            console.log('保存信息-00-', selfParams)
+
             const selfInfo = await new ContactModel(selfParams).save()
+
+            console.log('保存信息-11-', selfInfo)
 
             if (!selfInfo) {
                 throw new Error('新建好友关系异常');

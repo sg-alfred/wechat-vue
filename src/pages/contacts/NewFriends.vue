@@ -19,15 +19,17 @@
             <div><label>新的朋友</label></div>
 
             <!-- 组件化！和微信界面一致，头像也是比较大的那个！但是 点击进去 不一样啊，一个用户详情，一个是聊天室 -->
-            <section class="request-section" v-for="item in NewFriendList" :key="item.id">
-                <span><img src="../../assets/logo.png" alt="头像" /></span>
+            <section class="request-section" v-for="(item, id) in newFriendList" :key="id">
                 <span>
-                    <span>{{item.uid.mobilephone}}</span>
-                    <span>{{item.uid.mobilephone}}</span>
+                    <img src="../../assets/logo.png" alt="头像" />
                 </span>
                 <span>
-                    <span v-if="item.status == 0">
-                        <el-button type="success" @click="handleFriend(item.uid, item.id)">接受</el-button>
+                    <span>{{item.uid.mobilephone}}</span>
+                    <span>{{item.uid.alias}}</span>
+                </span>
+                <span>
+                    <span v-if="item.status === 0">
+                        <el-button type="success" @click="handleFriend(item.uid, item._id)">接受</el-button>
                     </span>
                     <span v-else style="white-space: nowrap">已添加</span>
                 </span>
@@ -37,6 +39,7 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import { getNewFriends, handleNewFriend } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
 
@@ -48,7 +51,7 @@
         data() {
             return {
                 headTitle: '添加好友',
-                NewFriendList: []
+                newFriendList: {}
             }
         },
         beforeMount() {
@@ -57,15 +60,28 @@
         methods: {
             async initNewFriends() {
                 const response = await getNewFriends();
-                this.NewFriendList = response.data.data;
+//                this.newFriendList = response.data.data;
+
+                // TODO 处理一下数据格式，以方便 状态更改～
+                response.data.data.forEach((item) => {
+                    Vue.set(this.newFriendList, item._id, item)
+                })
+//                console.log(JSON.stringify(this.newFriendList))
             },
-            async handleFriend(fid, id) {
-                const response = await handleNewFriend(fid)
+            async handleFriend(friendInfo, id) {
+
+                console.log('处理好友请求', friendInfo._id, id)
+
+                const response = await handleNewFriend({
+                    fid: friendInfo._id,
+                    type: 'accept'          // 同意，或者加入黑名单等等～
+                })
                 let handleResult = response.data;
                 this.$message(handleResult.message)
 
+                // 界面刷新？不需要，只要 假装成功就好！
                 if (!handleResult.code) {
-                    this.friendList[id].status = 1;
+                    this.newFriendList[id].status = 1;
                 }
             }
         }

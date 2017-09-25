@@ -28,7 +28,7 @@
 <script>
     import { mapGetters } from 'vuex'
     import { searchUser } from '../api'
-    import { isEmptyObject } from '../util'
+    import { isEmptyObject, localStorage } from '../util'
     import HeaderSection from '../components/HeaderSection'
 
     export default {
@@ -54,7 +54,7 @@
         },
         methods: {
             async search() {
-                console.log(this.keyword)
+                console.log('搜索参数：', this.keyword)
                 switch (this.type) {
                     case 'all':
                         console.log('searchAll');
@@ -79,14 +79,21 @@
                             const response = await searchUser(this.keyword)
                             const searchResult = response.data;
 
-                            // 缓存起来～
+                            console.log('搜索结果：', searchResult);
 
+                            // 缓存起来～
                             if (!searchResult.code && !!searchResult.data) {
+                                searchid = searchResult.data._id;
                                 this.searchResult = searchResult.data;
+
+                                // 缓存起来了～
+                                localStorage(searchid, searchResult.data)
+
                             } else {
                                 this.$message(searchResult.message)
                             }
                         }
+                        console.log('查询ID-searchid--', searchid);
 
                         // 有跳转到用户的 详情界面！
                         if (searchid) {

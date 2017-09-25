@@ -94,7 +94,7 @@
 //                this.contactMap = response.data.data;
 //            },
             getDetail(fid) {
-                this.$router.push('/userprofile/' + fid);
+                this.$router.push('/userprofile/' + fid  + '?friend=true');
             }
         }
     }

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     import 'normalize.css'
 
     export default {
@@ -16,12 +16,23 @@
             ])
         },
         created() {
-            // 这个之前
-            console.log('没有跳转？', this.isLogin);
-            if (!this.isLogin) {
-                this.$router.push('/login');
-            } else {
-                this.$router.push('/wechat');
+            this.initLogin()
+        },
+        methods: {
+            ...mapActions(['changeLoginInfo']),
+            async initLogin() {
+
+                console.log('app-00-', this.isLogin)
+
+                await this.changeLoginInfo()
+
+                // 这是否设置
+                console.log('app没有跳转？-11-', this.isLogin);
+                if (!this.isLogin) {
+                    this.$router.push('/login');
+                } else {
+                    this.$router.push('/wechat');
+                }
             }
         }
     }

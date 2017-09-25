@@ -79,7 +79,8 @@ export const addNewFriend = (addInfo) => axios.post('/contact/addNewFriend', add
 export const getNewFriends = () => axios.get('/contact/friends')
 
 /**
- * 处理好友信息
+ * 处理好友信息，
+ * 还有 处理类型！是 通过还是加入黑名单
  */
-export const handleNewFriend = (contactid) => axios.post('/contact/handleFriend', contactid)
+export const handleNewFriend = (handleInfo) => axios.post('/contact/handleFriend', handleInfo)
 

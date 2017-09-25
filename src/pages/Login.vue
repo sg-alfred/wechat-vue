@@ -44,14 +44,14 @@
             'isLogin'
         ]),
         created() {     // 如果已登陆，直接跳到 wechat 界面～
-            console.log('登录-334-', this.isLogin)
+            console.log('login-page-00-', this.isLogin)
             if (this.isLogin) {
                 this.$router.push('/wechat');
             }
         },
         methods: {
             ...mapActions(['changeLoginInfo']),
-            doLogin(formName) {
+            async doLogin(formName) {
             //  简单的数据校验！！
                 this.$refs[formName].validate( async (valid) => {
                     if (valid) {
@@ -61,10 +61,12 @@
                         this.$message(result.message)
 
                         if (!result.code) {
-                            console.log('hello')
+                            console.log('doLogin-00-', this.isLogin)
+
                             localStorage('userinfo', JSON.stringify(result.userinfo))
-                            console.log('hello22')
-                            this.changeLoginInfo(true)
+                            await this.changeLoginInfo(true)
+
+                            console.log('doLogin-11-', this.isLogin)
 
                             this.$router.push('/wechat')
                         }

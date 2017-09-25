@@ -92,6 +92,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { userLogout } from '../api'
+import { localStorage } from '../util'
 
 export default {
     name: 'HeaderSection',
@@ -141,7 +142,7 @@ export default {
                     this.$message(result.message)
 
                     localStorage('userinfo', null);
-                    this.changeLoginInfo(false);
+                    await this.changeLoginInfo(false);
 
                     this.$router.push('/login');
                 }

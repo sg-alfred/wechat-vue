@@ -22,23 +22,19 @@ export const changeLoginInfo = async ({ commit }, isLogin = null) => {
     if (false === response.data.message) {
         localStorage('userinfo', null)
     } else {
-        const localinfo = localStorage('userinfo')
-        if (isLogin !== false && !!localinfo) {
-            userinfo = JSON.parse(localinfo)
+        const localUserinfo = localStorage('userinfo')
+        if (isLogin !== false && !!localUserinfo) {
+            userinfo = JSON.parse(localUserinfo)
         }
     }
-
     // console.log('登录～～', response.data.message, isLogin, userinfo)
 
     commit(types.CHANGE_LOGININFO, userinfo);
 }
 
 
-
 export const initContacts = async ({ commit }, userid) => {
     console.log('初始化通讯录', userid);
-
-    // 这个时候调用接口！
     const response = await getContacts(userid);
     commit(types.ALL_CONTACTS, response.data.data)
 }
@@ -76,4 +72,3 @@ export function createMessage ({ text, thread }, cb) {
         cb(message)
     }, LATENCY)
 }
-

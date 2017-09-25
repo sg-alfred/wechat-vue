@@ -14,11 +14,11 @@
             </article>
             <article>
                 <p>为朋友设置备注</p>
-                <input v-model="formInfo.alias" />
+                <input v-model="formInfo.nickname" />
             </article>
             <article class="share-div">
                 <p>设置朋友圈权限</p>
-                <el-switch v-model="formInfo.share" class="switch-label"
+                <el-switch v-model="formInfo.isshare" class="switch-label"
                            on-color="#13ce66" off-color="grey">
                 </el-switch>
                 <p class="share-text">不让他(她)看我的朋友圈</p>
@@ -40,7 +40,7 @@
                 headTitle: '验证申请',
                 addSet: {},
                 formInfo: {
-                    share: false
+                    isshare: true
                 },
                 formRules: {}
             }
@@ -66,8 +66,6 @@
                 const result = response.data;
 
                 // 或者，也放入 vuex 这样，也就可以直接取值了～不然就 放在localStorage里～
-
-
 
                 this.$message(result.message)
             }
