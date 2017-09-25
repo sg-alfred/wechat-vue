@@ -2,17 +2,23 @@
     <section class="send-section">
         <section class="message-section">
             <div @click="speak">
-                <i class="fa fa-volume-up fa-15x" aria-hidden="true"></i>
+                <svg class="icon fa-12x" aria-hidden="true">
+                    <use xlink:href="#icon-yuyin"></use>
+                </svg>
+                <!--<i class="fa fa-volume-up fa-15x" aria-hidden="true"></i>-->
             </div>
             <div>
-                <input v-model="contents" @keyup.enter="sendMessage">
+                <input v-model="content" @keyup.enter="doSendMessage">
             </div>
             <div @click="showEmoji">
-                <i class="fa fa-smile-o fa-15x" aria-hidden="true"></i>
+                <svg class="icon fa-12x" aria-hidden="true">
+                    <use xlink:href="#icon-biaoqing"></use>
+                </svg>
+                <!--<i class="fa fa-smile-o fa-15x" aria-hidden="true"></i>-->
             </div>
             <div>
-                <el-button v-if="!this.contents" icon="plus" @click=""></el-button>
-                <el-button v-else type="success" @click="sendMessage">发送</el-button>
+                <el-button v-if="!this.content" icon="plus" @click=""></el-button>
+                <el-button v-else type="success" @click="doSendMessage">发送</el-button>
             </div>
         </section>
         <section class="emoji-section" v-if="isShowEmoji">
@@ -28,12 +34,14 @@
 
 <script>
     import { mapGetters } from 'vuex'
+    import { sendMessage } from '../../api'
 
     export default {
         name: 'Message',
         data() {
             return {
-                contents: '',       // 文字
+                chatid: '',
+                content: '',       // 文字
                 isShowEmoji: false,
                 isShowShortcuts: false,
                 chatroomInfo: {}
@@ -44,16 +52,23 @@
                 userid: 'getUserid'
             }),
         },
+        created() {
+            this.chatid = this.$route.params.chatid
+        },
         methods: {
             speak() {
 
             },
-            sendMessage() {
-                this.$message(this.contents);
-//                this.$http.post('/chatroom/sendMessage', this.message).then((response) => {
-//
-//                })
-                this.contents = '';
+            async doSendMessage() {
+                console.log('发送的消息-11-', this.chatid, this.content)
+                const response = await sendMessage(this.chatid, {
+                    content: this.content,
+                    sendtime: Date.now()
+                })
+                const result = response.data
+
+                this.$message(result.message);
+                this.content = '';
             },
             showShortcuts() {
                 this.isShowEmoji = false;
@@ -99,7 +114,7 @@
     .item-section {
         height: 250px;
     }
-    .fa-15x {
-        font-size: 1.5em;
+    .fa-12x {
+        font-size: 1.2em;
     }
 </style>

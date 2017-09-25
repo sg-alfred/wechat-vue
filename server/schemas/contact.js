@@ -26,7 +26,7 @@ const CONTACT_SCHEMA = {
         type: Number,
         required: true
     },
-    addtime: Date,
+    addtime: Date,      // TODO 如何知道是 加还是被加？根据 status ?
     agreetime: Date,
     deletetime: Date,
     isshare: {      // 是否分享朋友圈信息

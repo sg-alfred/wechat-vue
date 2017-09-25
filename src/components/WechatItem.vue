@@ -14,20 +14,21 @@
  -->
 
 <template>
-    <section class="wechat-item" @click="$emit('into-chatroom', chatItem.chatid)">
+    <section class="wechat-item" @click="$emit('into-chatroom', chatItem.chatid._id)">
 
         <span>
             <!-- 连接到 用户详情界面 -->
             <!--<router-link :to=""></router-link>-->
-            <img :src=chatItem.headimgurl />
+            <img :src=chatItem.fid.headimgurl />
         </span>
-        <div class="padding-5">
-            <span>{{chatItem.nickname}}</span>
-            <span class="lasttime-text">{{chatItem.lasttime}}</span>
-        </div>
-        <div class="padding-5">
-            <span>{{chatItem.content}}</span>
-            <!--<i class="el-icon-caret-bottom el-icon&#45;&#45;right"></i>-->
+        <div>
+            <p class="padding-5">
+                <span>{{ chatItem.fid.mobilephone }}</span>
+                <span class="right">{{ chatItem.chatid.sendtime | formatTime }}</span>
+            </p>
+            <p class="padding-5">
+                <span>{{ chatItem.chatid.content }}</span>
+            </p>
         </div>
 
     </section>
@@ -41,21 +42,11 @@
                 type: Object,
                 required: true
             }
-        },
-        data() {
-            return {
-                // 应该是关联查询过后的结果
-            }
-        },
-        methods: {
-            getIntoChatroom() {
-
-            }
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     img {
         width: 48px;
     }
@@ -64,9 +55,11 @@
         margin: 0 10px;
         border-bottom: 1px solid #e8e8e8;
         text-align: left;
-    }
-    .lasttime-text {
-        float: right;
+        display: flex;
+        align-items: center;
+        div {
+            flex-grow: 1;
+        }
     }
     .padding-5 {
         padding: 5px;

@@ -50,10 +50,10 @@ const router =  new Router({
             component: NewFriends
         }]
     }, {
-        path: '/chatroom/:chatid',
+        path: '/chatrooms/:chatid',
         component: Chatroom,
         children: [{
-            path: '/chatroom/chatsetting/:fid',
+            path: '/chatrooms/:chatid/chatsetting',
             component: ChatSetting
         }]
     }, {

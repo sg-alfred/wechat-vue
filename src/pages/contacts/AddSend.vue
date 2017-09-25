@@ -1,7 +1,7 @@
 <template>
     <div class="addsend-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <section slot="sendBtn" class="header-btn">
+            <section slot="sendBtn" class="header-btn right">
                 <el-button type="success" @click="addFriend">发送</el-button>
             </section>
         </header-section>
@@ -81,7 +81,6 @@
         z-index: 202;
     }
     .header-btn {
-        float: right;
         margin: 10px 10px 0 0;
     }
     .form-section {

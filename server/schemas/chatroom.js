@@ -18,6 +18,10 @@ const CHATROOM_SCHEMA = {
         ref: 'Message'
         // 没必要创建唯一索引！
     },
+    // 最后信息冗余！
+    content: String,
+    imgurl: String,
+    sendtime: Date
 }
 
 const ChatroomSchema = schema(CHATROOM_SCHEMA)

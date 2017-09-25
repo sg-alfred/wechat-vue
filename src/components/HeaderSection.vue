@@ -1,11 +1,5 @@
 <template xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <header class="header-container">
-        <!-- 微信聊天室的 右上角的用户icon，点击 跳转到 聊天信息 的功能-->
-        <!-- 朋友圈右上角的 icon,点击弹出 视频或图片 发布  -->
-        <slot name="specialIcon"></slot>
-
-        <!-- 通讯录点击 进入 详细资料后，右上角有用户设置，点击下弹出，比如屏蔽、设置用户名等-->
-        <slot name="userOperate"></slot>
 
         <section class="head_goback" v-if="goBack" @click="$router.go(-1)">
             <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -80,12 +74,21 @@
         <!-- 搜索输入框 -->
         <slot name="searchFrm"></slot>
 
+        <!-- 微信聊天室的 右上角的用户icon，点击 跳转到 聊天信息 的功能-->
+        <!-- 朋友圈右上角的 icon,点击弹出 视频或图片 发布  -->
+        <slot name="specialIcon"></slot>
+
+        <!-- 通讯录点击 进入 详细资料后，右上角有用户设置，点击下弹出，比如屏蔽、设置用户名等-->
+        <slot name="userOperate"></slot>
+
         <!-- 汉字，添加好友 -->
         <slot name="addFriendText"></slot>
+
         <!-- 发送好友申请 按钮 -->
         <slot name="sendBtn"></slot>
         <!-- 保存 按钮 -->
         <slot name="setAliasBtn"></slot>
+
     </header>
 </template>
 

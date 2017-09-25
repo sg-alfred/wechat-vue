@@ -48,13 +48,20 @@ export const searchUser = (keyword) => axios.get('/users/' + keyword)
 /**
  * 获取所有未被清空的聊天室信息
  */
-export const getChatrooms = () => axios.get('../../static/initData/chatroom.json')
+export const getChatrooms = () => axios.get('/chatrooms')
+
+/**
+ * 发送消息
+ * @param chatid
+ * @param message
+ */
+export const sendMessage = (chatid, message) => axios.post('/chatrooms/' + chatid, message)
 
 /**
  * 获取某聊天室的信息
  * @param chatid
  */
-export const getMessage = (chatid) => axios.get('/chatrooms/' + chatid)
+export const getMessages = (chatid) => axios.get('/chatrooms/' + chatid)
 
 /**
  * 获取好友通讯录

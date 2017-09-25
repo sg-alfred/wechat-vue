@@ -1,15 +1,17 @@
 <template>
     <section class="">
-        <span class="sendtime-info">{{message.sendtime}}</span>
+        <span class="sendtime-info">
+            {{ message.sendtime | formatTime }}
+        </span>
         <div v-if="message.fromid != userid">
             <div class="message-friend">
                 <span><img alt="好友头像"></span>
-                <span>{{message.content}}</span>
+                <span>{{ message.content }}</span>
             </div>
         </div>
         <div v-else>
             <div class="message-self">
-                <span>{{message.content}}</span>
+                <span>{{ message.content }}</span>
                 <span><img alt="自己头像"></span>
             </div>
         </div>
@@ -23,21 +25,15 @@
         name: 'MessageItem',
         props: {
             message: {
-                type: Object,
+                type: Object
             }
         },
-        // 为什么映射到 计算属性当中？
-        // 1、实时计算的？
         computed: {
             // 展开运算符
             ...mapGetters({
-                userid: 'getUserid',
-            }),
-        },
-        data() {
-            return {
-            }
-        },
+                userid: 'getUserid'
+            })
+        }
     }
 </script>
 

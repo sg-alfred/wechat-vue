@@ -1,7 +1,7 @@
 <template>
     <div class="newfriends-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <section class="head-addFriend" slot="addFriendText" @click="$router.push('/addFriend')">
+            <section class="head-addFriend" slot="addFriendText right" @click="$router.push('/addFriend')">
                 <span>添加朋友</span>
             </section>
         </header-section>
@@ -96,7 +96,6 @@
         z-index: 202;
     }
     .head-addFriend {
-        float: right;
         padding: 20px;
         font-size: 16px;
     }

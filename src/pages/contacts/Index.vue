@@ -81,7 +81,7 @@
             }
         },
         created() {
-            console.log('这个是啥？', JSON.stringify(this.contactMap), isEmptyObject(this.contactMap))
+            console.log('通讯录取 vuex 数据--', JSON.stringify(this.contactMap), isEmptyObject(this.contactMap))
             if (isEmptyObject(this.contactMap)) {        // vuex 没有，则调用
                 this.initContacts(this.userid)
             }

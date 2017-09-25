@@ -3,7 +3,7 @@
 <template>
     <div class="myaias-setting">
         <header-section :go-back="true" :head-title="headTitle">
-            <section slot="setAliasBtn" class="header-btn">
+            <section slot="setAliasBtn" class="header-btn right">
                 <el-button type="success" @click="setAlias">保存</el-button>
             </section>
         </header-section>
@@ -49,7 +49,6 @@
         z-index: 333;
     }
     .header-btn {
-        float: right;
         margin: 10px 10px 0 0;
     }
     .form-section {

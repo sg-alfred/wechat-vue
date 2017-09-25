@@ -26,7 +26,7 @@ module.exports = (app) => {
 
         if (!uid) {
             resultObj = {
-                code: 0,
+                code: 2,
                 message: '获取列表失败',
             }
             console.log('获取结果', resultObj)
@@ -92,11 +92,8 @@ module.exports = (app) => {
         console.log('添加好友的信息-00-', params)
 
         try {
-            const contactObj = new ContactModel(params);
+            const doc = await new ContactModel(params).save();
 
-            console.log('添加好友的信息-11-', contactObj)
-
-            const doc = await contactObj.save();
             resultObj = {
                 code: 0,
                 message: '申请成功，等待对方确认',
@@ -147,7 +144,7 @@ module.exports = (app) => {
                 throw new Error('创建聊天室异常');
             }
 
-            commonParams.chatroomid = chatroomInfo._id;
+            commonParams.chatid = chatroomInfo._id;
 
             // 更新对方好友的 好友关系
             const updateFriendInfo = await ContactModel.updateOne({
@@ -193,7 +190,7 @@ module.exports = (app) => {
         /*// let chatroomParams, 不需要，因为聊天室 只有最后一次的消息id!!
         chatroomDbUtil.createNewChatroom().then((doc1) => {
             // 聊天室的id
-            commonParams.chatroomid = doc1._id;
+            commonParams.chatid = doc1._id;
             // 同时 应该往聊天室里插入一条消息，说，你好～～
 
         }, (err) => {

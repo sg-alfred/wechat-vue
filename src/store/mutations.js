@@ -16,7 +16,7 @@ export default {
     // 保存 通讯录
     [types.ALL_CONTACTS] (state, contacts) {
 
-        console.log('没到这里！', JSON.stringify(contacts))
+        console.log('vuex 缓存通讯录，现在，有新好友怎么办？--', JSON.stringify(contacts))
 
         // 不仅仅这样啊！还要 拉平了！
         contacts.forEach(contact => {

@@ -3,7 +3,7 @@
 <template>
     <div class="moments-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <section slot="specialIcon" class="head-cameraicon">
+            <section slot="specialIcon" class="head-cameraicon right">
                 <!--<i class="fa fa-camera" aria-hidden="true"></i>-->
                 <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-zhaoxiangji"></use>
@@ -73,7 +73,6 @@
         z-index: 202;
     }
     .head-cameraicon {
-        float: right;
         padding: 18px 20px;
         color: white;
         font-size: 1.2em;

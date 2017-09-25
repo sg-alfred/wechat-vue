@@ -4,7 +4,7 @@
 
         <section class="wechat-container">
             <wechat-item
-                    v-for="item in userList"
+                    v-for="item in chatrooms"
                     :key="item.id" :chatItem="item"
                     @into-chatroom="intoChatroom"
             ></wechat-item>
@@ -43,7 +43,7 @@
             return {
                 headTitle: '微信',
                 searchType: 'all',
-                userList: []
+                chatrooms: []
             }
         },
         beforeMount() {
@@ -53,7 +53,10 @@
             // 只能这样？貌似不能放进 beforeMount() ..
             async initChatroom() {
                 const response = await getChatrooms()
-                this.userList = response.data.chatList;
+
+                this.chatrooms = response.data.data;
+
+                console.log('聊天室信息--', this.chatrooms)
             },
             emitTest() {
 
@@ -65,7 +68,7 @@
             },
             // 进入特定的聊天室
             intoChatroom(chatid) {
-                this.$router.push('/chatroom/' + chatid);
+                this.$router.push('/chatrooms/' + chatid);
             }
         }
     }

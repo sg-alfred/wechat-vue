@@ -7,7 +7,7 @@
     <div class="userprofile-page">
 
         <header-section :go-back="true" :head-title="headTitle">
-            <section slot="userOperate" class="head-operate" @click="showOperate">
+            <section slot="userOperate" class="head-operate right" @click="showOperate">
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <circle cx="20" cy="12" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
                     <circle cx="20" cy="20" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
@@ -30,7 +30,7 @@
             </section>
 
             <section class="tag-section placeholder">
-                <div v-if="!info.tags" @click="setAlias">
+                <div v-if="!info.tags" @click="updateContact">
                     <span>设置备注和标签</span>
                 </div>
                 <div v-else>
@@ -55,12 +55,12 @@
 
             <section class="contact-section placeholder">
                 <div v-if="isFriend">
-                    <el-button type="success">发送消息</el-button>
+                    <el-button type="success" @click="goto('/chatrooms/' + info.chatid)">发送消息</el-button>
                     <br/>
-                    <el-button :plain="true" type="success">视频聊天</el-button>
+                    <el-button :plain="true" type="success" @click="">视频聊天</el-button>
                 </div>
                 <div v-else>
-                    <el-button type="success" @click="addFriend">添加好友</el-button>
+                    <el-button type="success" @click="goto('/addSend/' + this.fid)">添加好友</el-button>
                 </div>
                 <!--<div>
                     <el-button type="success">通过验证</el-button>
@@ -151,11 +151,11 @@
                     console.log('没有显示？--', this.operateList)
                 }
             },
-            addFriend() {
-                this.$router.push('/addSend/' + this.fid)
-            },
-            setAlias() {
+            async updateContact() {
 
+            },
+            goto(path) {
+                this.$router.push(path)
             }
         }
     }
@@ -171,7 +171,6 @@
         @include page();
     }
     .head-operate {
-        float: right;
         margin: 10px 10px 0;
     }
     .base-info, .tag-section {
