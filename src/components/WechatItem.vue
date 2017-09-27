@@ -61,6 +61,9 @@
             flex-grow: 1;
         }
     }
+    .wechat-item > span {
+        margin: 0 10px 0 0;
+    }
     .padding-5 {
         padding: 5px;
     }

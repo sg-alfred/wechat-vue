@@ -127,7 +127,7 @@
         display: flex;
         align-items: center;
         span {
-            padding: 0 10px;
+            padding: 0 10px 0 0;
             flex: 0 1 0;
         }
         span:nth-child(2) {

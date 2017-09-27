@@ -49,20 +49,29 @@ module.exports = (app) => {
 
     /**
      * 根据好友获取聊天室的设置
+     *
+     * 设置，还有聊天信息
      */
-    app.get('/chatrooms/:id', async (req, res) => {
+    app.get('/chatrooms/:chatid', async (req, res) => {
         let resultObj = {}
 
-        const chatid = req.params.id;
+        const chatid = req.params.chatid;
+        const uid = req.session.userid;
 
         try {
+            // 聊天室设置
+            const contactInfo = await ContactModel.findOne({uid, chatid}).populate('fid', 'mobilephone headimgurl').exec()
+
             // 按照发送时间升序！！
             const allMessages = await MessageModel.find({chatid}).sort({sendtime: 1})
 
             resultObj = {
                 code: 2,
                 message: '查询历史记录成功！',
-                data: allMessages
+                data: {
+                    contactInfo,
+                    allMessages
+                }
             }
         } catch (err) {
             resultObj = {

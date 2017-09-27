@@ -53,7 +53,7 @@
         border-bottom: 1px solid #e8e8e8;
         text-align: left;
         span {
-            margin: 0 20px;
+            margin: 0 20px 0 0;
             flex: 0 1 0;
         }
         span:nth-child(2) {

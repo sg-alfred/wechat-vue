@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 Vue.filter('formatTime', timestamp => {
-    return new Date(timestamp).toLocaleTimeString()
+    return new Date(timestamp).toLocaleString()
 })
 
 /* eslint-disable no-new */

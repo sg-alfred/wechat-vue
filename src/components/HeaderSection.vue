@@ -85,9 +85,8 @@
         <slot name="addFriendText"></slot>
 
         <!-- 发送好友申请 按钮 -->
-        <slot name="sendBtn"></slot>
         <!-- 保存 按钮 -->
-        <slot name="setAliasBtn"></slot>
+        <slot name="headerBtn"></slot>
 
     </header>
 </template>

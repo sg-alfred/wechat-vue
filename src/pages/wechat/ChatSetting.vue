@@ -3,32 +3,54 @@
         <header-section :go-back="true" :head-title="headTitle"></header-section>
 
         <article class="setting-container">
-            <section class=""></section>
+            <section class="headimg-section">
 
-            <section class="">
-                <span>查找聊天记录</span>
+                <!-- 必须循环! -->
+                <router-link :to="'/userprofile/' + finfo._id">
+                    <img :src="finfo.headimgurl" />
+                </router-link>
+
+                <svg class="icon fa-20px" aria-hidden="true">
+                    <use xlink:href="#icon-tianjiatupian"></use>
+                </svg>
+            </section>
+
+            <section class="" @click="$router.push('/search/history')">
+                <p>查找聊天记录</p>
+            </section>
+
+            <section class="chatRole-section">
+                <div>
+                    <span>置顶聊天</span>
+                    <el-switch v-model="stickyTop" class="switch-label right"
+                               on-color="#13ce66" off-color="grey">
+                    </el-switch>
+                </div>
+                <div>
+                    <span>消息免打扰</span>
+                    <el-switch v-model="muteNoti" class="switch-label right"
+                               on-color="#13ce66" off-color="grey">
+                    </el-switch>
+                </div>
+            </section>
+
+            <section>
+                <p>设置当前聊天背景</p>
+            </section>
+
+            <section @click="confirmClearHistory">
+                <p>清空聊天记录</p>
             </section>
 
             <section class="">
-                <span>清空聊天记录</span>
-            </section>
-
-            <section class="">
-                <span>设置当前聊天背景</span>
-            </section>
-
-            <section class="">
-                <span>清空聊天记录</span>
-            </section>
-
-            <section class="">
-                <span>投诉</span>
+                <p>投诉</p>
             </section>
         </article>
     </div>
 </template>
 
 <script>
+    import { clearChatHistory } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
 
     export default {
@@ -38,7 +60,47 @@
         },
         data() {
             return {
-                headTitle: '聊天信息'
+                headTitle: '聊天信息',
+                stickyTop: false,
+                muteNoti: false,
+                finfo: '',
+                contctInfo: {}
+            }
+        },
+        mounted() {
+
+            // 对于群聊天来说？这个肯定不能获取到这么详细的东西！
+            this.contctInfo = this.$parent.contactInfo;
+
+            // 这个 $parent，获取的是 父实例，界面从哪里来 就是谁！
+
+            // 不需要：this.$parent.$data / this/$parent._data ，可以直接访问到
+
+            this.finfo = this.contctInfo.fid
+
+//            console.log('获取到上层数据？', this.$parent, this.$root.headTitle)
+        },
+        methods: {
+            async confirmClearHistory() {
+                this.$confirm(`确定删除和${this.muteNoti}的聊天记录`, '提示', {
+                    confirmButtonText: '清空',
+                    cancelButtonText: '取消',
+//                    type: 'warning'
+                }).then(() => {
+
+                    // 删除聊天！
+//                    const response = await clearChatHistory()
+
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
             }
         }
     }
@@ -54,7 +116,38 @@
     section {
         margin-top: 20px;
         background-color: white;
-        padding: 15px 20px;
+        padding: 15px 10px;
         text-align: left;
+        p {
+            padding: 5px;
+        }
+    }
+    .headimg-section {
+        display: flex;
+        align-items: center;
+    }
+    .chatRole-section {
+        div {
+            height: 30px;
+            padding: 0 5px;
+        }
+        div:nth-child(1) {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        div:nth-child(2) {
+            padding-top: 10px;
+        }
+    }
+    .el-message-box__header {
+        display: none;
+    }
+    .fa-20px {
+        font-size: 48px;
+        margin: 10px;
+    }
+    img {
+        width: 48px;
+        margin: 10px;
     }
 </style>

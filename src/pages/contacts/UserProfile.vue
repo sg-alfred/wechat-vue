@@ -20,7 +20,7 @@
 
             <section class="base-info placeholder">
                 <span>
-                    <img src="../../assets/logo.png">
+                    <img :src="info.headimgurl">
                 </span>
                 <div class="name-info">
                     <p>{{info.mobilephone}}</p><i></i>
@@ -182,10 +182,10 @@
         display: flex;
         align-items: center;
         span {
-            margin: 0 20px;
+            margin: 0 20px 0 0;
             flex: 0 1 0;
             img {
-                height: 80px;
+                height: 60px;
             }
         }
         div {

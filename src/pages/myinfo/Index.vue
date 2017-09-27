@@ -4,23 +4,24 @@
 
         <article class="myinfo-container">
             <section class="base-info">
-                <router-link :to="'/myinfo/profile/' + userid">
+                <router-link :to="'/myinfo/profile'">
                     <span>
-                        <img src="../../assets/logo.png">
+                        <img :src="info.headimgurl">
                     </span>
                     <div>
-                        <p>{{info.remark}}</p><i></i>
-                        <p>微信号：{{info.wechatno}}</p>
-                        <p>昵称：{{info.nickname}}</p>
+                        <p>{{info.alias}}</p><i></i>
+                        <p v-if="info.wechatno">微信号：{{info.wechatno}}</p>
                     </div>
                     <span id="code-div" @click="showCode($event)">
-                        <img alt="二维码">
+                        <!--<img alt="二维码" >-->
+                        <svg class="icon fa-18x" aria-hidden="true">
+                            <use xlink:href="#icon-qrcode"></use>
+                        </svg>
                     </span>
                 </router-link>
 
                 <!-- 但是这样是不对的！！ 因为，事件不是这样的！应该阻止 冒泡
                 不能够 写在这个 a标签外面！-->
-
             </section>
 
             <section class="menu-section">
@@ -51,23 +52,22 @@
         },
         computed: {
             ...mapGetters({
-                userid: 'getUserid'
+                userid: 'getUserid',
+                info: 'getUserinfo'
             })
         },
         data() {
             return {
                 headTitle: '微信',
                 searchType: 'all',
-                info: {
-                    id: 0,
+                /*info: {
+                    alias: '钻',
                     wechatno: 'sgchenjz',
-                    nickname: '钻',
-                    remark: 'hehe',
                     gender: '男',
                     country: '中国',
-                    headimgurl: '',
+                    headimgurl: 'static/image/headimg/yu.png',
                     tags: ''
-                },
+                },*/
                 itemList: [{
                     id: 0,
                     isFirst: true,
@@ -112,7 +112,7 @@
                 event.stopPropagation();    // 阻止冒泡
 
                 // 跳转到二维码界面
-                this.$router.push('/myinfo/mycode');
+                this.$router.push('/myinfo/profile/code');
             }
         }
     }
@@ -142,7 +142,7 @@
             margin: 0 20px 0 0;
             flex: 0 1 0;
             img {
-                height: 80px;
+                height: 60px;
             }
         }
         div {
@@ -155,6 +155,10 @@
     .menu-section {
         background-color: #ffffff;
         clear: both;
+    }
+    .fa-18x {
+        font-size: 1.8em;
+        color: #000000;
     }
     .router-slid-enter-active, .router-slid-leave-active {
         transition: all .4s;

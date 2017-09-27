@@ -9,7 +9,7 @@ const baseUtil = require('./utils/baseUtil')
 const UserModel = global.dbHandel.getModel('User');
 const ContactModel = global.dbHandel.getModel('Contact')
 
-const baseinfo = ''     // 基本信息，不包含敏感信息
+const baseinfo = 'headimgurl mobilephone alias gender age'     // 基本信息，不包含敏感信息
 
 module.exports = (app) => {
 
@@ -211,16 +211,18 @@ module.exports = (app) => {
     app.patch('/users/:id', async (req, res) => {
         let resultObj = {}
 
-        const _id = req.session.userid
+        const uid = req.session.userid
+
+        const updateID = req.params.id      // 更新的用户id，自己或别人的。。
         const updateParams = req.body
 
-        console.log('入参：', _id, updateParams)
+        console.log('入参：', uid, updateID, updateParams)
 
         try {
-            const oldUserinfo = UserModel.findById({_id}, 'mobilephone')
-            console.log('旧信息：', {_id}, oldUserinfo);
+            // const oldUserinfo = UserModel.findById({_id}, 'mobilephone')
+            // console.log('旧信息：', {_id}, oldUserinfo);
 
-            const newUserinfo = UserModel.findByIdAndUpdate({_id}, {$set: {updateParams}}, {new: true})
+            const newUserinfo = await UserModel.findByIdAndUpdate({_id: uid}, {$set: updateParams}, {new: true})
             resultObj = {
                 code: 0,
                 message: '更新成功',

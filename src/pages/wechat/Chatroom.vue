@@ -2,7 +2,7 @@
 <template>
     <div class="chatroom-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <router-link :to="'/chatroom/' + chatid + '/chatsetting'" slot="specialIcon" class="head-usericon right">
+            <router-link :to="'/chatrooms/' + chatid + '/chatsetting'" slot="specialIcon" class="head-usericon right">
                 <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-myinfo-active"></use>
                 </svg>
@@ -10,15 +10,18 @@
             </router-link>
         </header-section>
 
-        <div id="container">
+        <div id="container" ref="container">
             <message-item
                     v-for="message in messages"
                     :key="message.id"
+                    :contact="contactInfo.fid"
                     :message="message">
             </message-item>
         </div>
 
-        <message-send></message-send>
+        <message-send
+                    :chatid="chatid">
+        </message-send>
 
         <transition name="router-slid" mode="out-in">
             <router-view></router-view>
@@ -43,25 +46,34 @@
         beforeMount() {
             this.chatid = this.$route.params.chatid;
             this.initMessage();
+
         },
-        mounted() {
+        updated() {
+            // 数据加载是 异步函数，mounted 的话，又可能落后了～
+            // updated 就好了，数据加载完毕后再次执行～
             this.scrollToBottom();
         },
         data() {
             return {
-                headTitle: 'nihao',
+                headTitle: 'hello~',
                 chatid: '',
+                contactInfo: {fid: {}},
                 messages: []
             }
         },
         methods: {
             async initMessage() {
                 const response = await getMessages(this.chatid)
-                this.messages = response.data.data;
+                this.contactInfo = response.data.data.contactInfo;
+                this.messages = response.data.data.allMessages;
+
+                this.headTitle = this.contactInfo.fid.mobilephone
             },
             scrollToBottom() {
                 this.$nextTick(() => {
-                    let container = this.$el.querySelector("#container");
+                    // 有什么区别？～ 前者操作 DOM,
+                    const container = this.$el.querySelector('#container');
+                    // const container = this.$ref.container;
                     container.scrollTop = container.scrollHeight;
                 })
             }

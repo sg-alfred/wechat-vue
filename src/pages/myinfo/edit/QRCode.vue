@@ -14,7 +14,7 @@
             <!-- 可以直接用绝对居中的！ -->
             <section class="code-header">
                 <span>
-                    <img src="../../assets/logo.png">
+                    <img src="../../../assets/logo.png">
                 </span>
                 <div>
                     <p>{{info.remark}}</p><i></i>
@@ -23,7 +23,7 @@
                 </div>
             </section>
             <section class="code-content">
-                <span><img src="../../assets/icon-wechat.png"></span>
+                <span><img src="../../../assets/icon-wechat.png"></span>
             </section>
             <section class="code-footer">
                 <span>扫码添加我为好友</span>
@@ -33,7 +33,8 @@
 </template>
 
 <script>
-    import HeaderSection from '../../components/HeaderSection'
+    import HeaderSection from '../../../components/HeaderSection'
+
     export default {
         name: 'QRCode',
         components: {
@@ -63,7 +64,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../style/mixin.scss";
+    @import "../../../style/mixin.scss";
 
     .qrcode-page {
         @include page();

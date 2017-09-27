@@ -40,35 +40,34 @@
         name: 'Message',
         data() {
             return {
-                chatid: '',
-                content: '',       // 文字
+                content: '',       // 文字信息
                 isShowEmoji: false,
-                isShowShortcuts: false,
-                chatroomInfo: {}
+                isShowShortcuts: false
             }
         },
-        computed: {
-            ...mapGetters({
-                userid: 'getUserid'
-            }),
-        },
-        created() {
-            this.chatid = this.$route.params.chatid
+        props: {
+            chatid: {   // 聊天室id
+                type: String,
+                required: true
+            }
         },
         methods: {
-            speak() {
-
-            },
             async doSendMessage() {
                 console.log('发送的消息-11-', this.chatid, this.content)
+
+                // 直接往 里面 vuex 里面塞一条信息？
+
                 const response = await sendMessage(this.chatid, {
-                    content: this.content,
+                    content: this.content.trim(),
                     sendtime: Date.now()
                 })
                 const result = response.data
 
                 this.$message(result.message);
                 this.content = '';
+            },
+            speak() {
+
             },
             showShortcuts() {
                 this.isShowEmoji = false;
@@ -98,20 +97,20 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        div {
+            margin: 0 10px;
+            flex: 0 1 0;
+        }
+        div:nth-child(2) {
+            flex-grow: 1;
+            input {
+                border: hidden;
+                border-bottom: 1px solid green;
+                width: 100%;
+            }
+        }
     }
-    .message-section div {
-        margin: 0 10px;
-        flex: 0 1 0;
-    }
-    .message-section div:nth-child(2) {
-        flex-grow: 1;
-    }
-    .message-section input {
-        border: hidden;
-        border-bottom: 1px solid green;
-        width: 100%;
-    }
-    .item-section {
+    .emoji-section, .item-section {
         height: 250px;
     }
     .fa-12x {

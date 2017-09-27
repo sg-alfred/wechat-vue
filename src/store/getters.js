@@ -14,5 +14,3 @@ export const getUserid = state => {
 export const getUserinfo = state => state.userinfo
 
 export const getContacts = state => state.contacts
-
-export const currentSubMenu = state => state.currentSubMenu
