@@ -46,7 +46,6 @@
         beforeMount() {
             this.chatid = this.$route.params.chatid;
             this.initMessage();
-
         },
         updated() {
             // 数据加载是 异步函数，mounted 的话，又可能落后了～

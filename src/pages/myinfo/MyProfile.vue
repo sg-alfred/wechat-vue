@@ -105,10 +105,14 @@
         }
     }
     .address-section {
-        margin-top: 20px;
-        padding: 15px 35px;
         background-color: white;
+        margin-top: 20px;
         text-align: left;
+        a {
+            padding: 15px 25px;
+            display: block;
+            width: 100%;
+        }
     }
     .placeholder {
         height: 20px;

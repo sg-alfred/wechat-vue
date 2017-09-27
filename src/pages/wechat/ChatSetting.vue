@@ -78,7 +78,7 @@
 
             this.finfo = this.contctInfo.fid
 
-//            console.log('获取到上层数据？', this.$parent, this.$root.headTitle)
+            console.log('获取到上层数据？', this.$parent, this.$parent.headTitle, JSON.stringify(this.contctInfo))
         },
         methods: {
             async confirmClearHistory() {

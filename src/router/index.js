@@ -7,6 +7,7 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Search from '@/pages/Search'
 import Help from '@/pages/Help/Index'
+import NotFoundPage from '@/pages/NotFoundPage'
 
 import Wechat from '@/pages/wechat/Index'
 import Chatroom from '@/pages/wechat/Chatroom'
@@ -32,7 +33,12 @@ import Wallet from '@/pages/myinfo/Wallet'
 Vue.use(Router)
 
 const router =  new Router({
+    // 先使用默认的 hash 模式～
+    // mode: 'history',
     routes: [{
+        path: '*',
+        component: NotFoundPage
+    }, {
         path: '/login',
         component: Login
     }, {
