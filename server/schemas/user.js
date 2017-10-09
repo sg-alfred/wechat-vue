@@ -42,6 +42,7 @@ const USER_SCHEMA = {
     },
     headimgurl: {
         type: String,
+        default: 'static/image/headimg/default.png'
         // 自定义修饰
         /*set: function(url) {
             if (!url) return ;

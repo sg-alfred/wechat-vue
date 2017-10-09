@@ -60,7 +60,7 @@
                     <el-button :plain="true" type="success" @click="">视频聊天</el-button>
                 </div>
                 <div v-else>
-                    <el-button type="success" @click="goto('/addSend/' + this.fid)">添加好友</el-button>
+                    <el-button type="success" @click="goto('/addSend/' + fid)">添加到通讯录</el-button>
                 </div>
                 <!--<div>
                     <el-button type="success">通过验证</el-button>

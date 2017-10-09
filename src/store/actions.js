@@ -44,31 +44,23 @@ export const storeSearchUser = async ({ commit }, userinfo) => {
     commit(types.SEARCH_STRANGERS, userinfo)
 }
 
-
+/**
+ * 初始化所有聊天记录，没有必要，耗时可能较长
+ * @param commit
+ */
 export const getAllMessages = ({ commit }) => {
     // 必然根据 用户id 获取聊天室信息，然后再 根据聊天室 获取信息。。
     // 这样的存储格式，不需要前端有 太多的 逻辑处理！
 }
 
+
 /**
- * 发送一条消息，需要修改 vuex，其实聊天信息确实 就应该保存到 浏览器！
- * ---------------------------------------------
- * @param text
- * @param thread
- * @param cb
+ *
+ * @param commit
+ * @param payload
  */
-export function createMessage ({ text, thread }, cb) {
-    const timestamp = Date.now()
-    const id = 'm_' + timestamp
-    const message = {
-        id,
-        text,
-        timestamp,
-        threadID: thread.id,
-        threadName: thread.name,
-        authorName: 'Evan'
-    }
-    setTimeout(function () {
-        cb(message)
-    }, LATENCY)
+export const addMessage = ({ commit }, payload) => {
+    commit(types.RECEIVE_MESSAGE, {
+        message
+    })
 }

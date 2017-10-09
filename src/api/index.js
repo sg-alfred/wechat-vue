@@ -56,9 +56,10 @@ export const getChatrooms = () => axios.get('/chatrooms')
  * 更新聊天室设置
  * 包括删除历史记录、置顶聊天、消息免打扰等设置～
  *
+ * @param fid     好友id
  * @param updateInfo
  */
-export const clearChatHistory = (updateInfo) => axios.patch('/chatrooms', updateInfo)
+export const clearChatHistory = (fid, updateInfo) => axios.patch('/chatrooms/' + fid, updateInfo)
 
 /**
  * 发送消息

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     import { sendMessage } from '../../api'
 
     export default {
@@ -52,16 +52,22 @@
             }
         },
         methods: {
+            ...mapActions(['addMessage']),
             async doSendMessage() {
                 console.log('发送的消息-11-', this.chatid, this.content)
 
-                // 直接往 里面 vuex 里面塞一条信息？
-
+                // 需要和 服务端通讯一下，获取 messageId
                 const response = await sendMessage(this.chatid, {
                     content: this.content.trim(),
                     sendtime: Date.now()
                 })
+
                 const result = response.data
+
+                // 成功之后，往里面放啊！
+
+
+
 
                 this.$message(result.message);
                 this.content = '';

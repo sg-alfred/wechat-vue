@@ -68,6 +68,8 @@
                 // 或者，也放入 vuex 这样，也就可以直接取值了～不然就 放在localStorage里～
 
                 this.$message(result.message)
+
+                this.$router.push('/userprofile' + this.fid)
             }
         }
     }

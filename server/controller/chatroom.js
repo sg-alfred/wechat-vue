@@ -20,21 +20,31 @@ module.exports = (app) => {
         const uid = req.session.userid
 
         try {
-            const chatrooms = await ContactModel.find({uid}, 'chatid fid uid nickname cleartime')
+            // 必须找到的是 有聊天记录的，且未被删除的！
+            const chatrooms = await ContactModel.find({ uid }, 'chatid fid uid nickname cleartime')
                 .populate('fid', 'headimgurl mobilephone alias')
                 .populate('chatid')
                 .exec()
 
+            // 1、找所有的通讯录，获取 chatid(同时关联，获取最后一条信息的时间) 和 cleartime
+            // 2、对比，如果 已被删除，则 不展示出来～
+
+            // 这个时候再过滤掉？ 不然也不知道数据库 怎么写查询语句
+            // 必须聊天过即存在 lastmsgid；如果没有 cleartime 或者 有新聊天，这展示～
+            let newrooms = chatrooms.filter((ele, index) => {
+                return !!ele.chatid.lastmsgid && (!ele.cleartime || ele.chatid.sendtime > ele.cleartime)
+            })
+
             // 这个也需要循环遍历，还不如冗余出来！！
             // const lastMessage = MessageModel.find({_id: chatrooms.chatid.lastmsgid})
 
-            console.log('聊天室的信息～', chatrooms)
+            console.log('聊天室的信息～', chatrooms, newrooms)
 
             // 这样也就够了！
             resultObj = {
                 code: 2,
                 message: '获取聊天室成功',
-                data: chatrooms
+                data: newrooms
             }
         } catch (err) {
             resultObj = {
@@ -60,10 +70,17 @@ module.exports = (app) => {
 
         try {
             // 聊天室设置
-            const contactInfo = await ContactModel.findOne({uid, chatid}).populate('fid', 'mobilephone headimgurl').exec()
+            const contactInfo = await ContactModel.findOne({uid, chatid})
+                .populate('fid', 'mobilephone headimgurl cleartime')
+                .exec()
+
+            let cleartime = contactInfo.cleartime || new Date('1970-01-01');
+
+            console.log('清除时间～', contactInfo, contactInfo.cleartime, cleartime)
 
             // 按照发送时间升序！！
-            const allMessages = await MessageModel.find({chatid}).sort({sendtime: 1})
+            const allMessages = await MessageModel.find({ chatid, sendtime: {"$gt": cleartime} })
+                .sort({sendtime: 1})
 
             resultObj = {
                 code: 2,
@@ -102,6 +119,7 @@ module.exports = (app) => {
 
         try {
             const messageInfo = await new MessageModel(messageParams).save()
+            messageParams.lastmsgid = messageInfo._id
 
             // 保存后修改 chatid 的最后一条记录指向？会不会太累了？
             await ChatroomModel.findOneAndUpdate({'_id': chatid}, {$set: messageParams})
@@ -127,4 +145,41 @@ module.exports = (app) => {
 
         // socket.emit();
     })
+
+    /**
+     * 更新通讯录信息，包括 好友昵称，清除聊天历史等
+     */
+    app.patch('/chatrooms/:fid', async (req, res) => {
+        let resultObj = {}
+
+        const uid = req.session.userid
+        const fid = req.params.fid      // 更新的用户id，自己或别人的。。
+
+        const updateParams = req.body
+
+        console.log('入参：', uid, fid, updateParams)
+
+        try {
+            // const oldUserinfo = UserModel.findById({_id}, 'mobilephone')
+            // console.log('旧信息：', {_id}, oldUserinfo);
+
+            const newContact = await ContactModel.findOneAndUpdate({ uid, fid }, {$set: updateParams}, {new: true})
+
+            resultObj = {
+                code: 0,
+                message: '更新成功',
+                data: newContact
+            }
+        } catch (err) {
+            resultObj = {
+                code: 2,
+                message: err.message
+            }
+        } finally {
+            console.log('更新结果：', resultObj)
+            baseUtil.appResponse(res, JSON.stringify(resultObj))
+        }
+
+    })
+
 }

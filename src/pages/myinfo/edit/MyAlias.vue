@@ -47,7 +47,7 @@
             async setAlias() {
                 const alias = this.alias.trim()
                 if ( alias!== '') {
-                    const response = await updateUserinfo(this.userid, {alias})
+                    const response = await updateUserinfo(this.userid, { alias })
 
                     // 修改 localStorage 保存的值！
                     localStorage('userinfo', JSON.stringify(response.data.data))

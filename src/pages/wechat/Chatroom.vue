@@ -72,7 +72,7 @@
                 this.$nextTick(() => {
                     // 有什么区别？～ 前者操作 DOM,
                     const container = this.$el.querySelector('#container');
-                    // const container = this.$ref.container;
+                    // const container = this.$refs.container;
                     container.scrollTop = container.scrollHeight;
                 })
             }

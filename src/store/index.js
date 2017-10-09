@@ -40,9 +40,12 @@ const state = {
     },
     chatrooms: {      // 聊天室！
         /*
-        id: {
+        chatid: {
             id,         // chatid，聊天室id
             name,       // chatname, 聊天室名称
+            fid: {
+                mobilephone     // 聊天信息～，可以拉平 啊～～
+            },
             messages:[...ids],      // 消息id 列表
             lastMessage             // 最后一条消息
         }
@@ -50,8 +53,8 @@ const state = {
     },
     messages: {
         /*
-        id: {
-            id,     // 消息id
+        messageId: {
+            id,     // messageId
             chatid,       // 聊天室id
             fromid,       // 发送方id
             content,

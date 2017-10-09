@@ -32,6 +32,13 @@
                                on-color="#13ce66" off-color="grey">
                     </el-switch>
                 </div>
+                <!-- 如果是 群的话，就要多一个选项～ -->
+                <!--<div>
+                    <span>保存到通讯录</span>
+                    <el-switch v-model="muteNoti" class="switch-label right"
+                               on-color="#13ce66" off-color="grey">
+                    </el-switch>
+                </div>-->
             </section>
 
             <section>
@@ -88,18 +95,17 @@
 //                    type: 'warning'
                 }).then(() => {
 
-                    // 删除聊天！
-//                    const response = await clearChatHistory()
+                    let cleartime = new Date()
+
+                    // 删除聊天！ 能不能在这里面 用 await ?
+                    const response = clearChatHistory(this.finfo._id, { cleartime })
 
                     this.$message({
                         type: 'success',
-                        message: '删除成功!'
+                        message: response.data.message
                     });
                 }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
+
                 });
             }
         }

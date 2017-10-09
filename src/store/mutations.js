@@ -13,7 +13,7 @@ export default {
         state.userinfo = userinfo
     },
 
-    // 保存 通讯录
+    // 保存 通讯录，不好！！实时查询吧～ 不然问题很多啊！！ 不要现在就想着优化，这个弄不来！
     [types.ALL_CONTACTS] (state, contacts) {
 
         console.log('vuex 缓存通讯录，现在，有新好友怎么办？--', JSON.stringify(contacts))
@@ -43,7 +43,7 @@ export default {
         messages.forEach(message => {
             // create new thread if the thread doesn't exist
             if (!state.threads[message.threadID]) {
-                createThread(state, message.threadID, message.threadName)
+                createChatrooms(state, message.threadID, message.threadName)
             }
             // mark the latest message
             if (!latestMessage || message.timestamp > latestMessage.timestamp) {
@@ -61,8 +61,8 @@ export default {
 }
 
 
-function createThread (state, id, name) {
-    Vue.set(state.threads, id, {
+function createChatrooms (state, id, name) {
+    Vue.set(state.chatrooms, id, {
         id,
         name,
         messages: [],
@@ -88,4 +88,3 @@ function addMessage (state, message) {
     // add it to the messages map
     Vue.set(state.messages, message.id, message)
 }
-
