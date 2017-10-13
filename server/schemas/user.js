@@ -42,8 +42,9 @@ const USER_SCHEMA = {
     },
     headimgurl: {
         type: String,
+        default: 'static/image/headimg/default.png'
         // 自定义修饰
-        set: function(url) {
+        /*set: function(url) {
             if (!url) return ;
             if (0 !== url.indexOf('http://') && 0!== url.indexOf('https://')) {
                 url = 'http://' + url;
@@ -56,7 +57,7 @@ const USER_SCHEMA = {
                 url = 'http://' + url;
                 return url;
             }
-        }
+        }*/
     },         // 头像地址，再说
     country: String,
     provice: String,

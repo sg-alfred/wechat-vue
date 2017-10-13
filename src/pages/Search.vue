@@ -10,7 +10,7 @@
             </section>
         </header-section>
 
-        <section class="search-container" v-if="'all' === type">
+        <section class="search-container" v-if="'friend' !== type">
             <p class="search-title">指定搜索内容</p>
             <ul>
                 <li class="show">朋友圈</li>
@@ -97,7 +97,7 @@
 
                         // 有跳转到用户的 详情界面！
                         if (searchid) {
-                            this.$router.push('/userprofile/' + searchid + '?friend=' + isFriend)
+                            this.$router.push('/userprofile/' + searchid)
                         }
                         break;
                     default:

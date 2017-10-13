@@ -13,7 +13,6 @@ Vue.use(Vuex)
 
 const state = {
     isLogin: false,
-    currentSubMenu: 'wechat',
     userid: '',
     userinfo: {
         /*
@@ -21,42 +20,19 @@ const state = {
         username: ''
         */
     },
-    contacts: {     // 通讯录
+    currentContactID: null,
+    contacts: {     // 通讯录 -> 聊天室
         /*
         id: {
             id,
             alias,
             mobilephone,
-        }
-        */
-    },
-    strangers: {    // 查询过的好友信息
-        /*
-         id: {
-             id,
-             mobilephone,
-         }
-         */
-    },
-    chatrooms: {      // 聊天室！
-        /*
-        id: {
-            id,         // chatid，聊天室id
-            name,       // chatname, 聊天室名称
-            messages:[...ids],      // 消息id 列表
-            lastMessage             // 最后一条消息
-        }
-        */
-    },
-    messages: {
-        /*
-        id: {
-            id,     // 消息id
-            chatid,       // 聊天室id
-            fromid,       // 发送方id
-            content,
-            imgurl,
-            sendtime
+            chatid,
+            chatinfo: {       // 聊天室信息，存有 最后一条信息，这个怎么看～
+
+            },
+            messages: [...ids], 【如果 有的话，那就显示在 聊天里！！】
+            lastMessage
         }
         */
     }

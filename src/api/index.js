@@ -32,12 +32,13 @@ export const userLogin = (loginInfo) => axios.post('/user/login', loginInfo)
 export const userLogout = () => axios.get('/user/logout')
 
 /**
- * 更新自己的信息
+ * 更新用户的信息，包括自己和别人的！！
  *  如 设置别名，性别，地区，个性签名等
+ *
  * @param id
  * @param updateInfo
  */
-export const updateAlias = (id, updateInfo) => axios.patch('/users/' + id, updateInfo)
+export const updateUserinfo = (id, updateInfo) => axios.patch('/users/' + id, updateInfo)
 
 /**
  * 根据 条件搜用户，微信id 或 电话号码
@@ -48,19 +49,37 @@ export const searchUser = (keyword) => axios.get('/users/' + keyword)
 /**
  * 获取所有未被清空的聊天室信息
  */
-export const getChatrooms = () => axios.get('../../static/initData/chatroom.json')
+export const getChatrooms = () => axios.get('/chatrooms')
+
+
+/**
+ * 更新聊天室设置
+ * 包括删除历史记录、置顶聊天、消息免打扰等设置～
+ *
+ * @param fid     好友id
+ * @param updateInfo
+ */
+export const clearChatHistory = (fid, updateInfo) => axios.patch('/chatrooms/' + fid, updateInfo)
+
+/**
+ * 发送消息
+ * @param chatid
+ * @param message
+ */
+export const sendMessage = (chatid, message) => axios.post('/chatrooms/' + chatid, message)
 
 /**
  * 获取某聊天室的信息
  * @param chatid
  */
-export const getMessage = (chatid) => axios.get('/chatrooms/' + chatid)
+export const getMessages = (chatid) => axios.get('/chatrooms/' + chatid)
+
 
 /**
  * 获取好友通讯录
  * @param uid
  */
-export const getContacts = (uid) => axios.get('/contacts', uid)
+export const getContacts = () => axios.get('/contacts')
 
 /**
  * 这个是没有啥用的！

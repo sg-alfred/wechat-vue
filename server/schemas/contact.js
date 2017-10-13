@@ -26,7 +26,7 @@ const CONTACT_SCHEMA = {
         type: Number,
         required: true
     },
-    addtime: Date,
+    addtime: Date,      // TODO 如何知道是 加还是被加？根据 status ?
     agreetime: Date,
     deletetime: Date,
     isshare: {      // 是否分享朋友圈信息
@@ -37,7 +37,8 @@ const CONTACT_SCHEMA = {
         type: schema.Types.ObjectId,
         ref: 'Chatroom',
     },
-    cleartime: Date,        // 最后一次聊天记录清除时间
+    lasttime: Date,         // 最近一次进入聊天室时间，统计未读记录
+    cleartime: Date,        // 聊天记录清除时间
     createtime : Date,
     updatetime: {
         type: Date,

@@ -7,7 +7,7 @@
     <div class="userprofile-page">
 
         <header-section :go-back="true" :head-title="headTitle">
-            <section slot="userOperate" class="head-operate" @click="showOperate">
+            <section slot="userOperate" class="head-operate right" @click="showOperate">
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <circle cx="20" cy="12" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
                     <circle cx="20" cy="20" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
@@ -20,7 +20,7 @@
 
             <section class="base-info placeholder">
                 <span>
-                    <img src="../../assets/logo.png">
+                    <img :src="info.headimgurl">
                 </span>
                 <div class="name-info">
                     <p>{{info.mobilephone}}</p><i></i>
@@ -30,7 +30,7 @@
             </section>
 
             <section class="tag-section placeholder">
-                <div v-if="!info.tags" @click="setAlias">
+                <div v-if="!info.tags">
                     <span>设置备注和标签</span>
                 </div>
                 <div v-else>
@@ -55,12 +55,12 @@
 
             <section class="contact-section placeholder">
                 <div v-if="isFriend">
-                    <el-button type="success">发送消息</el-button>
+                    <el-button type="success" @click="goto('/chatrooms/' + contactid)">发送消息</el-button>
                     <br/>
-                    <el-button :plain="true" type="success">视频聊天</el-button>
+                    <el-button :plain="true" type="success" @click="">视频聊天</el-button>
                 </div>
                 <div v-else>
-                    <el-button type="success" @click="addFriend">添加好友</el-button>
+                    <el-button type="success" @click="goto('/addSend/' + contactid)">添加到通讯录</el-button>
                 </div>
                 <!--<div>
                     <el-button type="success">通过验证</el-button>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     import { getUserOperate } from '../../api'
     import { localStorage } from '../../util'
     import HeaderSection from '../../components/HeaderSection'
@@ -94,7 +94,7 @@
             return {
                 headTitle: '详细资料',
                 isFriend: false,
-                fid: '',
+                contactid: '',
                 info: {
                     /*:
                      id: 0,
@@ -120,22 +120,27 @@
                 contactMap: 'getContacts'
             })
         },
-        created() {
+        beforeMount() {
             // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
             // 但是 create之前，根本还没有获取 data!! —— 可以改成 created
 
-            this.fid = this.$route.params.fid
-            this.isFriend = this.$route.query.friend === 'true'
+            this.contactid = this.$route.params.contactid
 
-//            let info = this.contactMap[this.fid]
+            // 这算什么参数！不要！！
+//            this.isFriend = this.$route.query.friend === 'true'
+
+//            let info = this.contactMap[this.contactid]
 //            if (!info) {
 //                info = this.initFuserinfo();        // 这个进程并不会 被阻塞！！
 //            }
 //            this.info = info;   // 首先执行！因此，第一次还是 空的！
 
-            this.info = this.isFriend ? this.contactMap[this.fid] : JSON.parse(localStorage(this.fid));
+            this.isFriend = !!this.contactMap[this.contactid]
+
+            this.info = this.isFriend ? this.contactMap[this.contactid] : JSON.parse(localStorage(this.contactid));
         },
         methods: {
+            ...mapActions(['updateContact']),
             async initFuserinfo() {
                 // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
 //                const response = await getFuserinfo()
@@ -151,11 +156,8 @@
                     console.log('没有显示？--', this.operateList)
                 }
             },
-            addFriend() {
-                this.$router.push('/addSend/' + this.fid)
-            },
-            setAlias() {
-
+            goto(path) {
+                this.$router.push(path)
             }
         }
     }
@@ -171,7 +173,6 @@
         @include page();
     }
     .head-operate {
-        float: right;
         margin: 10px 10px 0;
     }
     .base-info, .tag-section {
@@ -183,10 +184,10 @@
         display: flex;
         align-items: center;
         span {
-            margin: 0 20px;
+            margin: 0 20px 0 0;
             flex: 0 1 0;
             img {
-                height: 80px;
+                height: 60px;
             }
         }
         div {

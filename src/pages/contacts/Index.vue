@@ -34,7 +34,7 @@
 
 <script>
 
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapGetters } from 'vuex'
     import { isEmptyObject } from '../../util'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
@@ -81,20 +81,11 @@
             }
         },
         created() {
-            console.log('这个是啥？', JSON.stringify(this.contactMap), isEmptyObject(this.contactMap))
-            if (isEmptyObject(this.contactMap)) {        // vuex 没有，则调用
-                this.initContacts(this.userid)
-            }
+            console.log('通讯录取 vuex 数据--', JSON.stringify(this.contactMap), isEmptyObject(this.contactMap))
         },
         methods: {
-            ...mapActions(['initContacts']),
-//            async initContacts() {
-//                const response = await getContacts();
-//                // 保存到 vuex，如果有，直接取，否则再取
-//                this.contactMap = response.data.data;
-//            },
-            getDetail(fid) {
-                this.$router.push('/userprofile/' + fid  + '?friend=true');
+            getDetail(contactid) {
+                this.$router.push('/userprofile/' + contactid);
             }
         }
     }
@@ -127,7 +118,7 @@
         display: flex;
         align-items: center;
         span {
-            padding: 0 10px;
+            padding: 0 10px 0 0;
             flex: 0 1 0;
         }
         span:nth-child(2) {

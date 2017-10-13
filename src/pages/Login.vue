@@ -49,8 +49,15 @@
                 this.$router.push('/wechat');
             }
         },
+        /*beforeMount() {
+            console.log('login-page-00-', this.isLogin)
+            if (this.isLogin) {
+                // 再进行界面跳转！
+                this.$router.push('/wechat');
+            }
+        },*/
         methods: {
-            ...mapActions(['changeLoginInfo']),
+            ...mapActions(['changeLoginInfo', 'initContacts']),
             async doLogin(formName) {
             //  简单的数据校验！！
                 this.$refs[formName].validate( async (valid) => {
@@ -67,6 +74,9 @@
                             await this.changeLoginInfo(true)
 
                             console.log('doLogin-11-', this.isLogin)
+
+                            // 这时候直接 获取通讯录，渲染出聊天列表
+                            await this.initContacts()
 
                             this.$router.push('/wechat')
                         }

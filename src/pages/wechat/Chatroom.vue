@@ -2,7 +2,7 @@
 <template>
     <div class="chatroom-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <router-link :to="'/chatroom/chatsetting/' + fid" slot="specialIcon" class="head-usericon">
+            <router-link :to="'/chatrooms/' + contactid + '/chatsetting'" slot="specialIcon" class="head-usericon right">
                 <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-myinfo-active"></use>
                 </svg>
@@ -10,15 +10,18 @@
             </router-link>
         </header-section>
 
-        <div id="container">
+        <div id="container" ref="container">
             <message-item
-                    v-for="message in sortedMessages"
+                    v-for="message in allMessages"
                     :key="message.id"
+                    :contact="contactInfo"
                     :message="message">
             </message-item>
         </div>
 
-        <message-send></message-send>
+        <message-send
+                    :chatid="chatid">
+        </message-send>
 
         <transition name="router-slid" mode="out-in">
             <router-view></router-view>
@@ -27,91 +30,69 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
-    import { getMessage } from '../../api'
+    import { mapGetters, mapActions } from 'vuex'
+    import { getMessages } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
     import MessageItem from '../../components/chatroom/MessageItem'
     import MessageSend from '../../components/chatroom/MessageSend'
 
     export default {
-        name: 'chatroom',
+        name: 'Chatroom',
         components: {
             HeaderSection,
             MessageItem,
             MessageSend
         },
-        computed: {
-        },
-        created() {
-            this.chatid = this.$route.params.chatid;
-        },
-        beforeMount() {
-            this.initMessage();
-        },
-        mounted() {
-            this.scrollToBottom();
-        },
         data() {
             return {
-                headTitle: 'nihao',
+                headTitle: 'hello~',
+                contactid: '',
                 chatid: '',
-                fid: '好友的用户id',
-                chatroomInfo: {},
-                sortedMessages: [{
-                    fromid: '5986e71f72eff410624cb879',
-                    content: '你吃了吗？',
-                    sendtime: '2017-08-19 14:10:00'
-                }, {
-                    fromid: '5986e71f72eff410624cb874',
-                    content: '吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～吃了啊～',
-                    sendtime: '2017-08-19 14:10:42'
-                }, {
-                    fromid: '5986e71f72eff410624cb879',
-                    content: '吃啥了？',
-                    sendtime: '2017-08-19 14:10:45'
-                }, {
-                    fromid: '5986e71f72eff410624cb874',
-                    content: '不告诉你～',
-                    sendtime: '2017-08-19 14:10:47'
-                }, {
-                    fromid: '5986e71f72eff410624cb874',
-                    content: '你呢？',
-                    sendtime: '2017-08-19 14:10:49'
-                }, {
-                    fromid: '5986e71f72eff410624cb879',
-                    content: '吃了啊～',
-                    sendtime: '2017-08-19 14:10:50'
-                }, {
-                    fromid: '5986e71f72eff410624cb874',
-                    content: '那你吃啥了？',
-                    sendtime: '2017-08-19 14:10:54'
-                }, {
-                    fromid: '5986e71f72eff410624cb879',
-                    content: '我也不告诉你～',
-                    sendtime: '2017-08-19 14:10:59'
-                }, {
-                    fromid: '5986e71f72eff410624cb874',
-                    content: '傲娇！',
-                    sendtime: '2017-08-19 14:12:23'
-                }, {
-                    fromid: '5986e71f72eff410624cb874',
-                    content: '傲娇！',
-                    sendtime: '2017-08-19 14:12:25'
-                }, {
-                    fromid: '5986e71f72eff410624cb874',
-                    content: '傲娇！',
-                    sendtime: '2017-08-19 14:12:27'
-                }]
             }
         },
+        computed: {
+            ...mapGetters({
+                contactInfo: 'currentChatroom'
+            }),
+            allMessages() {
+                return this.contactInfo.messages || []
+            }
+        },
+        async beforeMount() {
+            this.contactid = this.$route.params.contactid
+
+            // 还是觉得这样去获取 当前聊天室靠谱！！
+            // 诶，可以这个时候设置 currentContactID 啊！
+            await this.switchChatroom(this.contactid)
+
+            this.chatid = this.contactInfo.chatid || ''
+
+            this.headTitle = this.contactInfo.nickname || this.contactInfo.alias || this.contactInfo.mobilephone
+
+            // 如果没有聊天记录, 则进行初始化。。
+            if (this.allMessages.length === 0) {
+                const response = await getMessages(this.chatid)
+
+                // 这些信息都要存到 vuex 里面！！
+                await this.syncMessages(response.data.data)
+
+                console.log('初始化聊天室信息', JSON.stringify(this.contactInfo), this.chatid)
+            } else {
+                console.log('聊天室数据已初始化', this.allMessages.length)
+            }
+        },
+        updated() {
+            // 数据加载是 异步函数，mounted 的话，又可能落后了～
+            // updated 就好了，数据加载完毕后再次执行～
+            this.scrollToBottom();
+        },
         methods: {
-            async initMessage() {
-                const response = await getMessage(this.chatid)
-                this.chatroomInfo = response.data.data;
-            },
+            ...mapActions(['switchChatroom', 'syncMessages']),
             scrollToBottom() {
                 this.$nextTick(() => {
-                    let container = this.$el.querySelector("#container");
+                    // 有什么区别？～ 前者操作 DOM,
+                    const container = this.$el.querySelector('#container');
+                    // const container = this.$refs.container;
                     container.scrollTop = container.scrollHeight;
                 })
             }
@@ -126,7 +107,6 @@
     @import "../../style/mixin.scss";
 
     .head-usericon {
-        float: right;
         padding: 18px 20px;
         color: white;
     }

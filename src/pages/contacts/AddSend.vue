@@ -1,7 +1,7 @@
 <template>
     <div class="addsend-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <section slot="sendBtn" class="header-btn">
+            <section slot="headerBtn" class="header-btn right">
                 <el-button type="success" @click="addFriend">发送</el-button>
             </section>
         </header-section>
@@ -54,7 +54,6 @@
         computed: {
             ...mapGetters({
                 isLogin: 'isLogin',
-                uid: 'getUserid'
             })
         },
         methods: {
@@ -68,6 +67,8 @@
                 // 或者，也放入 vuex 这样，也就可以直接取值了～不然就 放在localStorage里～
 
                 this.$message(result.message)
+
+                this.$router.push('/userprofile' + this.fid)
             }
         }
     }
@@ -81,7 +82,6 @@
         z-index: 202;
     }
     .header-btn {
-        float: right;
         margin: 10px 10px 0 0;
     }
     .form-section {

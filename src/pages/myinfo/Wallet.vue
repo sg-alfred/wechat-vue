@@ -1,7 +1,7 @@
 <template>
     <div class="wallet-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <section slot="userOperate" class="head-operate" @click="showOperate">
+            <section slot="userOperate" class="head-operate right" @click="showOperate">
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <circle cx="20" cy="12" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
                     <circle cx="20" cy="20" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
@@ -50,7 +50,6 @@
         z-index: 202;
     }
     .head-operate {
-        float: right;
         margin: 10px 10px 0;
     }
     .hot-section, .promotion-section, .third-section {

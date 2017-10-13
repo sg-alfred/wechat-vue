@@ -14,20 +14,22 @@
  -->
 
 <template>
-    <section class="wechat-item" @click="$emit('into-chatroom', chatItem.chatid)">
+    <section class="wechat-item" @click="$emit('into-chatroom', chatItem._id)">
 
         <span>
             <!-- 连接到 用户详情界面 -->
             <!--<router-link :to=""></router-link>-->
             <img :src=chatItem.headimgurl />
         </span>
-        <div class="padding-5">
-            <span>{{chatItem.nickname}}</span>
-            <span class="lasttime-text">{{chatItem.lasttime}}</span>
-        </div>
-        <div class="padding-5">
-            <span>{{chatItem.content}}</span>
-            <!--<i class="el-icon-caret-bottom el-icon&#45;&#45;right"></i>-->
+        <div>
+            <p class="padding-5">
+                <!-- 依次取 自己设置的备注名，好友的别名，手机号码 -->
+                <span>{{ chatItem.nickname ||chatItem.alias || chatItem.mobilephone }}</span>
+                <span class="right">{{ chatItem.chatinfo.sendtime | formatTime }}</span>
+            </p>
+            <p class="padding-5">
+                <span>{{ chatItem.chatinfo.content }}</span>
+            </p>
         </div>
 
     </section>
@@ -41,21 +43,11 @@
                 type: Object,
                 required: true
             }
-        },
-        data() {
-            return {
-                // 应该是关联查询过后的结果
-            }
-        },
-        methods: {
-            getIntoChatroom() {
-
-            }
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     img {
         width: 48px;
     }
@@ -64,9 +56,14 @@
         margin: 0 10px;
         border-bottom: 1px solid #e8e8e8;
         text-align: left;
+        display: flex;
+        align-items: center;
+        div {
+            flex-grow: 1;
+        }
     }
-    .lasttime-text {
-        float: right;
+    .wechat-item > span {
+        margin: 0 10px 0 0;
     }
     .padding-5 {
         padding: 5px;

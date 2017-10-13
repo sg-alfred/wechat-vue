@@ -4,7 +4,7 @@
 
         <section class="wechat-container">
             <wechat-item
-                    v-for="item in userList"
+                    v-for="item in chatrooms"
                     :key="item.id" :chatItem="item"
                     @into-chatroom="intoChatroom"
             ></wechat-item>
@@ -22,10 +22,10 @@
 
 <script>
     import { mapGetters } from 'Vuex'
+    import { getChatrooms } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
     import WechatItem from '../../components/WechatItem'
-    import { getChatrooms } from '../../api'
 
     export default {
         name: 'Wechat',
@@ -36,27 +36,25 @@
         },
         computed: {
             ...mapGetters({
-                userid: 'getUserid'
+                userid: 'getUserid',
+                contacts: 'getContacts'
             })
         },
         data() {
             return {
                 headTitle: '微信',
                 searchType: 'all',
-                userList: []
+                chatrooms: []
             }
         },
         beforeMount() {
-            this.initChatroom()
+            this.chatrooms = Object.values(this.contacts).filter((ele, index) => {
+                return ele.messages.length > 0 || !!ele.chatinfo.lastmsgid && (!ele.cleartime || ele.chatinfo.sendtime > ele.cleartime)
+            })
+//            console.log('聊天室信息--', JSON.stringify(this.chatrooms))
         },
         methods: {
-            // 只能这样？貌似不能放进 beforeMount() ..
-            async initChatroom() {
-                const response = await getChatrooms()
-                this.userList = response.data.chatList;
-            },
             emitTest() {
-
                 // 显然，这个socket shi 没有定义的！！应该是 保存起来，以 用户id 为键值！！这样，才能够正在这里调用！
                 // 但是，要保证不掉线啊！！ 刷新一下就掉了，这又什么用！
 
@@ -64,8 +62,8 @@
                 socket.send('hello, server..');
             },
             // 进入特定的聊天室
-            intoChatroom(chatid) {
-                this.$router.push('/chatroom/' + chatid);
+            intoChatroom(contactid) {
+                this.$router.push('/chatrooms/' + contactid);
             }
         }
     }

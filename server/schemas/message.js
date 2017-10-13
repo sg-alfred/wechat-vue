@@ -16,7 +16,7 @@ const MESSAGE_SCHAME = {
     },
     fromid: {       // 没有必要 带！ 这样数据量会太大！ 前端处理一下就好！
         type: schema.Types.ObjectId,
-        ref: 'Wxuser'
+        ref: 'User'
     },
     content: String,
     imgurl: String,

@@ -1,8 +1,11 @@
 <!-- 通讯录组件，点击到 好友简介，长按悬浮 设置 -->
 
 <template>
-    <section class="contact-item" @click="$emit('get-detail', contactid)">
-        <span><img src="../assets/logo.png" /></span>
+    <section class="contact-item"
+             @click="$emit('get-detail', contactid)">
+        <span>
+            <img :src="contact.headimgurl" />
+        </span>
         <span>{{contact.mobilephone}}</span>
     </section>
 </template>
@@ -32,7 +35,7 @@
         align-items: center;
         text-align: left;
         span {
-            padding: 0 10px;
+            padding: 0 10px 0 0;
             flex: 0 1 0;
         }
         span:nth-child(2) {

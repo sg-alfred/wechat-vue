@@ -21,7 +21,6 @@ let autoOpenBrowser = !!config.dev.autoOpenBrowser
 let proxyTable = config.dev.proxyTable
 
 global.dbHandel = require('../server/dbService/dbHandle');
-// import db from '../server/dbHandle'    // 完全用不了啊！！
 
 let app = express()   // Express服务
 // 需要使用body-parser模块,要不然post方法获取不到传递的参数
@@ -30,6 +29,10 @@ const bodyParser = require('body-parser')
 app.use(bodyParser({limit: '50mb'}))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
+
+// vue路由使用 history 模式，需要配置 express，暂放！
+// var history = require('connect-history-api-fallback');
+// app.use(history());
 
 // 创建 socket
 // let socket = require('../server/controller/socket')

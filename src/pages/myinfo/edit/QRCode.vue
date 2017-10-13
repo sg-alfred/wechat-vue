@@ -1,7 +1,7 @@
 <template>
     <div class="qrcode-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <section slot="userOperate" class="head-operate" @click="showOperate">
+            <section slot="userOperate" class="head-operate right" @click="showOperate">
                 <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <circle cx="20" cy="12" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
                     <circle cx="20" cy="20" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
@@ -14,7 +14,7 @@
             <!-- 可以直接用绝对居中的！ -->
             <section class="code-header">
                 <span>
-                    <img src="../../assets/logo.png">
+                    <img src="../../../assets/logo.png">
                 </span>
                 <div>
                     <p>{{info.remark}}</p><i></i>
@@ -23,7 +23,7 @@
                 </div>
             </section>
             <section class="code-content">
-                <span><img src="../../assets/icon-wechat.png"></span>
+                <span><img src="../../../assets/icon-wechat.png"></span>
             </section>
             <section class="code-footer">
                 <span>扫码添加我为好友</span>
@@ -33,7 +33,8 @@
 </template>
 
 <script>
-    import HeaderSection from '../../components/HeaderSection'
+    import HeaderSection from '../../../components/HeaderSection'
+
     export default {
         name: 'QRCode',
         components: {
@@ -63,14 +64,13 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../style/mixin.scss";
+    @import "../../../style/mixin.scss";
 
     .qrcode-page {
         @include page();
         z-index: 202;
     }
     .head-operate {
-        float: right;
         margin: 10px 10px 0;
     }
     .absolute-center {
