@@ -14,20 +14,21 @@
  -->
 
 <template>
-    <section class="wechat-item" @click="$emit('into-chatroom', chatItem.chatid._id)">
+    <section class="wechat-item" @click="$emit('into-chatroom', chatItem._id)">
 
         <span>
             <!-- 连接到 用户详情界面 -->
             <!--<router-link :to=""></router-link>-->
-            <img :src=chatItem.fid.headimgurl />
+            <img :src=chatItem.headimgurl />
         </span>
         <div>
             <p class="padding-5">
-                <span>{{ chatItem.fid.mobilephone }}</span>
-                <span class="right">{{ chatItem.chatid.sendtime | formatTime }}</span>
+                <!-- 依次取 自己设置的备注名，好友的别名，手机号码 -->
+                <span>{{ chatItem.nickname ||chatItem.alias || chatItem.mobilephone }}</span>
+                <span class="right">{{ chatItem.chatinfo.sendtime | formatTime }}</span>
             </p>
             <p class="padding-5">
-                <span>{{ chatItem.chatid.content }}</span>
+                <span>{{ chatItem.chatinfo.content }}</span>
             </p>
         </div>
 

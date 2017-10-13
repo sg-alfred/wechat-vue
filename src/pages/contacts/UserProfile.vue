@@ -55,12 +55,12 @@
 
             <section class="contact-section placeholder">
                 <div v-if="isFriend">
-                    <el-button type="success" @click="goto('/chatrooms/' + info.chatid)">发送消息</el-button>
+                    <el-button type="success" @click="goto('/chatrooms/' + contactid)">发送消息</el-button>
                     <br/>
                     <el-button :plain="true" type="success" @click="">视频聊天</el-button>
                 </div>
                 <div v-else>
-                    <el-button type="success" @click="goto('/addSend/' + fid)">添加到通讯录</el-button>
+                    <el-button type="success" @click="goto('/addSend/' + contactid)">添加到通讯录</el-button>
                 </div>
                 <!--<div>
                     <el-button type="success">通过验证</el-button>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex'
+    import { mapState, mapGetters, mapActions } from 'vuex'
     import { getUserOperate } from '../../api'
     import { localStorage } from '../../util'
     import HeaderSection from '../../components/HeaderSection'
@@ -94,7 +94,7 @@
             return {
                 headTitle: '详细资料',
                 isFriend: false,
-                fid: '',
+                contactid: '',
                 info: {
                     /*:
                      id: 0,
@@ -124,18 +124,19 @@
             // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
             // 但是 create之前，根本还没有获取 data!! —— 可以改成 created
 
-            this.fid = this.$route.params.fid
+            this.contactid = this.$route.params.contactid
             this.isFriend = this.$route.query.friend === 'true'
 
-//            let info = this.contactMap[this.fid]
+//            let info = this.contactMap[this.contactid]
 //            if (!info) {
 //                info = this.initFuserinfo();        // 这个进程并不会 被阻塞！！
 //            }
 //            this.info = info;   // 首先执行！因此，第一次还是 空的！
 
-            this.info = this.isFriend ? this.contactMap[this.fid] : JSON.parse(localStorage(this.fid));
+            this.info = this.isFriend ? this.contactMap[this.contactid] : JSON.parse(localStorage(this.contactid));
         },
         methods: {
+            ...mapActions(['switchChatroom']),
             async initFuserinfo() {
                 // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
 //                const response = await getFuserinfo()
@@ -155,6 +156,7 @@
 
             },
             goto(path) {
+                this.switchChatroom(this.contactid)
                 this.$router.push(path)
             }
         }

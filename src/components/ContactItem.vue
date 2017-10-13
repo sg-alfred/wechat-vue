@@ -1,8 +1,11 @@
 <!-- 通讯录组件，点击到 好友简介，长按悬浮 设置 -->
 
 <template>
-    <section class="contact-item" @click="$emit('get-detail', contactid)">
-        <span><img :src="contact.headimgurl" /></span>
+    <section class="contact-item"
+             @click="$emit('get-detail', contactid)">
+        <span>
+            <img :src="contact.headimgurl" />
+        </span>
         <span>{{contact.mobilephone}}</span>
     </section>
 </template>

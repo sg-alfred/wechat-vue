@@ -2,7 +2,7 @@
 <template>
     <div class="chatroom-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <router-link :to="'/chatrooms/' + chatid + '/chatsetting'" slot="specialIcon" class="head-usericon right">
+            <router-link :to="'/chatrooms/' + contactid + '/chatsetting'" slot="specialIcon" class="head-usericon right">
                 <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-myinfo-active"></use>
                 </svg>
@@ -12,9 +12,9 @@
 
         <div id="container" ref="container">
             <message-item
-                    v-for="message in messages"
+                    v-for="message in allMessages"
                     :key="message.id"
-                    :contact="contactInfo.fid"
+                    :contact="contactInfo"
                     :message="message">
             </message-item>
         </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     import { getMessages } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
     import MessageItem from '../../components/chatroom/MessageItem'
@@ -43,30 +43,56 @@
             MessageItem,
             MessageSend
         },
+        data() {
+            return {
+                headTitle: 'hello~',
+                contactid: '',
+                chatid: '',
+            }
+        },
+        computed: {
+            ...mapGetters({
+                contactInfo: 'currentChatroom'
+            }),
+            allMessages() {
+                // 不要，要获取到详细的信息了！而不仅仅是 id
+                console.log('聊天信息的id', this.contactInfo.messages)
+                return this.contactInfo.messages
+            }
+        },
         beforeMount() {
-            this.chatid = this.$route.params.chatid;
-            this.initMessage();
+            this.contactid = this.$route.params.contactid
+            this.chatid = this.contactInfo.chatid
+
+            this.headTitle = this.contactInfo.nickname || this.contactInfo.alias || this.contactInfo.mobilephone
+
+            // 如果没有 聊天记录则初始化。。
+            if (this.contactInfo.messages.length === 0) {
+                this.initMessages();
+            } else {
+                console.log('聊天室数据已初始化', this.contactInfo.messages.length)
+            }
         },
         updated() {
             // 数据加载是 异步函数，mounted 的话，又可能落后了～
             // updated 就好了，数据加载完毕后再次执行～
             this.scrollToBottom();
         },
-        data() {
-            return {
-                headTitle: 'hello~',
-                chatid: '',
-                contactInfo: {fid: {}},
-                messages: []
-            }
-        },
         methods: {
-            async initMessage() {
-                const response = await getMessages(this.chatid)
-                this.contactInfo = response.data.data.contactInfo;
-                this.messages = response.data.data.allMessages;
+            ...mapActions(['syncMessages']),
+            async initMessages() {
 
-                this.headTitle = this.contactInfo.fid.mobilephone
+                // 已经不能这样获取数据了！！
+                const response = await getMessages(this.chatid)
+
+                // 这些信息都要存到 vuex 里面！！
+//                let chatroom = {};
+//                chatroom.contact = this.contactInfo
+//                chatroom.messages = response.data.data
+
+                this.syncMessages(response.data.data)
+
+                console.log('初始化聊天室信息', JSON.stringify(this.contactInfo), this.chatid)
             },
             scrollToBottom() {
                 this.$nextTick(() => {

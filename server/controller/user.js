@@ -3,8 +3,6 @@
  */
 'use strict'
 
-// const wxuserDbUtil = require('../dbService/user')
-
 const baseUtil = require('./utils/baseUtil')
 const UserModel = global.dbHandel.getModel('User');
 const ContactModel = global.dbHandel.getModel('Contact')
@@ -99,6 +97,8 @@ module.exports = (app) => {
                     throw new Error('密码错误!');
                 } else {
                     req.session.userid = dbUserinfo._id
+                    req.session.userinfo = dbUserinfo           // 缓存用户信息
+
                     resultObj = {
                         code: 0,
                         message: '登录成功!',

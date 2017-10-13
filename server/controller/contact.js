@@ -3,9 +3,6 @@
  */
 'use strict'
 
-// const contactDbUtil = require('../dbService/contact')
-// const chatroomDbUtil = require('../dbService/chatroom')
-
 const ContactModel = global.dbHandel.getModel('Contact')
 const ChatroomModel = global.dbHandel.getModel('Chatroom')
 
@@ -15,6 +12,7 @@ module.exports = (app) => {
 
     /**
      * 获取好友通讯录
+     * 里面带上 聊天室信息，之后也根据这个 渲染聊天界面
      * ---------------------------------------------
      */
     app.get('/contacts', async (req, res) => {
@@ -38,9 +36,10 @@ module.exports = (app) => {
             // 其实微信的，都是缓存到手机了的，点击详情的时候 才会再再次查询，这时候，用户名和头像还可能变掉！——
             // 不是的，毕竟要查聊天室和用户名头像等信息。因此，点用户详情的时候，不需要再查库了！可以写在 vuex 里面～
             // 注意敏感字段的过滤！
-            const contacts = await ContactModel.find({
-                uid, status: 1
-            }).populate('fid', '-salt -password -createtime -updatetime').exec()
+            const contacts = await ContactModel.find({uid, status: 1})
+                .populate('fid', '-salt -password -createtime -updatetime')
+                .populate('chatid')
+                .exec()
 
             resultObj = {
                 code: 0,

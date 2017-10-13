@@ -62,14 +62,9 @@
                     sendtime: Date.now()
                 })
 
-                const result = response.data
+                // 成功之后，往 vuex 里面放啊！
+                await this.addMessage(response.data.data)
 
-                // 成功之后，往里面放啊！
-
-
-
-
-                this.$message(result.message);
                 this.content = '';
             },
             speak() {

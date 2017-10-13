@@ -47,6 +47,8 @@
             console.log('login-page-00-', this.isLogin)
             if (this.isLogin) {
                 this.$router.push('/wechat');
+
+                // 登录了，要 初始化通讯录！！
             }
         },
         methods: {

@@ -83,7 +83,7 @@
         created() {
             console.log('通讯录取 vuex 数据--', JSON.stringify(this.contactMap), isEmptyObject(this.contactMap))
             if (isEmptyObject(this.contactMap)) {        // vuex 没有，则调用
-                this.initContacts(this.userid)
+//                this.initContacts(this.userid)
             }
         },
         methods: {
@@ -93,8 +93,8 @@
 //                // 保存到 vuex，如果有，直接取，否则再取
 //                this.contactMap = response.data.data;
 //            },
-            getDetail(fid) {
-                this.$router.push('/userprofile/' + fid  + '?friend=true');
+            getDetail(contactid) {
+                this.$router.push('/userprofile/' + contactid  + '?friend=true');
             }
         }
     }

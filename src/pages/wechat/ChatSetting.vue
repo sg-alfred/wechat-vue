@@ -6,8 +6,8 @@
             <section class="headimg-section">
 
                 <!-- 必须循环! -->
-                <router-link :to="'/userprofile/' + finfo._id">
-                    <img :src="finfo.headimgurl" />
+                <router-link :to="'/userprofile/' + contctInfo._id">
+                    <img :src="contctInfo.headimgurl" />
                 </router-link>
 
                 <svg class="icon fa-20px" aria-hidden="true">
@@ -58,6 +58,7 @@
 
 <script>
     import { clearChatHistory } from '../../api'
+    import { mapActions } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
 
     export default {
@@ -70,7 +71,6 @@
                 headTitle: '聊天信息',
                 stickyTop: false,
                 muteNoti: false,
-                finfo: '',
                 contctInfo: {}
             }
         },
@@ -83,30 +83,41 @@
 
             // 不需要：this.$parent.$data / this/$parent._data ，可以直接访问到
 
-            this.finfo = this.contctInfo.fid
-
             console.log('获取到上层数据？', this.$parent, this.$parent.headTitle, JSON.stringify(this.contctInfo))
         },
         methods: {
+            ...mapActions(['syncMessages']),
             async confirmClearHistory() {
-                this.$confirm(`确定删除和${this.muteNoti}的聊天记录`, '提示', {
+
+                this.$confirm(`确定删除和${this.contctInfo.mobilephone}的聊天记录`, '提示', {
                     confirmButtonText: '清空',
-                    cancelButtonText: '取消',
+                    cancelButtonText: '取消'
 //                    type: 'warning'
                 }).then(() => {
 
-                    let cleartime = new Date()
+//                    console.log('删除聊天历史！-00-')
 
                     // 删除聊天！ 能不能在这里面 用 await ?
-                    const response = clearChatHistory(this.finfo._id, { cleartime })
+                    let cleartime = new Date()
+                    const p1 = clearChatHistory(this.contctInfo.fid, { cleartime })
 
-                    this.$message({
-                        type: 'success',
-                        message: response.data.message
-                    });
+                    p1.then((response) => {
+
+//                        console.log('删除聊天历史！-11-', response.data)
+
+                        // 同时 清除 vuex 里的 messages !!
+                        if (!response.data.code) {
+                            this.syncMessages([])
+                        }
+                        this.$message({
+                            type: 'success',
+                            message: response.data.message
+                        });
+                    })
+
                 }).catch(() => {
 
-                });
+                })
             }
         }
     }

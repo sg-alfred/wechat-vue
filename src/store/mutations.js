@@ -28,6 +28,11 @@ export default {
             contact.fid = contact.fid._id
             Object.assign(contact, finfo)
 
+            contact.chatinfo = contact.chatid
+            contact.chatid = contact.chatid._id
+
+            contact.messages = []       // 放置 聊天信息
+
             Vue.set(state.contacts, contact._id, contact)
         })
     },
@@ -37,32 +42,57 @@ export default {
         Vue.set(state.strangers, userinfo._id, userinfo)
     },
 
-    // 获取所有信息
+    // 获取所有信息, 不需要这样啊～ 直接加到 messages 里就好了！！
     [types.RECEIVE_ALL] (state, { messages }) {
-        let latestMessage
-        messages.forEach(message => {
+
+        // 获取当前的 聊天室
+        let chatroom = state.contacts[state.currentContactID]
+
+        chatroom.messages = messages
+
+        /*chatroom.messages.forEach(message => {
+
             // create new thread if the thread doesn't exist
-            if (!state.threads[message.threadID]) {
-                createChatrooms(state, message.threadID, message.threadName)
-            }
-            // mark the latest message
-            if (!latestMessage || message.timestamp > latestMessage.timestamp) {
-                latestMessage = message
-            }
+            // if (!state.chatrooms[message.chatid]) {
+            //     createChatrooms(state, message.chatid, message.threadName)
+            // }
+
             // add message
-            addMessage(state, message)
-        })
+            addMessage(state, chatroom.contact, message)
+        })*/
     },
 
     // 发送新消息
-    [types.RECEIVE_MESSAGE] (state, { message }) {
-        addMessage(state, message)
+    [types.RECEIVE_MESSAGE] (state, message ) {
+
+        console.log('消息 - mutation', message)
+
+        // 获取当前的 聊天室
+        let chatroom = state.contacts[state.currentContactID]
+
+        chatroom.messages.push(message.payload)
+
+        // addMessage(state, message)
     },
+
+    // 切换 聊天室，但是，这个怎么触发？
+    [types.SWITCH_CHATROOM] (state, id ) {
+        console.log('设置当前聊天室id-11-', id)
+
+        state.currentContactID = id.payload
+    }
 }
 
 
-function createChatrooms (state, id, name) {
-    Vue.set(state.chatrooms, id, {
+/**
+ * 增加一个通讯录 到 vuex
+ * ---------------------------------------------
+ * @param state
+ * @param id
+ * @param name
+ */
+function addContact (state, id, name) {
+    Vue.set(state.contacts, id, {
         id,
         name,
         messages: [],
@@ -72,19 +102,17 @@ function createChatrooms (state, id, name) {
 
 /**
  * 增加一条信息到 vuex
- *
+ * ---------------------------------------------
  * @param state
+ * @param chatroom
  * @param message
  */
-function addMessage (state, message) {
-    // add a `isRead` field before adding the message
-    message.isRead = message.threadID === state.currentThreadID
-    // add it to the thread it belongs to
-    const thread = state.threads[message.threadID]
-    if (!thread.messages.some(id => id === message.id)) {
-        thread.messages.push(message.id)
-        thread.lastMessage = message
-    }
+function addMessage (state, chatroom, message) {
+
+    // console.log('这个 chatroom', chatroom, message)
+
+    chatroom.messages.push(message._id)
+
     // add it to the messages map
-    Vue.set(state.messages, message.id, message)
+    Vue.set(state.messages, message._id, message)
 }

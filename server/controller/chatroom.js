@@ -11,8 +11,9 @@ module.exports = (app) => {
 
     /**
      * 获取未被清除历史消息的聊天室列表
-     *
      * 用 userid 关联查好友，再查聊天室信息
+     * ---------------------------------------------
+     *
      */
     app.get('/chatrooms', async (req, res) => {
         let resultObj = {}
@@ -59,8 +60,8 @@ module.exports = (app) => {
 
     /**
      * 根据好友获取聊天室的设置
-     *
      * 设置，还有聊天信息
+     * ---------------------------------------------
      */
     app.get('/chatrooms/:chatid', async (req, res) => {
         let resultObj = {}
@@ -69,7 +70,7 @@ module.exports = (app) => {
         const uid = req.session.userid;
 
         try {
-            // 聊天室设置
+            // 聊天室设置，现在不需要了！！都放在 contacts 里面！！
             const contactInfo = await ContactModel.findOne({uid, chatid})
                 .populate('fid', 'mobilephone headimgurl cleartime')
                 .exec()
@@ -85,10 +86,11 @@ module.exports = (app) => {
             resultObj = {
                 code: 2,
                 message: '查询历史记录成功！',
-                data: {
+                data: allMessages
+                /*data: {
                     contactInfo,
                     allMessages
-                }
+                }*/
             }
         } catch (err) {
             resultObj = {

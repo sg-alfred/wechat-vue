@@ -58,10 +58,10 @@ const router =  new Router({
             component: NewFriends
         }]
     }, {
-        path: '/chatrooms/:chatid',
+        path: '/chatrooms/:contactid',
         component: Chatroom,
         children: [{
-            path: '/chatrooms/:chatid/chatsetting',
+            path: '/chatrooms/:contactid/chatsetting',
             component: ChatSetting
         }]
     }, {
@@ -95,7 +95,7 @@ const router =  new Router({
             component: Wallet
         }]
     }, {
-        path: '/userprofile/:fid',
+        path: '/userprofile/:contactid',
         component: UserProfile
     }, {
         path: '/addFriend',

@@ -5,6 +5,8 @@
 
 import { kindOf } from '../util'
 
+
+// 这一些简单的 直接用 mapStates
 export const isLogin = state => state.isLogin
 
 export const getUserid = state => {
@@ -14,3 +16,9 @@ export const getUserid = state => {
 export const getUserinfo = state => state.userinfo
 
 export const getContacts = state => state.contacts
+
+export const currentChatroom = state => {
+    return state.currentContactID
+        ? state.contacts[state.currentContactID]
+        : {}
+}
