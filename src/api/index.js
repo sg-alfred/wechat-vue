@@ -79,7 +79,7 @@ export const getMessages = (chatid) => axios.get('/chatrooms/' + chatid)
  * 获取好友通讯录
  * @param uid
  */
-export const getContacts = (uid) => axios.get('/contacts', uid)
+export const getContacts = () => axios.get('/contacts')
 
 /**
  * 这个是没有啥用的！

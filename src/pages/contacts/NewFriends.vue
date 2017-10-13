@@ -54,29 +54,28 @@
                 newFriendList: {}
             }
         },
-        beforeMount() {
-            this.initNewFriends()
+        async beforeMount() {
+            const response = await getNewFriends();
+//          this.newFriendList = response.data.data;
+
+            // TODO 处理一下数据格式，以方便 状态更改～
+            response.data.data.forEach((item) => {
+                Vue.set(this.newFriendList, item._id, item)
+            })
+
+//          console.log(JSON.stringify(this.newFriendList))
         },
         methods: {
-            async initNewFriends() {
-                const response = await getNewFriends();
-//                this.newFriendList = response.data.data;
+            async handleFriend(finfo, id) {
 
-                // TODO 处理一下数据格式，以方便 状态更改～
-                response.data.data.forEach((item) => {
-                    Vue.set(this.newFriendList, item._id, item)
-                })
-//                console.log(JSON.stringify(this.newFriendList))
-            },
-            async handleFriend(friendInfo, id) {
-
-                console.log('处理好友请求', friendInfo._id, id)
+                console.log('处理好友请求', finfo._id, id)
 
                 const response = await handleNewFriend({
-                    fid: friendInfo._id,
+                    fid: finfo._id,
                     type: 'accept'          // 同意，或者加入黑名单等等～
                 })
                 let handleResult = response.data;
+
                 this.$message(handleResult.message)
 
                 // 界面刷新？不需要，只要 假装成功就好！

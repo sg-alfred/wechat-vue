@@ -86,7 +86,7 @@
             console.log('获取到上层数据？', this.$parent, this.$parent.headTitle, JSON.stringify(this.contctInfo))
         },
         methods: {
-            ...mapActions(['syncMessages']),
+            ...mapActions(['syncMessages', 'updateContact']),
             async confirmClearHistory() {
 
                 this.$confirm(`确定删除和${this.contctInfo.mobilephone}的聊天记录`, '提示', {
@@ -106,8 +106,14 @@
 //                        console.log('删除聊天历史！-11-', response.data)
 
                         // 同时 清除 vuex 里的 messages !!
+                        // 不仅仅这么简单啊！！还要 修改 cleartime，因此，应该调用的是 updateContacts
                         if (!response.data.code) {
-                            this.syncMessages([])
+                            let updateParams = {
+                                _id: this.contctInfo._id,        // contactid
+                                cleartime,
+                                messages: []
+                            }
+                            this.updateContact(updateParams)
                         }
                         this.$message({
                             type: 'success',

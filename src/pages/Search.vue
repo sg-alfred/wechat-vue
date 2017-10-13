@@ -97,7 +97,7 @@
 
                         // 有跳转到用户的 详情界面！
                         if (searchid) {
-                            this.$router.push('/userprofile/' + searchid + '?friend=' + isFriend)
+                            this.$router.push('/userprofile/' + searchid)
                         }
                         break;
                     default:

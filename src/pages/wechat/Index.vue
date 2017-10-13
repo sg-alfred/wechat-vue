@@ -21,11 +21,11 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'Vuex'
+    import { mapGetters } from 'Vuex'
+    import { getChatrooms } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
     import WechatItem from '../../components/WechatItem'
-    import { getChatrooms } from '../../api'
 
     export default {
         name: 'Wechat',
@@ -51,10 +51,9 @@
             this.chatrooms = Object.values(this.contacts).filter((ele, index) => {
                 return ele.messages.length > 0 || !!ele.chatinfo.lastmsgid && (!ele.cleartime || ele.chatinfo.sendtime > ele.cleartime)
             })
-            console.log('聊天室信息--', JSON.stringify(this.chatrooms))
+//            console.log('聊天室信息--', JSON.stringify(this.chatrooms))
         },
         methods: {
-            ...mapActions(['switchChatroom']),
             emitTest() {
                 // 显然，这个socket shi 没有定义的！！应该是 保存起来，以 用户id 为键值！！这样，才能够正在这里调用！
                 // 但是，要保证不掉线啊！！ 刷新一下就掉了，这又什么用！
@@ -64,9 +63,6 @@
             },
             // 进入特定的聊天室
             intoChatroom(contactid) {
-
-                this.switchChatroom(contactid)
-
                 this.$router.push('/chatrooms/' + contactid);
             }
         }

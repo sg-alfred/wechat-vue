@@ -21,7 +21,7 @@ const state = {
         */
     },
     currentContactID: null,
-    contacts: {     // 通讯录
+    contacts: {     // 通讯录 -> 聊天室
         /*
         id: {
             id,

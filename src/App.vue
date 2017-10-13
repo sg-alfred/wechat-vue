@@ -15,31 +15,28 @@
                 'isLogin'
             ])
         },
-        created() {
-            this.initLogin()
+        async created() {
+            console.log('app-00-', this.isLogin)
+
+            await this.changeLoginInfo()
+
+            // 这是否设置
+            console.log('app没有跳转？-11-', this.isLogin);
+
+            if (!this.isLogin) {
+                this.$router.push('/login');
+            } else {
+
+                // 这时候直接 获取通讯录，渲染出聊天列表
+                await this.initContacts()
+
+                console.log('初始化通讯录后跳转到 WeChat')
+
+                this.$router.push('/wechat');
+            }
         },
         methods: {
             ...mapActions(['changeLoginInfo', 'initContacts']),
-            async initLogin() {
-
-                console.log('app-00-', this.isLogin)
-
-                await this.changeLoginInfo()
-
-                // 这是否设置
-                console.log('app没有跳转？-11-', this.isLogin);
-                if (!this.isLogin) {
-                    this.$router.push('/login');
-                } else {
-
-                    // 这时候直接 获取通讯录，渲染出聊天列表
-                    await this.initContacts()
-
-                    console.log('不是应该也要执行吗？')
-
-                    this.$router.push('/wechat');
-                }
-            }
         }
     }
 </script>

@@ -9,7 +9,8 @@ import * as types from './mutation-types'
 
 
 /**
- * 登录、退出、界面刷新 及 服务端session 失效时，设置 userinfo
+ * 修改登录状态，设置 userinfo
+ * 当发生 登录、退出、界面刷新 及 服务端session 失效时
  * ---------------------------------------------
  * @param commit
  * @param isLogin
@@ -52,15 +53,24 @@ export const storeSearchUser = async ({ commit }, userinfo) => {
  * 一开始的时候就获取 通讯录，并根据这个 获取聊天室信息
  * ---------------------------------------------
  * @param commit
- * @param userid
+ * @param payload
  * @returns {Promise.<void>}
  */
-export const initContacts = async ({ commit }, userid) => {
-
-    console.log('初始化通讯录', userid);
-
-    const response = await getContacts(userid);
+export const initContacts = async ({ commit }, payload) => {
+    const response = await getContacts();
     commit(types.ALL_CONTACTS, response.data.data)
+}
+
+
+/**
+ * 更新 某个contact
+ * ---------------------------------------------
+ * @param commit
+ * @param updateParams
+ * @returns {Promise.<void>}
+ */
+export const updateContact = async ({ commit }, updateParams) => {
+    commit(types.UPDATE_CONTACT, updateParams)
 }
 
 
@@ -68,13 +78,13 @@ export const initContacts = async ({ commit }, userid) => {
  * 切换到新的聊天室
  * ---------------------------------------------
  * @param commit
- * @param payload
+ * @param contactid
  */
-export const switchChatroom = ({ commit }, payload) => {
+export const switchChatroom = ({ commit }, contactid) => {
 
-    console.log('设置当前聊天室id-00-', payload)
+    console.log('设置当前聊天室id-00-', contactid)
 
-    commit(types.SWITCH_CHATROOM, { payload })
+    commit(types.SWITCH_CHATROOM, { contactid })
 }
 
 
@@ -86,8 +96,6 @@ export const switchChatroom = ({ commit }, payload) => {
  * @param messages
  */
 export const syncMessages = ({ commit }, messages) => {
-    // 必然根据 用户id 获取聊天室信息，然后再 根据聊天室 获取信息。。
-    // 这样的存储格式，不需要前端有 太多的 逻辑处理！
     commit(types.RECEIVE_ALL, { messages })
 }
 
@@ -97,9 +105,9 @@ export const syncMessages = ({ commit }, messages) => {
  * 除了初始化，还包括之后的信息发送
  * ---------------------------------------------
  * @param commit
- * @param payload
+ * @param message
  */
-export const addMessage = ({ commit }, payload) => {
-    console.log('消息 - action', payload)
-    commit(types.RECEIVE_MESSAGE, { payload })
+export const addMessage = ({ commit }, message) => {
+    console.log('消息 - action', message)
+    commit(types.RECEIVE_MESSAGE, { message })
 }

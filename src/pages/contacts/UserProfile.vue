@@ -30,7 +30,7 @@
             </section>
 
             <section class="tag-section placeholder">
-                <div v-if="!info.tags" @click="updateContact">
+                <div v-if="!info.tags">
                     <span>设置备注和标签</span>
                 </div>
                 <div v-else>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters, mapActions } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     import { getUserOperate } from '../../api'
     import { localStorage } from '../../util'
     import HeaderSection from '../../components/HeaderSection'
@@ -120,12 +120,14 @@
                 contactMap: 'getContacts'
             })
         },
-        created() {
+        beforeMount() {
             // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
             // 但是 create之前，根本还没有获取 data!! —— 可以改成 created
 
             this.contactid = this.$route.params.contactid
-            this.isFriend = this.$route.query.friend === 'true'
+
+            // 这算什么参数！不要！！
+//            this.isFriend = this.$route.query.friend === 'true'
 
 //            let info = this.contactMap[this.contactid]
 //            if (!info) {
@@ -133,10 +135,12 @@
 //            }
 //            this.info = info;   // 首先执行！因此，第一次还是 空的！
 
+            this.isFriend = !!this.contactMap[this.contactid]
+
             this.info = this.isFriend ? this.contactMap[this.contactid] : JSON.parse(localStorage(this.contactid));
         },
         methods: {
-            ...mapActions(['switchChatroom']),
+            ...mapActions(['updateContact']),
             async initFuserinfo() {
                 // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
 //                const response = await getFuserinfo()
@@ -152,11 +156,7 @@
                     console.log('没有显示？--', this.operateList)
                 }
             },
-            async updateContact() {
-
-            },
             goto(path) {
-                this.switchChatroom(this.contactid)
                 this.$router.push(path)
             }
         }

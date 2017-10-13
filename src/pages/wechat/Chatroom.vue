@@ -55,22 +55,30 @@
                 contactInfo: 'currentChatroom'
             }),
             allMessages() {
-                // 不要，要获取到详细的信息了！而不仅仅是 id
-                console.log('聊天信息的id', this.contactInfo.messages)
-                return this.contactInfo.messages
+                return this.contactInfo.messages || []
             }
         },
-        beforeMount() {
+        async beforeMount() {
             this.contactid = this.$route.params.contactid
-            this.chatid = this.contactInfo.chatid
+
+            // 还是觉得这样去获取 当前聊天室靠谱！！
+            // 诶，可以这个时候设置 currentContactID 啊！
+            await this.switchChatroom(this.contactid)
+
+            this.chatid = this.contactInfo.chatid || ''
 
             this.headTitle = this.contactInfo.nickname || this.contactInfo.alias || this.contactInfo.mobilephone
 
-            // 如果没有 聊天记录则初始化。。
-            if (this.contactInfo.messages.length === 0) {
-                this.initMessages();
+            // 如果没有聊天记录, 则进行初始化。。
+            if (this.allMessages.length === 0) {
+                const response = await getMessages(this.chatid)
+
+                // 这些信息都要存到 vuex 里面！！
+                await this.syncMessages(response.data.data)
+
+                console.log('初始化聊天室信息', JSON.stringify(this.contactInfo), this.chatid)
             } else {
-                console.log('聊天室数据已初始化', this.contactInfo.messages.length)
+                console.log('聊天室数据已初始化', this.allMessages.length)
             }
         },
         updated() {
@@ -79,21 +87,7 @@
             this.scrollToBottom();
         },
         methods: {
-            ...mapActions(['syncMessages']),
-            async initMessages() {
-
-                // 已经不能这样获取数据了！！
-                const response = await getMessages(this.chatid)
-
-                // 这些信息都要存到 vuex 里面！！
-//                let chatroom = {};
-//                chatroom.contact = this.contactInfo
-//                chatroom.messages = response.data.data
-
-                this.syncMessages(response.data.data)
-
-                console.log('初始化聊天室信息', JSON.stringify(this.contactInfo), this.chatid)
-            },
+            ...mapActions(['switchChatroom', 'syncMessages']),
             scrollToBottom() {
                 this.$nextTick(() => {
                     // 有什么区别？～ 前者操作 DOM,

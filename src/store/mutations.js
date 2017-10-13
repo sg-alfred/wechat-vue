@@ -7,51 +7,62 @@ import * as types from './mutation-types'
 
 export default {
 
-    // 修改登录信息
+    /**
+     * 修改登录信息
+     * ---------------------------------------------
+     * @param state
+     * @param userinfo
+     */
     [types.CHANGE_LOGININFO] (state, userinfo) {
         state.isLogin = !!userinfo
         state.userinfo = userinfo
+        if (!userinfo) {
+            state.currentContactID = null
+            state.contacts = {}
+        }
     },
 
-    // 保存 通讯录，不好！！实时查询吧～ 不然问题很多啊！！ 不要现在就想着优化，这个弄不来！
+    /**
+     * vuex 保存 通讯录
+     * 若有新好友 则附加进去
+     * ---------------------------------------------
+     * @param state
+     * @param contacts
+     */
     [types.ALL_CONTACTS] (state, contacts) {
 
-        console.log('vuex 缓存通讯录，现在，有新好友怎么办？--', JSON.stringify(contacts))
+        console.log('vuex 缓存通讯录', JSON.stringify(contacts))
 
-        // 不仅仅这样啊！还要 拉平了！
         contacts.forEach(contact => {
-
-            let finfo = Object.assign({}, contact.fid);
-            delete finfo._id
-            delete finfo.id     // 为嘛还有这一个～
-
-            contact.fid = contact.fid._id
-            Object.assign(contact, finfo)
-
-            contact.chatinfo = contact.chatid
-            contact.chatid = contact.chatid._id
-
-            contact.messages = []       // 放置 聊天信息
-
-            Vue.set(state.contacts, contact._id, contact)
+            addContact(state, contact)
         })
     },
 
-    // 缓存查询到的用户信息
-    [types.SEARCH_STRANGERS] (state, userinfo) {
-        Vue.set(state.strangers, userinfo._id, userinfo)
+
+    /**
+     * 更新某个 contact
+     * ---------------------------------------------
+     * @param state
+     * @param updateParams
+     */
+    [types.UPDATE_CONTACT] (state, updateParams) {
+        let contact = state.contacts[updateParams._id]
+        Object.assign(contact, updateParams)
     },
 
-    // 获取所有信息, 不需要这样啊～ 直接加到 messages 里就好了！！
+    /**
+     * 获取所有信息, 直接加到 messages 里就好了！
+     * ---------------------------------------------
+     * @param state
+     * @param messages
+     */
     [types.RECEIVE_ALL] (state, { messages }) {
-
         // 获取当前的 聊天室
-        let chatroom = state.contacts[state.currentContactID]
-
+        let chatroom = getCurrentContact(state)
         chatroom.messages = messages
 
-        /*chatroom.messages.forEach(message => {
-
+        /* 不需要这样！！
+        chatroom.messages.forEach(message => {
             // create new thread if the thread doesn't exist
             // if (!state.chatrooms[message.chatid]) {
             //     createChatrooms(state, message.chatid, message.threadName)
@@ -62,57 +73,83 @@ export default {
         })*/
     },
 
-    // 发送新消息
-    [types.RECEIVE_MESSAGE] (state, message ) {
+    /**
+     * 增加一条信息到 vuex
+     * 包括发送和接收到的新消息
+     * ---------------------------------------------
+     * @param state
+     * @param message
+     */
+    [types.RECEIVE_MESSAGE] (state, { message } ) {
 
         console.log('消息 - mutation', message)
 
         // 获取当前的 聊天室
-        let chatroom = state.contacts[state.currentContactID]
+        let chatroom = getCurrentContact(state)
 
-        chatroom.messages.push(message.payload)
+        chatroom.messages.push(message)
 
-        // addMessage(state, message)
+        // 还需要维护 最后一条聊天
+        chatroom.chatinfo = message
     },
 
-    // 切换 聊天室，但是，这个怎么触发？
-    [types.SWITCH_CHATROOM] (state, id ) {
-        console.log('设置当前聊天室id-11-', id)
+    /**
+     * 切换 聊天室，进入聊天室触发
+     * ---------------------------------------------
+     * @param state
+     * @param contactid
+     */
+    [types.SWITCH_CHATROOM] (state, { contactid } ) {
 
-        state.currentContactID = id.payload
+        console.log('设置当前聊天室id-11-', contactid)
+
+        state.currentContactID = contactid
     }
-}
 
+}
 
 /**
  * 增加一个通讯录 到 vuex
  * ---------------------------------------------
  * @param state
- * @param id
- * @param name
+ * @param contact
  */
-function addContact (state, id, name) {
-    Vue.set(state.contacts, id, {
-        id,
-        name,
-        messages: [],
-        lastMessage: null
-    })
+function addContact (state, contact) {
+
+    let finfo = Object.assign({}, contact.fid);
+    delete finfo._id
+    delete finfo.id     // 为嘛还有这一个～
+
+    contact.fid = contact.fid._id
+    Object.assign(contact, finfo)
+
+    contact.chatinfo = contact.chatid
+    contact.chatid = contact.chatid._id
+
+    contact.messages = []       // 放置 聊天信息
+
+    Vue.set(state.contacts, contact._id, contact)
+}
+
+
+/**
+ * 删除指定通讯录
+ * ---------------------------------------------
+ * @param state
+ * @param contactid
+ */
+function deleteContact (state, contactid) {
+    Vue.delete(state.contacts, contactid)
 }
 
 /**
- * 增加一条信息到 vuex
+ * 获取当前聊天室
  * ---------------------------------------------
  * @param state
- * @param chatroom
- * @param message
  */
-function addMessage (state, chatroom, message) {
-
-    // console.log('这个 chatroom', chatroom, message)
-
-    chatroom.messages.push(message._id)
-
-    // add it to the messages map
-    Vue.set(state.messages, message._id, message)
+function getCurrentContact (state) {
+    return state.currentContactID
+        ? state.contacts[state.currentContactID]
+        : {}
 }
+
