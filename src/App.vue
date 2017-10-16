@@ -5,14 +5,16 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
     import 'normalize.css'
+    import io from 'socket.io-client'
 
     export default {
         name: 'app',
         computed: {
-            ...mapGetters([
-                'isLogin'
+            ...mapState([
+                'isLogin',
+                'userinfo'
             ])
         },
         async created() {
@@ -30,13 +32,33 @@
                 // 这时候直接 获取通讯录，渲染出聊天列表
                 await this.initContacts()
 
+                await this.connectSocket(this.userinfo)
+
                 console.log('初始化通讯录后跳转到 WeChat')
 
                 this.$router.push('/wechat');
             }
         },
         methods: {
-            ...mapActions(['changeLoginInfo', 'initContacts']),
+            ...mapActions(['changeLoginInfo', 'initContacts', 'initSocket']),
+            connectSocket(userinfo) {
+                // 登录成功 创建与 服务端的 socket 的连接～～
+                // 但是，刷新一下就掉了？ 控制台 显示 disconnect 了～～ 就是掉了嘛～
+
+                const socket = io.connect('http://localhost:8080')
+
+                this.initSocket(socket)
+
+                socket.on('connect', () => {
+                    socket.send('hello, server..')
+
+                    socket.emit('login', userinfo)
+                })
+
+                socket.on('send.msg', (msg) => {
+                    console.log(msg)
+                })
+            }
         }
     }
 </script>

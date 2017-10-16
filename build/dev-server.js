@@ -34,10 +34,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 // var history = require('connect-history-api-fallback');
 // app.use(history());
 
-// 创建 socket
-// let socket = require('../server/controller/socket')
-// socket(app)
-
 // 设置 session
 let session = require('express-session')
 app.use(session({
@@ -90,7 +86,15 @@ app.use(hotMiddleware)
 let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
+// 路由服务
 appServer(app)
+
+// 开启 socket 服务
+const appSocketio = require('../server/socket')
+
+// 原生http 服务
+const server = require('http').createServer(app);
+appSocketio(server)
 
 let uri = 'http://localhost:' + port
 
@@ -108,27 +112,6 @@ devMiddleware.waitUntilValid(() => {
   }
   _resolve()
 })
-
-const server = require('http').createServer(app);   // 原生Http服务
-const io = require('socket.io')(server);  // Socket.io服务
-
-// 监听 当有连接的。。
-io.on('connection', (socket) => {
-
-    socket.emit('open');//通知客户端已连接
-
-    console.log('连接信息：', socket.id);
-
-    socket.on('message', function(msg) {
-        console.log('from client: ', msg);
-    });
-
-    socket.on('disconnect', function(){
-        console.log('disconnect!');
-    });
-});
-
-// let server = app.listen(port)
 
 server.listen(port, () => {
     console.log("Express server listening on port " + port);

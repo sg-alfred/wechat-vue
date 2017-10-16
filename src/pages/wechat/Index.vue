@@ -11,8 +11,6 @@
         </section>
 
         <section class="absolute-center">
-            <p>userid的值：{{userid}}</p>
-
             <p @click="emitTest">socket信息？还能触发事件嘛？</p>
         </section>
 
@@ -21,7 +19,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'Vuex'
+    import { mapState } from 'Vuex'
     import { getChatrooms } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
@@ -35,10 +33,9 @@
             WechatItem
         },
         computed: {
-            ...mapGetters({
-                userid: 'getUserid',
-                contacts: 'getContacts'
-            })
+            ...mapState([
+                'contacts'
+            ])
         },
         data() {
             return {

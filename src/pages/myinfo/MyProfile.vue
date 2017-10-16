@@ -19,16 +19,16 @@
             <router-link :to="'/myinfo/profile/headimg'">
                 <span>头像</span>
                 <span>
-                    <img :src="info.headimgurl" alt="头像"/>
+                    <img :src="userinfo.headimgurl" alt="头像"/>
                 </span>
             </router-link>
             <router-link :to="'/myinfo/profile/alias'">
                 <span>昵称</span>
-                <span>{{ info.alias }}</span>
+                <span>{{ userinfo.alias }}</span>
             </router-link>
             <router-link :to="'/myinfo/profile/wechatno'">
                 <span>微信号</span>
-                <span>{{ info.wechatno ? info.wechatno : "未设置" }}</span>
+                <span>{{ userinfo.wechatno ? userinfo.wechatno : "未设置" }}</span>
             </router-link>
             <router-link :to="'/myinfo/profile/code'">
                 <span>二维码名片</span>
@@ -58,7 +58,7 @@
 
 <script>
     import HeaderSection from '../../components/HeaderSection'
-    import { mapGetters } from 'vuex'
+    import { mapState } from 'vuex'
 
     export default {
         name: "MyProfile",
@@ -71,9 +71,9 @@
             }
         },
         computed: {
-            ...mapGetters({
-                'info': 'getUserinfo'
-            })
+            ...mapState([
+                'userinfo'
+            ])
         }
     }
 </script>

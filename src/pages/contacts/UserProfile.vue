@@ -23,9 +23,9 @@
                     <img :src="info.headimgurl">
                 </span>
                 <div class="name-info">
-                    <p>{{info.mobilephone}}</p><i></i>
-                    <p>微信号：{{info.wechatno}}</p>
-                    <p>昵称：{{info.nickname}}</p>
+                    <p>{{ info.mobilephone }}</p><i></i>
+                    <p>微信号：{{ info.wechatno }}</p>
+                    <p>昵称：{{ info.nickname }}</p>
                 </div>
             </section>
 
@@ -42,7 +42,7 @@
             <section class="more-section placeholder">
                 <span class="item">
                     <span>地区</span>
-                    <span>{{info.country}}</span>
+                    <span>{{ info.country }}</span>
                 </span>
                 <span class="item">
                     <span>个人相册</span>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
     import { getUserOperate } from '../../api'
     import { localStorage } from '../../util'
     import HeaderSection from '../../components/HeaderSection'
@@ -115,10 +115,9 @@
             HeaderSection
         },
         computed: {
-            ...mapGetters({
-                userid: 'getUserid',
-                contactMap: 'getContacts'
-            })
+            ...mapState([
+                'contacts'
+            ])
         },
         beforeMount() {
             // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
@@ -129,15 +128,15 @@
             // 这算什么参数！不要！！
 //            this.isFriend = this.$route.query.friend === 'true'
 
-//            let info = this.contactMap[this.contactid]
+//            let info = this.contacts[this.contactid]
 //            if (!info) {
 //                info = this.initFuserinfo();        // 这个进程并不会 被阻塞！！
 //            }
 //            this.info = info;   // 首先执行！因此，第一次还是 空的！
 
-            this.isFriend = !!this.contactMap[this.contactid]
+            this.isFriend = !!this.contacts[this.contactid]
 
-            this.info = this.isFriend ? this.contactMap[this.contactid] : JSON.parse(localStorage(this.contactid));
+            this.info = this.isFriend ? this.contacts[this.contactid] : JSON.parse(localStorage(this.contactid));
         },
         methods: {
             ...mapActions(['updateContact']),

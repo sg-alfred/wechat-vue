@@ -126,6 +126,9 @@ module.exports = (app) => {
             // 保存后修改 chatid 的最后一条记录指向？会不会太累了？
             await ChatroomModel.findOneAndUpdate({'_id': chatid}, {$set: messageParams})
 
+            // 检查对方用户是否在线！！
+
+
             resultObj = {
                 code: 0,
                 message: '发送成功！',

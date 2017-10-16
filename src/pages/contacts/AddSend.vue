@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
     import { addNewFriend } from '../../api'
     import HeaderSection from '../../components/HeaderSection'
 
@@ -52,9 +52,9 @@
             this.formInfo.fid = this.$route.params.fid;
         },
         computed: {
-            ...mapGetters({
-                isLogin: 'isLogin',
-            })
+            ...mapState([
+                'isLogin'
+            ])
         },
         methods: {
             ...mapActions(['']),

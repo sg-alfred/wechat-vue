@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapState, mapGetters } from 'vuex'
 
     export default {
         name: 'MessageItem',
@@ -41,9 +41,11 @@
         },
         computed: {
             // 展开运算符
+            ...mapState([
+                'userinfo'
+            ]),
             ...mapGetters({
-                userid: 'getUserid',
-                userinfo: 'getUserinfo'
+                userid: 'getUserid'
             })
         }
     }

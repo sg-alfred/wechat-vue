@@ -22,10 +22,10 @@
 
 <script>
 
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
     import { userLogin } from '../api'
     import { localStorage } from '../util'
-    import io from 'socket.io-client';
+    import io from 'socket.io-client'
 
     export default {
         name: 'Login',
@@ -40,9 +40,11 @@
                 formRules: {}
             }
         },
-        computed: mapGetters([
-            'isLogin'
-        ]),
+        computed: {
+            ...mapState([
+                'isLogin'
+            ])
+        },
         created() {     // 如果已登陆，直接跳到 wechat 界面～
             console.log('login-page-00-', this.isLogin)
             if (this.isLogin) {
@@ -57,56 +59,66 @@
             }
         },*/
         methods: {
-            ...mapActions(['changeLoginInfo', 'initContacts']),
+            ...mapActions(['changeLoginInfo', 'initContacts', 'initSocket']),
             async doLogin(formName) {
             //  简单的数据校验！！
                 this.$refs[formName].validate( async (valid) => {
-                    if (valid) {
-                        const response = await userLogin(this.formInfo)
-                        const result = response.data
-
-                        this.$message(result.message)
-
-                        if (!result.code) {
-                            console.log('doLogin-00-', this.isLogin)
-
-                            localStorage('userinfo', JSON.stringify(result.userinfo))
-                            await this.changeLoginInfo(true)
-
-                            console.log('doLogin-11-', this.isLogin)
-
-                            // 这时候直接 获取通讯录，渲染出聊天列表
-                            await this.initContacts()
-
-                            this.$router.push('/wechat')
-                        }
-
-                        /*this.$http.post('/user/login', this.formInfo).then((response) => {
-                            let result = response.data
-                            if (!result.code) {
-                                localStorage('userinfo', JSON.stringify(result.userinfo));
-                                this.changeLoginInfo(true);
-
-                                this.$message(result.message)
-                                this.$router.push('/wechat');
-                            } else {
-                                this.$message(result.message)
-                            }
-                        })*/
-                    } else {
+                    if (!valid) {
                         this.$message('error submit!!')
                         return false;
                     }
+
+                    const response = await userLogin(this.formInfo)
+                    const result = response.data
+
+                    this.$message(result.message)
+
+                    if (!result.code) {
+                        console.log('doLogin-00-', this.isLogin)
+
+                        localStorage('userinfo', JSON.stringify(result.userinfo))
+                        await this.changeLoginInfo(true)
+
+                        console.log('doLogin-11-', this.isLogin)
+
+                        // 这时候直接 获取通讯录，渲染出聊天列表
+                        await this.initContacts()
+
+                        await this.connectSocket(result.userinfo)
+
+                        this.$router.push('/wechat')
+                    }
+
+                    /*this.$http.post('/user/login', this.formInfo).then((response) => {
+                        let result = response.data
+                        if (!result.code) {
+                            localStorage('userinfo', JSON.stringify(result.userinfo));
+                            this.changeLoginInfo(true);
+
+                            this.$message(result.message)
+                            this.$router.push('/wechat');
+                        } else {
+                            this.$message(result.message)
+                        }
+                    })*/
                 })
             },
-            connectSocket() {
+            connectSocket(userinfo) {
                 // 登录成功 创建与 服务端的 socket 的连接～～
                 // 但是，刷新一下就掉了？ 控制台 显示 disconnect 了～～ 就是掉了嘛～
-                const socket = io.connect('localhost:8080')
-                socket.on('open', () => {
-                    console.log('已连接到服务器')
-                    // 如何区分客户端？ 然后 让服务端 给特定的客户端 下发信息？
+
+                const socket = io.connect('http://localhost:8080')
+
+                this.initSocket(socket)
+
+                socket.on('connect', () => {
                     socket.send('hello, server..')
+
+                    socket.emit('login', userinfo)
+                })
+
+                socket.on('send.msg', (msg) => {
+                    console.log(msg)
                 })
             }
         }

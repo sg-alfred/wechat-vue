@@ -8,7 +8,7 @@ import * as types from './mutation-types'
 export default {
 
     /**
-     * 修改登录信息
+     * 修改登录信息, 设置 socket ~~
      * ---------------------------------------------
      * @param state
      * @param userinfo
@@ -16,10 +16,15 @@ export default {
     [types.CHANGE_LOGININFO] (state, userinfo) {
         state.isLogin = !!userinfo
         state.userinfo = userinfo
+        state.socket = null
         if (!userinfo) {
             state.currentContactID = null
             state.contacts = {}
         }
+    },
+
+    [types.INIT_SOCKET] (state, socket) {
+        state.socket = socket
     },
 
     /**
@@ -30,8 +35,7 @@ export default {
      * @param contacts
      */
     [types.ALL_CONTACTS] (state, contacts) {
-
-        console.log('vuex 缓存通讯录', JSON.stringify(contacts))
+        // console.log('vuex 缓存通讯录', JSON.stringify(contacts))
 
         contacts.forEach(contact => {
             addContact(state, contact)

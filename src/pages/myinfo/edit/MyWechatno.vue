@@ -18,7 +18,7 @@
 <script>
     import HeaderSection from '../../../components/HeaderSection'
     import { updateUserinfo } from '../../../api'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapState, mapGetters, mapActions } from 'vuex'
 
     export default {
         name: 'MyWechatno',
@@ -32,9 +32,11 @@
             }
         },
         computed: {
+            ...mapState([
+                'userinfo'
+            ]),
             ...mapGetters({
-                userid: 'getUserid',
-                userinfo: 'getUserinfo'
+                userid: 'getUserid'
             })
         },
         beforeMount() {

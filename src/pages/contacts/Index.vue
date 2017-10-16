@@ -16,7 +16,7 @@
 
             <section class="contacts-section">
                 <contact-item
-                        v-for="(item, id) in contactMap"
+                        v-for="(item, id) in contacts"
                         :key="id" :contactid="id" :contact="item"
                         @get-detail="getDetail"
                 ></contact-item>
@@ -34,7 +34,7 @@
 
 <script>
 
-    import { mapGetters } from 'vuex'
+    import { mapState } from 'vuex'
     import { isEmptyObject } from '../../util'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
@@ -48,10 +48,9 @@
             ContactItem
         },
         computed: {
-            ...mapGetters({
-                userid: 'getUserid',
-                contactMap: 'getContacts'
-            })
+            ...mapState([
+                'contacts'
+            ])
         },
         data() {
             return {
@@ -79,9 +78,6 @@
                     imgurl: 'static/image/contacts/icon-official.png'
                 }]
             }
-        },
-        created() {
-            console.log('通讯录取 vuex 数据--', JSON.stringify(this.contactMap), isEmptyObject(this.contactMap))
         },
         methods: {
             getDetail(contactid) {

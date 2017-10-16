@@ -4,6 +4,7 @@
 'use strict'
 
 export const CHANGE_LOGININFO = 'CHANGE_LOGININFO'
+export const INIT_SOCKET = 'INIT_SOCKET'
 
 export const ALL_CONTACTS = 'ALL_CONTACTS'
 export const UPDATE_CONTACT = 'UPDATE_CONTACT'

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
     import { sendMessage } from '../../api'
 
     export default {

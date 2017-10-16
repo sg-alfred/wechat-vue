@@ -25,7 +25,6 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
     import { userRegister } from '../api'
 
     export default {

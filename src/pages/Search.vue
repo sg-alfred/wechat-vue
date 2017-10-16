@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapState } from 'vuex'
     import { searchUser } from '../api'
     import { isEmptyObject, localStorage } from '../util'
     import HeaderSection from '../components/HeaderSection'
@@ -44,10 +44,9 @@
             }
         },
         computed: {
-            ...mapGetters({
-                userid: 'getUserid',
-                contactMap: 'getContacts'
-            })
+            ...mapState([
+                'contacts'
+            ])
         },
         created() {
             this.type = this.$route.params.type;
@@ -60,13 +59,13 @@
                         console.log('searchAll');
                         break;
                     case 'friend':
-                        console.log('searchFriend', '搜索-00-', this.contactMap)
+                        console.log('searchFriend', '搜索-00-', this.contacts)
 
                         let searchid = '',
                             isFriend = false;
 
-                        if (!isEmptyObject(this.contactMap)) {
-                            for (let ele of this.contactMap) {
+                        if (!isEmptyObject(this.contacts)) {
+                            for (let ele of this.contacts) {
                                 if (ele.mobilephone === this.keyword || ele.wechatno === this.keyword) {
                                     searchid = ele.id
                                     isFriend = true

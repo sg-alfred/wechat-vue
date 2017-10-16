@@ -29,7 +29,6 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
     import OneMoment from '../../components/OneMoment'
 
@@ -56,11 +55,6 @@
                     content: 'hhh，大傻逼！'
                 }]
             }
-        },
-        computed: {
-            ...mapGetters({
-                userid: 'getUserid'
-            })
         }
     }
 </script>

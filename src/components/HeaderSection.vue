@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import { userLogout } from '../api'
 import { localStorage } from '../util'
 
@@ -109,8 +109,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters([
-            'isLogin'
+        ...mapState([
+            'isLogin',
+            'userinfo',
+            'socket'
         ]),
         // 计算未读消息，还是得用 store～
         totalMessages: () => parseInt(Math.random() * 10)
@@ -132,13 +134,16 @@ export default {
             }
         },
         async logout() {
-
             try {
+                // 断开 socket 连接，这样相当于 又设置了一个 socket!!
+//                const socket = io.connect('http://localhost:8080')
+//                socket.emit('disconnect', this.userinfo.id)
+
+                this.socket.close()
+
                 // 这样的话，需要 userLogout 是个异步函数
                 let response = await userLogout();      // 更不能直接处理到 data ?
                 let result = response.data;
-
-                console.log('返回结果？', result);
 
                 if (!result.code) {
                     this.$message(result.message)

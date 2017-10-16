@@ -6,11 +6,15 @@
             <section class="base-info">
                 <router-link :to="'/myinfo/profile'">
                     <span>
-                        <img :src="info.headimgurl">
+                        <img :src="userinfo.headimgurl">
                     </span>
                     <div>
-                        <p>{{info.alias}}</p><i></i>
-                        <p v-if="info.wechatno">微信号：{{info.wechatno}}</p>
+                        <p>
+                            {{ userinfo.alias }}
+                        </p><i></i>
+                        <p v-if="userinfo.wechatno">
+                            微信号：{{ userinfo.wechatno }}
+                        </p>
                     </div>
                     <span id="code-div" @click="showCode($event)">
                         <!--<img alt="二维码" >-->
@@ -38,7 +42,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapState } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
     import MenuItem1 from '../../components/MenuItem1'
@@ -51,23 +55,14 @@
             MenuItem1
         },
         computed: {
-            ...mapGetters({
-                userid: 'getUserid',
-                info: 'getUserinfo'
-            })
+            ...mapState([
+                'userinfo'
+            ])
         },
         data() {
             return {
                 headTitle: '微信',
                 searchType: 'all',
-                /*info: {
-                    alias: '钻',
-                    wechatno: 'sgchenjz',
-                    gender: '男',
-                    country: '中国',
-                    headimgurl: 'static/image/headimg/yu.png',
-                    tags: ''
-                },*/
                 itemList: [{
                     id: 0,
                     isFirst: true,

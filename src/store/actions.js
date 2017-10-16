@@ -35,6 +35,11 @@ export const changeLoginInfo = async ({ commit }, isLogin = null) => {
 }
 
 
+export const initSocket = async ({ commit }, socket) => {
+    console.log('initSocket--', socket)
+    commit(types.INIT_SOCKET, socket)
+}
+
 /**
  * 保存查询到的 用户？没有必要！！
  * 每次查询的话都是最新的，然后直接替换掉 之前保存的

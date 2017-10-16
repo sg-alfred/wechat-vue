@@ -17,7 +17,6 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
     import MenuItem1 from '../../components/MenuItem1'
@@ -28,11 +27,6 @@
             HeaderSection,
             FooterSection,
             MenuItem1
-        },
-        computed: {
-            ...mapGetters({
-                userid: 'getUserid'
-            }),
         },
         data() {
             return {

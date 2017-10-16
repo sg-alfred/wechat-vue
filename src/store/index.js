@@ -13,13 +13,14 @@ Vue.use(Vuex)
 
 const state = {
     isLogin: false,
-    userid: '',
+    // userid: '',
     userinfo: {
         /*
         id: '',
         username: ''
         */
     },
+    socket: null,
     currentContactID: null,
     contacts: {     // 通讯录 -> 聊天室
         /*
