@@ -7,7 +7,6 @@ import { localStorage, kindOf } from '../util'
 import { checkLogin, getContacts } from '../api'
 import * as types from './mutation-types'
 
-
 /**
  * 修改登录状态，设置 userinfo
  * 当发生 登录、退出、界面刷新 及 服务端session 失效时
@@ -113,6 +112,5 @@ export const syncMessages = ({ commit }, messages) => {
  * @param message
  */
 export const addMessage = ({ commit }, message) => {
-    console.log('消息 - action', message)
-    commit(types.RECEIVE_MESSAGE, { message })
+    commit(types.ADD_MESSAGE, { message })
 }

@@ -84,12 +84,18 @@ export default {
      * @param state
      * @param message
      */
-    [types.RECEIVE_MESSAGE] (state, { message } ) {
+    [types.ADD_MESSAGE] (state, { message } ) {
 
         console.log('消息 - mutation', message)
 
-        // 获取当前的 聊天室
-        let chatroom = getCurrentContact(state)
+        let chatroom;
+
+        // 又没有必要区分？
+        // if ('send' === message.type) {
+        //     chatroom = getCurrentContact(state)
+        // } else if ('receive' === message.type) {
+            chatroom = getContactByChatid(state, message.chatid)
+        // }
 
         chatroom.messages.push(message)
 
@@ -155,5 +161,16 @@ function getCurrentContact (state) {
     return state.currentContactID
         ? state.contacts[state.currentContactID]
         : {}
+}
+
+/**
+ * 根据 聊天室id 获取通讯录
+ * ---------------------------------------------
+ * @param state
+ * @param chatid
+ * @returns {Query|*|T}
+ */
+function getContactByChatid(state, chatid) {
+    return Object.values(state.contacts).find(x => x.chatid === chatid)
 }
 

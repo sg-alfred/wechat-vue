@@ -89,12 +89,17 @@ app.use(staticPath, express.static('./static'))
 // 路由服务
 appServer(app)
 
-// 开启 socket 服务
-const appSocketio = require('../server/socket')
+// 获取 socket 上下文
+const socketio = require('../server/socket')
 
 // 原生http 服务
-const server = require('http').createServer(app);
-appSocketio(server)
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
+
+io.on('connection', (socket) => {
+    socketio.ctx.initSocket(socket)
+})
+
 
 let uri = 'http://localhost:' + port
 

@@ -43,11 +43,12 @@
             MessageItem,
             MessageSend
         },
+        // TODO 数据需要等待 headerSection 之后加载，不然，必然报错！
         data() {
             return {
                 headTitle: 'hello~',
                 contactid: '',
-                chatid: '',
+                chatid: ''
             }
         },
         computed: {
@@ -55,7 +56,7 @@
                 contactInfo: 'currentChatroom'
             }),
             allMessages() {
-                return this.contactInfo.messages || []
+                return this.contactInfo ? this.contactInfo.messages : []
             }
         },
         async beforeMount() {

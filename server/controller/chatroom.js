@@ -7,6 +7,8 @@ const ContactModel = global.dbHandel.getModel('Contact')
 const ChatroomModel = global.dbHandel.getModel('Chatroom')
 const MessageModel = global.dbHandel.getModel('Message')
 
+const socketio = require('../socket')
+
 module.exports = (app) => {
 
     /**
@@ -98,7 +100,7 @@ module.exports = (app) => {
                 message: err.message
             }
         } finally {
-            console.log('获取结果', resultObj)
+            // console.log('获取结果', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         }
     })
@@ -111,15 +113,23 @@ module.exports = (app) => {
     app.post('/chatrooms/:chatid', async (req, res) => {
         let resultObj = {}
 
+        const uid = req.session.userid
         const chatid = req.params.chatid
 
         let messageParams = req.body
-        messageParams.fromid = req.session.userid
+        messageParams.fromid = uid
         messageParams.chatid = chatid
 
         console.log('发送到消息详情', chatid, messageParams);
 
         try {
+
+            // 还要根据 chatid 和 uid 找到 fid
+            const contactInfo = await ContactModel.findOne({chatid, uid})
+                .exec()
+
+            console.log('聊天室查通讯录！！', contactInfo)
+
             const messageInfo = await new MessageModel(messageParams).save()
             messageParams.lastmsgid = messageInfo._id
 
@@ -127,7 +137,21 @@ module.exports = (app) => {
             await ChatroomModel.findOneAndUpdate({'_id': chatid}, {$set: messageParams})
 
             // 检查对方用户是否在线！！
+            let onlineUsers = socketio.getOnlineUsers()
 
+            console.log('在线用户--', onlineUsers, Object.keys(onlineUsers))
+
+            if (contactInfo.fid in onlineUsers) {      // 判断是否 在线
+
+                // 在线就要 推送了，怎么弄？这个可以保存起来～～
+                const currentSocket = onlineUsers[uid].socket
+
+                const fsocketid = onlineUsers[contactInfo.fid].socket.id
+
+                console.log('contactInfo.fid-- 在线', currentSocket.id, fsocketid)
+
+                currentSocket.to(fsocketid).emit('send.msg', messageInfo)
+            }
 
             resultObj = {
                 code: 0,

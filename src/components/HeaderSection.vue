@@ -121,6 +121,7 @@ export default {
         // 是的，beforeCreate 之后才监听 data，初始化 内部事件。如此，才到了 created！！
         // 放心，created 完了之后 才会 渲染模板 ……
         if (!this.isLogin) {
+            console.log('HeaderSection 跳转到 login 界面')
             this.$router.push('/login');
         }
     },
@@ -151,6 +152,7 @@ export default {
                     localStorage('userinfo', null);
                     await this.changeLoginInfo(false);
 
+                    console.log('退出登录 跳转到 login 界面')
                     this.$router.push('/login');
                 }
             } catch (err) {

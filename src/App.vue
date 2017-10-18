@@ -26,6 +26,7 @@
             console.log('app没有跳转？-11-', this.isLogin);
 
             if (!this.isLogin) {
+                console.log('app 跳转到 login 界面')
                 this.$router.push('/login');
             } else {
 
@@ -40,14 +41,14 @@
             }
         },
         methods: {
-            ...mapActions(['changeLoginInfo', 'initContacts', 'initSocket']),
-            connectSocket(userinfo) {
+            ...mapActions(['changeLoginInfo', 'initContacts', 'initSocket', 'addMessage']),
+            async connectSocket(userinfo) {
                 // 登录成功 创建与 服务端的 socket 的连接～～
                 // 但是，刷新一下就掉了？ 控制台 显示 disconnect 了～～ 就是掉了嘛～
 
                 const socket = io.connect('http://localhost:8080')
 
-                this.initSocket(socket)
+                await this.initSocket(socket)
 
                 socket.on('connect', () => {
                     socket.send('hello, server..')
@@ -57,6 +58,9 @@
 
                 socket.on('send.msg', (msg) => {
                     console.log(msg)
+
+                    // 处理获取到的消息！！
+                    this.addMessage(msg)
                 })
             }
         }

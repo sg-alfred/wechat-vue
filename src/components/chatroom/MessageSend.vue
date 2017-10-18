@@ -54,18 +54,21 @@
         methods: {
             ...mapActions(['addMessage']),
             async doSendMessage() {
-                console.log('发送的消息-11-', this.chatid, this.content)
 
-                // 需要和 服务端通讯一下，获取 messageId
-                const response = await sendMessage(this.chatid, {
-                    content: this.content.trim(),
-                    sendtime: Date.now()
-                })
+                if (!!this.content.trim()) {
+                    console.log('发送的消息-11-', this.chatid, this.content)
 
-                // 成功之后，往 vuex 里面放啊！
-                await this.addMessage(response.data.data)
+                    // 需要和 服务端通讯一下，获取 messageId
+                    const response = await sendMessage(this.chatid, {
+                        content: this.content,
+                        sendtime: Date.now()
+                    })
 
-                this.content = '';
+                    // 成功之后，往 vuex 里面放啊！
+                    await this.addMessage(response.data.data)
+
+                    this.content = '';
+                }
             },
             speak() {
 

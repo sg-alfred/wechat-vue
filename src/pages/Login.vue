@@ -59,7 +59,7 @@
             }
         },*/
         methods: {
-            ...mapActions(['changeLoginInfo', 'initContacts', 'initSocket']),
+            ...mapActions(['changeLoginInfo', 'initContacts', 'initSocket', 'addMessage']),
             async doLogin(formName) {
             //  简单的数据校验！！
                 this.$refs[formName].validate( async (valid) => {
@@ -103,13 +103,17 @@
                     })*/
                 })
             },
-            connectSocket(userinfo) {
+            // 显然，这个socket shi 没有定义的！！应该是 保存起来，以 用户id 为键值！！这样，才能够正在这里调用！
+            // 但是，要保证不掉线啊！！ 刷新一下就掉了，这又什么用！
+
+            // redis 缓存不错～ 但是，应该如何保存？ 还是要请求后端，然后再数据库？？
+            async connectSocket(userinfo) {
                 // 登录成功 创建与 服务端的 socket 的连接～～
                 // 但是，刷新一下就掉了？ 控制台 显示 disconnect 了～～ 就是掉了嘛～
 
                 const socket = io.connect('http://localhost:8080')
 
-                this.initSocket(socket)
+                await this.initSocket(socket)
 
                 socket.on('connect', () => {
                     socket.send('hello, server..')
@@ -119,6 +123,9 @@
 
                 socket.on('send.msg', (msg) => {
                     console.log(msg)
+
+                    // 处理获取到的消息！！
+                    this.addMessage(msg)
                 })
             }
         }
