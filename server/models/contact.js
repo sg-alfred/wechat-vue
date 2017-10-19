@@ -3,9 +3,7 @@
  */
 'use strict'
 
-// import mongoose from 'mongoose'
-
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const schema = mongoose.Schema
 
 const CONTACT_SCHEMA = {
@@ -60,8 +58,6 @@ ContactSchema.pre('save', function(next) {
     next()
 })
 
-// const Contact = mongoose.model('Contact', ContactSchema)
+const Contact = mongoose.model('Contact', ContactSchema)
 
-// 可以做一些初始化！
-
-module.exports = ContactSchema
+export default Contact

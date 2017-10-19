@@ -10,26 +10,26 @@ import axios from 'axios'
 // 来一个中间件！！
 
 /**
- * 检测是否登录
+ * 检测是否登录, 获取会话信息
  */
-export const checkLogin = () => axios.get('/user/checkLogin');
-
-/**
- * 用户注册
- * @param registerInfo 注册信息
- */
-export const userRegister = (registerInfo) => axios.post('/user/register', registerInfo)
+export const checkLogin = () => axios.get('/session');
 
 /**
  * 用户登录
  * @param loginInfo  登录信息
  */
-export const userLogin = (loginInfo) => axios.post('/user/login', loginInfo)
+export const userLogin = (loginInfo) => axios.post('/session', loginInfo)
 
 /**
  * 用户登出
  */
-export const userLogout = () => axios.get('/user/logout')
+export const userLogout = () => axios.delete('/session')
+
+/**
+ * 用户注册
+ * @param registerInfo 注册信息
+ */
+export const userRegister = (registerInfo) => axios.post('/users', registerInfo)
 
 /**
  * 更新用户的信息，包括自己和别人的！！
@@ -39,6 +39,8 @@ export const userLogout = () => axios.get('/user/logout')
  * @param updateInfo
  */
 export const updateUserinfo = (id, updateInfo) => axios.patch('/users/' + id, updateInfo)
+
+export const uploadAvatar = (id, info) => axios.post('/users/' + id + '/headimg', info)
 
 /**
  * 根据 条件搜用户，微信id 或 电话号码
@@ -77,7 +79,6 @@ export const getMessages = (chatid) => axios.get('/chatrooms/' + chatid)
 
 /**
  * 获取好友通讯录
- * @param uid
  */
 export const getContacts = () => axios.get('/contacts')
 
@@ -90,16 +91,16 @@ export const getUserOperate = () => axios.get('../../static/initData/operate.jso
  * 添加好友
  * @param addInfo
  */
-export const addNewFriend = (addInfo) => axios.post('/contact/addNewFriend', addInfo)
+export const addNewFriend = (addInfo) => axios.post('/contacts/new', addInfo)
 
 /**
  * 获取添加我为好友的用户列表
  */
-export const getNewFriends = () => axios.get('/contact/friends')
+export const getNewFriends = () => axios.get('/contacts/new')
 
 /**
  * 处理好友信息，
  * 还有 处理类型！是 通过还是加入黑名单
  */
-export const handleNewFriend = (handleInfo) => axios.post('/contact/handleFriend', handleInfo)
+export const handleNewFriend = (handleInfo) => axios.post('/contacts/handleFriend', handleInfo)
 

@@ -41,4 +41,6 @@ const GroupContactSchema = schema('GroupContact', GROUPCONTACTSCHEMA)
 
 GroupContactSchema.index({'gid': 1, 'uid': 1}, {'unique': true})
 
-export default GroupContactSchema
+const GroupContact = mongoose.model('GroupContact', GroupContactSchema)
+
+export default GroupContact

@@ -3,10 +3,7 @@
  */
 'use strict'
 
-// import mongoose from 'mongoose'
-
-const mongoose = require('mongoose')
-
+import mongoose from 'mongoose'
 const schema = mongoose.Schema
 
 const USER_SCHEMA = {
@@ -111,9 +108,9 @@ UserSchema.pre('update', function(next) {
 
 // 中间件
 
-// module.exports = mongoose.model('User', UserSchema)
+const User = mongoose.model('User', UserSchema)
 
-module.exports = UserSchema
+export default User
 
 // 这些全部外部的来干！
 // let User = mongoose.model('User', UserSchema)

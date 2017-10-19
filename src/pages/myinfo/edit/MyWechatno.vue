@@ -18,7 +18,7 @@
 <script>
     import HeaderSection from '../../../components/HeaderSection'
     import { updateUserinfo } from '../../../api'
-    import { mapState, mapGetters, mapActions } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
 
     export default {
         name: 'MyWechatno',
@@ -32,12 +32,7 @@
             }
         },
         computed: {
-            ...mapState([
-                'userinfo'
-            ]),
-            ...mapGetters({
-                userid: 'getUserid'
-            })
+            ...mapState(['userinfo'])
         },
         beforeMount() {
             this.wechatno = this.userinfo.wechatno ? this.userinfo.wechatno : ''
@@ -48,7 +43,7 @@
                 const wechatno = this.wechatno.trim()
 
                 if ( wechatno !== '') {
-                    const response = await updateUserinfo(this.userid, { wechatno })
+                    const response = await updateUserinfo(this.userinfo.id, { wechatno })
 
                     // 修改 localStorage 保存的值！
                     localStorage('userinfo', JSON.stringify(response.data.data))

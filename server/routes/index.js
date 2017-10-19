@@ -8,4 +8,14 @@
  */
 'use strict'
 
+import wxuser from './user'
+import session from './session'
+import contact from './contact'
+import chatroom from './chatroom'
 
+export default app => {
+    app.use('/users', wxuser)
+    app.use('/session', session)
+    app.use('/contacts', contact)
+    app.use('/chatrooms', chatroom)
+}

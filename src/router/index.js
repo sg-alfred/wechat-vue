@@ -24,10 +24,13 @@ import Moments from '@/pages/discover/Moments'
 
 import Myinfo from '@/pages/myinfo/Index'
 import MyProfile from '@/pages/myinfo/MyProfile'
+
+import Headimg from '@/pages/myinfo/edit/Headimg'
 import MyCode from '@/pages/myinfo/edit/QRCode'
 import MyAlias from '@/pages/myinfo/edit/MyAlias'
 import MyWechatno from '@/pages/myinfo/edit/MyWechatno'
 import More from '@/pages/myinfo/edit/More'
+
 import Wallet from '@/pages/myinfo/Wallet'
 
 Vue.use(Router)
@@ -78,6 +81,9 @@ const router =  new Router({
             path: 'profile',
             component: MyProfile,
             children: [{
+                path: 'headimg',
+                component: Headimg
+            }, {
                 path: 'alias',
                 component: MyAlias
             }, {

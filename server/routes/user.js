@@ -4,15 +4,19 @@
  */
 'use strict'
 
-const express = require('express')
+import express from 'express'
+import User from '../controller/user'
+
 const router = express.Router()
 
-const user = require('../controller/user')
+// 注册新用户
+router.post('/', User.register)
 
-router.post('/user/register', user.register)
-router.post('/user/login', user.login)
-router.get('/user/logout', user.logout)
+// 更新用户信息
+router.patch('/:id', User.updateUser)
 
-// 这个，或许可以更加 具体一点～
-router.get('/users/:id', user.getUserById)
+// 搜索用户, 这个应该带上个参数吧？
+// 获取当前也不用，因为目前不存在根据 id 查的情况
+router.get('/:keyword', User.searchUser)
 
+export default router

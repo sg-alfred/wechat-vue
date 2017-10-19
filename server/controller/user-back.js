@@ -1,85 +1,38 @@
 /**
- * 微信用户类
- *
- * Created by chenjz on 2017/10/18.
+ * Created by chenjz on 2017/8/4.
  */
 'use strict'
 
-import UserModel from '../models/user'
+const baseUtil = require('./utils/baseUtil')
+const UserModel = global.dbHandel.getModel('User');
+const ContactModel = global.dbHandel.getModel('Contact')
 
-import multer from 'multer'
-import path from 'path'
-import baseUtil from './utils/baseUtil'
+const baseinfo = 'headimgurl mobilephone alias gender age'     // 基本信息，不包含敏感信息
 
-class User {
+module.exports = (app) => {
 
-    constructor() {
-
-        // 基本信息，不包含敏感信息
-        this.baseinfo = 'headimgurl mobilephone alias gender age'
-    }
-
-    async checkLogin (req, res) {
+    // 判断用户是否登录
+    app.get('/user/checkLogin', (req, res) => {
         console.log('index登录否？: ', req.session.userid);
         let resultObj = {
             code: 0,
             message: !!req.session.userid
         }
         baseUtil.appResponse(res, JSON.stringify(resultObj))
-    }
+    })
 
-    async login (req, res) {
-        let resultObj = {};
-
-        // 可能是 微信号，可能是 手机号等等。
-        let params = req.body;
-
-        try {
-            // 如果用手机号的，需要校验属否为数字，否则，这样查找会异常！—— CastError
-            const dbUserinfo = await UserModel.findOne({
-                mobilephone: params.username, deleted: false
-            })
-
-            if (!dbUserinfo) {
-                throw new Error('用户名错误!');
-            } else {
-                const frontpwd = baseUtil.createMd5(dbUserinfo.salt + baseUtil.createMd5(params.password))
-
-                if (frontpwd !== dbUserinfo.password ) {
-                    throw new Error('密码错误!');
-                } else {
-                    req.session.userid = dbUserinfo._id
-                    req.session.userinfo = dbUserinfo           // 缓存用户信息
-
-                    resultObj = {
-                        code: 0,
-                        message: '登录成功!',
-                        userinfo: dbUserinfo
-                    }
-                }
-            }
-        } catch (err) {
-            console.log('登录出错', err.message)
-            resultObj = {
-                code: 2,
-                message: err.message
-            }
-        } finally {
-            console.log('登录结果', resultObj)
-            baseUtil.appResponse(res, JSON.stringify(resultObj))
-        }
-    }
-
-    async logout (req, res) {
+    // 用户登出
+    app.get('/user/logout', (req, res) => {
         delete req.session.userid
         let resultObj = {
             code: 0,
             message: '退出登录成功'
         }
         baseUtil.appResponse(res, JSON.stringify(resultObj))
-    }
+    })
 
-    async register (req, res) {
+    // 用户注册，如何判断验证码？
+    app.post('/user/register', async (req, res) => {
         let resultObj = {};
 
         let params = req.body;
@@ -109,9 +62,107 @@ class User {
             console.log('注册结果', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         }
-    }
+    })
 
-    async searchUser (req, res) {
+    /**
+     * 用户登录
+     */
+    app.post('/user/login', async (req, res) => {
+        let resultObj = {};
+
+        // 可能是 微信号，可能是 手机号等等。
+        let params = req.body;
+
+        try {
+            // 如果用手机号的，需要校验属否为数字，否则，这样查找会异常！—— CastError
+            const dbUserinfo = await UserModel.findOne({
+                mobilephone: params.username, deleted: false
+            })
+
+            // 这样 也是一种写法吧～，但是像密码错误，不好弄啊，try的话，抛一下就好了～
+            /*dbUserinfo.then((userinfo) => {
+
+            }).catch(() => {
+
+            }).then(() => {
+
+            })*/
+
+            if (!dbUserinfo) {
+                throw new Error('用户名错误!');
+            } else {
+                const frontpwd = baseUtil.createMd5(dbUserinfo.salt + baseUtil.createMd5(params.password))
+
+                if (frontpwd !== dbUserinfo.password ) {
+                    throw new Error('密码错误!');
+                } else {
+                    req.session.userid = dbUserinfo._id
+                    req.session.userinfo = dbUserinfo           // 缓存用户信息
+
+                    resultObj = {
+                        code: 0,
+                        message: '登录成功!',
+                        userinfo: dbUserinfo
+                    }
+                }
+            }
+        } catch (err) {
+            console.log('登录出错', err.message)
+            resultObj = {
+                code: 2,
+                message: err.message
+            }
+        } finally {
+            console.log('登录结果', resultObj)
+            baseUtil.appResponse(res, JSON.stringify(resultObj))
+        }
+
+        /*wxuserDbUtil.getWxuserByMobile(params.username).then((doc) => {
+            // 判断密码是否正确！
+            let validatePassword = baseUtil.createMd5(doc.salt+params.password) == doc.password;
+            if (!validatePassword) {
+                resultObj = {
+                    code: 2,
+                    message: '密码错误!'
+                }
+            } else {
+                req.session.userid = doc._id
+                resultObj = {
+                    code: 0,
+                    message: '登录成功!',
+                    userinfo: doc
+                }
+            }
+        }, (err) => {
+            let errmsg = '';
+            // 这个应该是因为 用 mobile 查，类型是 数值的原因！
+            if ('CastError' == err.name || err.message.indexOf('Cast to number failed') > -1) {
+                errmsg = '用户名错误!'
+            }
+            resultObj = {
+                code: 2,
+                message: errmsg ? errmsg : '登录失败!'
+            }
+        }).then(() => {
+            console.log('登录结果', resultObj)
+            baseUtil.appResponse(res, JSON.stringify(resultObj))
+        })*/
+    })
+
+
+    /**
+     * Restful API 的风格！
+     * 添加好友，用手机号码、微信号，精确查询！！只有这两个，还必须是精确的！
+     *
+     * 规定：微信id 不能是 11位的手机号码！！
+     *
+     * 1、判断是否位好友关系！
+     * 2、如果不是再查其他的～
+     *
+     * 不对，是先查用户获取id，之后再查关系！如果有关系，返回关系，没有则为一般信息
+     * 等等，那还不如，先前端查一下 vuex，如果有直接取，没有的话就是 非好友关系，再查后端
+     */
+    app.get('/users/:keyword', async (req, res) => {
         let resultObj = {}
         let userinfo;
 
@@ -152,9 +203,12 @@ class User {
             console.log('查询结果', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         }
-    }
+    })
 
-    async updateUser (req, res) {
+    /**
+     * 增量 更新用户信息
+     */
+    app.patch('/users/:id', async (req, res) => {
         let resultObj = {}
 
         const uid = req.session.userid
@@ -183,66 +237,6 @@ class User {
             console.log('更新结果：', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         }
-    }
-
-    async uploadImg (req, res) {
-        let resultObj = {
-            ee: 'eee'
-        }
-
-        let filename = '';
-
-        // 图片保存路径
-        const imgPath = path.join(__dirname, '../../static/image/headimg')
-
-        const Storage = multer.diskStorage({
-            destination: function (req, file, callback) {
-                callback(null, imgPath);         // 这个路径，还是可以更好一些！
-            },
-            filename: function (req, file, callback) {
-                filename = file.fieldname + "_" + Date.now() + "_" + file.originalname
-                callback(null, filename);
-            }
-        });
-
-        const upload = multer({ storage: Storage }).array("imgUploader", 3); //Field name and max count
-
-        console.log('到底又没有上传图片啊？', imgPath, filename)
-
-        // try {
-        upload(req, res, function (err) {
-            if (err) {
-                // throw new Error('上传错误!' + err.message)
-                resultObj = {
-                    code: 2,
-                    message: err.message
-                }
-                baseUtil.appResponse(res, JSON.stringify(resultObj))
-            }
-
-            // 不对，这样之后 还要修改到相应的数据
-            //  const newUserinfo = await UserModel.findByIdAndUpdate({_id: uid}, {$set: updateParams}, {new: true})
-            resultObj = {
-                code: 0,
-                message: '上传成功！',
-                data: {
-                    filename
-                }
-            }
-
-            baseUtil.appResponse(res, JSON.stringify(resultObj))
-        })
-        /*} catch (err) {
-         resultObj = {
-         code: 2,
-         message: err.message
-         }
-         } finally {
-         console.log('上传图片结果', resultObj)
-         baseUtil.appResponse(res, JSON.stringify(resultObj))
-         }*/
-    }
+    })
 
 }
-
-export default new User()

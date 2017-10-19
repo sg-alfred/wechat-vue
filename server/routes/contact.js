@@ -3,14 +3,27 @@
  */
 'use strict'
 
-const express = require('express')
+import express from 'express'
+import Contact from '../controller/contact'
+
 const router = express.Router()
 
-const Contact = require('../controller/contact')
+// 获取全部通讯录
+router.get('/', Contact.getContacts)
 
-router.get('/contacts', Contact.getContacts)
+// 更新通讯录
+router.patch('/:id', Contact.updateContact)
 
-router.get('/contacts/:fid', Contact.getFriendDetail)
+// router.get('/:fid', Contact.getFriendDetail)
 
-router.post('/contacts/:fid', Contact.addFriend)     // 发出好友请求
-router.post('/contacts/', Contact.handleFriend)      // 处理好友请求
+// 获取 添加我为好友 的用户列表
+// 不对吧，应该是用 过滤信息的！！
+router.get('/new', Contact.getNewFriends)
+
+// 发出好友请求
+router.post('/new/:fid', Contact.addNewFriend)
+
+// 处理好友请求
+router.post('/:fid', Contact.handleFriend)
+
+export default router

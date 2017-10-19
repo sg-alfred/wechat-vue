@@ -19,7 +19,7 @@
 <script>
     import HeaderSection from '../../../components/HeaderSection'
     import { updateUserinfo } from '../../../api'
-    import { mapState, mapGetters, mapActions } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
     import { localStorage } from '../../../util'
 
     export default {
@@ -36,10 +36,7 @@
         computed: {
             ...mapState([
                 'userinfo'
-            ]),
-            ...mapGetters({
-                userid: 'getUserid'
-            })
+            ])
         },
         beforeMount() {
             this.alias = this.userinfo.alias
@@ -49,7 +46,7 @@
             async setAlias() {
                 const alias = this.alias.trim()
                 if ( alias!== '') {
-                    const response = await updateUserinfo(this.userid, { alias })
+                    const response = await updateUserinfo(this.userinfo.id, { alias })
 
                     // 修改 localStorage 保存的值！
                     localStorage('userinfo', JSON.stringify(response.data.data))

@@ -2,22 +2,22 @@
  * Created by chenjz on 2017/8/3.
  */
 'use strict'
-const baseUtil = require('./utils/baseUtil')
-const ContactModel = global.dbHandel.getModel('Contact')
-const ChatroomModel = global.dbHandel.getModel('Chatroom')
-const MessageModel = global.dbHandel.getModel('Message')
 
-const socketio = require('../socket')
+import ContactModel from '../models/contact'
+import ChatroomModel from '../models/chatroom'
+import MessageModel from '../models/message'
 
-module.exports = (app) => {
+import { getOnlineUsers } from '../socket'
+import baseUtil from './utils/baseUtil'
+
+class Chatroom {
 
     /**
      * 获取未被清除历史消息的聊天室列表
      * 用 userid 关联查好友，再查聊天室信息
      * ---------------------------------------------
-     *
      */
-    app.get('/chatrooms', async (req, res) => {
+    async getChatrooms (req, res) {
         let resultObj = {}
 
         const uid = req.session.userid
@@ -58,14 +58,14 @@ module.exports = (app) => {
             console.log('获取聊天室结果-', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         }
-    })
+    }
 
     /**
      * 根据好友获取聊天室的设置
      * 设置，还有聊天信息
      * ---------------------------------------------
      */
-    app.get('/chatrooms/:chatid', async (req, res) => {
+    async getMessages (req, res) {
         let resultObj = {}
 
         const chatid = req.params.chatid;
@@ -103,14 +103,14 @@ module.exports = (app) => {
             // console.log('获取结果', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         }
-    })
+    }
 
     /**
      * 发送信息
      * 其实，应该是可以放在 vuex 里的，销毁界面之前 (beforeDestroy) 执行一下插入就够了！！
      * 这样，每次插入还要更改 lastmsgid 太累了！！
      */
-    app.post('/chatrooms/:chatid', async (req, res) => {
+    async sendMessage (req, res) {
         let resultObj = {}
 
         const uid = req.session.userid
@@ -125,8 +125,7 @@ module.exports = (app) => {
         try {
 
             // 还要根据 chatid 和 uid 找到 fid
-            const contactInfo = await ContactModel.findOne({chatid, uid})
-                .exec()
+            const contactInfo = await ContactModel.findOne({chatid, uid}).exec()
 
             console.log('聊天室查通讯录！！', contactInfo)
 
@@ -137,9 +136,9 @@ module.exports = (app) => {
             await ChatroomModel.findOneAndUpdate({'_id': chatid}, {$set: messageParams})
 
             // 检查对方用户是否在线！！
-            let onlineUsers = socketio.getOnlineUsers()
+            let onlineUsers = getOnlineUsers()
 
-            console.log('在线用户--', onlineUsers, Object.keys(onlineUsers))
+            // console.log('在线用户--', onlineUsers, Object.keys(onlineUsers))
 
             if (contactInfo.fid in onlineUsers) {      // 判断是否 在线
 
@@ -173,42 +172,8 @@ module.exports = (app) => {
         // 但是，看到最后一条 都是 用 vuex 来维护的，确实！！没有必要记录到数据库，然后每次都做更新！！
 
         // socket.emit();
-    })
-
-    /**
-     * 更新通讯录信息，包括 好友昵称，清除聊天历史等
-     */
-    app.patch('/chatrooms/:fid', async (req, res) => {
-        let resultObj = {}
-
-        const uid = req.session.userid
-        const fid = req.params.fid      // 更新的用户id，自己或别人的。。
-
-        const updateParams = req.body
-
-        console.log('入参：', uid, fid, updateParams)
-
-        try {
-            // const oldUserinfo = UserModel.findById({_id}, 'mobilephone')
-            // console.log('旧信息：', {_id}, oldUserinfo);
-
-            const newContact = await ContactModel.findOneAndUpdate({ uid, fid }, {$set: updateParams}, {new: true})
-
-            resultObj = {
-                code: 0,
-                message: '更新成功',
-                data: newContact
-            }
-        } catch (err) {
-            resultObj = {
-                code: 2,
-                message: err.message
-            }
-        } finally {
-            console.log('更新结果：', resultObj)
-            baseUtil.appResponse(res, JSON.stringify(resultObj))
-        }
-
-    })
+    }
 
 }
+
+export default new Chatroom()

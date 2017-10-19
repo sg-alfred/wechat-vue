@@ -3,9 +3,7 @@
  */
 'use strict'
 
-// import mongoose from 'mongoose'
-
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const schema = mongoose.Schema
 
 const MESSAGE_SCHAME = {
@@ -29,6 +27,6 @@ const MESSAGE_SCHAME = {
 
 const MessageSchema = schema(MESSAGE_SCHAME)
 
-// const Message = mongoose.model('Message', MessageSchema)
+const Message = mongoose.model('Message', MessageSchema)
 
-module.exports = MessageSchema
+export default Message

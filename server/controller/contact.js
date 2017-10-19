@@ -3,19 +3,22 @@
  */
 'use strict'
 
-const ContactModel = global.dbHandel.getModel('Contact')
-const ChatroomModel = global.dbHandel.getModel('Chatroom')
+import baseUtil from './utils/baseUtil'
 
-const baseUtil = require('./utils/baseUtil')
+import ContactModel from '../models/contact'
+import ChatroomModel from '../models/chatroom'
 
-module.exports = (app) => {
+class Contact {
+
+    constructor() {
+    }
 
     /**
      * 获取好友通讯录
      * 里面带上 聊天室信息，之后也根据这个 渲染聊天界面
      * ---------------------------------------------
      */
-    app.get('/contacts', async (req, res) => {
+    async getContacts (req, res) {
         // 直接根据session 的值！！
         console.log('根据 session 值获取 通讯录：', req.session.userid)
 
@@ -71,14 +74,14 @@ module.exports = (app) => {
             console.log('获取结果', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         })*/
-    })
+    }
 
 
     /**
      * 请求添加好友，，这时候应该用到推送了！至少要写在那里！！
      * ---------------------------------------------
      */
-    app.post('/contact/addNewFriend', async (req, res) => {
+    async addNewFriend (req, res) {
         let resultObj = {}
         let params = req.body
 
@@ -107,14 +110,14 @@ module.exports = (app) => {
             console.log('添加结果', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         }
-    })
+    }
 
     /**
      * 统一好友请求, 必须使用 ES6 !! 不然会疯掉的！
      * 未必同意吧，如果拒绝怎么办？
      * ---------------------------------------------
      */
-    app.post('/contact/handleFriend', async (req, res) => {
+    async handleFriend (req, res) {
         let resultObj = {}
 
         const fid = req.body.fid
@@ -240,7 +243,7 @@ module.exports = (app) => {
             console.log('同意结果', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         })*/
-    })
+    }
 
 
     /**
@@ -248,7 +251,7 @@ module.exports = (app) => {
      * ---------------------------------------------
      * @since 2017-08-13
      */
-    app.get('/contact/friends', async (req, res) => {
+    async getNewFriends (req, res) {
         // 直接根据session 的值！！
         let resultObj = {};
         let fid = req.session.userid;
@@ -269,5 +272,44 @@ module.exports = (app) => {
             console.log('获取结果', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
         }
-    })
+    }
+
+
+    /**
+     * 更新通讯录信息，包括 好友昵称，清除聊天历史等
+     */
+    async updateContact (req, res) {
+        let resultObj = {}
+
+        const uid = req.session.userid
+        const fid = req.params.fid      // 更新的用户id，自己或别人的。。
+
+        const updateParams = req.body
+
+        console.log('入参：', uid, fid, updateParams)
+
+        try {
+        // const oldUserinfo = UserModel.findById({_id}, 'mobilephone')
+        // console.log('旧信息：', {_id}, oldUserinfo);
+
+        const newContact = await ContactModel.findOneAndUpdate({ uid, fid }, {$set: updateParams}, {new: true})
+
+            resultObj = {
+                code: 0,
+                message: '更新成功',
+                data: newContact
+            }
+        } catch (err) {
+            resultObj = {
+                code: 2,
+                message: err.message
+            }
+        } finally {
+            console.log('更新结果：', resultObj)
+            baseUtil.appResponse(res, JSON.stringify(resultObj))
+        }
+    }
+
 }
+
+export default new Contact()

@@ -3,9 +3,7 @@
  */
 'use strict'
 
-// import mongoose from 'mongoose'
-
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const schema = mongoose.Schema
 
 const GROUP_SCHEMA = {
@@ -33,6 +31,6 @@ const GROUP_SCHEMA = {
 
 const GroupSchema = schema(GROUP_SCHEMA)
 
-// const Group = mongoose.model('Group', UserSchema)
+const Group = mongoose.model('Group', GroupSchema)
 
-module.exports = GroupSchema
+export default Group
