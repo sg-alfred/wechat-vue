@@ -3,8 +3,7 @@
 <template>
     <div class="moments-page">
         <header-section :go-back="true" :head-title="headTitle">
-            <section slot="specialIcon" class="head-cameraicon right">
-                <!--<i class="fa fa-camera" aria-hidden="true"></i>-->
+            <section slot="specialIcon" class="head-cameraicon right" @click="shareMoment">
                 <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-zhaoxiangji"></use>
                 </svg>
@@ -14,7 +13,7 @@
         <article class="moments-container">
             <section class="">
                 <el-carousel trigger="click" height="150px">
-                    <el-carousel-item v-for="item in 4" :key="item">
+                    <el-carousel-item v-for="item in 2" :key="item">
                         <h3>{{ item }}</h3>
                     </el-carousel-item>
                 </el-carousel>
@@ -22,7 +21,9 @@
 
             <section v-if="momentList.length">
                 <!-- 如果直接 使用 moment="item" 报了 moment expected Object,String got !-->
-                <one-moment v-for="item in momentList" :key="item.id" v-bind:moment="item"></one-moment>
+                <one-moment v-for="item in momentList"
+                            :key="item.id" :moment="item">
+                </one-moment>
             </section>
         </article>
     </div>
@@ -31,6 +32,7 @@
 <script>
     import HeaderSection from '../../components/HeaderSection'
     import OneMoment from '../../components/OneMoment'
+    import { getMoments } from '../../api'
 
     export default {
         name: 'Moments',
@@ -41,19 +43,52 @@
         data() {
             return {
                 headTitle: '朋友圈',
+                moments: [],
                 momentList: [{
                     id: 0,
                     nick: 'sgchenjz',
-                    content: '这是一条状态！'
+                    content: '这是一条状态！',
+                    createtime: '2017-10-19',
+                    upvotes: [
+                        // 点赞，直接，fid / contactid!! 在 vuex 里面取名！
+                    ],
+                    comments: [{
+                        id: '自动生成id',
+                        uid: '评论的用户id',
+                        content: '内容',
+                        toid: '回复的评论id，可能空',
+                        touid: '回复的用户',
+                        createtime: '创建时间'
+                    }]
                 }, {
                     id: 1,
                     nick: 'Alfred',
-                    content: '这是我的英文名字！'
+                    content: '这是我的英文名字！',
+                    createtime: '2017-10-19',
                 }, {
                     id: 2,
                     nick: 'guojy',
-                    content: 'hhh，大傻逼！'
+                    content: 'hhh，大傻逼！',
+                    createtime: '2017-10-19',
                 }]
+            }
+        },
+        async beforeMount() {
+//            const response = await getMoments()
+//            this.moments = response.data.data
+        },
+        methods: {
+            shareMoment() {
+                // 发表状态
+                this.$confirm(`确定删除和${this.contctInfo.mobilephone}的聊天记录`, '提示', {
+                    confirmButtonText: '清空',
+                    cancelButtonText: '取消'
+//                    type: 'warning'
+                }).then(() => {
+
+                }).catch(() => {
+
+                })
             }
         }
     }

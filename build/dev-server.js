@@ -5,6 +5,8 @@ import checkVersion from './check-versions'
 import config from '../config'
 import opn from 'opn'
 import path from 'path'
+import favicon from 'serve-favicon'
+import logger from 'morgan'
 import express from 'express'
 import webpack from 'webpack'
 import proxyMiddleware from 'http-proxy-middleware'
@@ -99,8 +101,13 @@ app.use(devMiddleware)
 // compilation error display
 app.use(hotMiddleware)
 
+app.use(logger('dev'));
+
 // serve pure static assets
 let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+
+// 如何设置 favicon ？？
+// app.use(favicon(path.join(__dirname, '../static/favicon.ico')))
 app.use(staticPath, express.static('./static'))
 
 // 路由服务

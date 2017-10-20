@@ -6,11 +6,11 @@
 
 const crypto = require('crypto');
 
-let appResponse = (response, respObj) => {
+let appResponse = (response, resultObj) => {
     response.writeHead(200, {
         'Content-type': 'application/json'
     })
-    response.end(respObj)
+    response.end(resultObj)
 }
 
 

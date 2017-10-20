@@ -186,9 +186,7 @@ class User {
     }
 
     async uploadImg (req, res) {
-        let resultObj = {
-            ee: 'eee'
-        }
+        let resultObj = {}
 
         let filename = '';
 
@@ -209,38 +207,33 @@ class User {
 
         console.log('到底又没有上传图片啊？', imgPath, filename)
 
-        // try {
-        upload(req, res, function (err) {
-            if (err) {
-                // throw new Error('上传错误!' + err.message)
-                resultObj = {
-                    code: 2,
-                    message: err.message
+        try {
+            upload(req, res, (err) => {
+                if (err) {
+                    // throw new Error(err.message)
+                } else {
+                    resultObj = {
+                        code: 0,
+                        message: '上传成功！',
+                        data: {
+                            filename
+                        }
+                    }
                 }
-                baseUtil.appResponse(res, JSON.stringify(resultObj))
-            }
+            })
 
             // 不对，这样之后 还要修改到相应的数据
             //  const newUserinfo = await UserModel.findByIdAndUpdate({_id: uid}, {$set: updateParams}, {new: true})
-            resultObj = {
-                code: 0,
-                message: '上传成功！',
-                data: {
-                    filename
-                }
-            }
 
+        } catch (err) {
+            resultObj = {
+                code: 2,
+                message: err.message
+            }
+        } finally {
+            console.log('上传图片结果', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
-        })
-        /*} catch (err) {
-         resultObj = {
-         code: 2,
-         message: err.message
-         }
-         } finally {
-         console.log('上传图片结果', resultObj)
-         baseUtil.appResponse(res, JSON.stringify(resultObj))
-         }*/
+        }
     }
 
 }

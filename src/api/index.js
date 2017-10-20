@@ -32,21 +32,26 @@ export const userLogout = () => axios.delete('/session')
 export const userRegister = (registerInfo) => axios.post('/users', registerInfo)
 
 /**
+ * 生成用户二维码图片！
+ */
+export const createQrcode = () => axios.get('/create_qrcode?text=http://chenjz.top')
+
+/**
  * 更新用户的信息，包括自己和别人的！！
  *  如 设置别名，性别，地区，个性签名等
  *
  * @param id
  * @param updateInfo
  */
-export const updateUserinfo = (id, updateInfo) => axios.patch('/users/' + id, updateInfo)
+export const updateUserinfo = (id, updateInfo) => axios.patch(`/users/${id}`, updateInfo)
 
-export const uploadAvatar = (id, info) => axios.post('/users/' + id + '/headimg', info)
+export const uploadAvatar = (id, info) => axios.post(`/users/${id}/headimg`, info)
 
 /**
  * 根据 条件搜用户，微信id 或 电话号码
  * @param keyword
  */
-export const searchUser = (keyword) => axios.get('/users/' + keyword)
+export const searchUser = (keyword) => axios.get(`/users/${keyword}`)
 
 /**
  * 获取所有未被清空的聊天室信息
@@ -61,20 +66,20 @@ export const getChatrooms = () => axios.get('/chatrooms')
  * @param fid     好友id
  * @param updateInfo
  */
-export const clearChatHistory = (fid, updateInfo) => axios.patch('/chatrooms/' + fid, updateInfo)
+export const clearChatHistory = (fid, updateInfo) => axios.patch(`/contacts/${fid}`, updateInfo)
 
 /**
  * 发送消息
  * @param chatid
  * @param message
  */
-export const sendMessage = (chatid, message) => axios.post('/chatrooms/' + chatid, message)
+export const sendMessage = (chatid, message) => axios.post(`/chatrooms/${chatid}`, message)
 
 /**
  * 获取某聊天室的信息
  * @param chatid
  */
-export const getMessages = (chatid) => axios.get('/chatrooms/' + chatid)
+export const getMessages = (chatid) => axios.get(`/chatrooms/${chatid}`)
 
 
 /**
@@ -104,3 +109,7 @@ export const getNewFriends = () => axios.get('/contacts/new')
  */
 export const handleNewFriend = (handleInfo) => axios.post('/contacts/handleFriend', handleInfo)
 
+/**
+ * 获取所有的朋友圈 状态！ 懒加载的应该！！
+ */
+export const getMoments = () => axios.get('/moments')

@@ -1,3 +1,8 @@
+<!--
+axios上传图片(及vue上传图片到七牛)）
+http://www.cnblogs.com/cjh1111/p/7017295.html
+-->
+
 <template>
     <div class="headimg-setting">
         <header-section :go-back="true" :head-title="headTitle">
@@ -19,8 +24,8 @@
             <form enctype="multipart/form-data" method="post"
                 :action="'/users/' + userinfo.id + '/headimg'"
             >
-                <input class="avatar" type="file" name="imgUploader" multiple />
-                <input type="submit" name="submit" value="Upload" @click=""/>
+                <input class="avatar" type="file" name="imgUploader" multiple @change="uploadImg"/>
+                <!--<input type="submit" name="submit" value="Upload" @click="uploadImg($e)"/>-->
             </form>
 
             <img v-if="userinfo.headimgurl" :src="userinfo.headimgurl" class="avatar">
@@ -64,7 +69,13 @@
         },
         methods: {
             ...mapActions(['changeLoginInfo']),
-            async uploadImg(file) {
+
+//            form.addEventListener('submit', function(ev) {}
+
+            async uploadImg(e) {
+
+                e.preventDefault();
+
                 /*if (res.status == 1) {
                     // 修改 localStorage 保存的值！
 //                    localStorage('userinfo', JSON.stringify(response.data.data))
@@ -73,8 +84,25 @@
                     this.$message.error('上传图片失败！');
                 }*/
 
-//                await uploadAvatar(this.userinfo.id, { file })
+                let file = e.target.files[0];
+                let param = new FormData(); //创建form对象
+                param.append('file', file, file.name);//通过append向form对象添加数据
+                param.append('chunk','0');//添加form表单中其他数据
 
+                console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
+
+//                let config = {
+//                    headers:{'Content-Type':'multipart/form-data'}
+//                };  //添加请求头
+
+//                this.axios.post('http://upload.qiniu.com/', param, config)
+//                    .then(response=>{
+//                        console.log(response.data);
+//                    })
+
+                const response = await uploadAvatar(this.userinfo.id, param)
+
+                console.log(response.data)
             },
             handleUploadSuccess() {
 

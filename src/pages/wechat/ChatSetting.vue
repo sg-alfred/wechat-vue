@@ -94,15 +94,12 @@
                     cancelButtonText: '取消'
 //                    type: 'warning'
                 }).then(() => {
-
 //                    console.log('删除聊天历史！-00-')
-
                     // 删除聊天！ 能不能在这里面 用 await ?
                     let cleartime = new Date()
-                    const p1 = clearChatHistory(this.contctInfo.fid, { cleartime })
 
-                    p1.then((response) => {
-
+                    clearChatHistory(this.contctInfo.fid, { cleartime })
+                        .then((response) => {
 //                        console.log('删除聊天历史！-11-', response.data)
 
                         // 同时 清除 vuex 里的 messages !!

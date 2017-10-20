@@ -17,14 +17,24 @@
                     <img src="../../../assets/logo.png">
                 </span>
                 <div>
-                    <p>{{info.remark}}</p><i></i>
-                    <p>微信号：{{info.wechatno}}</p>
-                    <p>昵称：{{info.nickname}}</p>
+                    <p>{{userinfo.remark}}</p><i></i>
+                    <p>微信号：{{userinfo.wechatno}}</p>
+                    <p>昵称：{{userinfo.nickname}}</p>
+                    <p>手机：{{userinfo.mobilephone}}</p>
                 </div>
             </section>
+
             <section class="code-content">
-                <span><img src="../../../assets/icon-wechat.png"></span>
+                <!--<div :style="{'background-image': qrcode}">
+                    &lt;!&ndash;<img :src="qrcode">&ndash;&gt;
+                </div>-->
+
+                <!-- 动态加载的，与 css 的 scoped 冲突
+                https://github.com/vuejs/vue-loader/issues/749 -->
+                <div v-html="qrcode" style="width: 200px; height: 200px"></div>
+
             </section>
+
             <section class="code-footer">
                 <span>扫码添加我为好友</span>
             </section>
@@ -33,6 +43,8 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex'
+    import { createQrcode } from '../../../api'
     import HeaderSection from '../../../components/HeaderSection'
 
     export default {
@@ -43,17 +55,25 @@
         data() {
             return {
                 headTitle: '我的二维码',
-                info: {
-                    id: 0,
-                    wechatno: 'sgchenjz',
-                    nickname: '钻',
-                    remark: 'hehe',
-                    gender: '男',
-                    country: '中国',
-                    headimgurl: '',
-                    tags: ''
-                },
+                qrcode: ''
             }
+        },
+        computed: {
+            ...mapState(['userinfo'])
+        },
+        async beforeMount() {
+            // 生成的二维码图片！但是怎么展示啊？
+
+            // 后台能不能生成 base64的照片，这样的 'Content-Type': 'image/png'，不会啊，都不知道 哪里可以取到！！
+            // 直接 把 url 跟在 <img src=""> 或者 < style="background-image: url()"> 都不可以啊
+
+            // 就算生成了 svg 字符串，怎么弄？
+
+            const response = await createQrcode()
+            this.qrcode = response.data.data.svg
+
+            // 现在还是这个问题，直接复制到 html 证明是 可以到。现在需要如何动态渲染到 html。
+            // 不能是 jquery。vue 有什么手段？
         },
         methods: {
             showOperate() {
@@ -62,6 +82,13 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .code-content svg {
+        height: 200px;
+        width: 200px;
+    }
+</style>
 
 <style lang="scss" scoped>
     @import "../../../style/mixin.scss";
@@ -83,20 +110,17 @@
         padding: 20px;
         display: flex;
         flex-direction: column;
-    }
-    .code-article section {
-        flex: 0 1 0;
-    }
-    .code-article section:nth-child(2) {
-        flex-grow: 1;
-        padding: 20px;
-        margin: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #222222;
-        img {
-            height: 200px;
+        section {
+            flex: 0 1 0;
+        }
+        section:nth-child(2) {
+            flex-grow: 1;
+            padding: 20px;
+            margin: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #222222;
         }
     }
     .code-header {
@@ -107,7 +131,7 @@
             margin: 0 20px;
             flex: 0 1 0;
             img {
-                height: 80px;
+                height: 60px;
             }
         }
         div {
@@ -117,5 +141,4 @@
             }
         }
     }
-
 </style>

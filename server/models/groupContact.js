@@ -6,7 +6,7 @@
 import mongoose from 'mongoose'
 const schema = mongoose.Schema
 
-const GROUPCONTACTSCHEMA = {
+const GROUPCONTACT_SCHEMA = {
     _id: false,
     gid: {
         type: schema.Types.ObjectId,
@@ -37,7 +37,7 @@ const GROUPCONTACTSCHEMA = {
     }
 }
 
-const GroupContactSchema = schema('GroupContact', GROUPCONTACTSCHEMA)
+const GroupContactSchema = schema('GroupContact', GROUPCONTACT_SCHEMA)
 
 GroupContactSchema.index({'gid': 1, 'uid': 1}, {'unique': true})
 

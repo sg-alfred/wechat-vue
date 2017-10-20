@@ -6,7 +6,7 @@
 import mongoose from 'mongoose'
 const schema = mongoose.Schema
 
-const MESSAGE_SCHAME = {
+const MESSAGE_SCHEMA = {
     // _id，聊天室的 lastid
     chatid: {       // 必然会 先得道聊天室 id 然后在 得到消息，没有必要双向，一样的，前端处理！
         type: schema.Types.ObjectId,
@@ -25,7 +25,7 @@ const MESSAGE_SCHAME = {
     }
 }
 
-const MessageSchema = schema(MESSAGE_SCHAME)
+const MessageSchema = schema(MESSAGE_SCHEMA)
 
 const Message = mongoose.model('Message', MessageSchema)
 
