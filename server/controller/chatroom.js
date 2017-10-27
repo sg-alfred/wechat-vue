@@ -7,7 +7,7 @@ import ContactModel from '../models/contact'
 import ChatroomModel from '../models/chatroom'
 import MessageModel from '../models/message'
 
-import { getOnlineUsers } from '../socket'
+import socketCtx from '../socket'
 import baseUtil from './utils/baseUtil'
 
 class Chatroom {
@@ -136,7 +136,7 @@ class Chatroom {
             await ChatroomModel.findOneAndUpdate({'_id': chatid}, {$set: messageParams})
 
             // 检查对方用户是否在线！！
-            let onlineUsers = getOnlineUsers()
+            let onlineUsers = socketCtx.getOnlineUsers()
 
             // console.log('在线用户--', onlineUsers, Object.keys(onlineUsers))
 

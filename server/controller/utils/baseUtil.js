@@ -4,8 +4,13 @@
  */
 'use strict'
 
-const crypto = require('crypto');
+import crypto from 'crypto'
 
+/**
+ *
+ * @param response
+ * @param resultObj
+ */
 let appResponse = (response, resultObj) => {
     response.writeHead(200, {
         'Content-type': 'application/json'
@@ -14,6 +19,11 @@ let appResponse = (response, resultObj) => {
 }
 
 
+/**
+ * 检查手机号是否合格
+ * ---------------------------------------------
+ * @param mobile
+ */
 let mobileValidate = (mobile) => {
     return mobile.test(/^\d{11}$/)
 }
@@ -49,9 +59,9 @@ let createMd5 = (str) => {
     return hash.digest('hex');
 }
 
-
-module.exports = {
+export default {
     appResponse,
+    mobileValidate,
     getRandomStr,
     createMd5
 }

@@ -119,7 +119,7 @@ const server = httpServer.createServer(app)
 const io = socketio(server)
 
 io.on('connection', (socket) => {
-    socketCtx.ctx.initSocket(socket)
+    socketCtx.initSocket(socket)
 })
 
 let uri = 'http://localhost:' + port

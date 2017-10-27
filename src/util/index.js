@@ -3,32 +3,12 @@
  */
 'use strict'
 
-import io from 'socket.io-client'
+// import 后直接 export，可以 混写
+// export kind from './kind-of'
+// export localStorage from './localstorage'
 
 import kindOf from './kind-of'
 import localStorage from './localstorage'
-
-
-// 连接到 socket
-const connectSocket = () => {
-
-    // 登录成功 创建与 服务端的 socket 的连接～～
-    // 但是，刷新一下就掉了？ 控制台 显示 disconnect 了～～ 就是掉了嘛～
-
-    const socket = io.connect('http://localhost:8080')
-
-    this.initSocket(socket)
-
-    socket.on('connect', () => {
-        socket.send('hello, server..')
-
-        socket.emit('login', userinfo)
-    })
-
-    socket.on('send.msg', (msg) => {
-        console.log(msg)
-    })
-}
 
 // 判断对象是否为空
 const isEmptyObject = (value) => {
@@ -52,15 +32,3 @@ export {
     isEmptyObject,
     localStorage
 }
-
-// export default {
-//     install(Vue, options) {
-//         Vue.prototype.gotoAddress =  (path) => {
-//             console.log('调转到：', path);
-//             this.$router.push(path)
-//         }
-//         Vue.prototype.goback = () => {
-//             this.$router.go(-1)
-//         }
-//     }
-// }
