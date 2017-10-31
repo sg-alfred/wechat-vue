@@ -24,7 +24,7 @@
         <div>
             <p class="padding-5">
                 <!-- 依次取 自己设置的备注名，好友的别名，手机号码 -->
-                <span>{{ chatItem.nickname ||chatItem.alias || chatItem.mobilephone }}</span>
+                <span>{{ chatItem.nickname || chatItem.alias || chatItem.mobilephone }}</span>
                 <span class="right">{{ chatItem.chatinfo.sendtime | formatTime }}</span>
             </p>
             <p class="padding-5">

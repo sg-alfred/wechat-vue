@@ -142,9 +142,7 @@ class Contact {
         try {
             // 这里如果出错了 会怎么样？
             const chatroomInfo = await new ChatroomModel().save();
-            if (!chatroomInfo) {
-                throw new Error('创建聊天室异常');
-            }
+            if (!chatroomInfo) throw new Error('创建聊天室异常');
 
             commonParams.chatid = chatroomInfo._id;
 
@@ -155,9 +153,7 @@ class Contact {
 
             console.log('更新好友信息：', commonParams)
 
-            if (!updateFriendInfo) {
-                throw new Error('同意好友请求异常');
-            }
+            if (!updateFriendInfo) throw new Error('同意好友请求异常');
 
             // 创建自身的通讯录 参数
             let selfParams = Object.assign({uid, fid}, commonParams)
@@ -168,9 +164,7 @@ class Contact {
 
             console.log('保存信息-11-', selfInfo)
 
-            if (!selfInfo) {
-                throw new Error('新建好友关系异常');
-            }
+            if (!selfInfo) throw new Error('新建好友关系异常');
 
             resultObj = {
                 code: 0,

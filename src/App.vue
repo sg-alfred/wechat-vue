@@ -51,7 +51,7 @@
                 await this.initSocket(socket)
 
                 socket.on('connect', () => {
-                    socket.send('hello, server..')
+                    socket.send('hello, server.. app.vue')
 
                     socket.emit('login', userinfo)
                 })

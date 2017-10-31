@@ -5,6 +5,7 @@
 
 import qr from 'qr-image'
 import express from 'express'
+
 const router = express.Router()
 
 import baseUtil from '../controller/utils/baseUtil'

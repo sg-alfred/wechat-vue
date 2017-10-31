@@ -84,6 +84,8 @@
                         if (!result.code) {
                             this.$message(result.message)
                             this.$router.push('/login')
+
+                            // 出现一个弹出框？继续完善人脸信息？ 还是 登录之后的操作？后者吧！！
                         } else {
                             this.$message(result.message)
                         }

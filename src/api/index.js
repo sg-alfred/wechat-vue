@@ -17,8 +17,9 @@ export const checkLogin = () => axios.get('/session');
 /**
  * 用户登录
  * @param loginInfo  登录信息
+ * @param type       登录手段 —— 密码或扫脸
  */
-export const userLogin = (loginInfo) => axios.post('/session', loginInfo)
+export const userLogin = (loginInfo, type) => axios.post(`/session?type=${type}`, loginInfo)
 
 /**
  * 用户登出
@@ -36,16 +37,26 @@ export const userRegister = (registerInfo) => axios.post('/users', registerInfo)
  */
 export const createQrcode = () => axios.get('/create_qrcode?text=http://chenjz.top')
 
+// ------------------------------------------------------------
 /**
  * 更新用户的信息，包括自己和别人的！！
  *  如 设置别名，性别，地区，个性签名等
+ *  别人的？不可以吧？别人的信息不会被修改，要改也只能是 通讯录的！！
  *
- * @param id
- * @param updateInfo
+ * @param id            用户id
+ * @param updateInfo    更新参数
+ * @param type          更新类型，base - 基本的字段，avatar - 头像，face - 人脸密码
  */
-export const updateUserinfo = (id, updateInfo) => axios.patch(`/users/${id}`, updateInfo)
+export const updateUserinfo = (id, updateInfo, type = 'base') => axios.patch(`/users/${id}?type=${type}`, updateInfo)
 
+/**
+ * 上传头像
+ * @param id
+ * @param info
+ */
 export const uploadAvatar = (id, info) => axios.post(`/users/${id}/headimg`, info)
+
+// ------------------------------------------------------------
 
 /**
  * 根据 条件搜用户，微信id 或 电话号码

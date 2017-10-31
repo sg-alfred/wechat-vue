@@ -7,7 +7,7 @@ import mongoose from 'mongoose'
 const schema = mongoose.Schema
 
 const USER_SCHEMA = {
-    wechatid: {     // 微信号，不是最开始需要创建的, 6-20，必须以字母开头
+    wechatno: {     // 微信号，不是最开始需要创建的, 6-20，必须以字母开头
         type: String,
         // unique: true,
         trim: true      // 去空格
@@ -26,6 +26,10 @@ const USER_SCHEMA = {
     mobilephone: {          // 支持使用电话号码登录
         type: Number,
         unique: true
+    },
+    face: {
+        type : Boolean,
+        default : false
     },
     email : String,
     age : {

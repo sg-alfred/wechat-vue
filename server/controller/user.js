@@ -6,17 +6,33 @@
 'use strict'
 
 import UserModel from '../models/user'
+import { face as AipFaceClient } from 'baidu-aip-sdk'
 
 import multer from 'multer'
 import path from 'path'
 import baseUtil from './utils/baseUtil'
 
+const APP_ID = "10240556";
+const API_KEY = "DxN5cW1ZYbMizmFV0SEuQR2Z";
+const SECRET_KEY = "uhVfvNMqYPYuMclks7pMrmfM2DVD62Z3";
+
+// const GROUP_IDS = ['wx_test_group']
+const GROUP_IDS = ['test_group2'];
+
 class User {
 
     constructor() {
+        // 实例化 百度AI
+        this.client = new AipFaceClient(APP_ID, API_KEY, SECRET_KEY);
 
         // 基本信息，不包含敏感信息
         this.baseinfo = 'headimgurl mobilephone alias gender age'
+
+        // 原来是这样用的！！
+        this.login = this.login.bind(this)
+        this.updateUser = this.updateUser.bind(this)
+
+        // this.loginByPassword = this.loginByPassword.bind(this)
     }
 
     async checkLogin (req, res) {
@@ -28,35 +44,59 @@ class User {
         baseUtil.appResponse(res, JSON.stringify(resultObj))
     }
 
-    async login (req, res) {
-        let resultObj = {};
+    /**
+     * 用户登录，post请求，区别 密码和扫脸登录
+     * ---------------------------------------------
+     * @param req
+     * @param res
+     * @param next
+     * @returns {Promise.<void>}
+     */
+    async login (req, res, next) {
+        let resultObj = {}
 
         // 可能是 微信号，可能是 手机号等等。
-        let params = req.body;
+        // let params = req.body;
 
+        // 这样多简洁！！
+        const { username, password = '', base64Img = '' } = req.body
+
+        let dbUserinfo      // 数据库用户信息
+
+        // 需要吗？需要吧，如果用 password 可能会有问题！
+        const loginType = req.query.type || 'password'        // 登录类型
+        // const { loginType = 'password' } = req.query       // 这个名称不一样啊～
+
+        // 根据用户名查询！如果没有直接抛出
         try {
             // 如果用手机号的，需要校验属否为数字，否则，这样查找会异常！—— CastError
-            const dbUserinfo = await UserModel.findOne({
-                mobilephone: params.username, deleted: false
+            dbUserinfo = await UserModel.findOne({
+                mobilephone: username, deleted: false
             })
 
-            if (!dbUserinfo) {
-                throw new Error('用户名错误!');
+            if (!dbUserinfo) throw new Error('用户名错误!');
+
+            if ('face' === loginType) {
+
+                await this.loginByFace(dbUserinfo._id, base64Img)
+
             } else {
-                const frontpwd = baseUtil.createMd5(dbUserinfo.salt + baseUtil.createMd5(params.password))
+                // await this.loginByPassword(dbUserinfo, password)
+                const frontpwd = baseUtil.createMd5(dbUserinfo.salt + baseUtil.createMd5(password))
 
-                if (frontpwd !== dbUserinfo.password ) {
-                    throw new Error('密码错误!');
-                } else {
-                    req.session.userid = dbUserinfo._id
-                    req.session.userinfo = dbUserinfo           // 缓存用户信息
+                if (frontpwd !== dbUserinfo.password ) throw new Error('密码错误!')
+            }
 
-                    resultObj = {
-                        code: 0,
-                        message: '登录成功!',
-                        userinfo: dbUserinfo
-                    }
-                }
+            // 删除一些字段！
+            delete dbUserinfo.password
+
+            req.session.userid = dbUserinfo._id
+            req.session.userinfo = dbUserinfo           // 缓存用户信息
+
+            resultObj = {
+                code: 0,
+                message: '登录成功!',
+                userinfo: dbUserinfo
             }
         } catch (err) {
             console.log('登录出错', err.message)
@@ -65,8 +105,28 @@ class User {
                 message: err.message
             }
         } finally {
-            console.log('登录结果', resultObj)
+            console.log('登录结果：', resultObj)
             baseUtil.appResponse(res, JSON.stringify(resultObj))
+        }
+    }
+
+    async loginByFace(uid, base64Img) {
+
+        console.log('人脸验证入参 uid：', uid, typeof uid)
+
+        // 去掉前缀 —— data:image/png;base64,
+
+        // {"error_code":216100,"error_msg":"uid值非法","log_id":3799143292103116}
+        // 报个毛子啊！！都没有什么问题啊，长度限制128B，没有超过啊！59c4bd72b7f42d575aba5415，直接用就可以～～
+
+        const response = await this.client.verifyUser(String(uid), GROUP_IDS, base64Img, {top_num: 1})
+
+        console.log(JSON.stringify(response))
+
+        if (response.error_code) {
+            throw new Error(`系统错误：${response.error_msg}`)
+        } else if (response.result[0] < 80) {
+            throw new Error(`扫脸登录失败，匹配度：${response.result[0]}。`);
         }
     }
 
@@ -118,9 +178,7 @@ class User {
         const keyword = req.params.keyword
 
         try {
-            if (typeof keyword === 'undefined') {
-                throw new Error('查询条件不能为空！');
-            }
+            if (typeof keyword === 'undefined') throw new Error('查询条件不能为空！')
 
             // 如果是 11位，按照手机号码尝试，不行这用微信号查找
             if (/^\d{11}$/.test(keyword)) {
@@ -130,9 +188,7 @@ class User {
                 userinfo = await UserModel.findOne({wechatno: keyword, deleted: false})
             }
 
-            if (!userinfo) {
-                throw new Error('没有查到此用户！');
-            }
+            if (!userinfo) throw new Error('没有查到此用户！')
 
             // const contact = await ContactModel.find({
             //     uid, fid: userinfo._id, status: 1
@@ -159,16 +215,75 @@ class User {
 
         const uid = req.session.userid
 
-        const updateID = req.params.id      // 更新的用户id，自己或别人的。。
-        const updateParams = req.body
+        // 更新的用户id，自己或别人的？？不是的！！如果不一样的话，那就是非法的！
+        const updateId = req.params.id
 
-        console.log('入参：', uid, updateID, updateParams)
+        // 更新类型
+        const updateType = req.query.type
+
+        if (uid !== updateId && updateType in ['base', 'avatar', 'face']) {
+            throw new Error('非法操作！')
+        }
+
+        let updateParams = req.body
+
+        console.log('入参：', uid, updateId, updateType)
 
         try {
+
+            if ('avatar' === updateType) {
+                // 上传用户头像
+
+
+            } else if ('face' === updateType) {
+
+                // 设置人脸密码，包括 增改删
+                const userinfo = req.session.userinfo
+                const info = userinfo.wechatno || userinfo.mobilephone
+
+                let response
+
+                switch (updateParams.type) {
+                    case 'add':
+                        response = await this.client.addUser(uid, info, GROUP_IDS, updateParams.base64Img)
+                        console.log('百度AI，注册结果：', JSON.stringify(response));
+
+                        if (response.error_code) throw new Error(`注册失败：${response.error_msg}`)
+
+                        updateParams.face = true
+                        break;
+                    case 'update':
+                        response = await this.client.updateUser(uid, info, GROUP_IDS, updateParams.base64Img)
+                        console.log('百度AI，更新结果：', JSON.stringify(response));
+
+                        if (response.error_code) throw new Error(`更新失败：${response.error_msg}`)
+                        break;
+                    case 'delete':
+                        response = await this.client.deleteUser(uid)
+                        console.log('百度AI，删除结果：', JSON.stringify(response));
+
+                        if (response.error_code) throw new Error(`删除失败：${response.error_msg}`)
+
+                        updateParams.face = false
+                        break;
+                    default:
+                        throw new Error(`设置人脸密码出现错误`)
+                        break;
+                }
+
+                delete updateParams.type
+                delete updateParams.base64Img
+
+            } else {
+                // 一般的修改，就啥也不需要操作！
+            }
+
             // const oldUserinfo = UserModel.findById({_id}, 'mobilephone')
             // console.log('旧信息：', {_id}, oldUserinfo);
 
+            // 不管如何，之后还是 要更新一下信息～
             const newUserinfo = await UserModel.findByIdAndUpdate({_id: uid}, {$set: updateParams}, {new: true})
+
             resultObj = {
                 code: 0,
                 message: '更新成功',

@@ -23,8 +23,8 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 ## 技术栈
 
 * Vue 全家桶：vue2 + vuex + vue-router + webpack
-* 网络请求：axios
 * 后台服务：express
+* 网络请求：axios
 * 数据库：mongodb
 
 ## TODO
@@ -36,6 +36,15 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 * [ ] 朋友圈
 * [ ] 发状态 + 好友点赞／评论
 * [ ] 最好的，打包成 客户端？？ 就像那个 音乐软件一样
+* [ ] 其他尝试
+-- 结合百度AI做人脸登录
+-- redis 队列做数据推送？
+-- 等等～
+
+啥都想干，啥都没有干！！到底要干嘛？？
+好吧！先做 人脸登录！不要分散，什么鬼啊！
+
 
 ## License
-[MIT](https://github.com/facebook/react/blob/master/LICENSE)
+[MIT](http://opensource.org/licenses/MIT)
+Copyright (c) 2017-present

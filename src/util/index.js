@@ -17,6 +17,24 @@ const isEmptyObject = (value) => {
     return true
 }
 
+
+//
+const convertImgToBase64 = (url, callback, outputFormat) => {
+    let canvas = document.createElement('CANVAS'),
+        ctx = canvas.getContext('2d'),
+        img = new Image;
+    img.crossOrigin = 'Anonymous';
+    img.onload = function(){
+        canvas.height = img.height;
+        canvas.width = img.width;
+        ctx.drawImage(img, 0, 0);
+        let dataURL = canvas.toDataURL(outputFormat || 'image/png');
+        callback.call(this, dataURL);
+        canvas = null;
+    };
+    img.src = url;
+}
+
 // this ！！function ? 箭头函数 ?
 export const gotoAddress = (path) => {
     console.log('调转到：', path);
@@ -30,5 +48,6 @@ export const gotoAddress = (path) => {
 export {
     kindOf,
     isEmptyObject,
-    localStorage
+    localStorage,
+    convertImgToBase64
 }

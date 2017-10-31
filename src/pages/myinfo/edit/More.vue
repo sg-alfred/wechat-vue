@@ -17,7 +17,7 @@
             </router-link>
             <router-link :to="'/myinfo/profile/whatsup'">
                 <span>个性签名</span>
-                <span>{{ userinfo.whatsup ? userinfo.whatsup : '未填写' }}</span>
+                <span>{{ userinfo.whatsup || '未填写' }}</span>
             </router-link>
         </section>
 

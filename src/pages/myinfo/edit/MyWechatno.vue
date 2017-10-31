@@ -35,7 +35,7 @@
             ...mapState(['userinfo'])
         },
         beforeMount() {
-            this.wechatno = this.userinfo.wechatno ? this.userinfo.wechatno : ''
+            this.wechatno = this.userinfo.wechatno || ''
         },
         methods: {
             ...mapActions(['changeLoginInfo']),

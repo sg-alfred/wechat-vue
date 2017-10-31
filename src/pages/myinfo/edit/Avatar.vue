@@ -41,7 +41,7 @@ http://www.cnblogs.com/cjh1111/p/7017295.html
     import { localStorage } from '../../../util'
 
     export default {
-        name: 'Headimg',
+        name: 'Avatar',
         components: {
             HeaderSection
         },

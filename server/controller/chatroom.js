@@ -68,7 +68,8 @@ class Chatroom {
     async getMessages (req, res) {
         let resultObj = {}
 
-        const chatid = req.params.chatid;
+        const { chatid } = req.params;
+
         const uid = req.session.userid;
 
         try {

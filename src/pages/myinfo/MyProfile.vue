@@ -22,13 +22,17 @@
                     <img :src="userinfo.headimgurl" alt="头像"/>
                 </span>
             </router-link>
+            <router-link :to="'/myinfo/profile/face'">
+                <span>百度AI</span>
+                <span>{{ userinfo.face ? "可刷脸登录" : "未设置" }}</span>
+            </router-link>
             <router-link :to="'/myinfo/profile/alias'">
                 <span>昵称</span>
                 <span>{{ userinfo.alias }}</span>
             </router-link>
             <router-link :to="'/myinfo/profile/wechatno'">
                 <span>微信号</span>
-                <span>{{ userinfo.wechatno ? userinfo.wechatno : "未设置" }}</span>
+                <span>{{ userinfo.wechatno || "未设置" }}</span>
             </router-link>
             <router-link :to="'/myinfo/profile/code'">
                 <span>二维码名片</span>
