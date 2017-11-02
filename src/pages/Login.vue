@@ -118,24 +118,50 @@
 
                 const self = this
 
+                let videoTrack          // 视频源，最后关闭摄像头使用
+
                 // 那现在是用户名！根据用户名查询id，后台处理啊！然后在调用 百度AI 接口
-                let video = document.querySelector('video'),
+                const video = document.querySelector('video'),
                     image = document.querySelector('#image'),
                     canvas = document.querySelector('canvas'),
                     ctx = canvas.getContext("2d");
 
+                /*if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    // 做兼容！！
+                }*/
+
+//                let getUserMedia = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
+
                 navigator.mediaDevices.getUserMedia({
-                    video: true,
-                    // audio: true
+                    audio: false,
+                    video: true
                 })
-                    .then(function (mediaStream) {
-                        video.src = window.URL.createObjectURL(mediaStream);
-                        video.onloadedmetadata = function (e) {
-                            // Do something with the video here.
-                        };
+                    .then(function (stream) {
+
+                        // 1、MediaStream.stop() 已不赞成使用。请改用 MediaStreamTrack.stop()
+                        // 这个应该是 stream.stop  报的错误！其实 是对的！
+//                        mediaStreamTrack = typeof stream.stop === 'function' ? stream : stream.getTracks()[1];
+
+                        // 2、获取全部的
+//                        let tracks = stream.getTracks();
+
+                        // 3、指定获取 视频源
+                        videoTrack = stream.getVideoTracks()[0];
+
+                        // 1、URL.createObjectURL(MediaStream) 已不推荐使用，并且很快将被移除。
+//                        video.src = window.URL.createObjectURL(stream)
+
+                        // 2、使用 该方式！
+                        video.srcObject = stream
+
+                        video.play()        // 加上之后 firefox 才能出画面！
+
+                        /*video.onloadedmetadata = function (e) {
+                            // 这个可以搞点事情～
+                        };*/
                     })
                     .catch(function (error) {
-                        console.log(error.name);
+                        console.log('开启摄像头出错：' + error.name);
                     });
 
                 let counter = 3;
@@ -146,7 +172,6 @@
                     } else {
                         clearInterval(iTime)
 
-                        // 弄到
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         ctx.drawImage(video, 0, 0, 320, 240);
 
@@ -154,23 +179,18 @@
 
                             Object.assign(self.formInfo, {base64Img: image.src.replace('data:image/png;base64,', '')})
 
-                            // 需要类型！
+                            // 人脸登录
                             userLogin(self.formInfo, 'face').then((response) => {
+
+                                // 关闭摄像头
+                                videoTrack && videoTrack.stop()
 
                                 const result = response.data
                                 self.$message(result.message)
-
                                 if (!result.code) {
                                     self.afterLoginSuccess(result.userinfo)
                                 }
-
-                                // 关闭摄像头～
-
                             })
-
-                            /*convertImgToBase64('static/image/chenjz.jpg', (base64Img) => {
-                                console.log(base64Img)
-                            })*/
                         }
                         image.src = canvas.toDataURL('image/png');
                     }
@@ -192,7 +212,7 @@
 
                 this.$router.push('/wechat')
             },
-            // 显然，这个socket shi 没有定义的！！应该是 保存起来，以 用户id 为键值！！这样，才能够正在这里调用！
+            // 显然，这个socket 是没有定义的！！应该是 保存起来，以 用户id 为键值！！这样，才能够正在这里调用！
             // 但是，要保证不掉线啊！！ 刷新一下就掉了，这又什么用！
 
             // redis 缓存不错～ 但是，应该如何保存？ 还是要请求后端，然后再数据库？？
@@ -211,7 +231,7 @@
                 })
 
                 socket.on('send.msg', (msg) => {
-                    console.log(msg)
+                    console.log('获取到新的信息：', msg)
 
                     // 处理获取到的消息！！
                     this.addMessage(msg)

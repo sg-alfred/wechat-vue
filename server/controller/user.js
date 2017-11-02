@@ -227,8 +227,6 @@ class User {
 
         let updateParams = req.body
 
-        console.log('入参：', uid, updateId, updateType)
-
         try {
 
             if ('avatar' === updateType) {

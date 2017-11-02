@@ -16,10 +16,10 @@ export default {
     [types.CHANGE_LOGININFO] (state, userinfo) {
         state.isLogin = !!userinfo
         state.userinfo = userinfo
-        state.socket = null
         if (!userinfo) {
             state.currentContactID = null
             state.contacts = {}
+            state.socket = null
         }
     },
 

@@ -10,11 +10,11 @@
                 <el-button type="primary" @click="deleteFaceInfo">删除人脸信息</el-button>
             </div>
 
-            <video hidden width="320" height="240"></video>
+            <video width="320" height="240"></video>
             <img hidden id="image" width="320" height="240"/>
 
             <!-- 这个应该是 刚进来的时候显示？用户画像，百度魔图～～，算了，至少应该需要 切换～ -->
-            <canvas width="320" height="240"></canvas>
+            <canvas hidden width="320" height="240"></canvas>
 
             <article>
                 <p>基于百度AI，实现刷脸登录</p>
@@ -47,25 +47,24 @@
             setFaceInfo(type) {
                 const self = this
 
+                let videoTrack
+
                 // 那现在是用户名！根据用户名查询id，后台处理啊！然后在调用 百度AI 接口
-                let video = document.querySelector('video'),
+                const video = document.querySelector('video'),
                     image = document.querySelector('#image'),
                     canvas = document.querySelector('canvas'),
                     ctx = canvas.getContext("2d");
 
-                canvas.setAttribute('display', 'none')
-                video.setAttribute('display', 'block')
-
-                // 需要做 兼容性！
                 navigator.mediaDevices.getUserMedia({
-                    video: true,
-                    // audio: true
+                    audio: false,
+                    video: true
                 })
-                    .then(function (mediaStream) {
-                        video.src = window.URL.createObjectURL(mediaStream);
-                        video.onloadedmetadata = function (e) {
-                            // Do something with the video here.
-                        };
+                    .then(function (stream) {
+
+                        videoTrack = stream.getVideoTracks()[0];
+
+                        video.srcObject = stream
+                        video.play()
                     })
                     .catch(function (error) {
                         console.log(error.name);
@@ -79,7 +78,6 @@
                     } else {
                         clearInterval(iTime)
 
-                        // 弄到
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         ctx.drawImage(video, 0, 0, 320, 240);
 
@@ -93,18 +91,16 @@
                             updateUserinfo(self.userinfo.id, { base64Img: image.src.replace('data:image/png;base64,', ''), type }, 'face')
                                 .then((response) => {
 
+                                // 关闭摄像头
+                                videoTrack && videoTrack.stop();
+
                                 const result = response.data
                                 self.$message(result.message)
-
                                 if (!result.code) {
-//                                    this.$router.go(-1)
-
                                     // 修改 localStorage 保存的值！
                                     localStorage('userinfo', JSON.stringify(response.data.data))
                                     self.changeLoginInfo(true)
                                 }
-
-                                // 关闭摄像头～
                             })
                         }
                         image.src = canvas.toDataURL('image/png');
