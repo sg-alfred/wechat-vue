@@ -2,7 +2,7 @@
     <div class="myinfo-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <article class="myinfo-container">
+        <main class="myinfo-container">
             <section class="base-info">
                 <router-link :to="'/myinfo/profile'">
                     <span>
@@ -31,7 +31,7 @@
             <section class="menu-section">
                 <menu-item1 v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item1>
             </section>
-        </article>
+        </main>
 
         <footer-section></footer-section>
 

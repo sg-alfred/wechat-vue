@@ -2,13 +2,13 @@
     <div class="wechat-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <section class="wechat-container">
+        <main class="wechat-container">
             <wechat-item
                     v-for="item in chatrooms"
                     :key="item.id" :chatItem="item"
                     @into-chatroom="intoChatroom"
             ></wechat-item>
-        </section>
+        </main>
 
         <footer-section></footer-section>
     </div>
@@ -41,7 +41,7 @@
             }
         },
         beforeMount() {
-            this.chatrooms = Object.values(this.contacts).filter((ele, index) => {
+            this.chatrooms = Object.values(this.contacts).filter((ele) => {
                 return ele.messages.length > 0 || !!ele.chatinfo.lastmsgid && (!ele.cleartime || ele.chatinfo.sendtime > ele.cleartime)
             })
 //            console.log('聊天室信息--', JSON.stringify(this.chatrooms))

@@ -4,55 +4,56 @@
 
         <div class="placeholder"></div>
 
-        <section class="detail-section">
+        <main>
+            <section class="detail-section">
 
-            <!-- 每一个都是 链接，可以跳转编辑！ router-link , 动态加载！-->
+                <!-- 每一个都是 链接，可以跳转编辑！ router-link , 动态加载！-->
+                <!-- 这样循环并不划算！不多，而且每项初始化的，还不如 直接分开写！ -->
+                <!--<div v-for="item in detailInfo" :key="item.id">
+                    <router-link :to="'/myinfo/profile/' + item.type">
+                        <span>{{ item.name }}</span>
+                        <span>{{ info[item.type] }}</span>
+                    </router-link>
+                </div>-->
 
-            <!-- 这样循环并不划算！不多，而且每项初始化的，还不如 直接分开写！ -->
-            <!--<div v-for="item in detailInfo" :key="item.id">
-                <router-link :to="'/myinfo/profile/' + item.type">
-                    <span>{{ item.name }}</span>
-                    <span>{{ info[item.type] }}</span>
-                </router-link>
-            </div>-->
-
-            <router-link :to="'/myinfo/profile/headimg'">
-                <span>头像</span>
-                <span>
+                <router-link :to="'/myinfo/profile/headimg'">
+                    <span>头像</span>
+                    <span>
                     <img :src="userinfo.headimgurl" alt="头像"/>
                 </span>
-            </router-link>
-            <router-link :to="'/myinfo/profile/face'">
-                <span>百度AI</span>
-                <span>{{ userinfo.face ? "可刷脸登录" : "未设置" }}</span>
-            </router-link>
-            <router-link :to="'/myinfo/profile/alias'">
-                <span>昵称</span>
-                <span>{{ userinfo.alias }}</span>
-            </router-link>
-            <router-link :to="'/myinfo/profile/wechatno'">
-                <span>微信号</span>
-                <span>{{ userinfo.wechatno || "未设置" }}</span>
-            </router-link>
-            <router-link :to="'/myinfo/profile/code'">
-                <span>二维码名片</span>
-                <span>
+                </router-link>
+                <router-link :to="'/myinfo/profile/face'">
+                    <span>百度AI</span>
+                    <span>{{ userinfo.face ? "可刷脸登录" : "未设置" }}</span>
+                </router-link>
+                <router-link :to="'/myinfo/profile/alias'">
+                    <span>昵称</span>
+                    <span>{{ userinfo.alias }}</span>
+                </router-link>
+                <router-link :to="'/myinfo/profile/wechatno'">
+                    <span>微信号</span>
+                    <span>{{ userinfo.wechatno || "未设置" }}</span>
+                </router-link>
+                <router-link :to="'/myinfo/profile/code'">
+                    <span>二维码名片</span>
+                    <span>
                      <svg class="icon fa-18x" aria-hidden="true">
                          <use xlink:href="#icon-qrcode"></use>
                      </svg>
                 </span>
-            </router-link>
-            <router-link :to="'/myinfo/profile/more'">
-                <span>更多</span>
-            </router-link>
+                </router-link>
+                <router-link :to="'/myinfo/profile/more'">
+                    <span>更多</span>
+                </router-link>
 
-        </section>
+            </section>
 
-        <section class="address-section">
-            <router-link :to="'/myinfo/profile/address'">
-                <span>我的地址</span>
-            </router-link>
-        </section>
+            <section class="address-section">
+                <router-link :to="'/myinfo/profile/address'">
+                    <span>我的地址</span>
+                </router-link>
+            </section>
+        </main>
 
         <transition name="router-slid" mode="out-in">
             <router-view></router-view>

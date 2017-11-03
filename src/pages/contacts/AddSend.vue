@@ -6,7 +6,7 @@
             </section>
         </header-section>
 
-        <section class="form-section">
+        <main class="form-section">
             <input v-model="formInfo.fid" hidden>
             <article>
                 <p>你需要发送验证申请，等待对方通过</p>
@@ -23,7 +23,7 @@
                 </el-switch>
                 <p class="share-text">不让他(她)看我的朋友圈</p>
             </article>
-        </section>
+        </main>
     </div>
 </template>
 
@@ -88,29 +88,31 @@
         overflow: scroll;
         width: 100%;
         position: fixed;
+        article {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: white;
+            p {
+                text-align: left;
+                color: #adadad;
+                padding: 10px;
+            }
+            input {
+                border: hidden;
+                border-bottom: 1px solid green;
+                padding: 5px;
+                font-size: 18px;
+                width: 96%;
+            }
+        }
     }
-    .form-section article {
-        margin: 20px 0;
-        padding: 10px;
-        background-color: white;
-    }
-    .form-section article p {
-        text-align: left;
-        color: #adadad;
-        padding: 10px;
-    }
-    .form-section article input {
-        border: hidden;
-        border-bottom: 1px solid green;
-        padding: 5px;
-        font-size: 18px;
-        width: 96%;
-    }
-    .form-section .share-div .share-text {
-        color: #000000;
-    }
-    .form-section .share-div .switch-label {
-        float: right;
-        margin: 6px 20px;
+    .form-section .share-div {
+        .share-text {
+            color: #000000;
+        }
+        .switch-label {
+            float: right;
+            margin: 6px 20px;
+        }
     }
 </style>

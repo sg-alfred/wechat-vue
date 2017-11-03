@@ -68,26 +68,33 @@ class Chatroom {
     async getMessages (req, res) {
         let resultObj = {}
 
-        const { chatid } = req.params;
+        const chatid = req.params.chatid
+
+        // 请求时 一定有，默认 限制20 和当前时间
+        const { limit, sendtimeGe, sendtimeLt } = req.query
+
+        // sendtimeLt = Date.parse(sendtimeLt)
 
         const uid = req.session.userid;
 
         try {
             // 聊天室设置，现在不需要了！！都放在 contacts 里面！！
-            const contactInfo = await ContactModel.findOne({uid, chatid})
+            // 前端都可以传过来的，没有必要仔查一次～
+            const contactInfo = await ContactModel.findOne({ uid, chatid })
                 .populate('fid', 'mobilephone headimgurl cleartime')
                 .exec()
 
             let cleartime = contactInfo.cleartime || new Date('1970-01-01');
 
-            console.log('清除时间～', contactInfo, contactInfo.cleartime, cleartime)
+            console.log('清除时间～', cleartime, sendtimeLt)
 
             // 按照发送时间升序！！
-            const allMessages = await MessageModel.find({ chatid, sendtime: {"$gt": cleartime} })
-                .sort({sendtime: 1})
+            const allMessages = await MessageModel.find({ chatid, sendtime: {"$gt": cleartime, "$lt": sendtimeLt} })
+                .limit(Number(limit))
+                .sort({sendtime: -1})
 
             resultObj = {
-                code: 2,
+                code: 0,
                 message: '查询历史记录成功！',
                 data: allMessages
                 /*data: {

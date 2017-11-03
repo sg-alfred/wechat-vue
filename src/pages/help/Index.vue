@@ -2,15 +2,18 @@
     <div class="help-page">
 
         <header-section :go-back="true" :head-title="headTitle"></header-section>
-        帮助与反馈
 
-        <article class="help-container">
-            <el-input
-                    placeholder="搜索"
-                    icon="search"
-                    :on-icon-click="handleIconClick">
-            </el-input>
-        </article>
+        <main>
+            帮助与反馈
+
+            <article class="help-container">
+                <el-input
+                        placeholder="搜索"
+                        icon="search"
+                        :on-icon-click="handleIconClick">
+                </el-input>
+            </article>
+        </main>
 
         <footer>
             <div v-for="item in subMenus" :key="item.id" @click="$router.push('/help/' + item.type)">

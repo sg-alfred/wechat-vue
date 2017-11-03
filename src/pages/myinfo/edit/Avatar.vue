@@ -10,7 +10,7 @@ http://www.cnblogs.com/cjh1111/p/7017295.html
                 <el-button type="success" @click="setHeadimg">使用</el-button>
             </section>
         </header-section>
-        <section>
+        <main>
             <!--<el-upload
                     class="avatar-uploader"
                     :action="'/users/' + userinfo.id + '/headimg'"
@@ -30,7 +30,7 @@ http://www.cnblogs.com/cjh1111/p/7017295.html
 
             <img v-if="userinfo.headimgurl" :src="userinfo.headimgurl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </section>
+        </main>
     </div>
 </template>
 

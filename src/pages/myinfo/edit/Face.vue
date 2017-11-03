@@ -1,6 +1,9 @@
 <template>
     <div class="face-page">
         <header-section :go-back="true" :head-title="headTitle"></header-section>
+
+        <div class="placeholder"></div>
+
         <main>
             <div v-if="!userinfo.face">
                 <el-button type="primary" @click="setFaceInfo('add')">开始录入</el-button>
@@ -9,6 +12,9 @@
                 <el-button type="primary" @click="setFaceInfo('update')">更新录入</el-button>
                 <el-button type="primary" @click="deleteFaceInfo">删除人脸信息</el-button>
             </div>
+
+            <div class="placeholder"></div>
+
 
             <video width="320" height="240"></video>
             <img hidden id="image" width="320" height="240"/>
@@ -133,5 +139,9 @@
     }
     video {
         border: 1px solid #ffffff;
+    }
+    .placeholder {
+        height: 20px;
+        width: auto;
     }
 </style>

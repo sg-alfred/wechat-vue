@@ -59,8 +59,7 @@
                     validcode: ''
                 },
                 formRules: {},
-                loginByFace: false,
-
+                loginByFace: false
             }
         },
         computed: {
@@ -74,13 +73,6 @@
                 this.$router.push('/wechat');
             }
         },
-        /*beforeMount() {
-            console.log('login-page-00-', this.isLogin)
-            if (this.isLogin) {
-                // 再进行界面跳转！
-                this.$router.push('/wechat');
-            }
-        },*/
         methods: {
             ...mapActions(['changeLoginInfo', 'initContacts', 'initSocket', 'addMessage']),
             async doLogin(formName) {
@@ -198,12 +190,12 @@
 
             },
             async afterLoginSuccess(userinfo) {
-                console.log('doLogin-00-', this.isLogin)
+                console.log('afterLoginSuccess-00-', this.isLogin)
 
                 localStorage('userinfo', JSON.stringify(userinfo))
                 await this.changeLoginInfo(true)
 
-                console.log('doLogin-11-', this.isLogin)
+                console.log('afterLoginSuccess-11-', this.isLogin)
 
                 // 这时候直接 获取通讯录，渲染出聊天列表
                 await this.initContacts()
@@ -224,16 +216,15 @@
 
                 await this.initSocket(socket)
 
+                // 连接到服务器
                 socket.on('connect', () => {
                     socket.send('hello, server.. Login.vue')
-
                     socket.emit('login', userinfo)
                 })
 
+                // 处理获取到的消息！！
                 socket.on('send.msg', (msg) => {
-                    console.log('获取到新的信息：', msg)
-
-                    // 处理获取到的消息！！
+                    console.log('login 新信息：', msg)
                     this.addMessage(msg)
                 })
             }

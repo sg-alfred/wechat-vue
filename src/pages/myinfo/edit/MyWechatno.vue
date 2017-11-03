@@ -5,13 +5,13 @@
                 <el-button type="success" @click="setWechatno">保存</el-button>
             </section>
         </header-section>
-        <section class="form-section">
+        <main class="form-section">
             <article>
                 <input v-model="wechatno" />
                 <p>微信号是账号唯一凭证，只能设置一次</p>
                 <p>微信账号仅支持6-20个字母、数字、下划线或减号，以字母开头</p>
             </article>
-        </section>
+        </main>
     </div>
 </template>
 

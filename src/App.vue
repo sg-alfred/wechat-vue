@@ -36,7 +36,6 @@
                 await this.connectSocket(this.userinfo)
 
                 console.log('初始化通讯录后跳转到 WeChat')
-
                 this.$router.push('/wechat');
             }
         },
@@ -50,16 +49,15 @@
 
                 await this.initSocket(socket)
 
+                // 连接到服务器
                 socket.on('connect', () => {
                     socket.send('hello, server.. app.vue')
-
                     socket.emit('login', userinfo)
                 })
 
+                // 处理获取到的消息！！
                 socket.on('send.msg', (msg) => {
-                    console.log(msg)
-
-                    // 处理获取到的消息！！
+                    console.log('app 新消息', msg)
                     this.addMessage(msg)
                 })
             }

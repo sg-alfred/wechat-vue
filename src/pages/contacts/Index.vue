@@ -2,7 +2,7 @@
     <div class="contacts-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <section class="contacts-container">
+        <main class="contacts-container">
 
             <nav class="nav-section">
                 <router-link :to="'/contacts/' + navItem.type"
@@ -22,7 +22,7 @@
                 ></contact-item>
             </section>
 
-        </section>
+        </main>
 
         <footer-section></footer-section>
 

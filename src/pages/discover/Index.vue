@@ -2,11 +2,11 @@
     <div class="discover-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <article class="discover-container">
+        <main class="discover-container">
             <section class="menu-section">
                 <menu-item1 v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'discover'"></menu-item1>
             </section>
-        </article>
+        </main>
 
         <footer-section></footer-section>
 

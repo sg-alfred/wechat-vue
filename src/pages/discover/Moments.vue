@@ -10,7 +10,7 @@
             </section>
         </header-section>
 
-        <article class="moments-container">
+        <main class="moments-container">
             <section class="">
                 <el-carousel trigger="click" height="150px">
                     <el-carousel-item v-for="item in 2" :key="item">
@@ -25,7 +25,7 @@
                             :key="item.id" :moment="item">
                 </one-moment>
             </section>
-        </article>
+        </main>
     </div>
 </template>
 

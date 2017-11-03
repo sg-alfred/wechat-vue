@@ -18,7 +18,7 @@ const isEmptyObject = (value) => {
 }
 
 
-//
+// 将图片转化为64位编码
 const convertImgToBase64 = (url, callback, outputFormat) => {
     let canvas = document.createElement('CANVAS'),
         ctx = canvas.getContext('2d'),
@@ -34,6 +34,7 @@ const convertImgToBase64 = (url, callback, outputFormat) => {
     };
     img.src = url;
 }
+
 
 // this ！！function ? 箭头函数 ?
 export const gotoAddress = (path) => {

@@ -2,10 +2,9 @@
     <div>
         <header-section :go-back="true" :head-title="headTitle"></header-section>
 
-        <section class="absolute-center">
-
+        <main class="absolute-center">
             <p>哎呀，界面走失了或者还没有开发呢～</p>
-        </section>
+        </main>
     </div>
 </template>
 

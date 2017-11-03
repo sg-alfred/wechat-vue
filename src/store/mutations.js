@@ -63,7 +63,9 @@ export default {
     [types.RECEIVE_ALL] (state, { messages }) {
         // 获取当前的 聊天室
         let chatroom = getCurrentContact(state)
-        chatroom.messages = messages
+
+        // 批量 添加到数组前面
+        chatroom.messages.unshift(...messages)
 
         /* 不需要这样！！
         chatroom.messages.forEach(message => {

@@ -2,7 +2,7 @@
     <div class="chatSetting-page">
         <header-section :go-back="true" :head-title="headTitle"></header-section>
 
-        <article class="setting-container">
+        <main class="setting-container">
             <section class="headimg-section">
 
                 <!-- 必须循环! -->
@@ -52,7 +52,7 @@
             <section class="">
                 <p>投诉</p>
             </section>
-        </article>
+        </main>
     </div>
 </template>
 
@@ -82,8 +82,7 @@
             // 这个 $parent，获取的是 父实例，界面从哪里来 就是谁！
 
             // 不需要：this.$parent.$data / this/$parent._data ，可以直接访问到
-
-            console.log('获取到上层数据？', this.$parent, this.$parent.headTitle, JSON.stringify(this.contctInfo))
+//            console.log('获取到上层数据？', this.$parent, this.$parent.headTitle, JSON.stringify(this.contctInfo))
         },
         methods: {
             ...mapActions(['syncMessages', 'updateContact']),
@@ -132,6 +131,10 @@
     .chatSetting-page {
         @include page();
         z-index: 202;
+    }
+    .setting-container {
+        overflow: auto;
+        height: 100%;
     }
     section {
         margin-top: 20px;

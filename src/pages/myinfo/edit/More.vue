@@ -5,7 +5,7 @@
 
         <div class="placeholder"></div>
 
-        <section>
+        <main>
             <!-- 是一个弹出框！不是 链接！！ -->
             <div class="like-a" @click="setGender">
                 <span>性别</span>
@@ -19,7 +19,7 @@
                 <span>个性签名</span>
                 <span>{{ userinfo.whatsup || '未填写' }}</span>
             </router-link>
-        </section>
+        </main>
 
         <transition name="router-slid" mode="out-in">
             <router-view></router-view>

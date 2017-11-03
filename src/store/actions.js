@@ -34,8 +34,14 @@ export const changeLoginInfo = async ({ commit }, isLogin = null) => {
 }
 
 
+/**
+ * 保存 socket 信息到 vuex
+ * ---------------------------------------------
+ * @param commit
+ * @param socket
+ * @returns {Promise.<void>}
+ */
 export const initSocket = async ({ commit }, socket) => {
-    console.log('initSocket--', socket)
     commit(types.INIT_SOCKET, socket)
 }
 

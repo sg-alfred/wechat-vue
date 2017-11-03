@@ -10,7 +10,7 @@
             </section>
         </header-section>
 
-        <section class="search-container" v-if="'friend' !== type">
+        <main class="search-container" v-if="'friend' !== type">
             <p class="search-title">指定搜索内容</p>
             <ul>
                 <li class="show">朋友圈</li>
@@ -21,7 +21,7 @@
                 <li>表情</li>
             </ul>
             <p class="search-title clearfix">看一看</p>
-        </section>
+        </main>
     </div>
 </template>
 
@@ -59,19 +59,18 @@
                         console.log('searchAll');
                         break;
                     case 'friend':
-                        console.log('searchFriend', '搜索-00-', this.contacts)
+                        console.log('searchFriend', '搜索-00-')
 
-                        let searchid = '',
-                            isFriend = false;
+                        let searchid = ''
 
                         if (!isEmptyObject(this.contacts)) {
-                            for (let ele of this.contacts) {
-                                if (ele.mobilephone === this.keyword || ele.wechatno === this.keyword) {
-                                    searchid = ele.id
-                                    isFriend = true
-                                    break ;
-                                }
-                            }
+
+                            // mobilephone 是 int，而非 字符串
+                            const foundContact = Object.values(this.contacts).find((x) => {
+                                return x.mobilephone == this.keyword || x.wechatno === this.keyword
+                            })
+
+                            if (!!foundContact) searchid = foundContact._id
                         }
 
                         if (!searchid) {
@@ -87,7 +86,6 @@
 
                                 // 缓存起来了～
                                 localStorage(searchid, searchResult.data)
-
                             } else {
                                 this.$message(searchResult.message)
                             }

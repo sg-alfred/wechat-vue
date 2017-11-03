@@ -7,12 +7,12 @@
                 <el-button type="success" @click="setAlias">保存</el-button>
             </section>
         </header-section>
-        <section class="form-section">
+        <main class="form-section">
             <article>
                 <input v-model="alias" />
                 <p>好名字可以让你的朋友更容易记住你。</p>
             </article>
-        </section>
+        </main>
     </div>
 </template>
 

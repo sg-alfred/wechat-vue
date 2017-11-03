@@ -89,8 +89,12 @@ export const sendMessage = (chatid, message) => axios.post(`/chatrooms/${chatid}
 /**
  * 获取某聊天室的信息
  * @param chatid
+ * @param condition
  */
-export const getMessages = (chatid) => axios.get(`/chatrooms/${chatid}`)
+export const getMessages = (chatid, condition = {}) => {
+    const { limit = 20, sendtimeLt = new Date() } = condition
+    return axios.get(`/chatrooms/${chatid}?limit=${limit}&sendtimeLt=${sendtimeLt}`)
+}
 
 
 /**

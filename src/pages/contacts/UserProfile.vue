@@ -16,7 +16,7 @@
             </section>
         </header-section>
 
-        <section class="profile-container">
+        <main class="profile-container">
 
             <section class="base-info placeholder">
                 <span>
@@ -68,7 +68,7 @@
                     <el-button :plain="true" type="success">加入黑名单</el-button>
                 </div>-->
             </section>
-        </section>
+        </main>
 
         <section v-if="isShowOperate">
             <ul class="operate-section">
@@ -170,6 +170,10 @@
     }
     .userprofile-page {
         @include page();
+    }
+    .profile-container {
+        overflow: auto;
+        height: 100%;
     }
     .head-operate {
         margin: 10px 10px 0;

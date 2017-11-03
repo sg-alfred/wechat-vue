@@ -10,7 +10,7 @@
             </section>
         </header-section>
 
-        <article class="code-article absolute-center">
+        <main class="code-article absolute-center">
             <!-- 可以直接用绝对居中的！ -->
             <section class="code-header">
                 <span>
@@ -38,7 +38,7 @@
             <section class="code-footer">
                 <span>扫码添加我为好友</span>
             </section>
-        </article>
+        </main>
     </div>
 </template>
 

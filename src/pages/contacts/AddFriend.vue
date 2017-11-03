@@ -3,28 +3,31 @@
 
         <header-section :go-back="true" :head-title="headTitle"></header-section>
 
-        <section class="searchFriend-section">
-            <router-link :to="'/search/friend'" >
-                <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
-                    <circle cx="18" cy="18" r="7" stroke="rgb(00,80,00)" stroke-width="1" fill="none"/>
-                    <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(00,80,00);stroke-width:2"/>
-                </svg>
-            </router-link>
-        </section>
+        <main>
+            <section class="searchFriend-section">
+                <router-link :to="'/search/friend'" >
+                    <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <circle cx="18" cy="18" r="7" stroke="rgb(00,80,00)" stroke-width="1" fill="none"/>
+                        <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(00,80,00);stroke-width:2"/>
+                    </svg>
+                </router-link>
+            </section>
 
-        <section class="code-section">
-            <span>我的微信号：{{wechatno}}</span>
-            <img alt="二维码"/>
-        </section>
+            <section class="code-section">
+                <span>我的微信号：{{wechatno}}</span>
+                <img alt="二维码"/>
+            </section>
 
-        <div class="placeholder"></div>
+            <div class="placeholder"></div>
 
-        <section class="menu-section">
-            <menu-item2 v-for="item in itemList"
-                       :key="item.id" :itemInfo="item"
-                       :parent="'addFriend'"
-            ></menu-item2>
-        </section>
+            <section class="menu-section">
+                <menu-item2 v-for="item in itemList"
+                            :key="item.id" :itemInfo="item"
+                            :parent="'addFriend'"
+                ></menu-item2>
+            </section>
+        </main>
+
     </div>
 </template>
 

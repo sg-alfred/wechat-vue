@@ -6,35 +6,38 @@
             </section>
         </header-section>
 
-        <section class="searchFriend-section">
-            <router-link :to="'/search/friend'" >
-                <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
-                    <circle cx="18" cy="18" r="7" stroke="rgb(00,80,00)" stroke-width="1" fill="none"/>
-                    <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(00,80,00);stroke-width:2"/>
-                </svg>
-            </router-link>
-        </section>
+        <main>
+            <section class="searchFriend-section">
+                <router-link :to="'/search/friend'" >
+                    <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <circle cx="18" cy="18" r="7" stroke="rgb(00,80,00)" stroke-width="1" fill="none"/>
+                        <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(00,80,00);stroke-width:2"/>
+                    </svg>
+                </router-link>
+            </section>
 
-        <article class="request-article">
-            <div><label>新的朋友</label></div>
+            <article class="request-article">
+                <div><label>新的朋友</label></div>
 
-            <!-- 组件化！和微信界面一致，头像也是比较大的那个！但是 点击进去 不一样啊，一个用户详情，一个是聊天室 -->
-            <section class="request-section" v-for="(item, id) in newFriendList" :key="id">
+                <!-- 组件化！和微信界面一致，头像也是比较大的那个！但是 点击进去 不一样啊，一个用户详情，一个是聊天室 -->
+                <section class="request-section" v-for="(item, id) in newFriendList" :key="id">
                 <span>
                     <img src="../../assets/logo.png" alt="头像" />
                 </span>
-                <span>
+                    <span>
                     <span>{{item.uid.mobilephone}}</span>
                     <span>{{item.uid.alias}}</span>
                 </span>
-                <span>
+                    <span>
                     <span v-if="item.status === 0">
                         <el-button type="success" @click="handleFriend(item.uid, item._id)">接受</el-button>
                     </span>
                     <span v-else style="white-space: nowrap">已添加</span>
                 </span>
-            </section>
-        </article>
+                </section>
+            </article>
+        </main>
+
     </div>
 </template>
 
