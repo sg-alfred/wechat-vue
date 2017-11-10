@@ -5,7 +5,9 @@
         <div :class="{placeholder: itemInfo.isFirst}"></div>
         <!-- 真正的功能菜单 -->
         <router-link :to="'/' + parent + '/' + itemInfo.type">
-            <span><img :src=itemInfo.imgUrl /></span>
+            <span>
+                <img :src="itemInfo.imgUrl" />
+            </span>
             <span>
                 <span>{{itemInfo.name}}</span>
                 <span>{{itemInfo.subname}}</span>

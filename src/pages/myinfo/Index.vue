@@ -6,18 +6,16 @@
             <section class="base-info">
                 <router-link :to="'/myinfo/profile'">
                     <span>
-                        <img :src="userinfo.headimgurl">
+                        <img :src="userinfo.headimgurl" alt="avatar"/>
                     </span>
                     <div>
-                        <p>
-                            {{ userinfo.alias }}
-                        </p><i></i>
+                        <p>{{ userinfo.alias }}</p>
+                        <i></i>
                         <p v-if="userinfo.wechatno">
                             微信号：{{ userinfo.wechatno }}
                         </p>
                     </div>
                     <span id="code-div" @click="showCode($event)">
-                        <!--<img alt="二维码" >-->
                         <svg class="icon fa-18x" aria-hidden="true">
                             <use xlink:href="#icon-qrcode"></use>
                         </svg>
@@ -29,7 +27,9 @@
             </section>
 
             <section class="menu-section">
-                <menu-item1 v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item1>
+                <menu-item1 v-for="item in itemList" :key="item.id" :itemInfo="item"
+                            :parent="'myinfo'">
+                </menu-item1>
             </section>
         </main>
 

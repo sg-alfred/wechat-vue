@@ -19,7 +19,7 @@
         <span>
             <!-- 连接到 用户详情界面 -->
             <!--<router-link :to=""></router-link>-->
-            <img :src=chatItem.headimgurl />
+            <img :src=chatItem.headimgurl alt="avatar" />
         </span>
         <div>
             <p class="padding-5">

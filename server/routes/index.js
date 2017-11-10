@@ -17,7 +17,7 @@ import chatroom from './chatroom'
 import moment from './moment'
 
 export default app => {
-    app.use('/', tools)
+    app.use('/tools', tools)
     app.use('/users', wxuser)
     app.use('/session', session)        // 用户登录的时候，type 可以使用 刷脸登录！
     app.use('/contacts', contact)

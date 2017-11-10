@@ -1,0 +1,128 @@
+.gopng_icon-shopping_outer {
+height: 42px;
+width: 38px;
+overflow: hidden;
+}
+.gopng_icon-shopping {
+background: url(./sprite.png) -219px -0px no-repeat;
+width: 100%;
+height: 100%;
+_background: none;
+_padding-left: 219px;
+_margin-left: -219px;
+_padding-top: 0px;
+_margin-top: -0px;
+_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="./sprite.png");
+}
+.gopng_icon-games_outer {
+height: 42px;
+width: 42px;
+overflow: hidden;
+}
+.gopng_icon-games {
+background: url(./sprite.png) -257px -0px no-repeat;
+width: 100%;
+height: 100%;
+_background: none;
+_padding-left: 257px;
+_margin-left: -257px;
+_padding-top: 0px;
+_margin-top: -0px;
+_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="./sprite.png");
+}
+.gopng_icon-moments_outer {
+height: 42px;
+width: 42px;
+overflow: hidden;
+}
+.gopng_icon-moments {
+background: url(./sprite.png) -8px -0px no-repeat;
+width: 100%;
+height: 100%;
+_background: none;
+_padding-left: 8px;
+_margin-left: -8px;
+_padding-top: 0px;
+_margin-top: -0px;
+_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="./sprite.png");
+}
+.gopng_icon-topstories_outer {
+height: 42px;
+width: 42px;
+overflow: hidden;
+}
+.gopng_icon-topstories {
+background: url(./sprite.png) -135px -0px no-repeat;
+width: 100%;
+height: 100%;
+_background: none;
+_padding-left: 135px;
+_margin-left: -135px;
+_padding-top: 0px;
+_margin-top: -0px;
+_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="./sprite.png");
+}
+.gopng_icon-nearby_outer {
+height: 42px;
+width: 42px;
+overflow: hidden;
+}
+.gopng_icon-nearby {
+background: url(./sprite.png) -177px -0px no-repeat;
+width: 100%;
+height: 100%;
+_background: none;
+_padding-left: 177px;
+_margin-left: -177px;
+_padding-top: 0px;
+_margin-top: -0px;
+_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="./sprite.png");
+}
+.gopng_icon-miniprograms_outer {
+height: 42px;
+width: 42px;
+overflow: hidden;
+}
+.gopng_icon-miniprograms {
+background: url(./sprite.png) -299px -0px no-repeat;
+width: 100%;
+height: 100%;
+_background: none;
+_padding-left: 299px;
+_margin-left: -299px;
+_padding-top: 0px;
+_margin-top: -0px;
+_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="./sprite.png");
+}
+.gopng_icon-shake_outer {
+height: 42px;
+width: 42px;
+overflow: hidden;
+}
+.gopng_icon-shake {
+background: url(./sprite.png) -93px -0px no-repeat;
+width: 100%;
+height: 100%;
+_background: none;
+_padding-left: 93px;
+_margin-left: -93px;
+_padding-top: 0px;
+_margin-top: -0px;
+_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="./sprite.png");
+}
+.gopng_icon-scancode_outer {
+height: 42px;
+width: 43px;
+overflow: hidden;
+}
+.gopng_icon-scancode {
+background: url(./sprite.png) -50px -0px no-repeat;
+width: 100%;
+height: 100%;
+_background: none;
+_padding-left: 50px;
+_margin-left: -50px;
+_padding-top: 0px;
+_margin-top: -0px;
+_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=crop,src="./sprite.png");
+}

@@ -4,7 +4,7 @@
     <section class="contact-item"
              @click="$emit('get-detail', contactid)">
         <span>
-            <img :src="contact.headimgurl" />
+            <img :src="contact.headimgurl" alt="avatar"/>
         </span>
         <span>{{contact.mobilephone}}</span>
     </section>

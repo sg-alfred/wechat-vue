@@ -19,7 +19,7 @@
                 <router-link :to="'/myinfo/profile/headimg'">
                     <span>头像</span>
                     <span>
-                    <img :src="userinfo.headimgurl" alt="头像"/>
+                    <img :src="userinfo.headimgurl" alt="avatar"/>
                 </span>
                 </router-link>
                 <router-link :to="'/myinfo/profile/face'">

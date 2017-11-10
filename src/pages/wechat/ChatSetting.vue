@@ -7,7 +7,7 @@
 
                 <!-- 必须循环! -->
                 <router-link :to="'/userprofile/' + contctInfo._id">
-                    <img :src="contctInfo.headimgurl" />
+                    <img :src="contctInfo.headimgurl" alt="avatar"/>
                 </router-link>
 
                 <svg class="icon fa-20px" aria-hidden="true">

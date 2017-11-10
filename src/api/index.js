@@ -35,7 +35,7 @@ export const userRegister = (registerInfo) => axios.post('/users', registerInfo)
 /**
  * 生成用户二维码图片！
  */
-export const createQrcode = () => axios.get('/create_qrcode?text=http://chenjz.top')
+export const createQrcode = () => axios.get('/tools/qrcode?text=http://chenjz.top')
 
 // ------------------------------------------------------------
 /**

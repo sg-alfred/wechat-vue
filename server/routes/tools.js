@@ -13,7 +13,7 @@ import baseUtil from '../controller/utils/baseUtil'
 /**
  * 生成二维码
  */
-router.get('/create_qrcode', (req, res) => {
+router.get('/qrcode', (req, res) => {
     let resultObj = {}
 
     const text = req.query.text;
@@ -29,8 +29,6 @@ router.get('/create_qrcode', (req, res) => {
 
         // 如何指定宽高？
         const svg = qr.imageSync(text, { type: 'svg', size: 10 });
-
-        console.log('svg 图片～', svg)
 
         resultObj = {
             code: 0,
@@ -63,6 +61,5 @@ router.post('/upload', function(req, res){
         }
     });
 });
-
 
 export default router

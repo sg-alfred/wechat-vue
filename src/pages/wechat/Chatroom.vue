@@ -12,6 +12,7 @@
 
         <!--<main>-->
             <section id="container" ref="container">
+                <!-- 留一个可以下拉刷新的空间，增强效果，算了，微信也并没有这样的效果 -->
                 <message-item
                         v-for="message in allMessages"
                         :key="message.id"
@@ -110,6 +111,9 @@
             async handleScroll() {
                 const container = this.$el.querySelector('#container');
 
+                // 设置 下拉50 后才触发 刷新，这样体验 会更好。
+//                console.log(container.scrollTop)
+
                 if (this.allMessages.length > 0 && container.scrollTop == 0 && !this.allMessages[0].first ) {
 
                     const sendtimeLt = this.allMessages[0].sendtime
@@ -156,6 +160,6 @@
         height: 100%;
     }
     .fa-12x {
-        font-size: 1.2em;
+        font-size: 1.2rem;
     }
 </style>

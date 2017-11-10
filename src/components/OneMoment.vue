@@ -3,7 +3,7 @@
 <template>
     <section class="moment-item">
         <div>
-            <img src="../assets/logo.png" />
+            <img src="../assets/logo.png" alt="avatar"/>
         </div>
         <div>
             <span>

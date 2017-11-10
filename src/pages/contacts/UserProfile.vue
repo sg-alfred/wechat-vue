@@ -20,7 +20,7 @@
 
             <section class="base-info placeholder">
                 <span>
-                    <img :src="info.headimgurl">
+                    <img :src="info.headimgurl" alt="avatar" />
                 </span>
                 <div class="name-info">
                     <p>{{ info.mobilephone }}</p><i></i>
@@ -46,7 +46,9 @@
                 </span>
                 <span class="item">
                     <span>个人相册</span>
-                    <span class="album"><img src="../../assets/logo.png"></span>
+                    <span class="album">
+                        <img src="../../assets/logo.png" alt="图片～">
+                    </span>
                 </span>
                 <span class="item">
                     <span>更多</span>
@@ -74,8 +76,10 @@
             <ul class="operate-section">
                 <!-- 需要拆开？因为每个操作功能都不一样！！？ -->
                 <li v-for="item in operateList" :key="item.id">
-                    <img :src="item.icon" />
-                    <span class="operate-text">{{item.name}}</span>
+                    <img :src="item.icon" alt="icon"/>
+                    <span class="operate-text">
+                        {{ item.name }}
+                    </span>
                 </li>
             </ul>
         </section>

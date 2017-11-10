@@ -8,7 +8,7 @@
                 <router-link :to="'/contacts/' + navItem.type"
                              v-for="navItem in navList" :key="navItem.id">
                     <span><img :src=navItem.imgurl /></span>
-                    <span>{{navItem.name}}</span>
+                    <span>{{ navItem.name }}</span>
                 </router-link>
             </nav>
 

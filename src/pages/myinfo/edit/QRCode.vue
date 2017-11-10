@@ -14,7 +14,7 @@
             <!-- 可以直接用绝对居中的！ -->
             <section class="code-header">
                 <span>
-                    <img src="../../../assets/logo.png">
+                    <img :src="userinfo.headimgurl" alt="avatar"/>
                 </span>
                 <div>
                     <p>{{userinfo.remark}}</p><i></i>

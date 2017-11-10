@@ -22,7 +22,7 @@
                 <!-- 组件化！和微信界面一致，头像也是比较大的那个！但是 点击进去 不一样啊，一个用户详情，一个是聊天室 -->
                 <section class="request-section" v-for="(item, id) in newFriendList" :key="id">
                 <span>
-                    <img src="../../assets/logo.png" alt="头像" />
+                    <img src="../../assets/logo.png" alt="avatar" />
                 </span>
                     <span>
                     <span>{{item.uid.mobilephone}}</span>

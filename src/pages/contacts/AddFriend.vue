@@ -15,7 +15,9 @@
 
             <section class="code-section">
                 <span>我的微信号：{{wechatno}}</span>
-                <img alt="二维码"/>
+                <svg class="icon fa-12x" aria-hidden="true">
+                    <use xlink:href="#icon-qrcode"></use>
+                </svg>
             </section>
 
             <div class="placeholder"></div>
@@ -103,5 +105,9 @@
     }
     .menu-section {
         background-color: #ffffff;
+    }
+    .fa-12x {
+        font-size: 1.2rem;
+        color: #000000;
     }
 </style>
