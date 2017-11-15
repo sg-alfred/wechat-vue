@@ -1,6 +1,6 @@
 <!-- 聊天室，一对一或者群聊 -->
 <template>
-    <div class="chatroom-page">
+    <div class="chatroom-page" :class="{'show-panel': isShowPanel}">
         <header-section :go-back="true" :head-title="headTitle">
             <router-link :to="'/chatrooms/' + contactid + '/chatsetting'" slot="specialIcon" class="head-usericon right">
                 <svg class="icon" aria-hidden="true">
@@ -21,7 +21,7 @@
                 </message-item>
             </section>
 
-            <message-send
+            <message-send @show="showPanel"
                     :chatid="chatid">
             </message-send>
         <!--</main>-->
@@ -52,7 +52,8 @@
                 headTitle: 'A ChatRoom',
                 contactid: '',
                 chatid: '',
-                currentHeight: 0
+                currentHeight: 0,
+                isShowPanel: false
             }
         },
         computed: {
@@ -135,6 +136,13 @@
                     // 后端是 递减排序，前端改为 递增后再存入 vuex
                     await this.syncMessages(messages)
                 }
+            },
+            showPanel(isShowPanel = false) {
+                this.isShowPanel = isShowPanel
+
+                // 滚动到最低处
+                const container = this.$el.querySelector('#container');
+                container.scrollTop = container.scrollHeight
             }
         },
         watch: {
@@ -152,12 +160,15 @@
     }
     .chatroom-page {
         @include page();
+        /* 也需要修改了～～ */
         padding-bottom: 60px;
+    }
+    .show-panel {
+        padding-bottom: 300px;
     }
     #container {
         overflow: auto;
-        /*width: 100%;*/
-        height: 100%;
+        flex: 1;
     }
     .fa-12x {
         font-size: 1.2rem;

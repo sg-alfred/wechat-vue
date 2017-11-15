@@ -56,9 +56,9 @@
                 })
 
                 // 处理获取到的消息！！
-                socket.on('send.msg', (msg) => {
-                    console.log('app 新消息', msg)
-                    this.addMessage(msg)
+                socket.on('send.msg', (msgObj) => {
+                    console.log('app 新消息', msgObj)
+                    this.addMessage(msgObj)
                 })
             }
         }

@@ -223,9 +223,9 @@
                 })
 
                 // 处理获取到的消息！！
-                socket.on('send.msg', (msg) => {
-                    console.log('login 新信息：', msg)
-                    this.addMessage(msg)
+                socket.on('send.msg', (msgObj) => {
+                    console.log('login 新信息：', msgObj)
+                    this.addMessage(msgObj)
                 })
             }
         }
