@@ -7,14 +7,20 @@
 
         <!-- 真正的功能菜单 -->
         <router-link :to="'/' + parent + '/' + itemInfo.type">
-            <span>
-                <img :src="itemInfo.imgUrl" />
+
+            <!-- 加载 sprite 图片 -->
+            <div class="gopng_icon"
+                 :class="['gopng_' + itemInfo.icon + '_outer', 'gopng_' + itemInfo.icon]"
+            >
+                <!-- 加载一张张图片，占用请求 -->
+                <!--<img :src="itemInfo.imgUrl" />-->
 
                 <!-- 换成 阿里矢量图的？ -->
                 <!--<svg class="icon fa-12x" aria-hidden="true">
                     <use xlink:href="'#' + itemInfo.imgUrl"></use>
                 </svg>-->
-            </span>
+            </div>
+
             <span>{{ itemInfo.name }}</span>
         </router-link>
 
@@ -53,27 +59,24 @@
         background-color: #e8e8e8;
         z-index: 50;
     }
-    img {
-        width: 20px;
+    .gopng_icon {
+        height: 42px;
+        width: 42px;
+        background-size: cover;
+        transform: scale(0.5);
     }
     .item-section a {
         margin: 0 10px;
-        padding: 15px;
+        padding: 8px;
         display: flex;
         justify-content: center;
         align-items: center;
         border-bottom: 1px solid #e8e8e8;
         text-align: left;
         span {
-            margin: 0 20px 0 0;
-            flex: 0 1 0;
-        }
-        span:nth-child(2) {
+            margin: 0 0 0 10px;
+            /*flex: 0 1 0;*/
             flex-grow: 1;
         }
-    }
-    .fa-12x {
-        font-size: 1.2rem;
-        color: #000000;
     }
 </style>
