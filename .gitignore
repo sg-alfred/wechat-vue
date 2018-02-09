@@ -1,4 +1,6 @@
 .idea/
 .DS_Store/
 node_modules/
+app/
 dist/
+package-lock.json

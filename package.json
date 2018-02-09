@@ -10,7 +10,9 @@
     "start": "babel-node build/dev-server.js",
     "build": "babel-node build/build.js",
     "electron": "electron .",
-    "electron:mos": "babel-node build/build.js && electron-package ..."
+    "package:osx": "electron-packager . Dva-Electron --platform=darwin --arch=x64 --out=./app --version=0.0.1",
+    "package:win": "electron-packager . Dva-Electron --platform=win32",
+    "package:linux": "electron-packager . Dva-Electron --platform=linux"
   },
   "repository": {
     "type": "git",
@@ -48,6 +50,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.5",
     "electron": "^1.8.2",
+    "electron-packager": "^11.0.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.14.1",
     "express-session": "^1.15.4",

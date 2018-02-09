@@ -39,9 +39,6 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     * [X] 结合百度AI做人脸登录
     * [ ] redis 队列做数据推送？
 
-啥都想干，啥都没有干！！到底要干嘛？？
-好吧！先做 人脸登录！不要分散，什么鬼啊！
-
 
 ## License
 [MIT](http://opensource.org/licenses/MIT)
