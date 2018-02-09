@@ -20,17 +20,17 @@ function createWindow () {
 
   // and load the index.html of the app.
   // 先 build，而后 package..
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'dist/index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
+  // mainWindow.loadURL(url.format({
+  //   pathname: path.join(__dirname, 'dist/index.html'),
+  //   protocol: 'file:',
+  //   slashes: true
+  // }))
 
   // 先启动应用，然后监听本地的端口 也可以！！
   // 但是，怎么打包？
   // 1、开着端口进行打包；
   // 2、npm run build，就有了 dist/index.html。
-  // mainWindow.loadURL('http://localhost:8080')
+  mainWindow.loadURL('http://localhost:8080')
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
