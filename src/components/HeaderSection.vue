@@ -137,7 +137,7 @@ export default {
         async logout() {
             try {
                 // 断开 socket 连接，这样相当于 又设置了一个 socket!!
-//                const socket = io.connect('http://localhost:8080')
+//                const socket = io.connect('http://localhost:8081')
 //                socket.emit('disconnect', this.userinfo.id)
 
                 this.socket.close()

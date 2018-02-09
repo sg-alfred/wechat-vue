@@ -1,14 +1,16 @@
-require('./check-versions')()
+import checkVersion from './check-versions'
 
 process.env.NODE_ENV = 'production'
 
-var ora = require('ora')
-var rm = require('rimraf')
-var path = require('path')
-var chalk = require('chalk')
-var webpack = require('webpack')
-var config = require('../config')
-var webpackConfig = require('./webpack.prod.conf')
+import ora from 'ora'
+import rm from 'rimraf'
+import path from 'path'
+import chalk from 'chalk'
+import webpack from 'webpack'
+import config from '../config'
+import webpackConfig from './webpack.prod.conf'
+
+checkVersion()
 
 var spinner = ora('building for production...')
 spinner.start()

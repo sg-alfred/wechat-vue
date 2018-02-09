@@ -36,6 +36,13 @@ import Wallet from '@/pages/myinfo/Wallet'
 
 Vue.use(Router)
 
+// 这个就是源码，你知道为什么要这样写！而不是其他的！ts 的语法确实挺酷炫的！
+
+// new Router({...RouterOptions}),
+
+// RouterOptions 可以有 mode / routers 等参数
+// 而，router 里面的格式呢？也要约定！因此里面还需要有  RouteConfig，定义每个对象可以设置的值：path / name / component / components / alias / children / beforeEnter 等等。。
+
 const router =  new Router({
     // 先使用默认的 hash 模式～
     // mode: 'history',
@@ -122,5 +129,8 @@ const router =  new Router({
         }]
     }]
 })
+
+//
+// router.addRoutes()
 
 export default router

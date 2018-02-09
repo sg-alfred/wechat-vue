@@ -24,9 +24,7 @@ let appResponse = (response, resultObj) => {
  * ---------------------------------------------
  * @param mobile
  */
-let mobileValidate = (mobile) => {
-    return mobile.test(/^\d{11}$/)
-}
+let mobileValidate = (mobile) => mobile.test(/^\d{11}$/)
 
 
 /**

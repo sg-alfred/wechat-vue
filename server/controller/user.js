@@ -28,7 +28,7 @@ class User {
         // 基本信息，不包含敏感信息
         this.baseinfo = 'headimgurl mobilephone alias gender age'
 
-        // 原来是这样用的！！
+        // 原来是这样！this默认指向类的实例！单独使用该方法，就可能报错。http://es6.ruanyifeng.com/#docs/class
         this.login = this.login.bind(this)
         this.updateUser = this.updateUser.bind(this)
 

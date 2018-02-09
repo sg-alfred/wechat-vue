@@ -11,9 +11,9 @@ let routerMode = 'history';
 let baseImgPath = '';
 
 if (process.env.NODE_ENV == 'development') {
-    baseUrl = '';
-} else {
-    baseUrl = 'http://cangdu.org:8001';
+    baseUrl = 'http://localhost:8081';
+} else if (process.env.NODE_ENV == 'production') {
+    baseUrl = 'http://chenjz.top/api';
 }
 
 export {

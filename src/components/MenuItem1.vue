@@ -10,7 +10,7 @@
 
             <!-- 加载 sprite 图片 -->
             <div class="gopng_icon"
-                 :class="['gopng_' + itemInfo.icon + '_outer', 'gopng_' + itemInfo.icon]"
+                 :class="['gopng_' + itemInfo.type + '_outer', 'gopng_' + itemInfo.type]"
             >
                 <!-- 加载一张张图片，占用请求 -->
                 <!--<img :src="itemInfo.imgUrl" />-->

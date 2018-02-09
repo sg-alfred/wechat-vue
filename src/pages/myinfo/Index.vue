@@ -68,41 +68,29 @@
                     isFirst: true,
                     type: 'wallet',
                     name: '钱包',
-                    icon: 'icon-wallet',
-                    imgUrl: 'static/image/myinfo/icon-wallet.png'
                 }, {
                     id: 1,
                     isFirst: true,
                     type: 'favorite',
                     name: '收藏',
-                    icon: 'icon-favorite',
-                    imgUrl: 'static/image/myinfo/icon-favorite.png'
                 }, {
                     id: 2,
                     type: 'album',
                     name: '相册',
-                    icon: 'icon-album',
-                    imgUrl: 'static/image/myinfo/icon-album.png'
                 }, {
                     id: 3,
                     type: 'cards',
                     name: '卡包',
-                    icon: 'icon-cards',
-                    imgUrl: 'static/image/myinfo/icon-cards.png'
                 }, {
                     id: 4,
                     type: 'sticker',
                     name: '表情',
-                    icon: 'icon-sticker',
-                    imgUrl: 'static/image/myinfo/icon-sticker.png'
                 }, {
                     id: 5,
                     isFirst: true,
                     isEnd: true,
                     type: 'setting',
                     name: '设置',
-                    icon: 'icon-setting',
-                    imgUrl: 'static/image/myinfo/icon-setting.png'
                 }]
             }
         },

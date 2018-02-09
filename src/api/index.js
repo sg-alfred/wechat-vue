@@ -6,8 +6,12 @@
 'use strict'
 
 import axios from 'axios'
+import { baseUrl } from './env'
 
-// 来一个中间件！！
+axios.defaults.baseURL = baseUrl;
+axios.defaults.withCredentials = true;    // 设置请求时需要使用凭证(带cookie)
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 /**
  * 检测是否登录, 获取会话信息

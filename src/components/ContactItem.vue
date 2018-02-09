@@ -6,7 +6,7 @@
         <span>
             <img :src="contact.headimgurl" alt="avatar"/>
         </span>
-        <span>{{contact.mobilephone}}</span>
+        <span>{{ contact.mobilephone }}</span>
     </section>
 </template>
 
