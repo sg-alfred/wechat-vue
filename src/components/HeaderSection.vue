@@ -97,88 +97,85 @@ import { userLogout } from '../api'
 import { localStorage } from '../util'
 
 export default {
-    name: 'HeaderSection',
-    props: ['headTitle', 'goBack', 'hasDropdown', 'searchType'],
-    data() {
-        return {
-            messages: 0,
-            iconDivStyle: {
-                display: 'inline',
-                'padding-right': '10px'
-            }
-        }
-    },
-    computed: {
-        ...mapState([
-            'isLogin',
-            'userinfo',
-            'socket'
-        ]),
-        // 计算未读消息，还是得用 store～
-        totalMessages: () => parseInt(Math.random() * 10)
-    },
-    created() {     // 不能是 beforeCreate ? 为什么？这时候是 连数据都还没有初始化吗？
-        // 是的，beforeCreate 之后才监听 data，初始化 内部事件。如此，才到了 created！！
-        // 放心，created 完了之后 才会 渲染模板 ……
-        if (!this.isLogin) {
-            console.log('HeaderSection 跳转到 login 界面')
-            this.$router.push('/login');
-        }
-    },
-    methods: {
-        ...mapActions(['changeLoginInfo']),
-        handleCommand(command) {
-            if ('logout' == command) {
-                this.logout();
-            } else {
-                this.$router.push('/' + command);
-            }
-        },
-        async logout() {
-            try {
-                // 断开 socket 连接，这样相当于 又设置了一个 socket!!
-//                const socket = io.connect('http://localhost:8081')
-//                socket.emit('disconnect', this.userinfo.id)
-
-                this.socket.close()
-
-                // 这样的话，需要 userLogout 是个异步函数
-                let response = await userLogout();      // 更不能直接处理到 data ?
-                let result = response.data;
-
-                if (!result.code) {
-                    this.$message(result.message)
-
-                    localStorage('userinfo', null);
-                    await this.changeLoginInfo(false);
-
-                    console.log('退出登录 跳转到 login 界面')
-                    this.$router.push('/login');
-                }
-            } catch (err) {
-                console.log('退出出错了！', err.message)
-            }
-
-            /*this.$http.get('/user/logout').then((response) => {
-                let result = response.data
-                if (!result.code) {
-                    this.$message(result.message)
-
-                    localStorage('userinfo', null);
-                    this.changeLoginInfo(false);
-
-                    this.$router.push('/login');
-                }
-            })*/
-        }
-    },
-    watch: {
-        // 这个应该是要如何监控，本来是 监听 socket d的～
-        totalMessages: (newvalue, oldvalue) => {
-            console.log(newvalue);
-            return this.messages = newvalue;
-        }
+  name: 'HeaderSection',
+  props: ['headTitle', 'goBack', 'hasDropdown', 'searchType'],
+  data() {
+    return {
+      messages: 0,
+      iconDivStyle: {
+        display: 'inline',
+        'padding-right': '10px'
+      }
     }
+  },
+  computed: {
+    ...mapState([
+      'isLogin',
+      'userinfo',
+      'socket'
+    ]),
+    // 计算未读消息，还是得用 store～
+    totalMessages: () => parseInt(Math.random() * 10)
+  },
+  created() { // 不能是 beforeCreate ? 为什么？这时候是 连数据都还没有初始化吗？
+    // 是的，beforeCreate 之后才监听 data，初始化 内部事件。如此，才到了 created！！
+    // 放心，created 完了之后 才会 渲染模板 ……
+    if (!this.isLogin) {
+      console.log('HeaderSection 跳转到 login 界面')
+      this.$router.push('/login')
+    }
+  },
+  methods: {
+    ...mapActions(['changeLoginInfo']),
+    handleCommand(command) {
+      if (command === 'logout') {
+        this.logout()
+      } else {
+        this.$router.push('/' + command)
+      }
+    },
+    async logout() {
+      try {
+        // 断开 socket 连接，这样相当于 又设置了一个 socket!!
+        //                const socket = io.connect('http://localhost:8081')
+        //                socket.emit('disconnect', this.userinfo.id)
+
+        this.socket.close()
+
+        // 这样的话，需要 userLogout 是个异步函数
+        let response = await userLogout() // 更不能直接处理到 data ?
+        let result = response.data
+
+        if (!result.code) {
+          this.$message(result.message)
+
+          localStorage('userinfo', null)
+          await this.changeLoginInfo(false)
+
+          console.log('退出登录 跳转到 login 界面')
+          this.$router.push('/login')
+        }
+      } catch (err) {
+        console.log('退出出错了！', err.message)
+      }
+
+      /* this.$http.get('/user/logout').then((response) => {
+            let result = response.data
+            if (!result.code) {
+                this.$message(result.message)
+
+                localStorage('userinfo', null);
+                this.changeLoginInfo(false);
+
+                this.$router.push('/login');
+            }
+        }) */
+    }
+  },
+  watch: {
+    // 这个应该是要如何监控，本来是 监听 socket d的～
+    totalMessages: (newvalue, oldvalue) => this.messages = newvalue
+  }
 }
 </script>
 

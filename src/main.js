@@ -15,9 +15,9 @@ Vue.filter('formatTime', timestamp => new Date(timestamp).toLocaleString())
 
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
-    router,
-    store,
-    template: '<App/>',
-    components: { App }
+  el: '#app',
+  router,
+  store,
+  template: '<App/>',
+  components: { App }
 })

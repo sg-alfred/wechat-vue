@@ -12,18 +12,18 @@ import mutations from './mutations'
 Vue.use(Vuex)
 
 const state = {
-    isLogin: false,
-    // userid: '',
-    userinfo: {
-        /*
+  isLogin: false,
+  // userid: '',
+  userinfo: {
+    /*
         id: '',
         username: ''
         */
-    },
-    socket: null,
-    currentContactID: null,
-    contacts: {     // 通讯录 -> 聊天室
-        /*
+  },
+  socket: null,
+  currentContactID: null,
+  contacts: { // 通讯录 -> 聊天室
+    /*
         id: {
             id,
             alias,
@@ -36,12 +36,12 @@ const state = {
             lastMessage
         }
         */
-    }
+  }
 }
 
 export default new Vuex.Store({
-    state,
-    mutations,
-    getters,
-    actions
+  state,
+  mutations,
+  getters,
+  actions
 })

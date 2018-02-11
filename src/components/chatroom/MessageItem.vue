@@ -30,24 +30,24 @@
     import { mapState, mapGetters } from 'vuex'
 
     export default {
-        name: 'MessageItem',
-        props: {
-            contact: {
-                type: Object
-            },
-            message: {
-                type: Object
-            }
+      name: 'MessageItem',
+      props: {
+        contact: {
+          type: Object
         },
-        computed: {
-            // 展开运算符
-            ...mapState([
-                'userinfo'
-            ]),
-            ...mapGetters({
-                userid: 'getUserid'
-            })
+        message: {
+          type: Object
         }
+      },
+      computed: {
+        // 展开运算符
+        ...mapState([
+          'userinfo'
+        ]),
+        ...mapGetters({
+          userid: 'getUserid'
+        })
+      }
     }
 </script>
 

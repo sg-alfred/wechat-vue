@@ -25,20 +25,20 @@
 <script>
     import HeaderSection from '../../components/HeaderSection'
     export default {
-        name: 'Wallet',
-        components: {
-            HeaderSection
-        },
-        data() {
-            return {
-                headTitle: '钱包'
-            }
-        },
-        methods: {
-            showOperate() {
-
-            }
+      name: 'Wallet',
+      components: {
+        HeaderSection
+      },
+      data() {
+        return {
+          headTitle: '钱包'
         }
+      },
+      methods: {
+        showOperate() {
+
+        }
+      }
     }
 </script>
 

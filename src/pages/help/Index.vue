@@ -28,36 +28,36 @@
     import HeaderSection from '../../components/HeaderSection'
 
     export default {
-        name: 'Help',
-        components: {
-            HeaderSection
-        },
-        data() {
-            return {
-                headTitle: '帮助与反馈',
-                subMenus: [{
-                    id: 0,
-                    type: 'all',
-                    name: '全部问题',
-                    icon: 'fa-list-ul'
-                }, {
-                    id: 1,
-                    type: 'quick',
-                    name: '快捷帮助',
-                    icon: 'fa-map-o'
-                }, {
-                    id: 2,
-                    type: 'feedback',
-                    name: '意见反馈',
-                    icon: 'fa-pencil-square-o'
-                }]
-            }
-        },
-        methods: {
-            handleIconClick(ev) {
-                console.log(ev);
-            }
+      name: 'Help',
+      components: {
+        HeaderSection
+      },
+      data() {
+        return {
+          headTitle: '帮助与反馈',
+          subMenus: [{
+            id: 0,
+            type: 'all',
+            name: '全部问题',
+            icon: 'fa-list-ul'
+          }, {
+            id: 1,
+            type: 'quick',
+            name: '快捷帮助',
+            icon: 'fa-map-o'
+          }, {
+            id: 2,
+            type: 'feedback',
+            name: '意见反馈',
+            icon: 'fa-pencil-square-o'
+          }]
         }
+      },
+      methods: {
+        handleIconClick(ev) {
+          console.log(ev)
+        }
+      }
     }
 </script>
 

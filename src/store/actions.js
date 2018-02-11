@@ -3,7 +3,7 @@
  */
 'use strict'
 
-import { localStorage, kindOf } from '../util'
+import { localStorage } from '../util'
 import { checkLogin, getContacts } from '../api'
 import * as types from './mutation-types'
 
@@ -15,24 +15,23 @@ import * as types from './mutation-types'
  * @param isLogin
  */
 export const changeLoginInfo = async ({ commit }, isLogin = null) => {
-    let userinfo = null
-    // 这个时候请求后台合适吗？就是 应该这个时候！！
-    // 检查 session 是否失效
-    const response = await checkLogin()
+  let userinfo = null
+  // 这个时候请求后台合适吗？就是 应该这个时候！！
+  // 检查 session 是否失效
+  const response = await checkLogin()
 
-    if (false === response.data.message) {
-        localStorage('userinfo', null)
-    } else {
-        const localUserinfo = localStorage('userinfo')
-        if (isLogin !== false && !!localUserinfo) {
-            userinfo = JSON.parse(localUserinfo)
-        }
+  if (response.data.message === false) {
+    localStorage('userinfo', null)
+  } else {
+    const localUserinfo = localStorage('userinfo')
+    if (isLogin !== false && !!localUserinfo) {
+      userinfo = JSON.parse(localUserinfo)
     }
-    // console.log('登录～～', response.data.message, isLogin, userinfo)
+  }
+  // console.log('登录～～', response.data.message, isLogin, userinfo)
 
-    commit(types.CHANGE_LOGININFO, userinfo);
+  commit(types.CHANGE_LOGININFO, userinfo)
 }
-
 
 /**
  * 保存 socket 信息到 vuex
@@ -42,7 +41,7 @@ export const changeLoginInfo = async ({ commit }, isLogin = null) => {
  * @returns {Promise.<void>}
  */
 export const initSocket = async ({ commit }, socket) => {
-    commit(types.INIT_SOCKET, socket)
+  commit(types.INIT_SOCKET, socket)
 }
 
 /**
@@ -54,9 +53,8 @@ export const initSocket = async ({ commit }, socket) => {
  * @returns {Promise.<void>}
  */
 export const storeSearchUser = async ({ commit }, userinfo) => {
-    commit(types.SEARCH_STRANGERS, userinfo)
+  commit(types.SEARCH_STRANGERS, userinfo)
 }
-
 
 /**
  * 初始化通讯录！这个可以有！
@@ -67,10 +65,9 @@ export const storeSearchUser = async ({ commit }, userinfo) => {
  * @returns {Promise.<void>}
  */
 export const initContacts = async ({ commit }, payload) => {
-    const response = await getContacts();
-    commit(types.ALL_CONTACTS, response.data.data)
+  const response = await getContacts()
+  commit(types.ALL_CONTACTS, response.data.data)
 }
-
 
 /**
  * 更新 某个contact
@@ -80,9 +77,8 @@ export const initContacts = async ({ commit }, payload) => {
  * @returns {Promise.<void>}
  */
 export const updateContact = async ({ commit }, updateParams) => {
-    commit(types.UPDATE_CONTACT, updateParams)
+  commit(types.UPDATE_CONTACT, updateParams)
 }
-
 
 /**
  * 切换到新的聊天室
@@ -91,12 +87,10 @@ export const updateContact = async ({ commit }, updateParams) => {
  * @param contactid
  */
 export const switchChatroom = ({ commit }, contactid) => {
+  console.log('设置当前聊天室id-00-', contactid)
 
-    console.log('设置当前聊天室id-00-', contactid)
-
-    commit(types.SWITCH_CHATROOM, { contactid })
+  commit(types.SWITCH_CHATROOM, { contactid })
 }
-
 
 /**
  * 初始化所有聊天记录，没有必要，耗时可能较长
@@ -106,9 +100,8 @@ export const switchChatroom = ({ commit }, contactid) => {
  * @param messages
  */
 export const syncMessages = ({ commit }, messages) => {
-    commit(types.RECEIVE_ALL, { messages })
+  commit(types.RECEIVE_ALL, { messages })
 }
-
 
 /**
  * 逐条增加信息，
@@ -118,5 +111,5 @@ export const syncMessages = ({ commit }, messages) => {
  * @param message
  */
 export const addMessage = ({ commit }, message) => {
-    commit(types.ADD_MESSAGE, { message })
+  commit(types.ADD_MESSAGE, { message })
 }

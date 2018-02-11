@@ -12,14 +12,14 @@
 
 <script>
     export default {
-        name: 'ContactItem',
-        props: {
-            contactid: String,
-            contact: {
-                type: Object,
-                required: true
-            }
+      name: 'ContactItem',
+      props: {
+        contactid: String,
+        contact: {
+          type: Object,
+          required: true
         }
+      }
     }
 </script>
 

@@ -1,5 +1,9 @@
 # wechat-vue
 
+
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+
 > 基于 Vue 模仿微信App，实现部分微信功能。
 
 ## Build Setup

@@ -71,7 +71,7 @@ app.use(devMiddleware)
 // compilation error display
 app.use(hotMiddleware)
 
-app.use(logger('dev'));
+app.use(logger('dev'))
 
 // serve pure static assets
 let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
@@ -98,7 +98,7 @@ devMiddleware.waitUntilValid(() => {
 })
 
 app.listen(port, () => {
-  console.log("Express server listening on port " + port);
+  console.log('Express server listening on port ' + port)
 })
 
 export default {

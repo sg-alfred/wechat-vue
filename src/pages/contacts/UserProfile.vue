@@ -96,69 +96,69 @@
     import HeaderSection from '../../components/HeaderSection'
 
     export default {
-        name: 'UserProfile',
-        data() {
-            return {
-                headTitle: '详细资料',
-                isFriend: false,
-                contactid: '',
-                info: {
-                    /*:
-                     id: 0,
-                     wechatno: 'sgchenjz',
-                     nickname: '钻',
-                     remark: 'hehe',
-                     gender: '男',
-                     country: '中国',
-                     headimgurl: '',
-                     tags: ''
-                    */
-                },
-                isShowOperate: false,
-                operateList: []
-            }
-        },
-        components: {
-            HeaderSection
-        },
-        computed: {
-            ...mapState(['contacts'])
-        },
-        beforeMount() {
-            // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
-            // 但是 create之前，根本还没有获取 data!! —— 可以改成 created
-
-            this.contactid = this.$route.params.contactid
-
-//            let info = this.contacts[this.contactid]
-//            if (!info) {
-//                info = this.initFuserinfo();        // 这个进程并不会 被阻塞！！
-//            }
-//            this.info = info;   // 首先执行！因此，第一次还是 空的！
-
-            this.isFriend = !!this.contacts[this.contactid]
-
-            this.info = this.isFriend ? this.contacts[this.contactid] : JSON.parse(localStorage(this.contactid));
-        },
-        methods: {
-            ...mapActions(['updateContact']),
-            async initFuserinfo() {
-                // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
-//                const response = await getFuserinfo()
-//                this.fuserinfo = response.data
-            },
-            async showOperate() {
-                this.isShowOperate = true;
-                const response = await getUserOperate();
-                this.operateList = response.data.operateList;
-            },
-            async hideOperate() {
-                this.isShowOperate = false
-            },
-            goto(path) {
-                this.$router.push(path)
-            }
+      name: 'UserProfile',
+      data() {
+        return {
+          headTitle: '详细资料',
+          isFriend: false,
+          contactid: '',
+          info: {
+            /*:
+             id: 0,
+             wechatno: 'sgchenjz',
+             nickname: '钻',
+             remark: 'hehe',
+             gender: '男',
+             country: '中国',
+             headimgurl: '',
+             tags: ''
+            */
+          },
+          isShowOperate: false,
+          operateList: []
         }
+      },
+      components: {
+        HeaderSection
+      },
+      computed: {
+        ...mapState(['contacts'])
+      },
+      beforeMount() {
+        // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
+        // 但是 create之前，根本还没有获取 data!! —— 可以改成 created
+
+        this.contactid = this.$route.params.contactid
+
+        // let info = this.contacts[this.contactid]
+        // if (!info) {
+        //    info = this.initFuserinfo();        // 这个进程并不会 被阻塞！！
+        // }
+        // this.info = info;   // 首先执行！因此，第一次还是 空的！
+
+        this.isFriend = !!this.contacts[this.contactid]
+
+        this.info = this.isFriend ? this.contacts[this.contactid] : JSON.parse(localStorage(this.contactid))
+      },
+      methods: {
+        ...mapActions(['updateContact']),
+        async initFuserinfo() {
+          // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
+          //  const response = await getFuserinfo()
+          //  this.fuserinfo = response.data
+        },
+        async showOperate() {
+          this.isShowOperate = true
+          const response = await getUserOperate()
+          this.operateList = response.data.operateList
+        },
+        async hideOperate() {
+          this.isShowOperate = false
+        },
+        goto(path) {
+          this.$router.push(path)
+        }
+      }
     }
 </script>
 

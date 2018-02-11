@@ -1,8 +1,8 @@
 // 安装 deep-clone 时的依赖！ 获取 真实的数据类型
 
-'use strict';
+'use strict'
 
-const toString = Object.prototype.toString;
+const toString = Object.prototype.toString
 
 /**
  * Get the native `typeof` a value.
@@ -12,136 +12,135 @@ const toString = Object.prototype.toString;
  */
 
 const kindOf = (val) => {
-
-  let type = typeof val;
+  let type = typeof val
 
   // primitivies
   if (type === 'undefined') {
-    return 'undefined';
+    return 'undefined'
   }
   if (val === null) {
-    return 'null';
+    return 'null'
   }
   if (val === true || val === false || val instanceof Boolean) {
-    return 'boolean';
+    return 'boolean'
   }
   if (type === 'string' || val instanceof String) {
-    return 'string';
+    return 'string'
   }
   if (type === 'number' || val instanceof Number) {
-    return 'number';
+    return 'number'
   }
 
   // functions
   if (type === 'function' || val instanceof Function) {
     if (typeof val.constructor.name !== 'undefined' && val.constructor.name.slice(0, 9) === 'Generator') {
-      return 'generatorfunction';
+      return 'generatorfunction'
     }
-    return 'function';
+    return 'function'
   }
 
   // array, 没有做 Polyfill
   if (typeof Array.isArray !== 'undefined' && Array.isArray(val)) {
-    return 'array';
+    return 'array'
   }
 
   // check for instances of RegExp and Date before calling `toString`
   if (val instanceof RegExp) {
-    return 'regexp';
+    return 'regexp'
   }
   if (val instanceof Date) {
-    return 'date';
+    return 'date'
   }
 
   // other objects
-  type = toString.call(val);
+  type = toString.call(val)
 
   if (type === '[object RegExp]') {
-    return 'regexp';
+    return 'regexp'
   }
   if (type === '[object Date]') {
-    return 'date';
+    return 'date'
   }
   if (type === '[object Arguments]') {
-    return 'arguments';
+    return 'arguments'
   }
   if (type === '[object Error]') {
-    return 'error';
+    return 'error'
   }
   if (type === '[object Promise]') {
-    return 'promise';
+    return 'promise'
   }
 
   // buffer
   if (isBuffer(val)) {
-    return 'buffer';
+    return 'buffer'
   }
 
   // es6: Map, WeakMap, Set, WeakSet
   if (type === '[object Set]') {
-    return 'set';
+    return 'set'
   }
   if (type === '[object WeakSet]') {
-    return 'weakset';
+    return 'weakset'
   }
   if (type === '[object Map]') {
-    return 'map';
+    return 'map'
   }
   if (type === '[object WeakMap]') {
-    return 'weakmap';
+    return 'weakmap'
   }
   if (type === '[object Symbol]') {
-    return 'symbol';
+    return 'symbol'
   }
   if (type === '[object Map Iterator]') {
-    return 'mapiterator';
+    return 'mapiterator'
   }
   if (type === '[object Set Iterator]') {
-    return 'setiterator';
+    return 'setiterator'
   }
 
   // typed arrays
   if (type === '[object Int8Array]') {
-    return 'int8array';
+    return 'int8array'
   }
   if (type === '[object Uint8Array]') {
-    return 'uint8array';
+    return 'uint8array'
   }
   if (type === '[object Uint8ClampedArray]') {
-    return 'uint8clampedarray';
+    return 'uint8clampedarray'
   }
   if (type === '[object Int16Array]') {
-    return 'int16array';
+    return 'int16array'
   }
   if (type === '[object Uint16Array]') {
-    return 'uint16array';
+    return 'uint16array'
   }
   if (type === '[object Int32Array]') {
-    return 'int32array';
+    return 'int32array'
   }
   if (type === '[object Uint32Array]') {
-    return 'uint32array';
+    return 'uint32array'
   }
   if (type === '[object Float32Array]') {
-    return 'float32array';
+    return 'float32array'
   }
   if (type === '[object Float64Array]') {
-    return 'float64array';
+    return 'float64array'
   }
 
   // must be a plain object
-  return 'object';
-};
+  return 'object'
+}
 
 /**
  * If you need to support Safari 5-7 (8-10 yr-old browser),
  * take a look at https://github.com/feross/is-buffer
  */
 
-function isBuffer(val) {
-  return val.constructor
-    && typeof val.constructor.isBuffer === 'function'
-    && val.constructor.isBuffer(val);
+function isBuffer (val) {
+  return val.constructor &&
+    typeof val.constructor.isBuffer === 'function' &&
+    val.constructor.isBuffer(val)
 }
 
-export default kindOf;
+export default kindOf

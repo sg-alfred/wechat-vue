@@ -9,6 +9,7 @@
     "dev": "babel-node build/dev-server.js",
     "start": "babel-node build/dev-server.js",
     "build": "babel-node build/build.js",
+    "eslint": "eslint --ext .js,.vue src",
     "electron": "electron .",
     "package:osx": "electron-packager . Dva-Electron --platform=darwin --arch=x64 --out=./app --version=0.0.1",
     "package:win": "electron-packager . Dva-Electron --platform=win32",
@@ -17,6 +18,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sgAlfred/wechat-vue"
+  },
+  "standard": {
+    "ignore": [
+      "static/",
+      "test/"
+    ]
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -31,6 +38,7 @@
   "devDependencies": {
     "autoprefixer": "^6.7.2",
     "babel-core": "^6.22.1",
+    "babel-eslint": "^8.2.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",

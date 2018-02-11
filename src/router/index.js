@@ -43,94 +43,93 @@ Vue.use(Router)
 // RouterOptions 可以有 mode / routers 等参数
 // 而，router 里面的格式呢？也要约定！因此里面还需要有  RouteConfig，定义每个对象可以设置的值：path / name / component / components / alias / children / beforeEnter 等等。。
 
-const router =  new Router({
-    // 先使用默认的 hash 模式～
-    // mode: 'history',
-    routes: [{
-        path: '*',
-        component: NotFoundPage
-    }, {
-        path: '/login',
-        component: Login
-    }, {
-        path: '/register',
-        component: Register
-    }, {
-        path: '/search/:type',
-        component: Search,
-    }, {
-        path: '/wechat',
-        component: Wechat
-    }, {
-        path: '/contacts',
-        component: Contacts,
-        children: [{
-            path: 'newFriends',
-            component: NewFriends
-        }]
-    }, {
-        path: '/chatrooms/:contactid',
-        component: Chatroom,
-        children: [{
-            path: '/chatrooms/:contactid/chatsetting',
-            component: ChatSetting
-        }]
-    }, {
-        path: '/discover',
-        component: Discover,
-        children: [{
-            path: 'moments',
-            component: Moments
-        }]
-    }, {
-        path: '/myinfo',
-        component: Myinfo,
-        children: [{
-            path: 'profile',
-            component: MyProfile,
-            children: [{
-                path: 'headimg',
-                component: Avatar
-            }, {
-                path: 'face',
-                component: Face
-            }, {
-                path: 'alias',
-                component: MyAlias
-            }, {
-                path: 'wechatno',
-                component: MyWechatno
-            }, {
-                path: 'code',
-                component: MyCode
-            }, {
-                path: 'more',
-                component: More
-            }]
-        }, {
-            path: 'wallet',
-            component: Wallet
-        }]
-    }, {
-        path: '/userprofile/:contactid',
-        component: UserProfile
-    }, {
-        path: '/addFriend',
-        component: AddFriend
-    }, {
-        path: '/addsend/:fid',
-        component: AddSend
-    }, {
-        path: '/help',
-        component: Help,
-        children: [{
-            path: 'wallet',
-            component: Wallet
-        }]
+const router = new Router({
+  // 先使用默认的 hash 模式～
+  // mode: 'history',
+  routes: [{
+    path: '*',
+    component: NotFoundPage
+  }, {
+    path: '/login',
+    component: Login
+  }, {
+    path: '/register',
+    component: Register
+  }, {
+    path: '/search/:type',
+    component: Search
+  }, {
+    path: '/wechat',
+    component: Wechat
+  }, {
+    path: '/contacts',
+    component: Contacts,
+    children: [{
+      path: 'newFriends',
+      component: NewFriends
     }]
+  }, {
+    path: '/chatrooms/:contactid',
+    component: Chatroom,
+    children: [{
+      path: '/chatrooms/:contactid/chatsetting',
+      component: ChatSetting
+    }]
+  }, {
+    path: '/discover',
+    component: Discover,
+    children: [{
+      path: 'moments',
+      component: Moments
+    }]
+  }, {
+    path: '/myinfo',
+    component: Myinfo,
+    children: [{
+      path: 'profile',
+      component: MyProfile,
+      children: [{
+        path: 'headimg',
+        component: Avatar
+      }, {
+        path: 'face',
+        component: Face
+      }, {
+        path: 'alias',
+        component: MyAlias
+      }, {
+        path: 'wechatno',
+        component: MyWechatno
+      }, {
+        path: 'code',
+        component: MyCode
+      }, {
+        path: 'more',
+        component: More
+      }]
+    }, {
+      path: 'wallet',
+      component: Wallet
+    }]
+  }, {
+    path: '/userprofile/:contactid',
+    component: UserProfile
+  }, {
+    path: '/addFriend',
+    component: AddFriend
+  }, {
+    path: '/addsend/:fid',
+    component: AddSend
+  }, {
+    path: '/help',
+    component: Help,
+    children: [{
+      path: 'wallet',
+      component: Wallet
+    }]
+  }]
 })
 
-//
 // router.addRoutes()
 
 export default router

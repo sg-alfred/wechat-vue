@@ -66,7 +66,6 @@
 </template>
 
 <script>
-
   export default {
     name: 'FooterSection',
     data() {

@@ -6,13 +6,13 @@
 import { kindOf } from '../util'
 
 export const getUserid = state => {
-    return kindOf(state.userinfo) === 'object'
-        ? state.userinfo.id
-        : ''
+  return kindOf(state.userinfo) === 'object'
+    ? state.userinfo.id
+    : ''
 }
 
 export const currentChatroom = state => {
-    return state.currentContactID
-        ? state.contacts[state.currentContactID]
-        : {}
+  return state.currentContactID
+    ? state.contacts[state.currentContactID]
+    : {}
 }

@@ -6,7 +6,7 @@
         <!-- 真正的功能菜单 -->
         <router-link :to="'/' + parent + '/' + itemInfo.type">
             <span>
-                <img :src="itemInfo.imgUrl" />
+                <img :src="itemInfo.imgUrl"/>
             </span>
             <span>
                 <span>{{itemInfo.name}}</span>
@@ -18,24 +18,24 @@
 
 <script>
     export default {
-        name: 'MenuItem2',
-        props: {
-            parent: String,
-            itemInfo: {
-                type: Object,
-                required: true
-            }
-        },
-        data() {
-            return {
-            }
-        },
-        methods: {
-            goto(path) {
-                // 跳转之前，需要设置一下 状态吧？
-                this.$router.push(path)
-            }
+      name: 'MenuItem2',
+      props: {
+        parent: String,
+        itemInfo: {
+          type: Object,
+          required: true
         }
+      },
+      data() {
+        return {
+        }
+      },
+      methods: {
+        goto(path) {
+          // 跳转之前，需要设置一下 状态吧？
+          this.$router.push(path)
+        }
+      }
     }
 </script>
 

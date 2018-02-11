@@ -1,7 +1,4 @@
 import checkVersion from './check-versions'
-
-process.env.NODE_ENV = 'production'
-
 import ora from 'ora'
 import rm from 'rimraf'
 import path from 'path'
@@ -9,6 +6,8 @@ import chalk from 'chalk'
 import webpack from 'webpack'
 import config from '../config'
 import webpackConfig from './webpack.prod.conf'
+
+process.env.NODE_ENV = 'production'
 
 checkVersion()
 

@@ -23,44 +23,43 @@
     import { localStorage } from '../../../util'
 
     export default {
-        name: 'MyAlias',
-        components: {
-            HeaderSection
-        },
-        data() {
-            return {
-                headTitle: '更改名字',
-                alias: ''
-            }
-        },
-        computed: {
-            ...mapState([
-                'userinfo'
-            ])
-        },
-        beforeMount() {
-            this.alias = this.userinfo.alias
-        },
-        methods: {
-            ...mapActions(['changeLoginInfo']),
-            async setAlias() {
-                const alias = this.alias.trim()
-                if ( alias!== '') {
-                    const response = await updateUserinfo(this.userinfo.id, { alias })
-
-                    // 修改 localStorage 保存的值！
-                    localStorage('userinfo', JSON.stringify(response.data.data))
-                    this.changeLoginInfo(true)
-
-                    this.$router.go(-1)
-
-                } else {
-                    this.$alert('没有输入昵称，请重新填写', '提示', {
-                        confirmButtonText: '确定'
-                    });
-                }
-            }
+      name: 'MyAlias',
+      components: {
+        HeaderSection
+      },
+      data() {
+        return {
+          headTitle: '更改名字',
+          alias: ''
         }
+      },
+      computed: {
+        ...mapState([
+          'userinfo'
+        ])
+      },
+      beforeMount() {
+        this.alias = this.userinfo.alias
+      },
+      methods: {
+        ...mapActions(['changeLoginInfo']),
+        async setAlias() {
+          const alias = this.alias.trim()
+          if (alias !== '') {
+            const response = await updateUserinfo(this.userinfo.id, { alias })
+
+            // 修改 localStorage 保存的值！
+            localStorage('userinfo', JSON.stringify(response.data.data))
+            this.changeLoginInfo(true)
+
+            this.$router.go(-1)
+          } else {
+            this.$alert('没有输入昵称，请重新填写', '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        }
+      }
     }
 </script>
 

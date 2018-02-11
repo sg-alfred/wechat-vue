@@ -37,13 +37,13 @@
 
 <script>
     export default {
-        name: 'WechatItem',
-        props: {
-            chatItem: {
-                type: Object,
-                required: true
-            }
+      name: 'WechatItem',
+      props: {
+        chatItem: {
+          type: Object,
+          required: true
         }
+      }
     }
 </script>
 

@@ -66,20 +66,20 @@
     import { mapState } from 'vuex'
 
     export default {
-        name: "MyProfile",
-        components: {
-            HeaderSection
-        },
-        data() {
-            return {
-                headTitle: '个人信息',
-            }
-        },
-        computed: {
-            ...mapState([
-                'userinfo'
-            ])
+      name: 'MyProfile',
+      components: {
+        HeaderSection
+      },
+      data() {
+        return {
+          headTitle: '个人信息'
         }
+      },
+      computed: {
+        ...mapState([
+          'userinfo'
+        ])
+      }
     }
 </script>
 

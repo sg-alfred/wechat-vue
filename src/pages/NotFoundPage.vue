@@ -12,15 +12,15 @@
     import HeaderSection from '../components/HeaderSection'
 
     export default {
-        name: 'NotFoundPage',
-        components: {
-            HeaderSection
-        },
-        data() {
-            return {
-                headTitle: '界面丢失',
-            }
+      name: 'NotFoundPage',
+      components: {
+        HeaderSection
+      },
+      data() {
+        return {
+          headTitle: '界面丢失'
         }
+      }
     }
 </script>
 
