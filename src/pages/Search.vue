@@ -10,7 +10,7 @@
             </section>
         </header-section>
 
-        <section class="search-container" v-if="'friend' !== type">
+        <main class="search-container" v-if="'friend' !== type">
             <p class="search-title">指定搜索内容</p>
             <ul>
                 <li class="show">朋友圈</li>
@@ -21,91 +21,87 @@
                 <li>表情</li>
             </ul>
             <p class="search-title clearfix">看一看</p>
-        </section>
+        </main>
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapState } from 'vuex'
     import { searchUser } from '../api'
     import { isEmptyObject, localStorage } from '../util'
     import HeaderSection from '../components/HeaderSection'
 
     export default {
-        name: 'Search',
-        components: {
-            HeaderSection
-        },
-        data() {
-            return {
-                type: 'all',
-                keyword: '',
-                searchResult: []
-            }
-        },
-        computed: {
-            ...mapGetters({
-                userid: 'getUserid',
-                contactMap: 'getContacts'
-            })
-        },
-        created() {
-            this.type = this.$route.params.type;
-        },
-        methods: {
-            async search() {
-                console.log('搜索参数：', this.keyword)
-                switch (this.type) {
-                    case 'all':
-                        console.log('searchAll');
-                        break;
-                    case 'friend':
-                        console.log('searchFriend', '搜索-00-', this.contactMap)
-
-                        let searchid = '',
-                            isFriend = false;
-
-                        if (!isEmptyObject(this.contactMap)) {
-                            for (let ele of this.contactMap) {
-                                if (ele.mobilephone === this.keyword || ele.wechatno === this.keyword) {
-                                    searchid = ele.id
-                                    isFriend = true
-                                    break ;
-                                }
-                            }
-                        }
-
-                        if (!searchid) {
-                            const response = await searchUser(this.keyword)
-                            const searchResult = response.data;
-
-                            console.log('搜索结果：', searchResult);
-
-                            // 缓存起来～
-                            if (!searchResult.code && !!searchResult.data) {
-                                searchid = searchResult.data._id;
-                                this.searchResult = searchResult.data;
-
-                                // 缓存起来了～
-                                localStorage(searchid, searchResult.data)
-
-                            } else {
-                                this.$message(searchResult.message)
-                            }
-                        }
-                        console.log('查询ID-searchid--', searchid);
-
-                        // 有跳转到用户的 详情界面！
-                        if (searchid) {
-                            this.$router.push('/userprofile/' + searchid)
-                        }
-                        break;
-                    default:
-                        console.log('参数有误：', this.type)
-                        break;
-                }
-            }
+      name: 'Search',
+      components: {
+        HeaderSection
+      },
+      data() {
+        return {
+          type: 'all',
+          keyword: '',
+          searchResult: []
         }
+      },
+      computed: {
+        ...mapState([
+          'contacts'
+        ])
+      },
+      created() {
+        this.type = this.$route.params.type
+      },
+      methods: {
+        async search() {
+          console.log('搜索参数：', this.keyword)
+          switch (this.type) {
+            case 'all':
+              console.log('searchAll')
+              break
+            case 'friend':
+              console.log('searchFriend', '搜索-00-')
+
+              let searchid = ''
+
+              if (!isEmptyObject(this.contacts)) {
+                // mobilephone 是 int，而非 字符串
+                const foundContact = Object.values(this.contacts).find((x) => {
+                  return x.mobilephone === this.keyword || x.wechatno === this.keyword
+                })
+
+                if (foundContact) searchid = foundContact._id
+              }
+
+              if (!searchid) {
+                const response = await searchUser(this.keyword)
+                const searchResult = response.data
+
+                console.log('搜索结果：', searchResult)
+
+                // 缓存起来～
+                if (!searchResult.code && !!searchResult.data) {
+                  searchid = searchResult.data._id
+                  this.searchResult = searchResult.data
+
+                  // 缓存起来了～
+                  localStorage(searchid, searchResult.data)
+                } else {
+                  this.$message(searchResult.message)
+                }
+              }
+              console.log('查询ID-searchid--', searchid)
+
+              // 有跳转到用户的 详情界面！
+              if (searchid) {
+                this.$router.push('/userprofile/' + searchid)
+              }
+              break
+            default:
+              console.log('参数有误：', this.type)
+              break
+          }
+        }
+      }
     }
 </script>
 

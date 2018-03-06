@@ -19,12 +19,12 @@
         <span>
             <!-- 连接到 用户详情界面 -->
             <!--<router-link :to=""></router-link>-->
-            <img :src=chatItem.headimgurl />
+            <img :src=chatItem.headimgurl alt="avatar" />
         </span>
         <div>
             <p class="padding-5">
                 <!-- 依次取 自己设置的备注名，好友的别名，手机号码 -->
-                <span>{{ chatItem.nickname ||chatItem.alias || chatItem.mobilephone }}</span>
+                <span>{{ chatItem.nickname || chatItem.alias || chatItem.mobilephone }}</span>
                 <span class="right">{{ chatItem.chatinfo.sendtime | formatTime }}</span>
             </p>
             <p class="padding-5">
@@ -37,13 +37,13 @@
 
 <script>
     export default {
-        name: 'WechatItem',
-        props: {
-            chatItem: {
-                type: Object,
-                required: true
-            }
+      name: 'WechatItem',
+      props: {
+        chatItem: {
+          type: Object,
+          required: true
         }
+      }
     }
 </script>
 

@@ -2,18 +2,20 @@
     <div class="myinfo-page">
         <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
 
-        <article class="myinfo-container">
+        <main class="myinfo-container">
             <section class="base-info">
                 <router-link :to="'/myinfo/profile'">
                     <span>
-                        <img :src="info.headimgurl">
+                        <img :src="userinfo.headimgurl" alt="avatar"/>
                     </span>
                     <div>
-                        <p>{{info.alias}}</p><i></i>
-                        <p v-if="info.wechatno">微信号：{{info.wechatno}}</p>
+                        <p>{{ userinfo.alias }}</p>
+                        <i></i>
+                        <p v-if="userinfo.wechatno">
+                            微信号：{{ userinfo.wechatno }}
+                        </p>
                     </div>
                     <span id="code-div" @click="showCode($event)">
-                        <!--<img alt="二维码" >-->
                         <svg class="icon fa-18x" aria-hidden="true">
                             <use xlink:href="#icon-qrcode"></use>
                         </svg>
@@ -25,9 +27,11 @@
             </section>
 
             <section class="menu-section">
-                <menu-item1 v-for="item in itemList" :key="item.id" :itemInfo="item" :parent="'myinfo'"></menu-item1>
+                <menu-item1 v-for="item in itemList" :key="item.id" :itemInfo="item"
+                            :parent="'myinfo'">
+                </menu-item1>
             </section>
-        </article>
+        </main>
 
         <footer-section></footer-section>
 
@@ -38,83 +42,68 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapState } from 'vuex'
     import HeaderSection from '../../components/HeaderSection'
     import FooterSection from '../../components/FooterSection'
     import MenuItem1 from '../../components/MenuItem1'
 
     export default {
-        name: 'MyInfo',
-        components: {
-            HeaderSection,
-            FooterSection,
-            MenuItem1
-        },
-        computed: {
-            ...mapGetters({
-                userid: 'getUserid',
-                info: 'getUserinfo'
-            })
-        },
-        data() {
-            return {
-                headTitle: '微信',
-                searchType: 'all',
-                /*info: {
-                    alias: '钻',
-                    wechatno: 'sgchenjz',
-                    gender: '男',
-                    country: '中国',
-                    headimgurl: 'static/image/headimg/yu.png',
-                    tags: ''
-                },*/
-                itemList: [{
-                    id: 0,
-                    isFirst: true,
-                    type: 'wallet',
-                    name: '钱包',
-                    imgUrl: 'static/image/myinfo/icon-wallet.png'
-                }, {
-                    id: 1,
-                    isFirst: true,
-                    type: 'favorite',
-                    name: '收藏',
-                    imgUrl: 'static/image/myinfo/icon-favorite.png'
-                }, {
-                    id: 2,
-                    type: 'album',
-                    name: '相册',
-                    imgUrl: 'static/image/myinfo/icon-album.png'
-                }, {
-                    id: 3,
-                    type: 'cards',
-                    name: '卡包',
-                    imgUrl: 'static/image/myinfo/icon-cards.png'
-                }, {
-                    id: 4,
-                    type: 'sticker',
-                    name: '表情',
-                    imgUrl: 'static/image/myinfo/icon-sticker.png'
-                }, {
-                    id: 5,
-                    isFirst: true,
-                    isEnd: true,
-                    type: 'setting',
-                    name: '设置',
-                    imgUrl: 'static/image/myinfo/icon-setting.png'
-                }]
-            }
-        },
-        methods: {
-            showCode(event) {
-//                event.cancelBubble = true;
-                event.preventDefault();     // 阻止默认事件
-                event.stopPropagation();    // 阻止冒泡
-
-                // 跳转到二维码界面
-                this.$router.push('/myinfo/profile/code');
-            }
+      name: 'MyInfo',
+      components: {
+        HeaderSection,
+        FooterSection,
+        MenuItem1
+      },
+      computed: {
+        ...mapState([
+          'userinfo'
+        ])
+      },
+      data() {
+        return {
+          headTitle: '微信',
+          searchType: 'all',
+          itemList: [{
+            id: 0,
+            isFirst: true,
+            type: 'wallet',
+            name: '钱包'
+          }, {
+            id: 1,
+            isFirst: true,
+            type: 'favorite',
+            name: '收藏'
+          }, {
+            id: 2,
+            type: 'album',
+            name: '相册'
+          }, {
+            id: 3,
+            type: 'cards',
+            name: '卡包'
+          }, {
+            id: 4,
+            type: 'sticker',
+            name: '表情'
+          }, {
+            id: 5,
+            isFirst: true,
+            isEnd: true,
+            type: 'setting',
+            name: '设置'
+          }]
         }
+      },
+      methods: {
+        showCode(event) {
+          //                event.cancelBubble = true;
+          event.preventDefault() // 阻止默认事件
+          event.stopPropagation() // 阻止冒泡
+
+          // 跳转到二维码界面
+          this.$router.push('/myinfo/profile/code')
+        }
+      }
     }
 </script>
 

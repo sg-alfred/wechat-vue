@@ -2,10 +2,9 @@
     <div>
         <header-section :go-back="true" :head-title="headTitle"></header-section>
 
-        <section class="absolute-center">
-
+        <main class="absolute-center">
             <p>哎呀，界面走失了或者还没有开发呢～</p>
-        </section>
+        </main>
     </div>
 </template>
 
@@ -13,15 +12,15 @@
     import HeaderSection from '../components/HeaderSection'
 
     export default {
-        name: 'NotFoundPage',
-        components: {
-            HeaderSection
-        },
-        data() {
-            return {
-                headTitle: '界面丢失',
-            }
+      name: 'NotFoundPage',
+      components: {
+        HeaderSection
+      },
+      data() {
+        return {
+          headTitle: '界面丢失'
         }
+      }
     }
 </script>
 

@@ -16,16 +16,16 @@
             </section>
         </header-section>
 
-        <section class="profile-container">
+        <main class="profile-container">
 
             <section class="base-info placeholder">
                 <span>
-                    <img :src="info.headimgurl">
+                    <img :src="info.headimgurl" alt="avatar" />
                 </span>
                 <div class="name-info">
-                    <p>{{info.mobilephone}}</p><i></i>
-                    <p>微信号：{{info.wechatno}}</p>
-                    <p>昵称：{{info.nickname}}</p>
+                    <p>{{ info.mobilephone }}</p><i></i>
+                    <p>微信号：{{ info.wechatno }}</p>
+                    <p>昵称：{{ info.nickname }}</p>
                 </div>
             </section>
 
@@ -42,11 +42,13 @@
             <section class="more-section placeholder">
                 <span class="item">
                     <span>地区</span>
-                    <span>{{info.country}}</span>
+                    <span>{{ info.country }}</span>
                 </span>
                 <span class="item">
                     <span>个人相册</span>
-                    <span class="album"><img src="../../assets/logo.png"></span>
+                    <span class="album">
+                        <img src="../../assets/logo.png" alt="图片～">
+                    </span>
                 </span>
                 <span class="item">
                     <span>更多</span>
@@ -68,98 +70,95 @@
                     <el-button :plain="true" type="success">加入黑名单</el-button>
                 </div>-->
             </section>
-        </section>
+        </main>
 
-        <section v-if="isShowOperate">
-            <ul class="operate-section">
-                <!-- 需要拆开？因为每个操作功能都不一样！！？ -->
-                <li v-for="item in operateList" :key="item.id">
-                    <img :src="item.icon" />
-                    <span class="operate-text">{{item.name}}</span>
-                </li>
-            </ul>
+        <!-- 参考 better-scroll, picker 组件的设计 -->
+        <section v-if="isShowOperate" class="picker" @click="hideOperate">
+            <transition name="picker-show">
+                <ul class="picker-content">
+                    <!-- 需要拆开？因为每个操作功能都不一样！！？ -->
+                    <li v-for="item in operateList" :key="item.id">
+                        <img :src="item.icon" alt="icon"/>
+                        <span class="operate-text">
+                            {{ item.name }}
+                        </span>
+                    </li>
+                </ul>
+            </transition>
         </section>
     </div>
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
     import { getUserOperate } from '../../api'
     import { localStorage } from '../../util'
     import HeaderSection from '../../components/HeaderSection'
 
     export default {
-        name: 'UserProfile',
-        data() {
-            return {
-                headTitle: '详细资料',
-                isFriend: false,
-                contactid: '',
-                info: {
-                    /*:
-                     id: 0,
-                     wechatno: 'sgchenjz',
-                     nickname: '钻',
-                     remark: 'hehe',
-                     gender: '男',
-                     country: '中国',
-                     headimgurl: '',
-                     tags: ''
-                    */
-                },
-                isShowOperate: false,
-                operateList: []
-            }
-        },
-        components: {
-            HeaderSection
-        },
-        computed: {
-            ...mapGetters({
-                userid: 'getUserid',
-                contactMap: 'getContacts'
-            })
-        },
-        beforeMount() {
-            // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
-            // 但是 create之前，根本还没有获取 data!! —— 可以改成 created
-
-            this.contactid = this.$route.params.contactid
-
-            // 这算什么参数！不要！！
-//            this.isFriend = this.$route.query.friend === 'true'
-
-//            let info = this.contactMap[this.contactid]
-//            if (!info) {
-//                info = this.initFuserinfo();        // 这个进程并不会 被阻塞！！
-//            }
-//            this.info = info;   // 首先执行！因此，第一次还是 空的！
-
-            this.isFriend = !!this.contactMap[this.contactid]
-
-            this.info = this.isFriend ? this.contactMap[this.contactid] : JSON.parse(localStorage(this.contactid));
-        },
-        methods: {
-            ...mapActions(['updateContact']),
-            async initFuserinfo() {
-                // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
-//                const response = await getFuserinfo()
-//                this.fuserinfo = response.data
-            },
-            async showOperate() {
-                this.isShowOperate = !this.isShowOperate;
-
-                if (this.isShowOperate) {
-                    const response = await getUserOperate();
-                    this.operateList = response.data.operateList;
-
-                    console.log('没有显示？--', this.operateList)
-                }
-            },
-            goto(path) {
-                this.$router.push(path)
-            }
+      name: 'UserProfile',
+      data() {
+        return {
+          headTitle: '详细资料',
+          isFriend: false,
+          contactid: '',
+          info: {
+            /*:
+             id: 0,
+             wechatno: 'sgchenjz',
+             nickname: '钻',
+             remark: 'hehe',
+             gender: '男',
+             country: '中国',
+             headimgurl: '',
+             tags: ''
+            */
+          },
+          isShowOperate: false,
+          operateList: []
         }
+      },
+      components: {
+        HeaderSection
+      },
+      computed: {
+        ...mapState(['contacts'])
+      },
+      beforeMount() {
+        // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
+        // 但是 create之前，根本还没有获取 data!! —— 可以改成 created
+
+        this.contactid = this.$route.params.contactid
+
+        // let info = this.contacts[this.contactid]
+        // if (!info) {
+        //    info = this.initFuserinfo();        // 这个进程并不会 被阻塞！！
+        // }
+        // this.info = info;   // 首先执行！因此，第一次还是 空的！
+
+        this.isFriend = !!this.contacts[this.contactid]
+
+        this.info = this.isFriend ? this.contacts[this.contactid] : JSON.parse(localStorage(this.contactid))
+      },
+      methods: {
+        ...mapActions(['updateContact']),
+        async initFuserinfo() {
+          // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
+          //  const response = await getFuserinfo()
+          //  this.fuserinfo = response.data
+        },
+        async showOperate() {
+          this.isShowOperate = true
+          const response = await getUserOperate()
+          this.operateList = response.data.operateList
+        },
+        async hideOperate() {
+          this.isShowOperate = false
+        },
+        goto(path) {
+          this.$router.push(path)
+        }
+      }
     }
 </script>
 
@@ -171,6 +170,10 @@
     }
     .userprofile-page {
         @include page();
+    }
+    .profile-container {
+        overflow: auto;
+        height: 100%;
     }
     .head-operate {
         margin: 10px 10px 0;
@@ -216,33 +219,37 @@
         margin: 5px;
         width: 80%;
     }
-    .operate-section {
-        text-align: left;
-        background-color: white;
-        height: 300px;
-        width: 100%;
-        overflow: scroll;
-        z-index: 1000;
-        bottom: 0;
-        position: absolute;
-        border-top: 1px solid #e8e8e8;
-        .operate-text {
-            padding: 0 0 0 20px;
-            display: table-cell;
-            vertical-align: middle;
-        }
-    }
-    /* 不能放在这个界面！需要像 下拉框一样！是一个与 app 同级的界面！！ */
-    .overlay {
-        position: absolute;
-        top: 0;
-        bottom: 0;
+    .picker {
+        position: fixed;
         left: 0;
-        right: 0;
+        top: 0;
+        z-index: 999;
         width: 100%;
-        z-index: 300;
-        background-color: #000000;
-        opacity: 0.9;
+        height: 100%;
+        background-color: rgba(37, 38, 45, .4);
+        /* 动态过渡的效果 */
+        .picker-show-enter, .picker-show-leave-active {
+            transform: translate3d(0, 273px, 0)
+        }
+        .picker-show-enter-active, .picker-show-leave-active {
+            transition: all .5s ease-in-out
+        }
+        .picker-content {
+            position: absolute;
+            z-index: 1000;
+            bottom: 0;
+            text-align: left;
+            background-color: white;
+            width: 100%;
+            height: 300px;
+            overflow: scroll;
+            border-top: 1px solid #e8e8e8;
+            .operate-text {
+                padding: 0 0 0 20px;
+                display: table-cell;
+                vertical-align: middle;
+            }
+        }
     }
     img {
         height: 20px;

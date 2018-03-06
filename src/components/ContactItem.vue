@@ -4,22 +4,22 @@
     <section class="contact-item"
              @click="$emit('get-detail', contactid)">
         <span>
-            <img :src="contact.headimgurl" />
+            <img :src="contact.headimgurl" alt="avatar"/>
         </span>
-        <span>{{contact.mobilephone}}</span>
+        <span>{{ contact.mobilephone }}</span>
     </section>
 </template>
 
 <script>
     export default {
-        name: 'ContactItem',
-        props: {
-            contactid: String,
-            contact: {
-                type: Object,
-                required: true
-            }
+      name: 'ContactItem',
+      props: {
+        contactid: String,
+        contact: {
+          type: Object,
+          required: true
         }
+      }
     }
 </script>
 

@@ -5,21 +5,21 @@
 
         <div class="placeholder"></div>
 
-        <section>
+        <main>
             <!-- 是一个弹出框！不是 链接！！ -->
             <div class="like-a" @click="setGender">
                 <span>性别</span>
-                <span>{{ info.gender == 1 ? '男' : (info.gender == 2 ? '女' : '未设置') }}</span>
+                <span>{{ userinfo.gender == 1 ? '男' : (userinfo.gender == 2 ? '女' : '未设置') }}</span>
             </div>
             <router-link :to="'/myinfo/profile/address'">
                 <span>地区</span>
-                <span>{{ info.address }}</span>
+                <span>{{ userinfo.address }}</span>
             </router-link>
             <router-link :to="'/myinfo/profile/whatsup'">
                 <span>个性签名</span>
-                <span>{{ info.whatsup ? info.whatsup : '未填写' }}</span>
+                <span>{{ userinfo.whatsup || '未填写' }}</span>
             </router-link>
-        </section>
+        </main>
 
         <transition name="router-slid" mode="out-in">
             <router-view></router-view>
@@ -29,35 +29,35 @@
 
 <script>
     import HeaderSection from '../../../components/HeaderSection'
-    import { mapGetters } from 'vuex'
+    import { mapState } from 'vuex'
 
     export default {
-        name: 'More',
-        components: {
-            HeaderSection
-        },
-        data() {
-            return {
-                headTitle: '更多信息'
-            }
-        },
-        computed: {
-            ...mapGetters({
-                'info': 'getUserinfo'
-            })
-        },
-        beforeMount() {
-            this.info.address = this.info.country || this.info.city
-                ? this.info.country + '' + this.info.city
-                : ''
-        },
-        methods: {
-            setGender() {
-                console.log('这是性别信息了～');
-
-                // 弹出框，再说吧～
-            }
+      name: 'EditMore',
+      components: {
+        HeaderSection
+      },
+      data() {
+        return {
+          headTitle: '更多信息'
         }
+      },
+      computed: {
+        ...mapState([
+          'userinfo'
+        ])
+      },
+      beforeMount() {
+        this.userinfo.address = this.userinfo.country || this.userinfo.city
+          ? this.userinfo.country + '' + this.userinfo.city
+          : ''
+      },
+      methods: {
+        setGender() {
+          console.log('这是性别信息了～')
+
+          // 弹出框，再说吧～
+        }
+      }
     }
 </script>
 
