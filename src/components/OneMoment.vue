@@ -44,29 +44,29 @@
 </template>
 
 <script>
-    export default {
-      name: 'OneMoment',
-      // 对象语法，提供校验
-      props: {
-        moment: {
-          type: Object,
-          required: true
-        }
-      },
-      data() {
-        return {
-          showOperation: false
-        }
-      },
-      methods: {
-        makeUpvote () {
-          console.log('点赞！')
-        },
-        makeCommet() {
-          console.log('评论吧～')
-        }
-      }
+export default {
+  name: 'OneMoment',
+  // 对象语法，提供校验
+  props: {
+    moment: {
+      type: Object,
+      required: true
     }
+  },
+  data() {
+    return {
+      showOperation: false
+    }
+  },
+  methods: {
+    makeUpvote () {
+      console.log('点赞！')
+    },
+    makeCommet() {
+      console.log('评论吧～')
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

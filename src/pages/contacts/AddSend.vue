@@ -28,49 +28,49 @@
 </template>
 
 <script>
-    import { mapState, mapActions } from 'vuex'
-    import { addNewFriend } from '../../api'
-    import HeaderSection from '../../components/HeaderSection'
+import { mapState, mapActions } from 'vuex'
+import { addNewFriend } from '../../api'
+import HeaderSection from '../../components/HeaderSection'
 
-    export default {
-      name: 'AddSend',
-      data() {
-        return {
-          labelPosition: 'left',
-          headTitle: '验证申请',
-          addSet: {},
-          formInfo: {
-            isshare: true
-          },
-          formRules: {}
-        }
+export default {
+  name: 'AddSend',
+  data() {
+    return {
+      labelPosition: 'left',
+      headTitle: '验证申请',
+      addSet: {},
+      formInfo: {
+        isshare: true
       },
-      components: {
-        HeaderSection
-      },
-      created() {
-        this.formInfo.fid = this.$route.params.fid
-      },
-      computed: {
-        ...mapState([
-          'isLogin'
-        ])
-      },
-      methods: {
-        ...mapActions(['']),
-        async addFriend() {
-          // 数据校验！ 可以 把好友写入
-          const response = await addNewFriend(this.formInfo)
-          const result = response.data
-
-          // 或者，也放入 vuex 这样，也就可以直接取值了～不然就 放在localStorage里～
-
-          this.$message(result.message)
-
-          this.$router.push('/userprofile' + this.fid)
-        }
-      }
+      formRules: {}
     }
+  },
+  components: {
+    HeaderSection
+  },
+  created() {
+    this.formInfo.fid = this.$route.params.fid
+  },
+  computed: {
+    ...mapState([
+      'isLogin'
+    ])
+  },
+  methods: {
+    ...mapActions(['']),
+    async addFriend() {
+      // 数据校验！ 可以 把好友写入
+      const response = await addNewFriend(this.formInfo)
+      const result = response.data
+
+      // 或者，也放入 vuex 这样，也就可以直接取值了～不然就 放在localStorage里～
+
+      this.$message(result.message)
+
+      this.$router.push('/userprofile' + this.fid)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

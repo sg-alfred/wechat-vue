@@ -143,8 +143,8 @@ export default {
         this.socket.close()
 
         // 这样的话，需要 userLogout 是个异步函数
-        let response = await userLogout() // 更不能直接处理到 data ?
-        let result = response.data
+        const response = await userLogout() // 更不能直接处理到 data ?
+        const result = response.data
 
         if (!result.code) {
           this.$message(result.message)

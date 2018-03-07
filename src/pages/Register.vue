@@ -25,78 +25,78 @@
 </template>
 
 <script>
-    import { userRegister } from '../api'
+import { userRegister } from '../api'
 
-    export default {
-      name: 'Register',
-      data() {
-        let validatePass = (rule, value, callback) => {
-          if (value === '') {
-            callback(new Error('请输入密码'))
-          } else {
-            if (this.formInfo.checkpwd !== '') {
-              this.$refs.registerForm.validateField('checkpwd')
-            }
-            callback()
-          }
+export default {
+  name: 'Register',
+  data() {
+    const validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        if (this.formInfo.checkpwd !== '') {
+          this.$refs.registerForm.validateField('checkpwd')
         }
-        let validatePass2 = (rule, value, callback) => {
-          if (value === '') {
-            callback(new Error('请再次输入密码'))
-          } else if (value !== this.formInfo.password) {
-            callback(new Error('两次输入密码不一致!'))
-          } else {
-            callback()
-          }
-        }
-        return {
-          labelPosition: 'right',
-          formInfo: {
-            mobilephone: '',
-            password: '',
-            checkpwd: '',
-            valicode: ''
-          },
-          formRules: {
-            mobilephone: [
-              {required: true, message: '手机号不能为空', trigger: 'blur'},
-              {pattern: /^\d{11}$/, message: '手机号必须为11为数字！', trigger: 'change,blur'}
-            ],
-            password: [
-              {required: true, validator: validatePass, trigger: 'change,blur'}
-            ],
-            checkpwd: [
-              {required: true, validator: validatePass2, trigger: 'change,blur'}
-            ],
-            valicode: [
-              {required: true, message: '请输入验证码', trigger: 'change,blur'}
-            ]
-          }
-        }
-      },
-      methods: {
-        doRegister(formName) {
-          this.$refs[formName].validate(async (valid) => {
-            if (valid) {
-              const response = await userRegister(this.formInfo)
-              const result = response.data
-
-              if (!result.code) {
-                this.$message(result.message)
-                this.$router.push('/login')
-
-                // 出现一个弹出框？继续完善人脸信息？ 还是 登录之后的操作？后者吧！！
-              } else {
-                this.$message(result.message)
-              }
-            } else {
-              console.log('error submit!!')
-              return false
-            }
-          })
-        }
+        callback()
       }
     }
+    const validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.formInfo.password) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      labelPosition: 'right',
+      formInfo: {
+        mobilephone: '',
+        password: '',
+        checkpwd: '',
+        valicode: ''
+      },
+      formRules: {
+        mobilephone: [
+          { required: true, message: '手机号不能为空', trigger: 'blur' },
+          { pattern: /^\d{11}$/, message: '手机号必须为11为数字！', trigger: 'change,blur' }
+        ],
+        password: [
+          { required: true, validator: validatePass, trigger: 'change,blur' }
+        ],
+        checkpwd: [
+          { required: true, validator: validatePass2, trigger: 'change,blur' }
+        ],
+        valicode: [
+          { required: true, message: '请输入验证码', trigger: 'change,blur' }
+        ]
+      }
+    }
+  },
+  methods: {
+    doRegister(formName) {
+      this.$refs[formName].validate(async (valid) => {
+        if (valid) {
+          const response = await userRegister(this.formInfo)
+          const result = response.data
+
+          if (!result.code) {
+            this.$message(result.message)
+            this.$router.push('/login')
+
+            // 出现一个弹出框？继续完善人脸信息？ 还是 登录之后的操作？后者吧！！
+          } else {
+            this.$message(result.message)
+          }
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

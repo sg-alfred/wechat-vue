@@ -67,15 +67,15 @@ export default {
     chatroom.messages.unshift(...messages)
 
     /* 不需要这样！！
-        chatroom.messages.forEach(message => {
-            // create new thread if the thread doesn't exist
-            // if (!state.chatrooms[message.chatid]) {
-            //     createChatrooms(state, message.chatid, message.threadName)
-            // }
+    chatroom.messages.forEach(message => {
+      // create new thread if the thread doesn't exist
+      // if (!state.chatrooms[message.chatid]) {
+      //     createChatrooms(state, message.chatid, message.threadName)
+      // }
 
-            // add message
-            addMessage(state, chatroom.contact, message)
-        }) */
+      // add message
+      addMessage(state, chatroom.contact, message)
+    }) */
   },
 
   /**

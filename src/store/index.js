@@ -16,26 +16,26 @@ const state = {
   // userid: '',
   userinfo: {
     /*
-        id: '',
-        username: ''
-        */
+    id: '',
+    username: ''
+    */
   },
   socket: null,
   currentContactID: null,
   contacts: { // 通讯录 -> 聊天室
     /*
-        id: {
-            id,
-            alias,
-            mobilephone,
-            chatid,
-            chatinfo: {       // 聊天室信息，存有 最后一条信息，这个怎么看～
+    id: {
+      id,
+      alias,
+      mobilephone,
+      chatid,
+      chatinfo: {       // 聊天室信息，存有 最后一条信息，这个怎么看～
 
-            },
-            messages: [...ids], 【如果 有的话，那就显示在 聊天里！！】
-            lastMessage
-        }
-        */
+      },
+      messages: [...ids], 【如果 有的话，那就显示在 聊天里！！】
+      lastMessage
+    }
+    */
   }
 }
 

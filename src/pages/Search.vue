@@ -26,83 +26,83 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
-    import { searchUser } from '../api'
-    import { isEmptyObject, localStorage } from '../util'
-    import HeaderSection from '../components/HeaderSection'
+import { mapState } from 'vuex'
+import { searchUser } from '../api'
+import { isEmptyObject, localStorage } from '../util'
+import HeaderSection from '../components/HeaderSection'
 
-    export default {
-      name: 'Search',
-      components: {
-        HeaderSection
-      },
-      data() {
-        return {
-          type: 'all',
-          keyword: '',
-          searchResult: []
-        }
-      },
-      computed: {
-        ...mapState([
-          'contacts'
-        ])
-      },
-      created() {
-        this.type = this.$route.params.type
-      },
-      methods: {
-        async search() {
-          console.log('搜索参数：', this.keyword)
-          switch (this.type) {
-            case 'all':
-              console.log('searchAll')
-              break
-            case 'friend':
-              console.log('searchFriend', '搜索-00-')
+export default {
+  name: 'Search',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      type: 'all',
+      keyword: '',
+      searchResult: []
+    }
+  },
+  computed: {
+    ...mapState([
+      'contacts'
+    ])
+  },
+  created() {
+    this.type = this.$route.params.type
+  },
+  methods: {
+    async search() {
+      console.log('搜索参数：', this.keyword)
+      switch (this.type) {
+        case 'all':
+          console.log('searchAll')
+          break
+        case 'friend':
+          console.log('searchFriend', '搜索-00-')
 
-              let searchid = ''
+          let searchid = ''
 
-              if (!isEmptyObject(this.contacts)) {
-                // mobilephone 是 int，而非 字符串
-                const foundContact = Object.values(this.contacts).find((x) => {
-                  return x.mobilephone === this.keyword || x.wechatno === this.keyword
-                })
+          if (!isEmptyObject(this.contacts)) {
+            // mobilephone 是 int，而非 字符串
+            const foundContact = Object.values(this.contacts).find((x) => {
+              return x.mobilephone === this.keyword || x.wechatno === this.keyword
+            })
 
-                if (foundContact) searchid = foundContact._id
-              }
-
-              if (!searchid) {
-                const response = await searchUser(this.keyword)
-                const searchResult = response.data
-
-                console.log('搜索结果：', searchResult)
-
-                // 缓存起来～
-                if (!searchResult.code && !!searchResult.data) {
-                  searchid = searchResult.data._id
-                  this.searchResult = searchResult.data
-
-                  // 缓存起来了～
-                  localStorage(searchid, searchResult.data)
-                } else {
-                  this.$message(searchResult.message)
-                }
-              }
-              console.log('查询ID-searchid--', searchid)
-
-              // 有跳转到用户的 详情界面！
-              if (searchid) {
-                this.$router.push('/userprofile/' + searchid)
-              }
-              break
-            default:
-              console.log('参数有误：', this.type)
-              break
+            if (foundContact) searchid = foundContact._id
           }
-        }
+
+          if (!searchid) {
+            const response = await searchUser(this.keyword)
+            const searchResult = response.data
+
+            console.log('搜索结果：', searchResult)
+
+            // 缓存起来～
+            if (!searchResult.code && !!searchResult.data) {
+              searchid = searchResult.data._id
+              this.searchResult = searchResult.data
+
+              // 缓存起来了～
+              localStorage(searchid, searchResult.data)
+            } else {
+              this.$message(searchResult.message)
+            }
+          }
+          console.log('查询ID-searchid--', searchid)
+
+          // 有跳转到用户的 详情界面！
+          if (searchid) {
+            this.$router.push('/userprofile/' + searchid)
+          }
+          break
+        default:
+          console.log('参数有误：', this.type)
+          break
       }
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

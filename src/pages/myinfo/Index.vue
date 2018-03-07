@@ -42,69 +42,69 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
-    import HeaderSection from '../../components/HeaderSection'
-    import FooterSection from '../../components/FooterSection'
-    import MenuItem1 from '../../components/MenuItem1'
+import { mapState } from 'vuex'
+import HeaderSection from '../../components/HeaderSection'
+import FooterSection from '../../components/FooterSection'
+import MenuItem1 from '../../components/MenuItem1'
 
-    export default {
-      name: 'MyInfo',
-      components: {
-        HeaderSection,
-        FooterSection,
-        MenuItem1
-      },
-      computed: {
-        ...mapState([
-          'userinfo'
-        ])
-      },
-      data() {
-        return {
-          headTitle: '微信',
-          searchType: 'all',
-          itemList: [{
-            id: 0,
-            isFirst: true,
-            type: 'wallet',
-            name: '钱包'
-          }, {
-            id: 1,
-            isFirst: true,
-            type: 'favorite',
-            name: '收藏'
-          }, {
-            id: 2,
-            type: 'album',
-            name: '相册'
-          }, {
-            id: 3,
-            type: 'cards',
-            name: '卡包'
-          }, {
-            id: 4,
-            type: 'sticker',
-            name: '表情'
-          }, {
-            id: 5,
-            isFirst: true,
-            isEnd: true,
-            type: 'setting',
-            name: '设置'
-          }]
-        }
-      },
-      methods: {
-        showCode(event) {
-          //                event.cancelBubble = true;
-          event.preventDefault() // 阻止默认事件
-          event.stopPropagation() // 阻止冒泡
-
-          // 跳转到二维码界面
-          this.$router.push('/myinfo/profile/code')
-        }
-      }
+export default {
+  name: 'MyInfo',
+  components: {
+    HeaderSection,
+    FooterSection,
+    MenuItem1
+  },
+  computed: {
+    ...mapState([
+      'userinfo'
+    ])
+  },
+  data() {
+    return {
+      headTitle: '微信',
+      searchType: 'all',
+      itemList: [{
+        id: 0,
+        isFirst: true,
+        type: 'wallet',
+        name: '钱包'
+      }, {
+        id: 1,
+        isFirst: true,
+        type: 'favorite',
+        name: '收藏'
+      }, {
+        id: 2,
+        type: 'album',
+        name: '相册'
+      }, {
+        id: 3,
+        type: 'cards',
+        name: '卡包'
+      }, {
+        id: 4,
+        type: 'sticker',
+        name: '表情'
+      }, {
+        id: 5,
+        isFirst: true,
+        isEnd: true,
+        type: 'setting',
+        name: '设置'
+      }]
     }
+  },
+  methods: {
+    showCode(event) {
+      //                event.cancelBubble = true;
+      event.preventDefault() // 阻止默认事件
+      event.stopPropagation() // 阻止冒泡
+
+      // 跳转到二维码界面
+      this.$router.push('/myinfo/profile/code')
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

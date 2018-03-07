@@ -36,15 +36,15 @@
 </template>
 
 <script>
-    export default {
-      name: 'WechatItem',
-      props: {
-        chatItem: {
-          type: Object,
-          required: true
-        }
-      }
+export default {
+  name: 'WechatItem',
+  props: {
+    chatItem: {
+      type: Object,
+      required: true
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -9,19 +9,19 @@
 </template>
 
 <script>
-    import HeaderSection from '../components/HeaderSection'
+import HeaderSection from '../components/HeaderSection'
 
-    export default {
-      name: 'NotFoundPage',
-      components: {
-        HeaderSection
-      },
-      data() {
-        return {
-          headTitle: '界面丢失'
-        }
-      }
+export default {
+  name: 'NotFoundPage',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '界面丢失'
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

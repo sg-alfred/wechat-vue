@@ -42,50 +42,50 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import { getNewFriends, handleNewFriend } from '../../api'
-    import HeaderSection from '../../components/HeaderSection'
+import Vue from 'vue'
+import { getNewFriends, handleNewFriend } from '../../api'
+import HeaderSection from '../../components/HeaderSection'
 
-    export default {
-      name: 'NewFriends',
-      components: {
-        HeaderSection
-      },
-      data() {
-        return {
-          headTitle: '添加好友',
-          newFriendList: {}
-        }
-      },
-      async beforeMount() {
-        const response = await getNewFriends()
-        // this.newFriendList = response.data.data;
+export default {
+  name: 'NewFriends',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '添加好友',
+      newFriendList: {}
+    }
+  },
+  async beforeMount() {
+    const response = await getNewFriends()
+    // this.newFriendList = response.data.data;
 
-        // TODO 处理一下数据格式，以方便 状态更改～
-        response.data.data.forEach((item) => {
-          Vue.set(this.newFriendList, item._id, item)
-        })
-        // console.log(JSON.stringify(this.newFriendList))
-      },
-      methods: {
-        async handleFriend(finfo, id) {
-          console.log('处理好友请求', finfo._id, id)
+    // TODO 处理一下数据格式，以方便 状态更改～
+    response.data.data.forEach((item) => {
+      Vue.set(this.newFriendList, item._id, item)
+    })
+    // console.log(JSON.stringify(this.newFriendList))
+  },
+  methods: {
+    async handleFriend(finfo, id) {
+      console.log('处理好友请求', finfo._id, id)
 
-          const response = await handleNewFriend({
-            fid: finfo._id,
-            type: 'accept' // 同意，或者加入黑名单等等～
-          })
-          let handleResult = response.data
+      const response = await handleNewFriend({
+        fid: finfo._id,
+        type: 'accept' // 同意，或者加入黑名单等等～
+      })
+      const handleResult = response.data
 
-          this.$message(handleResult.message)
+      this.$message(handleResult.message)
 
-          // 界面刷新？不需要，只要 假装成功就好！
-          if (!handleResult.code) {
-            this.newFriendList[id].status = 1
-          }
-        }
+      // 界面刷新？不需要，只要 假装成功就好！
+      if (!handleResult.code) {
+        this.newFriendList[id].status = 1
       }
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

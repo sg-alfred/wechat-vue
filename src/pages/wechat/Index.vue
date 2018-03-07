@@ -15,43 +15,41 @@
 </template>
 
 <script>
-  import {mapState} from 'Vuex'
-  import {getChatrooms} from '../../api'
-  import HeaderSection from '../../components/HeaderSection'
-  import FooterSection from '../../components/FooterSection'
-  import WechatItem from '../../components/WechatItem'
+import { mapState } from 'Vuex'
+import { getChatrooms } from '../../api'
+import HeaderSection from '../../components/HeaderSection'
+import FooterSection from '../../components/FooterSection'
+import WechatItem from '../../components/WechatItem'
 
-  export default {
-    name: 'Wechat',
-    components: {
-      HeaderSection,
-      FooterSection,
-      WechatItem
-    },
-    computed: {
-      ...mapState([
-        'contacts'
-      ])
-    },
-    data() {
-      return {
-        headTitle: '微信',
-        searchType: 'all',
-        chatrooms: []
-      }
-    },
-    beforeMount() {
-      this.chatrooms = Object.values(this.contacts).filter((ele) => ele.messages.length > 0 ||
+export default {
+  name: 'Wechat',
+  components: {
+    HeaderSection,
+    FooterSection,
+    WechatItem
+  },
+  computed: {
+    ...mapState(['contacts'])
+  },
+  data() {
+    return {
+      headTitle: '微信',
+      searchType: 'all',
+      chatrooms: []
+    }
+  },
+  beforeMount() {
+    this.chatrooms = Object.values(this.contacts).filter((ele) => ele.messages.length > 0 ||
         (!!ele.chatinfo.lastmsgid && (!ele.cleartime || ele.chatinfo.sendtime > ele.cleartime)))
-      // console.log('聊天室信息--', JSON.stringify(this.chatrooms))
-    },
-    methods: {
-      // 进入特定的聊天室
-      intoChatroom(contactid) {
-        this.$router.push('/chatrooms/' + contactid)
-      }
+    // console.log('聊天室信息--', JSON.stringify(this.chatrooms))
+  },
+  methods: {
+    // 进入特定的聊天室
+    intoChatroom(contactid) {
+      this.$router.push('/chatrooms/' + contactid)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

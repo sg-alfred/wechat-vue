@@ -19,13 +19,13 @@
 </template>
 
 <script>
-    export default {
-      name: 'HelpItem',
-      props: {
-        itemInfo: {
-          type: Object,
-          required: true
-        }
-      }
+export default {
+  name: 'HelpItem',
+  props: {
+    itemInfo: {
+      type: Object,
+      required: true
     }
+  }
+}
 </script>

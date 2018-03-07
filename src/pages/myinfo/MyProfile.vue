@@ -62,25 +62,25 @@
 </template>
 
 <script>
-    import HeaderSection from '../../components/HeaderSection'
-    import { mapState } from 'vuex'
+import HeaderSection from '../../components/HeaderSection'
+import { mapState } from 'vuex'
 
-    export default {
-      name: 'MyProfile',
-      components: {
-        HeaderSection
-      },
-      data() {
-        return {
-          headTitle: '个人信息'
-        }
-      },
-      computed: {
-        ...mapState([
-          'userinfo'
-        ])
-      }
+export default {
+  name: 'MyProfile',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '个人信息'
     }
+  },
+  computed: {
+    ...mapState([
+      'userinfo'
+    ])
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -11,16 +11,16 @@
 </template>
 
 <script>
-    export default {
-      name: 'ContactItem',
-      props: {
-        contactid: String,
-        contact: {
-          type: Object,
-          required: true
-        }
-      }
+export default {
+  name: 'ContactItem',
+  props: {
+    contactid: String,
+    contact: {
+      type: Object,
+      required: true
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

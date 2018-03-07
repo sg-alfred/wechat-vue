@@ -30,100 +30,100 @@
 </template>
 
 <script>
-    import HeaderSection from '../../../components/HeaderSection'
-    import { mapState, mapActions } from 'vuex'
-    import { updateUserinfo } from '../../../api'
-    import { localStorage } from '../../../util'
+import HeaderSection from '../../../components/HeaderSection'
+import { mapState, mapActions } from 'vuex'
+import { updateUserinfo } from '../../../api'
+import { localStorage } from '../../../util'
 
-    export default {
-      name: 'Face',
-      components: {
-        HeaderSection
-      },
-      data() {
-        return {
-          headTitle: '设置人脸密码'
-        }
-      },
-      computed: {
-        ...mapState(['userinfo'])
-      },
-      methods: {
-        ...mapActions(['changeLoginInfo']),
-        setFaceInfo(type) {
-          const self = this
-
-          let videoTrack
-
-          // 那现在是用户名！根据用户名查询id，后台处理啊！然后在调用 百度AI 接口
-          const video = document.querySelector('video'),
-            image = document.querySelector('#image'),
-            canvas = document.querySelector('canvas'),
-            ctx = canvas.getContext('2d')
-
-          navigator.mediaDevices.getUserMedia({
-            audio: false,
-            video: true
-          })
-            .then(function (stream) {
-              videoTrack = stream.getVideoTracks()[0]
-
-              video.srcObject = stream
-              video.play()
-            })
-            .catch(function (error) {
-              console.log(error.name)
-            })
-
-          let counter = 5
-          const iTime = setInterval(function() {
-            counter--
-            if (counter > 0) {
-              self.$message(`请对准摄像头，倒计时${counter}秒`)
-            } else {
-              clearInterval(iTime)
-
-              ctx.clearRect(0, 0, canvas.width, canvas.height)
-              ctx.drawImage(video, 0, 0, 320, 240)
-
-              // 切换成 canvas
-              video.setAttribute('display', 'none')
-              canvas.setAttribute('display', 'block')
-
-              image.onload = function() {
-                // 这个东西一定需要 封装一下，不可能每次修改都 加上 changeLoginInfo！！
-                updateUserinfo(self.userinfo.id, { base64Img: image.src.replace('data:image/png;base64,', ''), type }, 'face')
-                  .then((response) => {
-                    // 关闭摄像头
-                    videoTrack && videoTrack.stop()
-
-                    const result = response.data
-                    self.$message(result.message)
-                    if (!result.code) {
-                      // 修改 localStorage 保存的值！
-                      localStorage('userinfo', JSON.stringify(response.data.data))
-                      self.changeLoginInfo(true)
-                    }
-                  })
-              }
-              image.src = canvas.toDataURL('image/png')
-            }
-          }, 1000)
-        },
-        deleteFaceInfo() {
-          updateUserinfo(this.userinfo.id, { type: 'delete' }, 'face')
-            .then((response) => {
-              const result = response.data
-              this.$message(result.message)
-
-              if (!result.code) {
-                localStorage('userinfo', JSON.stringify(response.data.data))
-                this.changeLoginInfo(true)
-              }
-            })
-        }
-      }
+export default {
+  name: 'Face',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '设置人脸密码'
     }
+  },
+  computed: {
+    ...mapState(['userinfo'])
+  },
+  methods: {
+    ...mapActions(['changeLoginInfo']),
+    setFaceInfo(type) {
+      const self = this
+
+      let videoTrack
+
+      // 那现在是用户名！根据用户名查询id，后台处理啊！然后在调用 百度AI 接口
+      const video = document.querySelector('video'),
+        image = document.querySelector('#image'),
+        canvas = document.querySelector('canvas'),
+        ctx = canvas.getContext('2d')
+
+      navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: true
+      })
+        .then(function (stream) {
+          videoTrack = stream.getVideoTracks()[0]
+
+          video.srcObject = stream
+          video.play()
+        })
+        .catch(function (error) {
+          console.log(error.name)
+        })
+
+      let counter = 5
+      const iTime = setInterval(function() {
+        counter--
+        if (counter > 0) {
+          self.$message(`请对准摄像头，倒计时${counter}秒`)
+        } else {
+          clearInterval(iTime)
+
+          ctx.clearRect(0, 0, canvas.width, canvas.height)
+          ctx.drawImage(video, 0, 0, 320, 240)
+
+          // 切换成 canvas
+          video.setAttribute('display', 'none')
+          canvas.setAttribute('display', 'block')
+
+          image.onload = function() {
+            // 这个东西一定需要 封装一下，不可能每次修改都 加上 changeLoginInfo！！
+            updateUserinfo(self.userinfo.id, { base64Img: image.src.replace('data:image/png;base64,', ''), type }, 'face')
+              .then((response) => {
+                // 关闭摄像头
+                videoTrack && videoTrack.stop()
+
+                const result = response.data
+                self.$message(result.message)
+                if (!result.code) {
+                  // 修改 localStorage 保存的值！
+                  localStorage('userinfo', JSON.stringify(response.data.data))
+                  self.changeLoginInfo(true)
+                }
+              })
+          }
+          image.src = canvas.toDataURL('image/png')
+        }
+      }, 1000)
+    },
+    deleteFaceInfo() {
+      updateUserinfo(this.userinfo.id, { type: 'delete' }, 'face')
+        .then((response) => {
+          const result = response.data
+          this.$message(result.message)
+
+          if (!result.code) {
+            localStorage('userinfo', JSON.stringify(response.data.data))
+            this.changeLoginInfo(true)
+          }
+        })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

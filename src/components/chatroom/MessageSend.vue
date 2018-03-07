@@ -39,67 +39,67 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
-    import { sendMessage } from '../../api'
+import { mapActions } from 'vuex'
+import { sendMessage } from '../../api'
 
-    export default {
-      name: 'Message',
-      data() {
-        return {
-          content: '', // 文字信息
-          isShowEmoji: false,
-          isShowShortcuts: false
-        }
-      },
-      props: {
-        chatid: { // 聊天室id
-          type: String,
-          required: true
-        }
-      },
-      methods: {
-        ...mapActions(['addMessage']),
-        async doSendMessage() {
-          if (this.content.trim()) {
-            console.log('发送的消息-11-', this.chatid, this.content)
-
-            // 需要和 服务端通讯一下，获取 messageId
-            const response = await sendMessage(this.chatid, {
-              content: this.content,
-              sendtime: Date.now()
-            })
-
-            // 成功之后，往 vuex 里面放啊！
-            await this.addMessage(response.data.data)
-
-            this.content = ''
-          }
-        },
-        speak() {
-
-        },
-        // 必须得通知到 父组件，这样，才能让 聊天记录container 缩小一下～
-        // 或许只要修改 本身的 height 就好～ 试试。。
-        showEmoji() {
-          this.isShowShortcuts = false
-          this.isShowEmoji = !this.isShowEmoji
-
-          // let section = this.$el.querySelector('.send-section')
-          // let sendSection = this.$refs.sendSection
-
-          // offsetHeight 是组件的高度，但是 getter-only .. 那还能怎么改？
-          // sendSection.offsetHeight = 300
-
-          this.$emit('show', this.isShowEmoji || this.isShowShortcuts)
-        },
-        showShortcuts() {
-          this.isShowEmoji = false
-          this.isShowShortcuts = !this.isShowShortcuts
-
-          this.$emit('show', this.isShowEmoji || this.isShowShortcuts)
-        }
-      }
+export default {
+  name: 'Message',
+  data() {
+    return {
+      content: '', // 文字信息
+      isShowEmoji: false,
+      isShowShortcuts: false
     }
+  },
+  props: {
+    chatid: { // 聊天室id
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    ...mapActions(['addMessage']),
+    async doSendMessage() {
+      if (this.content.trim()) {
+        console.log('发送的消息-11-', this.chatid, this.content)
+
+        // 需要和 服务端通讯一下，获取 messageId
+        const response = await sendMessage(this.chatid, {
+          content: this.content,
+          sendtime: Date.now()
+        })
+
+        // 成功之后，往 vuex 里面放啊！
+        await this.addMessage(response.data.data)
+
+        this.content = ''
+      }
+    },
+    speak() {
+
+    },
+    // 必须得通知到 父组件，这样，才能让 聊天记录container 缩小一下～
+    // 或许只要修改 本身的 height 就好～ 试试。。
+    showEmoji() {
+      this.isShowShortcuts = false
+      this.isShowEmoji = !this.isShowEmoji
+
+      // let section = this.$el.querySelector('.send-section')
+      // let sendSection = this.$refs.sendSection
+
+      // offsetHeight 是组件的高度，但是 getter-only .. 那还能怎么改？
+      // sendSection.offsetHeight = 300
+
+      this.$emit('show', this.isShowEmoji || this.isShowShortcuts)
+    },
+    showShortcuts() {
+      this.isShowEmoji = false
+      this.isShowShortcuts = !this.isShowShortcuts
+
+      this.$emit('show', this.isShowEmoji || this.isShowShortcuts)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

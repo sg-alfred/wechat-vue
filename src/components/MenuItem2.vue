@@ -17,26 +17,26 @@
 </template>
 
 <script>
-    export default {
-      name: 'MenuItem2',
-      props: {
-        parent: String,
-        itemInfo: {
-          type: Object,
-          required: true
-        }
-      },
-      data() {
-        return {
-        }
-      },
-      methods: {
-        goto(path) {
-          // 跳转之前，需要设置一下 状态吧？
-          this.$router.push(path)
-        }
-      }
+export default {
+  name: 'MenuItem2',
+  props: {
+    parent: String,
+    itemInfo: {
+      type: Object,
+      required: true
     }
+  },
+  data() {
+    return {
+    }
+  },
+  methods: {
+    goto(path) {
+      // 跳转之前，需要设置一下 状态吧？
+      this.$router.push(path)
+    }
+  }
+}
 </script>
 
 <style scoped>
