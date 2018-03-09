@@ -1,45 +1,46 @@
 <!-- 通讯录组件，点击到 好友简介，长按悬浮 设置 -->
 
 <template>
-    <section class="contact-item"
-             @click="$emit('get-detail', contactid)">
-        <span>
-            <img :src="contact.headimgurl" alt="avatar"/>
-        </span>
-        <span>{{ contact.mobilephone }}</span>
-    </section>
+  <section class="contact-item"
+           @click="$emit('get-detail', contactid)">
+    <span>
+      <img :src="contact.headimgurl" alt="avatar"/>
+    </span>
+    <span>{{ contact.mobilephone }}</span>
+  </section>
 </template>
 
 <script>
-export default {
-  name: 'ContactItem',
-  props: {
-    contactid: String,
-    contact: {
-      type: Object,
-      required: true
+  export default {
+    name: 'ContactItem',
+    props: {
+      contactid: String,
+      contact: {
+        type: Object,
+        required: true
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-    img {
-        width: 40px;
+  img {
+    width: 40px;
+  }
+
+  .contact-item {
+    margin: 0 10px;
+    padding: 10px;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    span {
+      padding: 0 10px 0 0;
+      flex: 0 1 0;
     }
-    .contact-item {
-        margin: 0 10px;
-        padding: 10px;
-        border-bottom: 1px solid #e8e8e8;
-        display: flex;
-        align-items: center;
-        text-align: left;
-        span {
-            padding: 0 10px 0 0;
-            flex: 0 1 0;
-        }
-        span:nth-child(2) {
-            flex-grow: 1;
-        }
+    span:nth-child(2) {
+      flex-grow: 1;
     }
+  }
 </style>

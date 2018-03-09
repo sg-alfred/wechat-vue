@@ -14,58 +14,61 @@
  -->
 
 <template>
-    <section class="wechat-item" @click="$emit('into-chatroom', chatItem._id)">
+  <section class="wechat-item" @click="$emit('into-chatroom', chatItem._id)">
 
-        <span>
-            <!-- 连接到 用户详情界面 -->
-            <!--<router-link :to=""></router-link>-->
-            <img :src=chatItem.headimgurl alt="avatar" />
-        </span>
-        <div>
-            <p class="padding-5">
-                <!-- 依次取 自己设置的备注名，好友的别名，手机号码 -->
-                <span>{{ chatItem.nickname || chatItem.alias || chatItem.mobilephone }}</span>
-                <span class="right">{{ chatItem.chatinfo.sendtime | formatTime }}</span>
-            </p>
-            <p class="padding-5">
-                <span>{{ chatItem.chatinfo.content }}</span>
-            </p>
-        </div>
+    <span>
+      <!-- 连接到 用户详情界面 -->
+      <!--<router-link :to=""></router-link>-->
+      <img :src=chatItem.headimgurl alt="avatar"/>
+    </span>
+    <div>
+      <p class="padding-5">
+        <!-- 依次取 自己设置的备注名，好友的别名，手机号码 -->
+        <span>{{ chatItem.nickname || chatItem.alias || chatItem.mobilephone }}</span>
+        <span class="right">{{ chatItem.chatinfo.sendtime | formatTime }}</span>
+      </p>
+      <p class="padding-5">
+        <span>{{ chatItem.chatinfo.content }}</span>
+      </p>
+    </div>
 
-    </section>
+  </section>
 </template>
 
 <script>
-export default {
-  name: 'WechatItem',
-  props: {
-    chatItem: {
-      type: Object,
-      required: true
+  export default {
+    name: 'WechatItem',
+    props: {
+      chatItem: {
+        type: Object,
+        required: true
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-    img {
-        width: 48px;
+  img {
+    width: 48px;
+  }
+
+  .wechat-item {
+    padding: 10px;
+    margin: 0 10px;
+    border-bottom: 1px solid #e8e8e8;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    div {
+      flex-grow: 1;
     }
-    .wechat-item {
-        padding: 10px;
-        margin: 0 10px;
-        border-bottom: 1px solid #e8e8e8;
-        text-align: left;
-        display: flex;
-        align-items: center;
-        div {
-            flex-grow: 1;
-        }
-    }
-    .wechat-item > span {
-        margin: 0 10px 0 0;
-    }
-    .padding-5 {
-        padding: 5px;
-    }
+  }
+
+  .wechat-item > span {
+    margin: 0 10px 0 0;
+  }
+
+  .padding-5 {
+    padding: 5px;
+  }
 </style>
