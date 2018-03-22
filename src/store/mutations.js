@@ -110,8 +110,6 @@ export default {
    * @param contactid
    */
   [types.SWITCH_CHATROOM] (state, { contactid }) {
-    console.log('设置当前聊天室id-11-', contactid)
-
     state.currentContactID = contactid
   }
 

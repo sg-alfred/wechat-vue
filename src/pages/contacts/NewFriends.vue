@@ -57,22 +57,20 @@
       }
     },
     async beforeMount() {
-      const response = await
-      getNewFriends()
+      const response = await getNewFriends()
       // this.newFriendList = response.data.data;
 
       // TODO 处理一下数据格式，以方便 状态更改～
-      response.data.data.forEach((item) = > {
+      response.data.data.forEach((item) => {
         Vue.set(this.newFriendList, item._id, item)
-    })
+      })
       // console.log(JSON.stringify(this.newFriendList))
     },
     methods: {
       async handleFriend(finfo, id) {
         console.log('处理好友请求', finfo._id, id)
 
-        const response = await
-        handleNewFriend({
+        const response = await handleNewFriend({
           fid: finfo._id,
           type: 'accept' // 同意，或者加入黑名单等等～
         })
@@ -80,7 +78,6 @@
 
         this.$message(handleResult.message)
 
-        // 界面刷新？不需要，只要 假装成功就好！
         if (!handleResult.code) {
           this.newFriendList[id].status = 1
         }

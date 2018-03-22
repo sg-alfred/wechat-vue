@@ -6,9 +6,13 @@
 'use strict'
 
 import axios from 'axios'
-import { baseUrl } from './env'
+import config from '../../config'
 
-axios.defaults.baseURL = baseUrl
+const baseURL = process.env.NODE_ENV === 'production'
+  ? config.build.proxypath
+  : config.dev.proxypath
+
+axios.defaults.baseURL = baseURL
 axios.defaults.withCredentials = true // 设置请求时需要使用凭证(带cookie)
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'

@@ -9,6 +9,7 @@
 
 import kindOf from './kind-of'
 import localStorage from './localstorage'
+import initSocketio from './socket'
 
 // 判断对象是否为空
 const isEmptyObject = (value) => {
@@ -48,5 +49,6 @@ export {
   kindOf,
   isEmptyObject,
   localStorage,
+  initSocketio,
   convertImgToBase64
 }

@@ -137,9 +137,6 @@
       async logout() {
         try {
           // 断开 socket 连接，这样相当于 又设置了一个 socket!!
-          //  const socket = io.connect('http://localhost:8081')
-          //  socket.emit('disconnect', this.userinfo.id)
-
           this.socket.close()
 
           // 这样的话，需要 userLogout 是个异步函数

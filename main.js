@@ -27,9 +27,9 @@ function createWindow () {
   // }))
 
   // 先启动应用，然后监听本地的端口 也可以！！
-  // 但是，怎么打包？
+  // 但是，怎么进行应用打包？
   // 1、开着端口进行打包；
-  // 2、npm run build，就有了 dist/index.html。
+  // 2、先构建，npm run build，就有了 dist/index.html。
   mainWindow.loadURL('http://localhost:8080')
 
   // Open the DevTools.
