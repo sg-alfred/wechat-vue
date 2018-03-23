@@ -66,57 +66,57 @@
 </template>
 
 <script>
-  export default {
-    name: 'FooterSection',
-    data() {
-      return {
-        isActive: {
-          wechat: false,
-          contacts: false,
-          discover: false,
-          myinfo: false
-        },
-        subMenus: [{
-          id: 0,
-          type: 'wechat',
-          name: '微信',
-          active: 'icon-wechat-active',
-          disactive: 'icon-wechat'
-        }, {
-          id: 1,
-          type: 'contacts',
-          name: '通讯录',
-          active: 'icon-contact-active',
-          disactive: 'icon-contact'
-        }, {
-          id: 2,
-          type: 'discover',
-          name: '发现',
-          active: 'icon-discover-active',
-          disactive: 'icon-discover'
-        }, {
-          id: 3,
-          type: 'myinfo',
-          name: '我',
-          active: 'icon-myinfo-active',
-          disactive: 'icon-myinfo'
-        }]
-      }
-    },
-    beforeMount() {
-      const current = this.$route.path
-      for (let index in this.isActive) {
-        if (this.isActive.hasOwnProperty(index)) {
-          this.isActive[index] = current.indexOf(index) !== -1
-        }
-      }
-    },
-    methods: {
-      goto(path) {
-        this.$router.push('/' + path)
+export default {
+  name: 'FooterSection',
+  data() {
+    return {
+      isActive: {
+        wechat: false,
+        contacts: false,
+        discover: false,
+        myinfo: false
+      },
+      subMenus: [{
+        id: 0,
+        type: 'wechat',
+        name: '微信',
+        active: 'icon-wechat-active',
+        disactive: 'icon-wechat'
+      }, {
+        id: 1,
+        type: 'contacts',
+        name: '通讯录',
+        active: 'icon-contact-active',
+        disactive: 'icon-contact'
+      }, {
+        id: 2,
+        type: 'discover',
+        name: '发现',
+        active: 'icon-discover-active',
+        disactive: 'icon-discover'
+      }, {
+        id: 3,
+        type: 'myinfo',
+        name: '我',
+        active: 'icon-myinfo-active',
+        disactive: 'icon-myinfo'
+      }]
+    }
+  },
+  beforeMount() {
+    const current = this.$route.path
+    for (const index in this.isActive) {
+      if (this.isActive.hasOwnProperty(index)) {
+        this.isActive[index] = current.indexOf(index) !== -1
       }
     }
+  },
+  methods: {
+    goto(path) {
+      this.$router.push('/' + path)
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -146,7 +146,7 @@
   }
 
   .fa-20x {
-    font-size: 2em;
+    font-size: 2rem;
   }
 
   .active-color {

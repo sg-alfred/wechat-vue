@@ -28,37 +28,37 @@
 </template>
 
 <script>
-    import HeaderSection from '../../../components/HeaderSection'
-    import { mapState } from 'vuex'
+import HeaderSection from '../../../components/HeaderSection'
+import { mapState } from 'vuex'
 
-    export default {
-      name: 'EditMore',
-      components: {
-        HeaderSection
-      },
-      data() {
-        return {
-          headTitle: '更多信息'
-        }
-      },
-      computed: {
-        ...mapState([
-          'userinfo'
-        ])
-      },
-      beforeMount() {
-        this.userinfo.address = this.userinfo.country || this.userinfo.city
-          ? this.userinfo.country + '' + this.userinfo.city
-          : ''
-      },
-      methods: {
-        setGender() {
-          console.log('这是性别信息了～')
-
-          // 弹出框，再说吧～
-        }
-      }
+export default {
+  name: 'EditMore',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '更多信息'
     }
+  },
+  computed: {
+    ...mapState([
+      'userinfo'
+    ])
+  },
+  beforeMount() {
+    this.userinfo.address = this.userinfo.country || this.userinfo.city
+      ? this.userinfo.country + '' + this.userinfo.city
+      : ''
+  },
+  methods: {
+    setGender() {
+      console.log('这是性别信息了～')
+
+      // 弹出框，再说吧～
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

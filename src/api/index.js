@@ -6,9 +6,13 @@
 'use strict'
 
 import axios from 'axios'
-import { baseUrl } from './env'
+import config from '../../config'
 
-axios.defaults.baseURL = baseUrl
+const baseURL = process.env.NODE_ENV === 'production'
+  ? config.build.proxypath
+  : config.dev.proxypath
+
+axios.defaults.baseURL = baseURL
 axios.defaults.withCredentials = true // 设置请求时需要使用凭证(带cookie)
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -110,21 +114,21 @@ export const getContacts = () => axios.get('/contacts')
 export const getUserOperate = () => axios.get('../../static/initData/operate.json')
 
 /**
+ * 获取添加我为好友的用户列表
+ */
+export const getNewFriends = () => axios.get('/contacts/new')
+
+/**
  * 添加好友
  * @param addInfo
  */
 export const addNewFriend = (addInfo) => axios.post('/contacts/new', addInfo)
 
 /**
- * 获取添加我为好友的用户列表
- */
-export const getNewFriends = () => axios.get('/contacts/new')
-
-/**
  * 处理好友信息，
  * 还有 处理类型！是 通过还是加入黑名单
  */
-export const handleNewFriend = (handleInfo) => axios.post('/contacts/handleFriend', handleInfo)
+export const handleNewFriend = (handleInfo) => axios.post('/contacts/handle', handleInfo)
 
 /**
  * 获取所有的朋友圈 状态！ 懒加载的应该！！

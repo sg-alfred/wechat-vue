@@ -34,54 +34,54 @@
 </template>
 
 <script>
-  import HeaderSection from '../../components/HeaderSection'
-  import MenuItem2 from '../../components/MenuItem2'
+import HeaderSection from '../../components/HeaderSection'
+import MenuItem2 from '../../components/MenuItem2'
 
-  export default {
-    name: 'AddFriend',
-    components: {
-      HeaderSection,
-      MenuItem2
-    },
-    data() {
-      return {
-        headTitle: '添加朋友',
-        wechatno: 'sgchenjz',
-        itemList: [{
-          id: 0,
-          type: 'friendRadar',
-          name: '雷达加朋友',
-          subname: '添加身边的朋友',
-          imgUrl: 'static/image/contacts/icon-radar.png'
-        }, {
-          id: 1,
-          type: 'jointGroup',
-          name: '面对面建群',
-          subname: '与身边的朋友进入同一个群聊',
-          imgUrl: 'static/image/contacts/icon-group.png'
-        }, {
-          id: 2,
-          type: 'scancode',
-          name: '扫一扫',
-          subname: '扫码二维码名片',
-          imgUrl: 'static/image/contacts/icon-scancode.png'
-        }, {
-          id: 3,
-          type: 'mobileContacts',
-          name: '手机联系人',
-          subname: '添加或邀请通讯录中的朋友',
-          imgUrl: 'static/image/contacts/icon-mobile.png'
-        }, {
-          id: 4,
-          type: 'official',
-          name: '公众号',
-          subname: '获取更多资讯和服务',
-          imgUrl: 'static/image/contacts/icon-official.png'
-        }]
-      }
-    },
-    methods: {}
-  }
+export default {
+  name: 'AddFriend',
+  components: {
+    HeaderSection,
+    MenuItem2
+  },
+  data() {
+    return {
+      headTitle: '添加朋友',
+      wechatno: 'sgchenjz',
+      itemList: [{
+        id: 0,
+        type: 'friendRadar',
+        name: '雷达加朋友',
+        subname: '添加身边的朋友',
+        imgUrl: 'static/image/contacts/icon-radar.png'
+      }, {
+        id: 1,
+        type: 'jointGroup',
+        name: '面对面建群',
+        subname: '与身边的朋友进入同一个群聊',
+        imgUrl: 'static/image/contacts/icon-group.png'
+      }, {
+        id: 2,
+        type: 'scancode',
+        name: '扫一扫',
+        subname: '扫码二维码名片',
+        imgUrl: 'static/image/contacts/icon-scancode.png'
+      }, {
+        id: 3,
+        type: 'mobileContacts',
+        name: '手机联系人',
+        subname: '添加或邀请通讯录中的朋友',
+        imgUrl: 'static/image/contacts/icon-mobile.png'
+      }, {
+        id: 4,
+        type: 'official',
+        name: '公众号',
+        subname: '获取更多资讯和服务',
+        imgUrl: 'static/image/contacts/icon-official.png'
+      }]
+    }
+  },
+  methods: {}
+}
 </script>
 
 <style lang="scss" scoped>

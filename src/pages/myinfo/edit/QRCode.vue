@@ -43,44 +43,44 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { createQrcode } from '../../../api'
-  import HeaderSection from '../../../components/HeaderSection'
+import { mapState } from 'vuex'
+import { createQrcode } from '../../../api'
+import HeaderSection from '../../../components/HeaderSection'
 
-  export default {
-    name: 'QRCode',
-    components: {
-      HeaderSection
-    },
-    data() {
-      return {
-        headTitle: '我的二维码',
-        qrcode: ''
-      }
-    },
-    computed: {
-      ...mapState(['userinfo'])
-    },
-    async beforeMount() {
-      // 生成的二维码图片！但是怎么展示啊？
+export default {
+  name: 'QRCode',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '我的二维码',
+      qrcode: ''
+    }
+  },
+  computed: {
+    ...mapState(['userinfo'])
+  },
+  async beforeMount() {
+    // 生成的二维码图片！但是怎么展示啊？
 
-      // 后台能不能生成 base64的照片，这样的 'Content-Type': 'image/png'，不会啊，都不知道 哪里可以取到！！
-      // 直接 把 url 跟在 <img src=""> 或者 < style="background-image: url()"> 都不可以啊
+    // 后台能不能生成 base64的照片，这样的 'Content-Type': 'image/png'，不会啊，都不知道 哪里可以取到！！
+    // 直接 把 url 跟在 <img src=""> 或者 < style="background-image: url()"> 都不可以啊
 
-      // 就算生成了 svg 字符串，怎么弄？
+    // 就算生成了 svg 字符串，怎么弄？
 
-      const response = await createQrcode()
-      this.qrcode = response.data.data.svg
+    const response = await createQrcode()
+    this.qrcode = response.data.data.svg
 
-      // 现在还是这个问题，直接复制到 html 证明是 可以到。现在需要如何动态渲染到 html。
-      // 不能是 jquery。vue 有什么手段？
-    },
-    methods: {
-      showOperate() {
+    // 现在还是这个问题，直接复制到 html 证明是 可以到。现在需要如何动态渲染到 html。
+    // 不能是 jquery。vue 有什么手段？
+  },
+  methods: {
+    showOperate() {
 
-      }
     }
   }
+}
 </script>
 
 <style lang="scss">
@@ -101,7 +101,7 @@
         margin: 10px 10px 0;
     }
     .absolute-center {
-        @include absoluteCenter();
+        @include absoluteCenter;
         width: 80%;
         height: 60%;
         background-color: #ffffff;

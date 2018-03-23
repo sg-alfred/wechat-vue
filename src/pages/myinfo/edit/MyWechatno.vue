@@ -16,48 +16,48 @@
 </template>
 
 <script>
-    import HeaderSection from '../../../components/HeaderSection'
-    import { updateUserinfo } from '../../../api'
-    import { mapState, mapActions } from 'vuex'
+import HeaderSection from '../../../components/HeaderSection'
+import { updateUserinfo } from '../../../api'
+import { mapState, mapActions } from 'vuex'
 
-    export default {
-      name: 'MyWechatno',
-      components: {
-        HeaderSection
-      },
-      data() {
-        return {
-          headTitle: '设置微信号',
-          wechatno: ''
-        }
-      },
-      computed: {
-        ...mapState(['userinfo'])
-      },
-      beforeMount() {
-        this.wechatno = this.userinfo.wechatno || ''
-      },
-      methods: {
-        ...mapActions(['changeLoginInfo']),
-        async setWechatno() {
-          const wechatno = this.wechatno.trim()
+export default {
+  name: 'MyWechatno',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '设置微信号',
+      wechatno: ''
+    }
+  },
+  computed: {
+    ...mapState(['userinfo'])
+  },
+  beforeMount() {
+    this.wechatno = this.userinfo.wechatno || ''
+  },
+  methods: {
+    ...mapActions(['changeLoginInfo']),
+    async setWechatno() {
+      const wechatno = this.wechatno.trim()
 
-          if (wechatno !== '') {
-            const response = await updateUserinfo(this.userinfo.id, { wechatno })
+      if (wechatno !== '') {
+        const response = await updateUserinfo(this.userinfo.id, { wechatno })
 
-            // 修改 localStorage 保存的值！
-            localStorage('userinfo', JSON.stringify(response.data.data))
-            this.changeLoginInfo(true)
+        // 修改 localStorage 保存的值！
+        localStorage('userinfo', JSON.stringify(response.data.data))
+        this.changeLoginInfo(true)
 
-            this.$router.go(-1)
-          } else {
-            this.$alert('没有设置微信号，请重新填写', '提示', {
-              confirmButtonText: '确定'
-            })
-          }
-        }
+        this.$router.go(-1)
+      } else {
+        this.$alert('没有设置微信号，请重新填写', '提示', {
+          confirmButtonText: '确定'
+        })
       }
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -35,47 +35,47 @@ http://www.cnblogs.com/cjh1111/p/7017295.html
 </template>
 
 <script>
-  import HeaderSection from '../../../components/HeaderSection'
-  import {uploadAvatar} from '../../../api'
-  import {mapState, mapActions} from 'vuex'
-  import {localStorage} from '../../../util'
+import HeaderSection from '../../../components/HeaderSection'
+import { uploadAvatar } from '../../../api'
+import { mapState, mapActions } from 'vuex'
+import { localStorage } from '../../../util'
 
-  export default {
-    name: 'Avatar',
-    components: {
-      HeaderSection
-    },
-    data() {
-      return {
-        headTitle: '更改头像',
-        file: null
+export default {
+  name: 'Avatar',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '更改头像',
+      file: null
+    }
+  },
+  computed: {
+    ...mapState([
+      'userinfo'
+    ])
+  },
+  mounted() {
+    window.addEventListener('message', (event) => {
+      console.log('触发了 message ！')
+      const response = event.data
+      if (response.result === 'success') {
+        this.handleUploadSuccess(response, this.file)
+      } else if (response.result === 'failed') {
+        this.handleUploadError(response, this.file)
       }
-    },
-    computed: {
-      ...mapState([
-        'userinfo'
-      ])
-    },
-    mounted() {
-      window.addEventListener('message', (event) => {
-        console.log('触发了 message ！')
-        const response = event.data
-        if (response.result === 'success') {
-          this.handleUploadSuccess(response, this.file)
-        } else if (response.result === 'failed') {
-          this.handleUploadError(response, this.file)
-        }
-      })
-    },
-    methods: {
-      ...mapActions(['changeLoginInfo']),
+    })
+  },
+  methods: {
+    ...mapActions(['changeLoginInfo']),
 
-      // form.addEventListener('submit', function(ev) {}
+    // form.addEventListener('submit', function(ev) {}
 
-      async uploadImg(e) {
-        e.preventDefault()
+    async uploadImg(e) {
+      e.preventDefault()
 
-        /* if (res.status == 1) {
+      /* if (res.status == 1) {
          // 修改 localStorage 保存的值！
          //   localStorage('userinfo', JSON.stringify(response.data.data))
          //   this.changeLoginInfo(true)
@@ -84,14 +84,15 @@ http://www.cnblogs.com/cjh1111/p/7017295.html
          }
          */
 
-        let file = e.target.files[0]
-        let param = new FormData() // 创建form对象
-        param.append('file', file, file.name)// 通过append向form对象添加数据
-        param.append('chunk', '0')// 添加form表单中其他数据
+      const file = e.target.files[0]
+      const param = new FormData() // 创建form对象
 
-        console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
+      param.append('file', file, file.name)// 通过append向form对象添加数据
+      param.append('chunk', '0')// 添加form表单中其他数据
 
-        /*
+      console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
+
+      /*
         let config = {
             headers:{'Content-Type':'multipart/form-data'}
         };  //添加请求头
@@ -102,42 +103,42 @@ http://www.cnblogs.com/cjh1111/p/7017295.html
             })
         */
 
-        const response = await uploadAvatar(this.userinfo.id, param)
+      const response = await uploadAvatar(this.userinfo.id, param)
 
-        console.log(response.data)
-      },
-      handleUploadSuccess() {
+      console.log(response.data)
+    },
+    handleUploadSuccess() {
 
-      },
-      handleUploadError() {
+    },
+    handleUploadError() {
 
-      },
-      handleChange(ev) {
-        const file = ev.target.value
+    },
+    handleChange(ev) {
+      const file = ev.target.value
 
-        console.log('hahah--', file)
+      console.log('hahah--', file)
 
-        if (file) {
-          this.uploadImg(file)
-        }
-      },
-      beforeImgUpload(file) {
-        const isRightType = (file.type === 'image/jpeg') || (file.type === 'image/png')
-        const isLt2M = file.size / 1024 / 1024 < 2
-
-        if (!isRightType) {
-          this.$message.error('上传头像图片只能是 JPG 格式!')
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!')
-        }
-        return isRightType && isLt2M
-      },
-      setHeadimg() {
-
+      if (file) {
+        this.uploadImg(file)
       }
+    },
+    beforeImgUpload(file) {
+      const isRightType = (file.type === 'image/jpeg') || (file.type === 'image/png')
+      const isLt2M = file.size / 1024 / 1024 < 2
+
+      if (!isRightType) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      return isRightType && isLt2M
+    },
+    setHeadimg() {
+
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

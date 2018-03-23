@@ -1,119 +1,121 @@
 // 取自：https://github.com/bailicangdu/vue2-elm/blob/master/src/style/common.scss
 
 body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li,
-a, p, h1, h2, h3, h4,h5, h6, i, b, textarea, button, input, select, figure, figcaption {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    font-style: normal;
-    text-decoration: none;
-    border: none;
-    font-weight: normal;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color:transparent;
-    -webkit-font-smoothing: antialiased;
-    &:hover{
-        outline: none;
-    }
+a, p, h1, h2, h3, h4, h5, h6, i, b, textarea, button, input, select, figure, figcaption {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-style: normal;
+  text-decoration: none;
+  border: none;
+  font-weight: normal;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  &:hover {
+    outline: none;
+  }
 }
 
 ul {
-    list-style: none;
-    padding-left: 0;
-    li {
-        height: 30px;
-        padding: 10px 20px;
-        width: auto;
-        display: table;
-    }
+  list-style: none;
+  padding-left: 0;
+  li {
+    height: 30px;
+    padding: 10px 20px;
+    width: auto;
+    display: table;
+  }
 }
 
-/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
 ::-webkit-scrollbar {
-    width: 0px;  
-    height: 0px;  
-    background-color: #F5F5F5;  
-}  
-  
-/*定义滚动条轨道 内阴影+圆角*/  
+  width: 0px;
+  height: 0px;
+  background-color: #F5F5F5;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0);  
-    border-radius: 10px;  
-    background-color: #F5F5F5;  
-}  
-  
-/*定义滑块 内阴影+圆角*/  
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+/*定义滑块 内阴影+圆角*/
 ::-webkit-scrollbar-thumb {
-    border-radius: 10px;  
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
-    background-color: #555;  
-}  
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #555;
+}
 
 input[type="button"], input[type="submit"], input[type="search"], input[type="reset"] {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
-textarea { -webkit-appearance: none;}   
-
-html,body {
-    height: 100%;
-    width: 100%;
-    background-color: #F5F5F5;
+textarea {
+  -webkit-appearance: none;
 }
 
-.clear:after{
-    content: '';
-    display: block;
-    clear: both;
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #F5F5F5;
 }
 
-.clear{
-    zoom:1;
+.clear:after {
+  content: '';
+  display: block;
+  clear: both;
 }
 
-.back_img{
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+.clear {
+  zoom: 1;
 }
 
-.margin{
-    margin: 0 auto;
+.back_img {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
-.left{
-    float: left;
+.margin {
+  margin: 0 auto;
 }
 
-.right{
-    float: right;
+.left {
+  float: left;
 }
 
-.hide{
-    display: none;
+.right {
+  float: right;
 }
 
-.show{
-    display: block;
+.hide {
+  display: none;
 }
 
-.ellipsis{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.show {
+  display: block;
 }
 
-.paddingTop{
-    padding-top: 1.95rem;
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-@keyframes backOpacity{
-   0%   { opacity: 1 }
-   25%  { opacity: .5 }
-   50%  { opacity: 1 }
-   75%  { opacity: .5 }
-   100% { opacity: 1 }
+.paddingTop {
+  padding-top: 1.95rem;
 }
 
-.animation_opactiy{
-    animation: backOpacity 2s ease-in-out infinite;
+@keyframes backOpacity {
+  0%   { opacity: 1 }
+  25%  { opacity: .5 }
+  50%  { opacity: 1 }
+  75%  { opacity: .5 }
+  100% { opacity: 1 }
+}
+
+.animation_opactiy {
+  animation: backOpacity 2s ease-in-out infinite;
 }

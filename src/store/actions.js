@@ -87,8 +87,6 @@ export const updateContact = async ({ commit }, updateParams) => {
  * @param contactid
  */
 export const switchChatroom = ({ commit }, contactid) => {
-  console.log('设置当前聊天室id-00-', contactid)
-
   commit(types.SWITCH_CHATROOM, { contactid })
 }
 
