@@ -146,7 +146,7 @@ export default {
   }
 
   .fa-20x {
-    font-size: 2em;
+    font-size: 2rem;
   }
 
   .active-color {

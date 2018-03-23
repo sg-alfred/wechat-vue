@@ -1,5 +1,4 @@
 <template>
-
   <section class="login-div">
 
     <el-switch v-model="loginByFace" class="switch-label"
@@ -26,20 +25,20 @@
         </el-form-item>
       </el-form>
     </article>
+
     <article v-else>
       <!-- 人脸登录 -->
       <!-- 就是分析图片的，应该是 视频 -> 图片(可以隐藏) -> canvas !! -->
       <label>用户名：{{ formInfo.username }}</label>
-
-      <video width="320" height="240"></video>
-      <img hidden id="image" width="320" height="240"/>
-      <canvas hidden width="320" height="240"></canvas>
-
+      <div>
+        <video width="320" height="240"></video>
+        <img hidden id="image" width="320" height="240"/>
+        <canvas hidden width="320" height="240"></canvas>
+      </div>
       <el-button type="primary" @click="doLoginByFace">人脸登录</el-button>
     </article>
 
   </section>
-
 </template>
 
 <script>
@@ -188,8 +187,8 @@ export default {
   @import "../style/mixin.scss";
 
   .login-div {
-  @include absoluteCenter();
-    width: 80%;
+  @include absoluteCenter;
+    width: 50%;
     height: 50%;
   }
 

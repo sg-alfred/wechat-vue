@@ -28,7 +28,7 @@
   @import "../style/mixin.scss";
 
   .absolute-center {
-    @include absoluteCenter();
+    @include absoluteCenter;
     width: 80%;
     height: 20%;
   }

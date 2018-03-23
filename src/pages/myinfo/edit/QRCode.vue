@@ -101,7 +101,7 @@ export default {
         margin: 10px 10px 0;
     }
     .absolute-center {
-        @include absoluteCenter();
+        @include absoluteCenter;
         width: 80%;
         height: 60%;
         background-color: #ffffff;

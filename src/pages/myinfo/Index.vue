@@ -150,7 +150,7 @@
   }
 
   .fa-18x {
-    font-size: 1.8em;
+    font-size: 1.8rem;
     color: #000000;
   }
 

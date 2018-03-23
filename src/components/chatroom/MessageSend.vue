@@ -149,6 +149,6 @@ export default {
         transition: all .5s ease-in-out
     }
     .fa-12x {
-        font-size: 1.2em;
+        font-size: 1.2rem;
     }
 </style>

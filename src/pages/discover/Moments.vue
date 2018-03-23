@@ -105,7 +105,7 @@
   .head-cameraicon {
     padding: 18px 20px;
     color: white;
-    font-size: 1.2em;
+    font-size: 1.2rem;
   }
 
   .el-carousel__item h3 {

@@ -67,7 +67,7 @@
 
         this.$message(result.message)
 
-        this.$router.push('/userprofile' + this.fid)
+        this.$router.push('/userprofile/' + this.formInfo.fid)
       }
     }
   }

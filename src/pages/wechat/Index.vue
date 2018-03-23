@@ -66,7 +66,7 @@ export default {
   }
 
   .absolute-center {
-  @include absoluteCenter();
+    @include absoluteCenter;
     width: 80%;
     height: 20%;
   }

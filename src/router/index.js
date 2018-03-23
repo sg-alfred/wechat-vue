@@ -51,40 +51,73 @@ const router = new Router({
     component: NotFoundPage
   }, {
     path: '/login',
-    component: Login
+    component: Login,
+    meta: {
+      title: '登录'
+    }
   }, {
     path: '/register',
-    component: Register
+    component: Register,
+    meta: {
+      title: '注册'
+    }
   }, {
     path: '/search/:type',
-    component: Search
+    component: Search,
+    meta: {
+      title: '搜索'
+    }
   }, {
     path: '/wechat',
-    component: Wechat
+    component: Wechat,
+    meta: {
+      title: '微信'
+    }
   }, {
     path: '/contacts',
     component: Contacts,
+    meta: {
+      title: '通讯录'
+    },
     children: [{
       path: 'newFriends',
-      component: NewFriends
+      component: NewFriends,
+      meta: {
+        title: '新的朋友'
+      }
     }]
   }, {
     path: '/chatrooms/:contactid',
     component: Chatroom,
+    meta: {
+      title: '聊天室'
+    },
     children: [{
       path: '/chatrooms/:contactid/chatsetting',
-      component: ChatSetting
+      component: ChatSetting,
+      meta: {
+        title: '聊天设置'
+      }
     }]
   }, {
     path: '/discover',
     component: Discover,
+    meta: {
+      title: '发现'
+    },
     children: [{
       path: 'moments',
-      component: Moments
+      component: Moments,
+      meta: {
+        title: '朋友圈'
+      }
     }]
   }, {
     path: '/myinfo',
     component: Myinfo,
+    meta: {
+      title: '我的'
+    },
     children: [{
       path: 'profile',
       component: MyProfile,
@@ -113,23 +146,43 @@ const router = new Router({
     }]
   }, {
     path: '/userprofile/:contactid',
-    component: UserProfile
+    component: UserProfile,
+    meta: {
+      title: '好友详情'
+    }
   }, {
     path: '/addFriend',
-    component: AddFriend
+    component: AddFriend,
+    meta: {
+      title: '添加好友'
+    }
   }, {
     path: '/addsend/:fid',
-    component: AddSend
+    component: AddSend,
+    meta: {
+      title: '添加好友'
+    }
   }, {
     path: '/help',
     component: Help,
+    meta: {
+      title: '帮助'
+    },
     children: [{
       path: 'wallet',
-      component: Wallet
+      component: Wallet,
+      meta: {
+        title: '钱包'
+      }
     }]
   }]
 })
 
-// router.addRoutes()
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {//如果设置标题，拦截后设置标题
+    document.title = to.meta.title
+  }
+  next()
+})
 
 export default router

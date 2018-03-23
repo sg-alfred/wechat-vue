@@ -21,7 +21,6 @@
       </el-form-item>
     </el-form>
   </section>
-
 </template>
 
 <script>
@@ -103,8 +102,8 @@
   @import "../style/mixin.scss";
 
   .register-div {
-    @include absoluteCenter();
-    width: 80%;
+    @include absoluteCenter;
+    width: 50%;
     height: 50%;
   }
 </style>
