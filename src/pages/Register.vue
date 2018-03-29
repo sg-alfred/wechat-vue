@@ -1,5 +1,5 @@
 <template>
-  <section class="register-div">
+  <section class="register-section">
     <!-- 这算是坑吧？需要 配合vuex 才能够使用！！ -->
     <el-form ref="registerForm" :label-position="labelPosition" label-width="80px" :model="formInfo" :rules="formRules">
       <el-form-item label="手机号" prop="mobilephone">
@@ -101,9 +101,9 @@
 <style lang="scss" scoped>
   @import "../style/mixin.scss";
 
-  .register-div {
-    @include absoluteCenter;
-    width: 50%;
+  .register-section {
+    @include absolute-center;
+    width: 80%;
     height: 50%;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <section class="login-div">
+  <section class="login-section">
 
     <el-switch v-model="loginByFace" class="switch-label"
                on-color="#13ce66" off-color="grey" @click="loginByFace = !loginByFace">
@@ -186,9 +186,9 @@ export default {
 <style lang="scss" scoped>
   @import "../style/mixin.scss";
 
-  .login-div {
-  @include absoluteCenter;
-    width: 50%;
+  .login-section {
+    @include absolute-center;
+    width: 80%;
     height: 50%;
   }
 

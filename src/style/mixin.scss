@@ -10,7 +10,7 @@
   flex-direction: column;
 }
 
-@mixin absoluteCenter {
+@mixin absolute-center {
   margin: auto;
   position: absolute;
   top: 0;
@@ -20,5 +20,8 @@
   vertical-align: middle;
 }
 
-//@mixin fa-x
+@mixin placeholder {
+  height: 20px;
+  width: auto;
+}
 
