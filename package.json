@@ -1,7 +1,7 @@
 {
   "name": "wechat-vue",
   "version": "1.0.0",
-  "description": "基于 vue全家桶+axios 的仿微信项目前端工程",
+  "description": "基于 vue+express 的仿微信项目——FE工程",
   "author": "sgAlfred",
   "private": true,
   "main": "main.js",

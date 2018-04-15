@@ -122,7 +122,7 @@ export default {
 <style lang="scss" scoped>
   .footer-container {
     border: 2px solid ghostwhite;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     height: 70px;
     width: 100%;

@@ -39,20 +39,27 @@ const initSocketio = async (userinfo, from) => {
 }
 
 
-function notifyMe(obj) {
+function notifyMe(msgObj) {
 
   let notification
+
+  // 根据chatid 获取通讯录，才能跳转到 聊天室～
+  const contact = Object.values(store.state.contacts).find(x => x.chatid === msgObj.chatid)
+
+  let notifyObj = {
+    title: contact.nickname || contact.alias || contact.mobilephone,   // 好友
+    additional: {
+      body: msgObj.content,    // 消息内容
+      icon: contact.headimgurl    // 好友头像
+    }
+  }
 
   const handle = {
     onclick(note) {
       note.onclick = function(event) {
         event.preventDefault(); // prevent the browser from focusing the Notification's tab
 
-        // 根据chatid 获取通讯录，才能跳转到 聊天室～
-        const contact = Object.values(store.state.contacts).find(x => x.chatid === obj.chatid)
-
         const contactid = contact._id
-
         router.push(`/chatrooms/${contactid}`)
       }
     }
@@ -65,7 +72,7 @@ function notifyMe(obj) {
 
   // 检查用户是否同意接受通知
   else if (Notification.permission === "granted") {
-    notification = new Notification(obj.content);
+    notification = new Notification(notifyObj.title, notifyObj.additional);
     handle.onclick(notification)
   }
 
@@ -73,7 +80,7 @@ function notifyMe(obj) {
   else if (Notification.permission !== 'denied') {
     Notification.requestPermission(function (permission) {
       if (permission === "granted") {
-        notification = new Notification(obj.content);
+        notification = new Notification(notifyObj.title, notifyObj.additional);
         handle.onclick(notification)
       }
     });
