@@ -31,7 +31,7 @@
 
         <!-- 动态加载的，与 css 的 scoped 冲突
         https://github.com/vuejs/vue-loader/issues/749 -->
-        <div v-html="qrcode" style="width: 50vw; height: 50vw"></div>
+        <div v-html="qrcode"></div>
 
       </section>
 
@@ -97,6 +97,8 @@
   .code-content svg {
     height: 50vw;
     width: 50vw;
+    max-height: 200px;
+    max-width: 200px;
   }
 </style>
 
@@ -109,18 +111,18 @@
   }
 
   .head-operate {
-    margin: 10px 10px 0;
+    margin: 1rem 1rem 0;
   }
 
   .absolute-center {
     @include absolute-center;
-    width: 80%;
+    width: 70%;
     height: 60%;
     background-color: #ffffff;
   }
 
   .code-article {
-    padding: 20px;
+    padding: 2rem;
     /*display: flex;*/
     flex-direction: column;
 
@@ -129,8 +131,8 @@
     }
     section:nth-child(2) {
       flex-grow: 1;
-      padding: 20px;
-      margin: 40px;
+      padding: 1.2rem;
+      margin: 2rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -144,16 +146,16 @@
     align-items: center;
 
     span {
-      margin: 0 20px;
+      margin: 0 2rem;
       flex: 0 1 0;
       img {
-        height: 60px;
+        height: 4rem;
       }
     }
     div {
       flex-grow: 1;
       p {
-        padding: 5px 0;
+        padding: .2rem 0;
       }
     }
   }

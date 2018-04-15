@@ -51,7 +51,7 @@
   }
 
   .head-operate {
-    margin: 10px 10px 0;
+    margin: 1rem 1rem 0;
   }
 
   .hot-section, .promotion-section, .third-section {

@@ -88,23 +88,23 @@ export default {
   @import "../../style/mixin.scss";
 
   .placeholder {
-    height: 20px;
+    height: 1.2rem;
     width: auto;
   }
 
   .addfriend-page {
-  @include page();
+    @include page();
     z-index: 202;
   }
 
   .searchFriend-section {
     background-color: white;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 2rem;
   }
 
   .code-section {
-    padding: 10px;
+    padding: 1rem;
   }
 
   .menu-section {

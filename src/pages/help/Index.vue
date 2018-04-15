@@ -69,9 +69,9 @@
 
   footer {
     border: 2px solid ghostwhite;
-    position: fixed;
+    position: absolute;
     bottom: 0;
-    height: 50px;
+    height: 5rem;
     width: 100%;
     z-index: 100;
     background-color: white;

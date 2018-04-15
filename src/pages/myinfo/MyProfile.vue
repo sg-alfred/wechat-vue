@@ -95,7 +95,7 @@
 
   .detail-section a {
     height: auto;
-    margin: 0 10px;
+    margin: 0 1rem;
     padding: 15px;
     border-bottom: 1px solid #e8e8e8;
     display: flex;
@@ -114,7 +114,7 @@
 
   .address-section {
     background-color: white;
-    margin-top: 20px;
+    margin-top: 2rem;
     text-align: left;
     a {
       padding: 15px 25px;
@@ -124,12 +124,12 @@
   }
 
   .placeholder {
-    height: 20px;
+    height: 1.2rem;
     width: auto;
   }
 
   img {
-    width: 60px;
+    width: 4rem;
   }
 
   .fa-18x {

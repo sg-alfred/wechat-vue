@@ -25,18 +25,18 @@
 
 <style lang="scss" scoped>
   img {
-    width: 40px;
+    width: 2.5rem;
   }
 
   .contact-item {
-    margin: 0 10px;
-    padding: 10px;
+    margin: 0 1rem;
+    padding: .6rem;
     border-bottom: 1px solid #e8e8e8;
     display: flex;
     align-items: center;
     text-align: left;
     span {
-      padding: 0 10px 0 0;
+      padding: 0 1rem 0 0;
       flex: 0 1 0;
     }
     span:nth-child(2) {

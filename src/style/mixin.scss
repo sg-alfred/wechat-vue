@@ -1,4 +1,4 @@
-@mixin page($bgColor: #e8e8e8, $ptop: 60px) {
+@mixin page($bgColor: #e8e8e8, $ptop: 4.5rem) {
   padding-top: $ptop;
   background-color: $bgColor;
   position: absolute;
@@ -15,7 +15,7 @@
 }
 
 @mixin placeholder {
-  height: 20px;
+  height: 1.2rem;
   width: auto;
 }
 

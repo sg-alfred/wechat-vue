@@ -83,7 +83,7 @@
 
   .discover-page {
     @include page();
-    padding-bottom: 70px;
+    padding-bottom: 4.5rem;
   }
 
   .discover-container {

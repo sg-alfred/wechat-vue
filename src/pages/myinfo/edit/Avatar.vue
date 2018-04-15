@@ -150,12 +150,12 @@ export default {
   }
 
   .header-btn {
-    margin: 10px 10px 0 0;
+    margin: 1rem 1rem 0 0;
   }
 
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
-    margin-top: 10px;
+    margin-top: 1rem;
     border-radius: 6px;
     cursor: pointer;
     position: relative;
@@ -169,15 +169,15 @@ export default {
   .avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
-    width: 120px;
-    height: 120px;
-    line-height: 120px;
+    width: 12rem;
+    height: 12rem;
+    line-height: 12rem;
     text-align: center;
   }
 
   .avatar {
-    width: 120px;
-    height: 120px;
+    width: 12rem;
+    height: 12rem;
     display: block;
   }
 </style>

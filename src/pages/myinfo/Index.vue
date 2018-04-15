@@ -107,7 +107,7 @@
 
   .myinfo-page {
     @include page();
-    padding-bottom: 70px;
+    padding-bottom: 4.5rem;
   }
 
   .myinfo-container {
@@ -117,17 +117,17 @@
 
   .base-info {
     background-color: white;
-    padding: 20px;
+    padding: 1.2rem;
     text-align: left;
     width: 100%;
     a {
       display: flex;
       align-items: center;
       span {
-        margin: 0 20px 0 0;
+        margin: 0 2rem 0 0;
         flex: 0 1 0;
         img {
-          height: 60px;
+          height: 4rem;
         }
       }
       div {

@@ -137,7 +137,7 @@ export default {
         border: 1px solid #ffffff;
     }
     .placeholder {
-        height: 20px;
+        height: 1.2rem;
         width: auto;
     }
 </style>

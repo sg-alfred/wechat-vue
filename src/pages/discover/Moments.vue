@@ -12,7 +12,7 @@
 
     <main class="moments-container">
       <section class="">
-        <el-carousel trigger="click" height="150px">
+        <el-carousel trigger="click" height="15rem">
           <el-carousel-item v-for="item in 2" :key="item">
             <h3>{{ item }}</h3>
           </el-carousel-item>
@@ -98,21 +98,21 @@
   @import "../../style/mixin.scss";
 
   .moments-page {
-  @include page(#ffffff);
+    @include page(#ffffff);
     z-index: 202;
   }
 
   .head-cameraicon {
-    padding: 18px 20px;
+    padding: 1.5rem 2rem;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 
   .el-carousel__item h3 {
     color: #475669;
     font-size: 14px;
-    opacity: 0.75;
-    line-height: 150px;
+    opacity: .75;
+    line-height: 10rem;
     margin: 0;
   }
 

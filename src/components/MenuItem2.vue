@@ -40,18 +40,18 @@
 
 <style scoped>
   .placeholder {
-    height: 20px;
+    height: 2rem;
     background-color: #e8e8e8;
     z-index: 50;
   }
 
   img {
-    width: 40px;
+    width: 4rem;
   }
 
   .item-section a {
-    margin: 0 10px;
-    padding: 10px;
+    margin: 0 1rem;
+    padding: .8rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,7 +60,7 @@
   }
 
   .item-section span {
-    margin: 0 20px;
+    margin: 0 2rem;
     flex: 0 1 0;
   }
 

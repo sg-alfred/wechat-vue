@@ -1,5 +1,5 @@
 /**
- * Created by chenjz on 2017/9/20.
+ * Created by chenjz on 2017/9/20
  */
 'use strict'
 

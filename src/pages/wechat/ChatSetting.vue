@@ -10,7 +10,7 @@
           <img :src="contctInfo.headimgurl" alt="avatar"/>
         </router-link>
 
-        <svg class="icon fa-20px" aria-hidden="true">
+        <svg class="icon fa-2rem" aria-hidden="true">
           <use xlink:href="#icon-tianjiatupian"></use>
         </svg>
       </section>
@@ -133,12 +133,13 @@
   .setting-container {
     overflow: auto;
     height: 100%;
+    padding-bottom: 2rem
   }
 
   section {
-    margin-top: 20px;
+    margin-top: 1.2rem;
     background-color: white;
-    padding: 15px 10px;
+    padding: 15px 1rem;
     text-align: left;
     p {
       padding: 5px;
@@ -152,15 +153,15 @@
 
   .chatRole-section {
     div {
-      height: 30px;
+      height: 2.4rem;
       padding: 0 5px;
     }
     div:nth-child(1) {
-      padding-bottom: 10px;
+      padding-bottom: 1rem;
       border-bottom: 1px solid #e8e8e8;
     }
     div:nth-child(2) {
-      padding-top: 10px;
+      padding-top: 1rem;
     }
   }
 
@@ -168,13 +169,13 @@
     display: none;
   }
 
-  .fa-20px {
-    font-size: 48px;
-    margin: 10px;
+  .fa-2rem {
+    font-size: 4rem;
+    margin: .8rem;
   }
 
   img {
-    width: 48px;
-    margin: 10px;
+    width: 4rem;
+    margin: .8rem;
   }
 </style>

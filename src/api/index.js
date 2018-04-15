@@ -109,11 +109,6 @@ export const getMessages = (chatid, condition = {}) => {
 export const getContacts = () => axios.get('/contacts')
 
 /**
- * 这个是没有啥用的！
- */
-export const getUserOperate = () => axios.get('../../static/initData/operate.json')
-
-/**
  * 获取添加我为好友的用户列表
  */
 export const getNewFriends = () => axios.get('/contacts/new')

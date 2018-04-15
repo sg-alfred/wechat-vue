@@ -95,14 +95,14 @@
   }
 
   .head-addFriend {
-    padding: 20px;
+    padding: 2rem;
     font-size: 16px;
   }
 
   .searchFriend-section {
     background-color: white;
     width: 100%;
-    margin: 20px 0;
+    margin: 1.2rem 0;
   }
 
   .request-article {
@@ -111,24 +111,24 @@
 
   .request-article > div {
     font-size: 16px;
-    padding: 10px;
+    padding: 1rem;
   }
 
   .request-article .request-section {
     background-color: white;
-    height: 60px;
+    height: 4rem;
     border-bottom: 1px solid #e8e8e8;
     display: flex;
     align-items: center;
     span {
-      margin: 0 20px;
+      margin: 0 2rem;
       flex: 0 1 0;
     }
     span:nth-child(2) {
       flex-grow: 1;
     }
     img {
-      height: 40px;
+      height: 2.5rem;
     }
   }
 </style>

@@ -89,14 +89,14 @@
   @import "../../style/mixin.scss";
 
   .placeholder {
-    height: 20px;
+    height: 1.2rem;
     width: auto;
     background-color: #e8e8e8;
   }
 
   .contacts-page {
     @include page(#ffffff);
-    padding-bottom: 70px;
+    padding-bottom: 7rem;
   }
 
   .contacts-container {
@@ -105,19 +105,19 @@
   }
 
   img {
-    width: 40px;
+    width: 2.5rem;
   }
 
   .nav-section a {
     text-align: left;
-    margin: 0 10px;
-    padding: 10px;
+    margin: 0 1rem;
+    padding: .6rem;
     border-bottom: 1px solid #e8e8e8;
     display: flex;
     align-items: center;
 
     span {
-      padding: 0 10px 0 0;
+      padding: 0 1rem 0 0;
       flex: 0 1 0;
     }
 

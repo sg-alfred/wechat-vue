@@ -74,7 +74,7 @@
 
   section .like-a, section a {
     height: auto;
-    margin: 0 10px;
+    margin: 0 1rem;
     padding: 15px;
     border-bottom: 1px solid #e8e8e8;
     display: flex;
@@ -92,7 +92,7 @@
   }
 
   .placeholder {
-    height: 20px;
+    height: 1.2rem;
     width: auto;
   }
 

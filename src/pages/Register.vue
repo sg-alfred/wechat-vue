@@ -1,7 +1,7 @@
 <template>
   <section class="register-section">
     <!-- 这算是坑吧？需要 配合vuex 才能够使用！！ -->
-    <el-form ref="registerForm" :label-position="labelPosition" label-width="80px" :model="formInfo" :rules="formRules">
+    <el-form ref="registerForm" :label-position="labelPosition" label-width="8rem" :model="formInfo" :rules="formRules">
       <el-form-item label="手机号" prop="mobilephone">
         <el-input v-model="formInfo.mobilephone"></el-input>
       </el-form-item>

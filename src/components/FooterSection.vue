@@ -124,15 +124,15 @@ export default {
     border: 2px solid ghostwhite;
     position: absolute;
     bottom: 0;
-    height: 70px;
+    height: 4.5rem;
     width: 100%;
     z-index: 100;
     background-color: white;
+    font-size: .8rem;
     display: flex;
     align-items: center;
 
     section {
-      height: 50px;
       flex-grow: 1;
       p {
         margin-top: 5px;
@@ -141,8 +141,8 @@ export default {
   }
 
   img {
-    height: 30px;
-    padding: 5px 0;
+    height: 3rem;
+    padding: .5rem 0;
   }
 
   .fa-20x {

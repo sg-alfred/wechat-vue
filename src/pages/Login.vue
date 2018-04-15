@@ -8,7 +8,7 @@
     <div class="placeholder"></div>
 
     <article v-if="!loginByFace">
-      <el-form ref="loginForm" :label-position="labelPosition" label-width="80px" :model="formInfo"
+      <el-form ref="loginForm" :label-position="labelPosition" label-width="8rem" :model="formInfo"
                :rules="formRules">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="formInfo.username"></el-input>
@@ -193,7 +193,7 @@ export default {
   }
 
   .placeholder {
-    height: 20px;
+    height: 1.2rem;
   }
 
   video {

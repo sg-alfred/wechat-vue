@@ -13,12 +13,6 @@
       <div>
         <span>{{ moment.createtime }}</span>
 
-        <!--<span class="right" @click="showOperation = !showOperation">
-          <svg class="icon fa-18x" aria-hidden="true">
-              <use xlink:href="#icon-comment"></use>
-          </svg>
-        </span>-->
-
         <el-popover
             ref="popover2"
             placement="left"
@@ -26,8 +20,8 @@
             trigger="click"
             content="点赞或评论。">
           <el-button-group>
-            <el-button icon="star-on" @click="makeUpvote"></el-button>
-            <el-button icon="edit" @click="makeCommet"></el-button>
+            <el-button icon="star-on" @click="makeUpvote">赞</el-button>
+            <el-button icon="edit" @click="makeCommet">评论</el-button>
           </el-button-group>
         </el-popover>
 
@@ -71,18 +65,18 @@
 
 <style lang="scss" scoped>
   .moment-item {
-    margin: 0 10px;
-    padding: 15px;
+    margin: 0 .8rem;
+    padding: .8rem;
     display: flex;
     text-align: left;
     border-bottom: 1px solid #e8e8e8;
 
     p {
-      margin: 10px 0;
+      margin: .8rem 0;
     }
 
-    div {
-      margin: 0 20px 0 0;
+    div:nth-child(1) {
+      margin: 0 1.2rem 0 0;
       flex: 0 1 0;
     }
 
@@ -90,7 +84,10 @@
       flex-grow: 1;
       > div > .el-button {
         border: none;
-        padding: 5px;
+        padding: .1rem;
+        position: relative;
+        top: -.4rem;
+        box-sizing: content-box;
       }
     }
   }
@@ -103,15 +100,14 @@
     font-size: 1.8rem;
   }
 
+  /* 悬浮，无法在？ */
   .el-popover {
-    /* 为什么无效？ */
     background-color: #434439;
     padding: 0;
-    min-width: 0;
-    /* 当这里又是可以的！！ */
     .el-button-group {
       .el-button {
         background-color: #434439;
+        color: #fff;
       }
     }
   }

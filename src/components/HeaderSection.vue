@@ -104,7 +104,7 @@
         messages: 0,
         iconDivStyle: {
           display: 'inline',
-          'padding-right': '10px'
+          'padding-right': '1rem'
         }
       }
     },
@@ -180,8 +180,8 @@
   .header-container {
     background-color: #434439;
     color: white;
-    height: 60px;
-    font-size: 20px;
+    height: 4.5rem;
+    font-size: 1.5rem;
     top: 0;
     position: absolute;
     width: 100%;
@@ -190,27 +190,27 @@
 
   .head_goback {
     float: left;
-    margin: 10px 0 0 5px;
+    margin: 1rem 0 0 .5rem;
   }
 
   .head_title {
     float: left;
-    margin-top: 18px;
+    margin-top: 1.5rem;
     text-align: left;
   }
 
   .head_title .title_text {
-    margin: 0 0 0 20px;
+    margin: 0 0 0 2rem;
   }
 
   .head_dropdown, .head_search {
     float: right;
-    margin: 10px 10px 0 5px;
+    margin: 1rem 1rem 0 .5rem;
   }
 
   /* 下拉菜单！ */
   .el-dropdown-menu {
-    margin-top: 6px;
+    margin-top: .6rem;
     padding: 0;
     border: 0;
     background-color: #434439;
@@ -218,22 +218,20 @@
 
     .el-dropdown-menu__item {
       display: flex;
-      height: 45px;
-      width: 200px;
-      border-top: 1px solid #000000;
+      border-top: .01rem solid #000000;
       text-align: left;
-      padding: 0 20px;
+      padding: 0 2rem;
       justify-content: center;
       align-items: center;
       span {
         flex: 0 1 0;
-        margin: 0 20px;
+        margin: 0 2rem;
       }
       span:nth-child(2) {
         flex-grow: 1;
       }
       img {
-        width: 25px;
+        width: 2.5rem;
       }
     }
 

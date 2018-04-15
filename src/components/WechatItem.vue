@@ -27,9 +27,9 @@
         <span>{{ chatItem.nickname || chatItem.alias || chatItem.mobilephone }}</span>
         <span class="right">{{ chatItem.chatinfo.sendtime | formatTime }}</span>
       </p>
-      <p class="padding-5">
-        <span>{{ chatItem.chatinfo.content }}</span>
-      </p>
+      <div class="padding-5 text-overflow">
+        {{ chatItem.chatinfo.content }}
+      </div>
     </div>
 
   </section>
@@ -49,12 +49,12 @@
 
 <style lang="scss" scoped>
   img {
-    width: 48px;
+    width: 3.2rem;
   }
 
   .wechat-item {
-    padding: 10px;
-    margin: 0 10px;
+    padding: .8rem;
+    margin: 0 1rem;
     border-bottom: 1px solid #e8e8e8;
     text-align: left;
     display: flex;
@@ -65,10 +65,18 @@
   }
 
   .wechat-item > span {
-    margin: 0 10px 0 0;
+    margin: 0 1rem 0 0;
+  }
+
+  /* 文本溢出用 … 代替 */
+  .text-overflow {
+    width: 15rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .padding-5 {
-    padding: 5px;
+    padding: .3rem;
   }
 </style>

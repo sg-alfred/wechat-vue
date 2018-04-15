@@ -1,8 +1,9 @@
 <template>
-  <section class="">
-        <span class="sendtime-info">
-            {{ message.sendtime | formatTime }}
-        </span>
+  <section class="message-item">
+    <span class="sendtime-info">
+      {{ message.sendtime | formatTime }}
+    </span>
+    <!-- 好友信息 -->
     <div v-if="message.fromid != userid">
       <div class="message-friend">
         <span>
@@ -10,12 +11,19 @@
             <img alt="好友" :src="contact.headimgurl">
           </router-link>
         </span>
-        <span>{{ message.content }}</span>
+        <div>
+          <span class="bubble"></span>
+          {{ message.content }}
+        </div>
       </div>
     </div>
+    <!-- 自己发送的信息 -->
     <div v-else>
       <div class="message-self">
-        <span>{{ message.content }}</span>
+        <div>
+          <span class="bubble"></span>
+          {{ message.content }}
+        </div>
         <span>
           <router-link :to="'/userprofile/' + userid">
             <img alt="自己" :src="userinfo.headimgurl">
@@ -40,19 +48,20 @@
       }
     },
     computed: {
-      // 展开运算符
       ...mapState(['userinfo']),
       ...mapGetters({userid: 'getUserid'})
-    },
-    methods: {
-      //
     }
   }
 </script>
 
 <style lang="scss" scoped>
+
+  .message-item {
+    margin: .8rem 0;
+  }
+
   .sendtime-info {
-    font-size: 0.8rem;
+    font-size: .8rem;
     background-color: #e3e3e3;
     padding: 5px;
   }
@@ -60,37 +69,54 @@
   .message-friend, .message-self {
     display: flex;
     align-items: center;
+    margin: .8rem;
+    text-align: left;
 
-    span {
-      text-align: left;
-      margin: 0 10px;
-      border-radius: 8px;
+    div {
+      margin: 0 1rem;
+      border-radius: .5rem;
+      position: relative;
+      padding: .8rem;
+      max-width: 70%;
+      span {
+        width: 0;  height: 0;
+        font-size: 0;
+        overflow: hidden;
+        position: absolute;
+        border-width: .8rem;
+        border-style: solid dashed dashed;
+      }
     }
   }
 
   .message-friend {
     justify-content: flex-start;
 
-    span:nth-child(2) {
+    div {
       background-color: white;
-      margin: 10px 50px 10px 10px;
-      padding: 10px;
-      max-width: 80%;
+      span {
+        border-color: transparent #fff transparent transparent;
+        left: -1.5rem;
+        bottom: .8rem
+      }
     }
   }
 
   .message-self {
     justify-content: flex-end;
 
-    span:nth-child(1) {
+    div {
       background-color: #92e748;
-      margin: 10px 10px 10px 50px;
-      padding: 10px;
-      max-width: 80%;
+      span {
+        border-color: transparent transparent transparent #92e748;
+        right: -1.5rem;
+        bottom: .8rem
+      }
     }
+
   }
 
   img {
-    width: 30px;
+    width: 2.5rem;
   }
 </style>

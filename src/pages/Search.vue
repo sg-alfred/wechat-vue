@@ -20,7 +20,7 @@
         <li class="show">音乐</li>
         <li>表情</li>
       </ul>
-      <p class="search-title clearfix">看一看</p>
+      <!--<p class="search-title">看一看</p>-->
     </main>
   </div>
 </template>
@@ -113,38 +113,36 @@
   }
 
   .search-frm {
-    display: flex;
-    padding: 5px 5px 0;
-    margin: 0 20px;
+    box-sizing: border-box;
+    margin: 1rem 1rem .5rem 4rem;
     border-bottom: 1px solid greenyellow;
-    float: left;
-    width: 80vw;
-  }
+    display: flex;
 
-  .search-frm svg {
-    text-align: left;
-  }
-
-  .search-frm input {
-    flex-grow: 1;
-    border: hidden;
-    background-color: #434439;
-    color: white;
-    font-size: 20px;
-    margin-top: 5px;
-    padding: 5px;
+    svg {
+      text-align: left;
+    }
+    input {
+      border: hidden;
+      background-color: #434439;
+      color: white;
+      font-size: 1.5rem;
+      box-sizing: border-box;
+      padding: .5rem;
+      display: inline-block;
+      width: 100%;
+    }
   }
 
   ul {
     list-style: none;
     padding: 0 5%;
-  }
 
-  li {
-    float: left;
-    width: 33%;
-    color: limegreen;
-    margin: 15px 0;
+    li {
+      float: left;
+      width: 33%;
+      color: limegreen;
+      margin: 15px 0;
+    }
   }
 
   .search-container .show {
@@ -152,10 +150,7 @@
   }
 
   .search-title {
-    padding: 20px;
+    padding: 2rem;
   }
 
-  .clearfix {
-    clear: both;
-  }
 </style>

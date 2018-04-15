@@ -104,26 +104,23 @@ export default {
 
 <style lang="scss" scoped>
     .send-section {
-        border: ghostwhite solid 2px;
         background-color: white;
-        position: fixed;
+        position: absolute;
         bottom: 0;
-        /* height 需要动态修改！因为需要反映到 父组件 */
-        height: 50px;
-        font-size: 20px;
+        height: 3.6rem;
+        font-size: 2rem;
         width: 100%;
         z-index: 101;
-        padding-top: 8px;
-    }
-    .show-panel {
-        height: 300px;
     }
     .message-section {
         display: flex;
         justify-content: center;
         align-items: center;
+        border-bottom: ghostwhite solid .1rem;
+        box-sizing: border-box;
+        padding: .4rem 0;
         div {
-            margin: 0 10px;
+            margin: 0 .8rem;
             flex: 0 1 0;
         }
         div:nth-child(2) {
@@ -132,13 +129,17 @@ export default {
                 border: hidden;
                 border-bottom: 1px solid green;
                 width: 100%;
+                font-size: 1.2rem;
+                padding: .4rem;
             }
         }
     }
     .tool-panel {
-        height: 250px;
+        position: absolute;
+        bottom: 0;
+        height: 20rem;
         img {
-            height: 250px;
+            height: 20rem;
             width: 100%;
         }
     }

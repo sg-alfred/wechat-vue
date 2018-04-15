@@ -72,15 +72,15 @@ export default {
         z-index: 333;
     }
     .header-btn {
-        margin: 10px 10px 0 0;
+        margin: 1rem 1rem 0 0;
     }
     .form-section {
-        overflow: scroll;
+        overflow: auto;
         width: 100%;
-        position: fixed;
+        position: absolute;
         article {
-            margin: 20px 0;
-            padding: 10px;
+            margin: 2rem 0;
+            padding: 1rem;
             background-color: white;
             input {
                 border: hidden;
@@ -92,7 +92,7 @@ export default {
             p {
                 text-align: left;
                 color: #adadad;
-                padding: 10px;
+                padding: 1rem;
             }
         }
     }

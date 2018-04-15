@@ -6,7 +6,6 @@
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-myinfo-active"></use>
         </svg>
-        <!--<i class="fa fa-user fa-12x" aria-hidden="true"></i>-->
       </router-link>
     </header-section>
 
@@ -153,26 +152,22 @@ export default {
   @import "../../style/mixin.scss";
 
   .head-usericon {
-    padding: 18px 20px;
+    padding: 1.5rem 2rem;
     color: white;
+    font-size: 1.5rem;
   }
 
   .chatroom-page {
     @include page();
-    /* 也需要修改了～～ */
-    padding-bottom: 60px;
+    padding-bottom: 3.6rem;
   }
 
   .show-panel {
-    padding-bottom: 300px;
+    padding-bottom: 23.6rem;
   }
 
   #container {
     overflow: auto;
     flex: 1;
-  }
-
-  .fa-12x {
-    font-size: 1.2rem;
   }
 </style>

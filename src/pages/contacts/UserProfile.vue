@@ -115,7 +115,39 @@
            */
         },
         isShowOperate: false,
-        operateList: []
+        operateList: [{
+          "id": 0,
+          "icon": "static/image/operate/icon-setRemark.png",
+          "name": "设置备注及标签"
+        }, {
+          "id": 1,
+          "icon": "static/image/operate/icon-starred.png",
+          "name": "标为星标朋友"
+        }, {
+          "id": 2,
+          "icon": "static/image/operate/icon-moment.png",
+          "name": "朋友圈设置"
+        }, {
+          "id": 3,
+          "icon": "static/image/operate/icon-shareContact.png",
+          "name": "发送该名片"
+        }, {
+          "id": 4,
+          "icon": "static/image/operate/icon-report.png",
+          "name": "投诉"
+        }, {
+          "id": 5,
+          "icon": "static/image/operate/icon-addToBlock.png",
+          "name": "加入黑名单"
+        }, {
+          "id": 6,
+          "icon": "static/image/operate/icon-delete.png",
+          "name": "删除"
+        }, {
+          "id": 7,
+          "icon": "static/image/operate/icon-addToDesk.png",
+          "name": "添加到桌面"
+        }]
       }
     },
     components: {
@@ -149,8 +181,6 @@
       },
       async showOperate() {
         this.isShowOperate = true
-        const response = await getUserOperate()
-        this.operateList = response.data.operateList
       },
       async hideOperate() {
         this.isShowOperate = false
@@ -166,7 +196,7 @@
   @import "../../style/mixin.scss";
 
   .placeholder {
-    margin-top: 20px;
+    margin-top: 1.2rem;
   }
 
   .userprofile-page {
@@ -176,16 +206,17 @@
   .profile-container {
     overflow: auto;
     height: 100%;
+    padding-bottom: 2rem
   }
 
   .head-operate {
-    margin: 10px 10px 0;
+    margin: 1rem 1rem 0;
   }
 
   .base-info, .tag-section {
     text-align: left;
     background-color: white;
-    padding: 20px;
+    padding: 1rem 2rem;
   }
 
   .base-info {
@@ -193,13 +224,12 @@
     align-items: center;
 
     span {
-      margin: 0 20px 0 0;
+      margin: 0 2rem 0 0;
       flex: 0 1 0;
       img {
-        height: 60px;
+        height: 3.2rem;
       }
     }
-
     div {
       flex-grow: 1;
       p {
@@ -207,31 +237,30 @@
       }
     }
   }
+
   .more-section {
     text-align: left;
     background-color: white;
-    /*margin: 0 10px;*/
-    padding: 0 20px;
+    padding: 0 2rem;
 
     .item {
-      padding: 15px;
+      padding: 1rem;
       border-bottom: 1px solid #e8e8e8;
       display: flex;
       align-items: center;
     }
-
-  }
-  .more-section .album {
-    height: 100px;
+    .album {
+      height: 5rem;
+    }
   }
 
   .contact-section button {
     margin: 5px;
-    width: 80%;
+    width: 70%;
   }
 
   .picker {
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     z-index: 999;
@@ -250,17 +279,23 @@
 
     .picker-content {
       position: absolute;
-      z-index: 1000;
       bottom: 0;
+      z-index: 1000;
       text-align: left;
       background-color: white;
       width: 100%;
-      height: 300px;
-      overflow: scroll;
+      height: 20rem;
+      overflow: auto;
       border-top: 1px solid #e8e8e8;
 
       .operate-text {
-        padding: 0 0 0 20px;
+        padding: 0 0 0 2rem;
+        display: table-cell;
+        vertical-align: middle;
+      }
+      img {
+        height: 1.8rem;
+        padding: 5px;
         display: table-cell;
         vertical-align: middle;
       }
@@ -268,7 +303,7 @@
   }
 
   img {
-    height: 20px;
+    height: 3.2rem;
     padding: 5px;
     display: table-cell;
     vertical-align: middle;

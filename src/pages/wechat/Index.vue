@@ -57,7 +57,7 @@ export default {
 
   .wechat-page {
     @include page(#ffffff);
-    padding-bottom: 70px;
+    padding-bottom: 7rem;
   }
 
   .wechat-container {

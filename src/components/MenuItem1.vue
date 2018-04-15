@@ -54,7 +54,7 @@
 
 <style lang="scss" scoped>
   .placeholder {
-    height: 20px;
+    height: 1.2rem;
     background-color: #e8e8e8;
     z-index: 50;
   }
@@ -63,19 +63,19 @@
     height: 42px;
     width: 42px;
     background-size: cover;
-    transform: scale(0.5);
+    transform: scale(.5);
   }
 
   .item-section a {
-    margin: 0 10px;
-    padding: 8px;
+    margin: 0 1rem;
+    padding: .5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #e8e8e8;
     text-align: left;
     span {
-      margin: 0 0 0 10px;
+      margin: 0 0 0 1rem;
       /*flex: 0 1 0;*/
       flex-grow: 1;
     }
