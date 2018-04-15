@@ -53,6 +53,18 @@
     color: #2c3e50;
   }
 
+  @media screen and (min-width: 450px){
+    #app {
+      left: 0; right: 0; top: 0; bottom: 0;
+      position: absolute;
+      margin: auto;
+      box-shadow: 1rem 1rem 0.5rem #888888;
+      max-width: 450px;
+      height: 90%;
+      box-sizing: border-box;
+    }
+  }
+
   a {
     color: #000000;
   }

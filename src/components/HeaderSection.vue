@@ -183,7 +183,7 @@
     height: 60px;
     font-size: 20px;
     top: 0;
-    position: fixed;
+    position: absolute;
     width: 100%;
     z-index: 100;
   }

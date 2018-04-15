@@ -88,13 +88,11 @@ export default {
   [types.ADD_MESSAGE] (state, { message }) {
     console.log('消息 - mutation', message)
 
-    let chatroom
-
     // 又没有必要区分？
     // if ('send' === message.type) {
     //     chatroom = getCurrentContact(state)
     // } else if ('receive' === message.type) {
-    chatroom = getContactByChatid(state, message.chatid)
+    let chatroom = getContactByChatid(state, message.chatid)
     // }å
 
     chatroom.messages.push(message)

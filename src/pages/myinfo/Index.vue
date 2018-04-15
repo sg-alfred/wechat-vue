@@ -21,9 +21,6 @@
             </svg>
           </span>
         </router-link>
-
-        <!-- 但是这样是不对的！！ 因为，事件不是这样的！应该阻止 冒泡
-        不能够 写在这个 a标签外面！-->
       </section>
 
       <section class="menu-section">
@@ -94,7 +91,7 @@
     },
     methods: {
       showCode(event) {
-        //                event.cancelBubble = true;
+        // event.cancelBubble = true;
         event.preventDefault() // 阻止默认事件
         event.stopPropagation() // 阻止冒泡
 
@@ -123,23 +120,21 @@
     padding: 20px;
     text-align: left;
     width: 100%;
-  }
-
-  .base-info a {
-    display: flex;
-    align-items: center;
-    span {
-      margin: 0 20px 0 0;
-      flex: 0 1 0;
-      img {
-        height: 60px;
+    a {
+      display: flex;
+      align-items: center;
+      span {
+        margin: 0 20px 0 0;
+        flex: 0 1 0;
+        img {
+          height: 60px;
+        }
       }
-    }
-
-    div {
-      flex-grow: 1;
-      p {
-        padding: 5px 0;
+      div {
+        flex-grow: 1;
+        p {
+          padding: 5px 0;
+        }
       }
     }
   }

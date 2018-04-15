@@ -56,7 +56,7 @@ export default {
   @import "../../style/mixin.scss";
 
   .wechat-page {
-  @include page(#ffffff);
+    @include page(#ffffff);
     padding-bottom: 70px;
   }
 
@@ -65,13 +65,4 @@ export default {
     height: 100%;
   }
 
-  .absolute-center {
-    @include absoluteCenter;
-    width: 80%;
-    height: 20%;
-  }
-
-  .absoluteCenter p {
-    padding: 5px;
-  }
 </style>

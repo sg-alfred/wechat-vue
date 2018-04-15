@@ -37,8 +37,10 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 * [X] 简单的注册功能，真的是简单的，然后登录，之后至少加上 验证码
 * [X] 好友添加功能
 * [X] 即时通讯聊天功能（socket.io）
+    * [ ] 消息加密，非对称加密传递/对称加密密钥
 * [ ] 朋友圈: 发状态 + 好友点赞／评论
 * [X] 使用 electron 打包成桌面应用 —— 2018年2月4日
+* [ ] 内置一些有趣的公众号，引入有趣的技术。
 * [ ] 其他尝试
     * [X] 结合百度AI做人脸登录
     * [ ] redis 队列做数据推送？

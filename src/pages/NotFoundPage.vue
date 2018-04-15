@@ -2,7 +2,7 @@
   <div class="notfound-page">
     <header-section :go-back="true" :head-title="headTitle"></header-section>
 
-    <main class="absolute-center">
+    <main class="notfound-container">
       <p>哎呀，界面走失了或者还没有开发呢～</p>
     </main>
   </div>
@@ -27,8 +27,8 @@
 <style lang="scss" scoped>
   @import "../style/mixin.scss";
 
-  .absolute-center {
-    @include absoluteCenter;
+  .notfound-container {
+    @include absolute-center;
     width: 80%;
     height: 20%;
   }

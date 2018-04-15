@@ -1,24 +1,21 @@
 @mixin page($bgColor: #e8e8e8, $ptop: 60px) {
   padding-top: $ptop;
   background-color: $bgColor;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
   display: flex;
   flex-direction: column;
 }
 
-@mixin absoluteCenter {
+@mixin absolute-center {
   margin: auto;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  vertical-align: middle;
+  top: 0; bottom: 0; left: 0; right: 0;
+  // vertical-align: middle;
 }
 
-//@mixin fa-x
+@mixin placeholder {
+  height: 20px;
+  width: auto;
+}
 

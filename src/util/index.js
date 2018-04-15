@@ -19,7 +19,7 @@ const isEmptyObject = (value) => {
 }
 
 // 将图片转化为64位编码
-const convertImgToBase64 = (url, callback, outputFormat) => {
+const convertImgToBase64 = (url, callback, outputFormat = 'image/png') => {
   let canvas = document.createElement('CANVAS'),
     ctx = canvas.getContext('2d'),
     img = new Image()
@@ -28,14 +28,14 @@ const convertImgToBase64 = (url, callback, outputFormat) => {
     canvas.height = img.height
     canvas.width = img.width
     ctx.drawImage(img, 0, 0)
-    let dataURL = canvas.toDataURL(outputFormat || 'image/png')
+    let dataURL = canvas.toDataURL(outputFormat)
     callback.call(this, dataURL)
     canvas = null
   }
   img.src = url
 }
 
-// this ！！function ? 箭头函数 ?
+// this ！！function ? 箭头函数 ? 写在 main 函数里！
 export const gotoAddress = (path) => {
   console.log('调转到：', path)
   if (path === -1) {
