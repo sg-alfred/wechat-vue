@@ -35,6 +35,42 @@ const convertImgToBase64 = (url, callback, outputFormat = 'image/png') => {
   img.src = url
 }
 
+
+// 节流，下拉刷新控制！
+export const debounce = (fn, wait = 0) => {
+  var timeId
+
+  function debounced() {
+    if (timeId) {
+      clearTimeout(timeId)
+    }
+    timeId = setTimeout(fn, wait)
+  }
+
+  return debounced
+}
+
+export const throttle = (fn, wait = 0) => {
+  var timeId, lasttime = 0;
+
+  function throttled() {
+    let nowtime = new Date()
+
+    // 当作一次新的开始！
+    if (nowtime - lasttime > wait) {
+      fn()
+      lasttime = nowtime
+    } else {
+      if (timeId) {
+        clearTimeout(timeId)
+      }
+      timeId = setTimeout(fn, wait)
+    }
+  }
+
+  return throttled
+}
+
 // this ！！function ? 箭头函数 ? 写在 main 函数里！
 export const gotoAddress = (path) => {
   console.log('调转到：', path)
@@ -50,5 +86,5 @@ export {
   isEmptyObject,
   localStorage,
   initSocketio,
-  convertImgToBase64
+  convertImgToBase64,
 }

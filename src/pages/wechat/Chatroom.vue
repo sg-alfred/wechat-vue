@@ -34,6 +34,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { getMessages } from '../../api'
+import { debounce, throttle } from '../../util'
 import HeaderSection from '../../components/HeaderSection'
 import MessageItem from '../../components/chatroom/MessageItem'
 import MessageSend from '../../components/chatroom/MessageSend'
@@ -103,36 +104,52 @@ export default {
     })
   },
   mounted() {
-    this.$el.querySelector('#container').addEventListener('scroll', this.handleScroll)
+    // 滑动没有必要监听！重要的是 下拉刷新！
+    this.$el.querySelector('#container').addEventListener('scroll', debounce(this.handleScroll, 100))
   },
   methods: {
     ...mapActions(['switchChatroom', 'syncMessages']),
     async handleScroll() {
+
       const container = this.$el.querySelector('#container')
 
       // 设置 下拉50 后才触发 刷新，这样体验 会更好。
       // console.log(container.scrollTop)
 
+      // 需要自定义事件！触发顶部下拉刷新！
+
       if (this.allMessages.length > 0 && container.scrollTop === 0 && !this.allMessages[0].first) {
         const sendtimeLt = this.allMessages[0].sendtime
 
-        // 获取到 第一条信息的时间，然后 传入，再次查询！
-        // 懒加载！ 一次加载一点点，比如，20条。并保存到 vuex
-        const response = await getMessages(this.chatid, { sendtimeLt })
-
-        const messages = response.data.data.reverse()
-
-        // 标记 最开始的一条信息～ 如果 小于限制值，则，判断没有更早的消息，
-        // 但是，如果正好等于20 ?? 那就再取一次，这样的话，又得操作 vuex..
-        if (messages.length < 20) messages[0].first = 1
-
-        // 这个时候 不能再跳回到 底端！！
-        // 需要记住 当前的位置！因为 不能一下子跳到最上面！最好有一个 动画的过渡过程！
-        this.currentHeight = container.scrollHeight
-
-        // 后端是 递减排序，前端改为 递增后再存入 vuex
-        await this.syncMessages(messages)
+        this.getAndSyncMessages(sendtimeLt)
       }
+    },
+    async getAndSyncMessages(sendtimeLt) {
+
+      // 提示一下
+      this.$message('聊天记录加载中..')
+
+      // 获取到 第一条信息的时间，然后 传入，再次查询！
+      // 懒加载！ 一次加载一点点，比如，20条。并保存到 vuex
+      const response = await getMessages(this.chatid, { sendtimeLt })
+
+      const messages = response.data.data.reverse()
+
+      if (messages.length === 0) {
+        this.$message('没有更早的聊天记录了～')
+        return false;
+      }
+
+      // 标记 最开始的一条信息～ 如果 小于限制值，则，判断没有更早的消息，
+      // 但是，如果正好等于20 ?? 那就再取一次，这样的话，又得操作 vuex..
+      if (messages.length < 20) messages[0].first = 1
+
+      // 这个时候 不能再跳回到 底端！！
+      // 需要记住 当前的位置！因为 不能一下子跳到最上面！最好有一个 动画的过渡过程！
+      this.currentHeight = container.scrollHeight
+
+      // 后端是 递减排序，前端改为 递增后再存入 vuex
+      await this.syncMessages(messages)
     },
     showPanel(isShowPanel = false) {
       this.isShowPanel = isShowPanel
@@ -140,10 +157,10 @@ export default {
       // 滚动到最低处
       const container = this.$el.querySelector('#container')
       container.scrollTop = container.scrollHeight
-    }
+    },
   },
   watch: {
-    // 有新消息的时候自动最下方！
+    // 有新消息的时候自动最下方？—— 不行！我看历史记录呢！
   }
 }
 </script>
