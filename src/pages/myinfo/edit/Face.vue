@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import HeaderSection from '../../../components/HeaderSection'
+import HeaderSection from '@/components/HeaderSection'
 import { mapState, mapActions } from 'vuex'
-import { updateUserinfo } from '../../../api'
-import { localStorage } from '../../../util'
+import { updateUserinfo } from '@/api'
+import { localStorage } from '@/utils'
 
 export default {
   name: 'Face',

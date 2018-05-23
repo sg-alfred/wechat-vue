@@ -7,7 +7,7 @@ import store from '../store'
 import router from '../router'
 import io from 'socket.io-client'
 import config from '../../config'
-// import { notification } from '../util'
+// import { notification } from '@/utils'
 
 const proxypath = process.env.NODE_ENV === 'production' ? config.build.proxypath : config.dev.proxypath
 

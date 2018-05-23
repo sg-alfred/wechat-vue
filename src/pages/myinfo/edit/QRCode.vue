@@ -44,9 +44,9 @@
 
 <script>
   import {mapState} from 'vuex'
-  import {createQrcode} from '../../../api'
-  import HeaderSection from '../../../components/HeaderSection'
-  import { localStorage } from '../../../util'
+  import {createQrcode} from '@/api'
+  import HeaderSection from '@/components/HeaderSection'
+  import { localStorage } from '@/utils'
 
   export default {
     name: 'QRCode',

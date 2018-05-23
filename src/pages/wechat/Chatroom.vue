@@ -33,10 +33,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { getMessages } from '../../api'
-import HeaderSection from '../../components/HeaderSection'
-import MessageItem from '../../components/chatroom/MessageItem'
-import MessageSend from '../../components/chatroom/MessageSend'
+import { getMessages } from '@/api'
+import HeaderSection from '@/components/HeaderSection'
+import MessageItem from '@/components/chatroom/MessageItem'
+import MessageSend from '@/components/chatroom/MessageSend'
 
 export default {
   name: 'Chatroom',

@@ -42,8 +42,8 @@
 
 <script>
   import Vue from 'vue'
-  import {getNewFriends, handleNewFriend} from '../../api'
-  import HeaderSection from '../../components/HeaderSection'
+  import {getNewFriends, handleNewFriend} from '@/api'
+  import HeaderSection from '@/components/HeaderSection'
 
   export default {
     name: 'NewFriends',

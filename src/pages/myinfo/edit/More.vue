@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import HeaderSection from '../../../components/HeaderSection'
+  import HeaderSection from '@/components/HeaderSection'
   import {mapState} from 'vuex'
 
   export default {

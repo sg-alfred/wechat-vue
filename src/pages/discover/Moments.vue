@@ -30,9 +30,9 @@
 </template>
 
 <script>
-  import HeaderSection from '../../components/HeaderSection'
-  import OneMoment from '../../components/OneMoment'
-  import {getMoments} from '../../api'
+  import HeaderSection from '@/components/HeaderSection'
+  import OneMoment from '@/components/OneMoment'
+  import {getMoments} from '@/api'
 
   export default {
     name: 'Moments',

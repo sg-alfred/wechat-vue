@@ -93,8 +93,8 @@
 
 <script>
   import {mapState, mapActions} from 'vuex'
-  import {userLogout} from '../api'
-  import {localStorage} from '../util'
+  import {userLogout} from '@/api'
+  import {localStorage} from '@/utils'
 
   export default {
     name: 'HeaderSection',

@@ -57,9 +57,9 @@
 </template>
 
 <script>
-  import {clearChatHistory} from '../../api'
+  import {clearChatHistory} from '@/api'
   import {mapActions} from 'vuex'
-  import HeaderSection from '../../components/HeaderSection'
+  import HeaderSection from '@/components/HeaderSection'
 
   export default {
     name: 'ChatSetting',

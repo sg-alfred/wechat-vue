@@ -17,9 +17,9 @@
 </template>
 
 <script>
-  import HeaderSection from '../../components/HeaderSection'
-  import FooterSection from '../../components/FooterSection'
-  import MenuItem1 from '../../components/MenuItem1'
+  import HeaderSection from '@/components/HeaderSection'
+  import FooterSection from '@/components/FooterSection'
+  import MenuItem1 from '@/components/MenuItem1'
 
   export default {
     name: 'Discover',

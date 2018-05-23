@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import {userRegister} from '../api'
+  import {userRegister} from '@/api'
 
   export default {
     name: 'Register',

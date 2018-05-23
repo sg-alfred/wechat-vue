@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import HeaderSection from '../../components/HeaderSection'
+  import HeaderSection from '@/components/HeaderSection'
   export default {
     name: 'Wallet',
     components: {

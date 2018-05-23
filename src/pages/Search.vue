@@ -27,9 +27,9 @@
 
 <script>
   import {mapState} from 'vuex'
-  import {searchUser} from '../api'
-  import {isEmptyObject, localStorage} from '../util'
-  import HeaderSection from '../components/HeaderSection'
+  import {searchUser} from '@/api'
+  import {isEmptyObject, localStorage} from '@/utils'
+  import HeaderSection from '@/components/HeaderSection'
 
   export default {
     name: 'Search',
