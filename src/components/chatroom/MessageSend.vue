@@ -40,7 +40,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { sendMessage } from '../../api'
+import { sendMessage } from '@/api'
 
 export default {
   name: 'Message',

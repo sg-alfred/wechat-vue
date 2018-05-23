@@ -7,7 +7,7 @@
 <script>
   import {mapState, mapActions} from 'vuex'
   import 'normalize.css'
-  import {initSocketio} from './util'
+  import {initSocketio} from '@/utils'
 
   export default {
     name: 'app',

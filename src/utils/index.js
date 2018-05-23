@@ -4,22 +4,20 @@
 'use strict'
 
 // import 后直接 export，可以 混写
-// export kind from './kind-of'
-// export localStorage from './localstorage'
+export { localStorage } from './localstorage'
+export { initSocketio } from './socket'
 
 import kindOf from './kind-of'
-import localStorage from './localstorage'
-import initSocketio from './socket'
 
 // 判断对象是否为空
-const isEmptyObject = (value) => {
+export const isEmptyObject = (value) => {
   if (kindOf(value) !== 'object') return false
   for (let t in value) return false
   return true
 }
 
 // 将图片转化为64位编码
-const convertImgToBase64 = (url, callback, outputFormat = 'image/png') => {
+export const convertImgToBase64 = (url, callback, outputFormat = 'image/png') => {
   let canvas = document.createElement('CANVAS'),
     ctx = canvas.getContext('2d'),
     img = new Image()
@@ -82,9 +80,5 @@ export const gotoAddress = (path) => {
 }
 
 export {
-  kindOf,
-  isEmptyObject,
-  localStorage,
-  initSocketio,
-  convertImgToBase64,
+  kindOf
 }

@@ -29,8 +29,8 @@
 
 <script>
   import {mapState, mapActions} from 'vuex'
-  import {addNewFriend} from '../../api'
-  import HeaderSection from '../../components/HeaderSection'
+  import {addNewFriend} from '@/api'
+  import HeaderSection from '@/components/HeaderSection'
 
   export default {
     name: 'AddSend',

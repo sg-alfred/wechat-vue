@@ -91,9 +91,9 @@
 
 <script>
   import {mapState, mapActions} from 'vuex'
-  import {getUserOperate} from '../../api'
-  import {localStorage} from '../../util'
-  import HeaderSection from '../../components/HeaderSection'
+  import {getUserOperate} from '@/api'
+  import {localStorage} from '@/utils'
+  import HeaderSection from '@/components/HeaderSection'
 
   export default {
     name: 'UserProfile',

@@ -35,10 +35,10 @@ http://www.cnblogs.com/cjh1111/p/7017295.html
 </template>
 
 <script>
-import HeaderSection from '../../../components/HeaderSection'
-import { uploadAvatar } from '../../../api'
+import HeaderSection from '@/components/HeaderSection'
+import { uploadAvatar } from '@/api'
 import { mapState, mapActions } from 'vuex'
-import { localStorage } from '../../../util'
+import { localStorage } from '@/utils'
 
 export default {
   name: 'Avatar',

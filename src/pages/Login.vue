@@ -43,8 +43,8 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
-import {userLogin} from '../api'
-import {localStorage, initSocketio } from '../util'
+import {userLogin} from '@/api'
+import {localStorage, initSocketio } from '@/utils'
 
 export default {
   name: 'Login',

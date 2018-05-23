@@ -16,10 +16,10 @@
 
 <script>
 import { mapState } from 'Vuex'
-import { getChatrooms } from '../../api'
-import HeaderSection from '../../components/HeaderSection'
-import FooterSection from '../../components/FooterSection'
-import WechatItem from '../../components/WechatItem'
+import { getChatrooms } from '@/api'
+import HeaderSection from '@/components/HeaderSection'
+import FooterSection from '@/components/FooterSection'
+import WechatItem from '@/components/WechatItem'
 
 export default {
   name: 'Wechat',

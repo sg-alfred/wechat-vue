@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import HeaderSection from '../../components/HeaderSection'
-import MenuItem2 from '../../components/MenuItem2'
+import HeaderSection from '@/components/HeaderSection'
+import MenuItem2 from '@/components/MenuItem2'
 
 export default {
   name: 'AddFriend',

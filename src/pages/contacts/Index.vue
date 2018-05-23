@@ -34,9 +34,9 @@
 
 <script>
   import {mapState} from 'vuex'
-  import HeaderSection from '../../components/HeaderSection'
-  import FooterSection from '../../components/FooterSection'
-  import ContactItem from '../../components/ContactItem'
+  import HeaderSection from '@/components/HeaderSection'
+  import FooterSection from '@/components/FooterSection'
+  import ContactItem from '@/components/ContactItem'
 
   export default {
     name: 'Contacts',

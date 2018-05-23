@@ -3,7 +3,7 @@
  */
 'use strict'
 
-import { kindOf } from '../util'
+import { kindOf } from '@/utils'
 
 export const getUserid = state => {
   return kindOf(state.userinfo) === 'object'

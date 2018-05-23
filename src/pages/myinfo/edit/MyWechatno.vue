@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import HeaderSection from '../../../components/HeaderSection'
-import { updateUserinfo } from '../../../api'
+import HeaderSection from '@/components/HeaderSection'
+import { updateUserinfo } from '@/api'
 import { mapState, mapActions } from 'vuex'
 
 export default {

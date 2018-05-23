@@ -3,8 +3,8 @@
  */
 'use strict'
 
-import { localStorage } from '../util'
-import { checkLogin, getContacts } from '../api'
+import { localStorage } from '@/utils'
+import { checkLogin, getContacts } from '@/api'
 import * as types from './mutation-types'
 
 /**
