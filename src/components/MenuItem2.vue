@@ -2,40 +2,43 @@
 <template>
   <section class="item-section">
     <!-- 头部占位、分割 -->
-    <div :class="{placeholder: itemInfo.isFirst}"></div>
+    <div :class="{placeholder: itemInfo.isFirst}"/>
     <!-- 真正的功能菜单 -->
     <router-link :to="'/' + parent + '/' + itemInfo.type">
       <span>
-        <img :src="itemInfo.imgUrl"/>
+        <img :src="itemInfo.imgUrl">
       </span>
       <span>
-        <span>{{itemInfo.name}}</span>
-        <span>{{itemInfo.subname}}</span>
+        <span>{{ itemInfo.name }}</span>
+        <span>{{ itemInfo.subname }}</span>
       </span>
     </router-link>
   </section>
 </template>
 
 <script>
-  export default {
-    name: 'MenuItem2',
-    props: {
-      parent: String,
-      itemInfo: {
-        type: Object,
-        required: true
-      }
+export default {
+  name: 'MenuItem2',
+  props: {
+    parent: {
+      type: String,
+      required: true
     },
-    data() {
-      return {}
-    },
-    methods: {
-      goto(path) {
-        // 跳转之前，需要设置一下 状态吧？
-        this.$router.push(path)
-      }
+    itemInfo: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {}
+  },
+  methods: {
+    goto(path) {
+      // 跳转之前，需要设置一下 状态吧？
+      this.$router.push(path)
     }
   }
+}
 </script>
 
 <style scoped>

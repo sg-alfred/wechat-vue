@@ -1,19 +1,19 @@
 <!-- 更改昵称，让好友更容易记住你 -->
 
 <template>
-    <div class="myaias-setting">
-        <header-section :go-back="true" :head-title="headTitle">
-            <section slot="headerBtn" class="header-btn right">
-                <el-button type="success" @click="setAlias">保存</el-button>
-            </section>
-        </header-section>
-        <main class="form-section">
-            <article>
-                <input v-model="alias" />
-                <p>好名字可以让你的朋友更容易记住你。</p>
-            </article>
-        </main>
-    </div>
+  <div class="myaias-setting">
+    <header-section :go-back="true" :head-title="headTitle">
+      <section slot="headerBtn" class="header-btn right">
+        <el-button type="success" @click="setAlias">保存</el-button>
+      </section>
+    </header-section>
+    <main class="form-section">
+      <article>
+        <input v-model="alias" >
+        <p>好名字可以让你的朋友更容易记住你。</p>
+      </article>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -62,7 +62,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
     @import '../../../style/mixin.scss';

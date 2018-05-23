@@ -14,5 +14,5 @@ export const getUserid = state => {
 export const currentChatroom = state => {
   return state.currentContactID
     ? state.contacts[state.currentContactID]
-    : {}
+    : null
 }

@@ -3,7 +3,7 @@
 <template>
   <section class="moment-item">
     <div>
-      <img src="../assets/logo.png" alt="avatar"/>
+      <img src="../assets/logo.png" alt="avatar">
     </div>
     <div>
       <span>
@@ -14,20 +14,20 @@
         <span>{{ moment.createtime }}</span>
 
         <el-popover
-            ref="popover2"
-            placement="left"
-            width="100"
-            trigger="click"
-            content="点赞或评论。">
+          ref="popover2"
+          placement="left"
+          width="100"
+          trigger="click"
+          content="点赞或评论。">
           <el-button-group>
             <el-button icon="star-on" @click="makeUpvote">赞</el-button>
             <el-button icon="edit" @click="makeCommet">评论</el-button>
           </el-button-group>
         </el-popover>
 
-        <el-button class="right" v-popover:popover2>
+        <el-button v-popover:popover2 class="right">
           <svg class="icon fa-18x" aria-hidden="true">
-            <use xlink:href="#icon-comment"></use>
+            <use xlink:href="#icon-comment"/>
           </svg>
         </el-button>
       </div>
@@ -38,29 +38,29 @@
 </template>
 
 <script>
-  export default {
-    name: 'OneMoment',
-    // 对象语法，提供校验
-    props: {
-      moment: {
-        type: Object,
-        required: true
-      }
+export default {
+  name: 'OneMoment',
+  // 对象语法，提供校验
+  props: {
+    moment: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      showOperation: false
+    }
+  },
+  methods: {
+    makeUpvote () {
+      console.log('点赞！')
     },
-    data() {
-      return {
-        showOperation: false
-      }
-    },
-    methods: {
-      makeUpvote () {
-        console.log('点赞！')
-      },
-      makeCommet() {
-        console.log('评论吧～')
-      }
+    makeCommet() {
+      console.log('评论吧～')
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

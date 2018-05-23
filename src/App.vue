@@ -1,45 +1,45 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view/>
   </div>
 </template>
 
 <script>
-  import {mapState, mapActions} from 'vuex'
-  import 'normalize.css'
-  import {initSocketio} from '@/utils'
+import {mapState, mapActions} from 'vuex'
+import 'normalize.css'
+import {initSocketio} from '@/utils'
 
-  export default {
-    name: 'app',
-    computed: {
-      ...mapState(['isLogin', 'userinfo'])
-    },
-    async created() {
-      console.log('app-created-校验是否登录前-', this.isLogin)
+export default {
+  name: 'App',
+  computed: {
+    ...mapState(['isLogin', 'userinfo'])
+  },
+  async created() {
+    console.log('app-created-校验是否登录前-', this.isLogin)
 
-      await this.changeLoginInfo()
+    await this.changeLoginInfo()
 
-      // 这是否设置
-      console.log('app-created-是否登录-', this.isLogin)
+    // 这是否设置
+    console.log('app-created-是否登录-', this.isLogin)
 
-      if (!this.isLogin) {
-        console.log('未登录跳转：app => login')
-        this.$router.push('/login')
-      } else {
-        // 这时候直接 获取通讯录，渲染出聊天列表
-        await this.initContacts()
+    if (!this.isLogin) {
+      console.log('未登录跳转：app => login')
+      this.$router.push('/login')
+    } else {
+      // 这时候直接 获取通讯录，渲染出聊天列表
+      await this.initContacts()
 
-        // 建立socket 连接
-        await initSocketio(this.userinfo, 'app')
+      // 建立socket 连接
+      await initSocketio(this.userinfo, 'app')
 
-        console.log('登录且初始化成功：app => wechat')
-        this.$router.push('/wechat')
-      }
-    },
-    methods: {
-      ...mapActions(['changeLoginInfo', 'initContacts']),
+      console.log('登录且初始化成功：app => wechat')
+      this.$router.push('/wechat')
     }
+  },
+  methods: {
+    ...mapActions(['changeLoginInfo', 'initContacts'])
   }
+}
 </script>
 
 <style lang="scss">

@@ -2,22 +2,21 @@
   <section class="login-section">
 
     <el-switch v-model="loginByFace" class="switch-label"
-               on-color="#13ce66" off-color="grey" @click="loginByFace = !loginByFace">
-    </el-switch>
+               on-color="#13ce66" off-color="grey" @click="loginByFace = !loginByFace"/>
 
-    <div class="placeholder"></div>
+    <div class="placeholder"/>
 
     <article v-if="!loginByFace">
-      <el-form ref="loginForm" :label-position="labelPosition" label-width="8rem" :model="formInfo"
-               :rules="formRules">
+      <el-form ref="loginForm" :label-position="labelPosition" :model="formInfo" :rules="formRules"
+               label-width="8rem">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="formInfo.username"></el-input>
+          <el-input v-model="formInfo.username"/>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="formInfo.password"></el-input>
+          <el-input v-model="formInfo.password" type="password"/>
         </el-form-item>
         <el-form-item label="验证码" prop="valicode">
-          <el-input v-model="formInfo.validcode"></el-input>
+          <el-input v-model="formInfo.validcode"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="doLogin('loginForm')">登录</el-button>
@@ -31,9 +30,9 @@
       <!-- 就是分析图片的，应该是 视频 -> 图片(可以隐藏) -> canvas !! -->
       <label>用户名：{{ formInfo.username }}</label>
       <div>
-        <video width="320" height="240"></video>
-        <img hidden id="image" width="320" height="240"/>
-        <canvas hidden width="320" height="240"></canvas>
+        <video width="320" height="240"/>
+        <img id="image" hidden width="320" height="240">
+        <canvas hidden width="320" height="240"/>
       </div>
       <el-button type="primary" @click="doLoginByFace">人脸登录</el-button>
     </article>
@@ -44,7 +43,7 @@
 <script>
 import {mapState, mapActions} from 'vuex'
 import {userLogin} from '@/api'
-import {localStorage, initSocketio } from '@/utils'
+import {localStorage, initSocketio} from '@/utils'
 
 export default {
   name: 'Login',
@@ -91,10 +90,10 @@ export default {
       let videoTrack // 视频源，最后关闭摄像头使用
 
       // 那现在是用户名！根据用户名查询id，后台处理啊！然后在调用 百度AI 接口
-      const video = document.querySelector('video'),
-        image = document.querySelector('#image'),
-        canvas = document.querySelector('canvas'),
-        ctx = canvas.getContext('2d')
+      const video = document.querySelector('video')
+      const image = document.querySelector('#image')
+      const canvas = document.querySelector('canvas')
+      const ctx = canvas.getContext('2d')
 
       /* if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
        // 做兼容！！

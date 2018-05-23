@@ -1,41 +1,41 @@
 <template>
-    <section class="send-section" ref="sendSection"
-             :class="{'show-panel': isShowEmoji || isShowShortcuts}">
-        <section class="message-section">
-            <div @click="speak">
-                <svg class="icon fa-12x" aria-hidden="true">
-                    <use xlink:href="#icon-yuyin"></use>
-                </svg>
-            </div>
-            <div>
-                <input v-model="content" @keyup.enter="doSendMessage">
-            </div>
-            <div @click="showEmoji">
-                <svg class="icon fa-12x" aria-hidden="true">
-                    <use xlink:href="#icon-biaoqing"></use>
-                </svg>
-            </div>
-            <div>
-                <el-button v-if="!this.content" icon="plus" @click="showShortcuts"></el-button>
-                <el-button v-else type="success" @click="doSendMessage">发送</el-button>
-            </div>
-        </section>
-
-        <!-- 表情包 -->
-        <section class="tool-panel" v-if="isShowEmoji">
-            <transition name="panel-show">
-                <img src="/static/image/send-emoji.png">
-            </transition>
-        </section>
-
-        <!-- 快捷 发送选项 -->
-        <section class="tool-panel" v-if="isShowShortcuts">
-            <transition name="panel-show">
-                <img src="/static/image/send-shortcut.png">
-            </transition>
-        </section>
-
+  <section ref="sendSection" :class="{'show-panel': isShowEmoji || isShowShortcuts}"
+           class="send-section">
+    <section class="message-section">
+      <div @click="speak">
+        <svg class="icon fa-12x" aria-hidden="true">
+          <use xlink:href="#icon-yuyin"/>
+        </svg>
+      </div>
+      <div>
+        <input v-model="content" @keyup.enter="doSendMessage">
+      </div>
+      <div @click="showEmoji">
+        <svg class="icon fa-12x" aria-hidden="true">
+          <use xlink:href="#icon-biaoqing"/>
+        </svg>
+      </div>
+      <div>
+        <el-button v-if="!content" icon="plus" @click="showShortcuts"/>
+        <el-button v-else type="success" @click="doSendMessage">发送</el-button>
+      </div>
     </section>
+
+    <!-- 表情包 -->
+    <section v-if="isShowEmoji" class="tool-panel">
+      <transition name="panel-show">
+        <img src="/static/image/send-emoji.png">
+      </transition>
+    </section>
+
+    <!-- 快捷 发送选项 -->
+    <section v-if="isShowShortcuts" class="tool-panel">
+      <transition name="panel-show">
+        <img src="/static/image/send-shortcut.png">
+      </transition>
+    </section>
+
+  </section>
 </template>
 
 <script>
@@ -44,17 +44,17 @@ import { sendMessage } from '@/api'
 
 export default {
   name: 'Message',
+  props: {
+    chatid: { // 聊天室id
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       content: '', // 文字信息
       isShowEmoji: false,
       isShowShortcuts: false
-    }
-  },
-  props: {
-    chatid: { // 聊天室id
-      type: String,
-      required: true
     }
   },
   methods: {

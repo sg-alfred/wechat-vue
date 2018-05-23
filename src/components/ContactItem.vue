@@ -1,26 +1,28 @@
 <!-- 通讯录组件，点击到 好友简介，长按悬浮 设置 -->
 
 <template>
-  <section class="contact-item"
-           @click="$emit('get-detail', contactid)">
+  <section class="contact-item" @click="$emit('get-detail', contactid)">
     <span>
-      <img :src="contact.headimgurl" alt="avatar"/>
+      <img :src="contact.headimgurl" alt="avatar">
     </span>
     <span>{{ contact.mobilephone }}</span>
   </section>
 </template>
 
 <script>
-  export default {
-    name: 'ContactItem',
-    props: {
-      contactid: String,
-      contact: {
-        type: Object,
-        required: true
-      }
+export default {
+  name: 'ContactItem',
+  props: {
+    contactid: {
+      type: String,
+      required: true
+    },
+    contact: {
+      type: Object,
+      required: true
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

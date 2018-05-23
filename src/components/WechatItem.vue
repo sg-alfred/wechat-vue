@@ -19,7 +19,7 @@
     <span>
       <!-- 连接到 用户详情界面 -->
       <!--<router-link :to=""></router-link>-->
-      <img :src=chatItem.headimgurl alt="avatar"/>
+      <img :src="chatItem.headimgurl" alt="avatar">
     </span>
     <div>
       <p class="padding-5">
@@ -36,15 +36,15 @@
 </template>
 
 <script>
-  export default {
-    name: 'WechatItem',
-    props: {
-      chatItem: {
-        type: Object,
-        required: true
-      }
+export default {
+  name: 'WechatItem',
+  props: {
+    chatItem: {
+      type: Object,
+      required: true
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

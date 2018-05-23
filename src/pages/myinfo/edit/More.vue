@@ -1,9 +1,9 @@
 <template>
   <div class="more-page">
 
-    <header-section :go-back="true" :head-title="headTitle"></header-section>
+    <header-section :go-back="true" :head-title="headTitle"/>
 
-    <div class="placeholder"></div>
+    <div class="placeholder"/>
 
     <main>
       <div class="like-a" @click="setGender">
@@ -21,43 +21,43 @@
     </main>
 
     <transition name="router-slid" mode="out-in">
-      <router-view></router-view>
+      <router-view/>
     </transition>
   </div>
 </template>
 
 <script>
-  import HeaderSection from '@/components/HeaderSection'
-  import {mapState} from 'vuex'
+import HeaderSection from '@/components/HeaderSection'
+import {mapState} from 'vuex'
 
-  export default {
-    name: 'EditMore',
-    components: {
-      HeaderSection
-    },
-    data() {
-      return {
-        headTitle: '更多信息'
-      }
-    },
-    computed: {
-      ...mapState([
-        'userinfo'
-      ])
-    },
-    beforeMount() {
-      this.userinfo.address = this.userinfo.country || this.userinfo.city
-        ? this.userinfo.country + '' + this.userinfo.city
-        : ''
-    },
-    methods: {
-      setGender() {
-        console.log('这是性别信息了～')
+export default {
+  name: 'EditMore',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '更多信息'
+    }
+  },
+  computed: {
+    ...mapState([
+      'userinfo'
+    ])
+  },
+  beforeMount() {
+    this.userinfo.address = this.userinfo.country || this.userinfo.city
+      ? this.userinfo.country + '' + this.userinfo.city
+      : ''
+  },
+  methods: {
+    setGender() {
+      console.log('这是性别信息了～')
 
-        // 弹出框，再说吧～
-      }
+      // 弹出框，再说吧～
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

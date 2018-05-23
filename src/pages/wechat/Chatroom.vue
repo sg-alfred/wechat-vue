@@ -1,10 +1,10 @@
 <!-- 聊天室，一对一或者群聊 -->
 <template>
-  <div class="chatroom-page" :class="{'show-panel': isShowPanel}">
+  <div :class="{'show-panel': isShowPanel}" class="chatroom-page">
     <header-section :go-back="true" :head-title="headTitle">
-      <router-link :to="'/chatrooms/' + contactid + '/chatsetting'" slot="specialIcon" class="head-usericon right">
+      <router-link slot="specialIcon" :to="'/chatrooms/' + contactid + '/chatsetting'" class="head-usericon right">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-myinfo-active"></use>
+          <use xlink:href="#icon-myinfo-active"/>
         </svg>
       </router-link>
     </header-section>
@@ -13,20 +13,18 @@
     <section id="container" ref="container">
       <!-- 留一个可以下拉刷新的空间，增强效果，算了，微信也并没有这样的效果 -->
       <message-item
-          v-for="message in allMessages"
-          :key="message.id"
-          :contact="contactInfo"
-          :message="message">
-      </message-item>
+        v-for="message in allMessages"
+        :key="message.id"
+        :contact="contactInfo"
+        :message="message"/>
     </section>
 
-    <message-send @show="showPanel"
-                  :chatid="chatid">
-    </message-send>
+    <message-send :chatid="chatid"
+                  @show="showPanel"/>
     <!--</main>-->
 
     <transition name="router-slid" mode="out-in">
-      <router-view></router-view>
+      <router-view/>
     </transition>
   </div>
 </template>
@@ -34,7 +32,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { getMessages } from '@/api'
-import { debounce, throttle } from '@/util'
+import { debounce, throttle } from '@/utils'
 import HeaderSection from '@/components/HeaderSection'
 import MessageItem from '@/components/chatroom/MessageItem'
 import MessageSend from '@/components/chatroom/MessageSend'
@@ -53,7 +51,8 @@ export default {
       contactid: '',
       chatid: '',
       currentHeight: 0,
-      isShowPanel: false
+      isShowPanel: false,
+      container: null
     }
   },
   computed: {
@@ -67,6 +66,9 @@ export default {
         : []
     }
   },
+  watch: {
+    // 有新消息的时候自动最下方？—— 不行！我看历史记录呢！
+  },
   async beforeMount() {
     this.contactid = this.$route.params.contactid
 
@@ -74,20 +76,22 @@ export default {
     // 诶，可以这个时候设置 currentContactID 啊！
     await this.switchChatroom(this.contactid)
 
-    this.chatid = this.contactInfo.chatid || ''
+    if (this.contactInfo) {
+      this.chatid = this.contactInfo.chatid || ''
 
-    this.headTitle = this.contactInfo.nickname || this.contactInfo.alias || this.contactInfo.mobilephone
+      this.headTitle = this.contactInfo.nickname || this.contactInfo.alias || this.contactInfo.mobilephone
 
-    // 如果没有聊天记录, 则进行初始化。。
-    if (this.allMessages.length === 0) {
-      // 懒加载！ 一次加载一点点，比如，20条。并保存到 vuex
-      // 后端必须是 递减的查找，前端需要 反置后 插入，使得 排序复杂度降到 0。。
-      const response = await getMessages(this.chatid)
-      await this.syncMessages(response.data.data.reverse())
+      // 如果没有聊天记录, 则进行初始化。。
+      if (this.allMessages.length === 0) {
+        // 懒加载！ 一次加载一点点，比如，20条。并保存到 vuex
+        // 后端必须是 递减的查找，前端需要 反置后 插入，使得 排序复杂度降到 0。。
+        const response = await getMessages(this.chatid)
+        await this.syncMessages(response.data.data.reverse())
 
-      console.log('初始化聊天室信息', this.chatid)
-    } else {
-      console.log('聊天室数据已初始化', this.allMessages.length)
+        console.log('初始化聊天室信息', this.chatid)
+      } else {
+        console.log('聊天室数据已初始化', this.allMessages.length)
+      }
     }
   },
   updated() {
@@ -95,37 +99,33 @@ export default {
     // updated 就好了，数据加载完毕后再次执行～
     this.$nextTick(() => {
       // 有什么区别？～ 前者操作 DOM,
-      const container = this.$el.querySelector('#container')
-      //              const container = this.$refs.container;
+      // const container = this.$refs.container;
 
-      container.scrollTop = this.currentHeight !== 0
-        ? container.scrollHeight - this.currentHeight
-        : container.scrollHeight
+      this.container.scrollTop = this.currentHeight !== 0
+        ? this.container.scrollHeight - this.currentHeight
+        : this.container.scrollHeight
     })
   },
   mounted() {
+    this.container = this.$el.querySelector('#container')
     // 滑动没有必要监听！重要的是 下拉刷新！
-    this.$el.querySelector('#container').addEventListener('scroll', debounce(this.handleScroll, 100))
+    this.container.addEventListener('scroll', debounce(this.handleScroll, 100))
   },
   methods: {
     ...mapActions(['switchChatroom', 'syncMessages']),
     async handleScroll() {
-
-      const container = this.$el.querySelector('#container')
-
       // 设置 下拉50 后才触发 刷新，这样体验 会更好。
       // console.log(container.scrollTop)
 
       // 需要自定义事件！触发顶部下拉刷新！
 
-      if (this.allMessages.length > 0 && container.scrollTop === 0 && !this.allMessages[0].first) {
+      if (this.allMessages.length > 0 && this.container.scrollTop === 0 && !this.allMessages[0].first) {
         const sendtimeLt = this.allMessages[0].sendtime
 
         this.getAndSyncMessages(sendtimeLt)
       }
     },
     async getAndSyncMessages(sendtimeLt) {
-
       // 提示一下
       this.$message('聊天记录加载中..')
 
@@ -137,7 +137,7 @@ export default {
 
       if (messages.length === 0) {
         this.$message('没有更早的聊天记录了～')
-        return false;
+        return false
       }
 
       // 标记 最开始的一条信息～ 如果 小于限制值，则，判断没有更早的消息，
@@ -146,7 +146,7 @@ export default {
 
       // 这个时候 不能再跳回到 底端！！
       // 需要记住 当前的位置！因为 不能一下子跳到最上面！最好有一个 动画的过渡过程！
-      this.currentHeight = container.scrollHeight
+      this.currentHeight = this.container.scrollHeight
 
       // 后端是 递减排序，前端改为 递增后再存入 vuex
       await this.syncMessages(messages)
@@ -155,12 +155,8 @@ export default {
       this.isShowPanel = isShowPanel
 
       // 滚动到最低处
-      const container = this.$el.querySelector('#container')
-      container.scrollTop = container.scrollHeight
-    },
-  },
-  watch: {
-    // 有新消息的时候自动最下方？—— 不行！我看历史记录呢！
+      this.container.scrollTop = this.container.scrollHeight
+    }
   }
 }
 </script>

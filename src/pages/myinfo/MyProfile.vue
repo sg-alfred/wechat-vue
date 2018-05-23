@@ -1,8 +1,8 @@
 <template>
   <div class="myprofile-page">
-    <header-section :go-back="true" :head-title="headTitle"></header-section>
+    <header-section :go-back="true" :head-title="headTitle"/>
 
-    <div class="placeholder"></div>
+    <div class="placeholder"/>
 
     <main>
       <section class="detail-section">
@@ -19,7 +19,7 @@
         <router-link :to="'/myinfo/profile/headimg'">
           <span>头像</span>
           <span>
-              <img :src="userinfo.headimgurl" alt="avatar"/>
+            <img :src="userinfo.headimgurl" alt="avatar">
           </span>
         </router-link>
         <router-link :to="'/myinfo/profile/face'">
@@ -38,7 +38,7 @@
           <span>二维码名片</span>
           <span>
             <svg class="icon fa-18x" aria-hidden="true">
-              <use xlink:href="#icon-qrcode"></use>
+              <use xlink:href="#icon-qrcode"/>
             </svg>
           </span>
         </router-link>
@@ -56,29 +56,29 @@
     </main>
 
     <transition name="router-slid" mode="out-in">
-      <router-view></router-view>
+      <router-view/>
     </transition>
   </div>
 </template>
 
 <script>
-  import HeaderSection from '@/components/HeaderSection'
-  import {mapState} from 'vuex'
+import HeaderSection from '@/components/HeaderSection'
+import {mapState} from 'vuex'
 
-  export default {
-    name: 'MyProfile',
-    components: {
-      HeaderSection
-    },
-    data() {
-      return {
-        headTitle: '个人信息'
-      }
-    },
-    computed: {
-      ...mapState(['userinfo'])
+export default {
+  name: 'MyProfile',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '个人信息'
     }
+  },
+  computed: {
+    ...mapState(['userinfo'])
   }
+}
 </script>
 
 <style lang="scss" scoped>

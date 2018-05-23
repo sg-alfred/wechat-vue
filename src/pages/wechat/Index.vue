@@ -1,22 +1,21 @@
 <template>
   <div class="wechat-page">
-    <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"></header-section>
+    <header-section :head-title="headTitle" :search-type="searchType" :has-dropdown="true"/>
 
     <main class="wechat-container">
       <wechat-item
-          v-for="item in chatrooms"
-          :key="item.id" :chatItem="item"
-          @into-chatroom="intoChatroom"
-      ></wechat-item>
+        v-for="item in chatrooms"
+        :key="item.id" :chat-item="item"
+        @into-chatroom="intoChatroom"
+      />
     </main>
 
-    <footer-section></footer-section>
+    <footer-section/>
   </div>
 </template>
 
 <script>
 import { mapState } from 'Vuex'
-import { getChatrooms } from '@/api'
 import HeaderSection from '@/components/HeaderSection'
 import FooterSection from '@/components/FooterSection'
 import WechatItem from '@/components/WechatItem'
@@ -28,15 +27,15 @@ export default {
     FooterSection,
     WechatItem
   },
-  computed: {
-    ...mapState(['contacts'])
-  },
   data() {
     return {
       headTitle: '微信',
       searchType: 'all',
       chatrooms: []
     }
+  },
+  computed: {
+    ...mapState(['contacts'])
   },
   beforeMount() {
     this.chatrooms = Object.values(this.contacts).filter((ele) => ele.messages.length > 0 ||

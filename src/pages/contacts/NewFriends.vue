@@ -1,7 +1,7 @@
 <template>
   <div class="newfriends-page">
     <header-section :go-back="true" :head-title="headTitle">
-      <section class="head-addFriend" slot="addFriendText right" @click="$router.push('/addFriend')">
+      <section slot="addFriendText right" class="head-addFriend" @click="$router.push('/addFriend')">
         <span>添加朋友</span>
       </section>
     </header-section>
@@ -20,13 +20,13 @@
         <div><label>新的朋友</label></div>
 
         <!-- 组件化！和微信界面一致，头像也是比较大的那个！但是 点击进去 不一样啊，一个用户详情，一个是聊天室 -->
-        <section class="request-section" v-for="(item, id) in newFriendList" :key="id">
+        <section v-for="(item, id) in newFriendList" :key="id" class="request-section">
           <span>
-            <img src="../../assets/logo.png" alt="avatar"/>
+            <img src="../../assets/logo.png" alt="avatar">
           </span>
           <span>
-            <span>{{item.uid.mobilephone}}</span>
-            <span>{{item.uid.alias}}</span>
+            <span>{{ item.uid.mobilephone }}</span>
+            <span>{{ item.uid.alias }}</span>
           </span>
           <span>
             <span v-if="item.status === 0">
@@ -41,49 +41,49 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import {getNewFriends, handleNewFriend} from '@/api'
-  import HeaderSection from '@/components/HeaderSection'
+import Vue from 'vue'
+import {getNewFriends, handleNewFriend} from '@/api'
+import HeaderSection from '@/components/HeaderSection'
 
-  export default {
-    name: 'NewFriends',
-    components: {
-      HeaderSection
-    },
-    data() {
-      return {
-        headTitle: '添加好友',
-        newFriendList: {}
-      }
-    },
-    async beforeMount() {
-      const response = await getNewFriends()
-      // this.newFriendList = response.data.data;
+export default {
+  name: 'NewFriends',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '添加好友',
+      newFriendList: {}
+    }
+  },
+  async beforeMount() {
+    const response = await getNewFriends()
+    // this.newFriendList = response.data.data;
 
-      // TODO 处理一下数据格式，以方便 状态更改～
-      response.data.data.forEach((item) => {
-        Vue.set(this.newFriendList, item._id, item)
+    // TODO 处理一下数据格式，以方便 状态更改～
+    response.data.data.forEach((item) => {
+      Vue.set(this.newFriendList, item._id, item)
+    })
+    // console.log(JSON.stringify(this.newFriendList))
+  },
+  methods: {
+    async handleFriend(finfo, id) {
+      console.log('处理好友请求', finfo._id, id)
+
+      const response = await handleNewFriend({
+        fid: finfo._id,
+        type: 'accept' // 同意，或者加入黑名单等等～
       })
-      // console.log(JSON.stringify(this.newFriendList))
-    },
-    methods: {
-      async handleFriend(finfo, id) {
-        console.log('处理好友请求', finfo._id, id)
+      const handleResult = response.data
 
-        const response = await handleNewFriend({
-          fid: finfo._id,
-          type: 'accept' // 同意，或者加入黑名单等等～
-        })
-        const handleResult = response.data
+      this.$message(handleResult.message)
 
-        this.$message(handleResult.message)
-
-        if (!handleResult.code) {
-          this.newFriendList[id].status = 1
-        }
+      if (!handleResult.code) {
+        this.newFriendList[id].status = 1
       }
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

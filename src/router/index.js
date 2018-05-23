@@ -179,7 +179,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.title) {//如果设置标题，拦截后设置标题
+  if (to.meta.title) { // 如果设置标题，拦截后设置标题
     document.title = to.meta.title
   }
   next()

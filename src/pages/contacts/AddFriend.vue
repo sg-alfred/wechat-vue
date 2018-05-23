@@ -1,7 +1,7 @@
 <template>
   <div class="addfriend-page">
 
-    <header-section :go-back="true" :head-title="headTitle"></header-section>
+    <header-section :go-back="true" :head-title="headTitle"/>
 
     <main>
       <section class="searchFriend-section">
@@ -14,19 +14,19 @@
       </section>
 
       <section class="code-section">
-        <span>我的微信号：{{wechatno}}</span>
+        <span>我的微信号：{{ wechatno }}</span>
         <svg class="icon fa-12x" aria-hidden="true">
-          <use xlink:href="#icon-qrcode"></use>
+          <use xlink:href="#icon-qrcode"/>
         </svg>
       </section>
 
-      <div class="placeholder"></div>
+      <div class="placeholder"/>
 
       <section class="menu-section">
         <menu-item2 v-for="item in itemList"
-                    :key="item.id" :itemInfo="item"
+                    :key="item.id" :item-info="item"
                     :parent="'addFriend'"
-        ></menu-item2>
+        />
       </section>
     </main>
 

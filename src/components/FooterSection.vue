@@ -3,35 +3,35 @@
 <template>
   <footer class="footer-container">
     <!-- 不知道如何解决 xlink:href="" 加入变量 的问题～ -->
-    <section @click="goto('wechat')" :class="{'active-color': isActive.wechat}">
+    <section :class="{'active-color': isActive.wechat}" @click="goto('wechat')">
       <svg class="icon fa-20x" aria-hidden="true">
         <!--<use xlink:href="isActive.wechat ? '#icon-message-active' : '#icon-message'"></use>-->
-        <use v-if="isActive.wechat" xlink:href="#icon-message-active"></use>
-        <use v-else xlink:href="#icon-message"></use>
+        <use v-if="isActive.wechat" xlink:href="#icon-message-active"/>
+        <use v-else xlink:href="#icon-message"/>
       </svg>
       <p>微信</p>
     </section>
-    <section @click="goto('contacts')" :class="{'active-color': isActive.contacts}">
+    <section :class="{'active-color': isActive.contacts}" @click="goto('contacts')">
       <svg class="icon fa-20x" aria-hidden="true">
         <!--<use xlink:href="isActive.contacts ? '#icon-contacts-active' : '#icon-contacts'"></use>-->
-        <use v-if="isActive.contacts" xlink:href="#icon-contacts-active"></use>
-        <use v-else xlink:href="#icon-contacts"></use>
+        <use v-if="isActive.contacts" xlink:href="#icon-contacts-active"/>
+        <use v-else xlink:href="#icon-contacts"/>
       </svg>
       <p>通讯录</p>
     </section>
-    <section @click="goto('discover')" :class="{'active-color': isActive.discover}">
+    <section :class="{'active-color': isActive.discover}" @click="goto('discover')">
       <svg class="icon fa-20x" aria-hidden="true">
         <!--<use xlink:href="isActive.discover ? '#icon-discover-active' : '#icon-discover'"></use>-->
-        <use v-if="isActive.discover" xlink:href="#icon-discover-active"></use>
-        <use v-else xlink:href="#icon-discover"></use>
+        <use v-if="isActive.discover" xlink:href="#icon-discover-active"/>
+        <use v-else xlink:href="#icon-discover"/>
       </svg>
       <p>发现</p>
     </section>
-    <section @click="goto('myinfo')" :class="{'active-color': isActive.myinfo}">
+    <section :class="{'active-color': isActive.myinfo}" @click="goto('myinfo')">
       <svg class="icon fa-20x" aria-hidden="true">
         <!--<use xlink:href="isActive.myinfo ? '#icon-myinfo-active' : '#icon-myinfo'"></use>-->
-        <use v-if="isActive.myinfo" xlink:href="#icon-myinfo-active"></use>
-        <use v-else xlink:href="#icon-myinfo"></use>
+        <use v-if="isActive.myinfo" xlink:href="#icon-myinfo-active"/>
+        <use v-else xlink:href="#icon-myinfo"/>
       </svg>
       <p>我</p>
     </section>

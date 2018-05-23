@@ -8,11 +8,11 @@
       <div class="message-friend">
         <span>
           <router-link :to="'/userprofile/' + contact._id">
-            <img alt="好友" :src="contact.headimgurl">
+            <img :src="contact.headimgurl" alt="好友">
           </router-link>
         </span>
         <div>
-          <span class="bubble"></span>
+          <span class="bubble"/>
           {{ message.content }}
         </div>
       </div>
@@ -21,12 +21,12 @@
     <div v-else>
       <div class="message-self">
         <div>
-          <span class="bubble"></span>
+          <span class="bubble"/>
           {{ message.content }}
         </div>
         <span>
           <router-link :to="'/userprofile/' + userid">
-            <img alt="自己" :src="userinfo.headimgurl">
+            <img :src="userinfo.headimgurl" alt="自己">
           </router-link>
         </span>
       </div>
@@ -35,23 +35,25 @@
 </template>
 
 <script>
-  import {mapState, mapGetters} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 
-  export default {
-    name: 'MessageItem',
-    props: {
-      contact: {
-        type: Object
-      },
-      message: {
-        type: Object
-      }
+export default {
+  name: 'MessageItem',
+  props: {
+    contact: {
+      type: Object,
+      required: true
     },
-    computed: {
-      ...mapState(['userinfo']),
-      ...mapGetters({userid: 'getUserid'})
+    message: {
+      type: Object,
+      required: true
     }
+  },
+  computed: {
+    ...mapState(['userinfo']),
+    ...mapGetters({userid: 'getUserid'})
   }
+}
 </script>
 
 <style lang="scss" scoped>

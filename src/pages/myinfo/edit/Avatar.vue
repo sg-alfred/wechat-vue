@@ -21,15 +21,15 @@ http://www.cnblogs.com/cjh1111/p/7017295.html
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>-->
 
-      <form enctype="multipart/form-data" method="post"
-            :action="'/users/' + userinfo.id + '/headimg'"
+      <form :action="'/users/' + userinfo.id + '/headimg'" enctype="multipart/form-data"
+            method="post"
       >
-        <input class="avatar" type="file" name="imgUploader" multiple @change="uploadImg"/>
+        <input class="avatar" type="file" name="imgUploader" multiple @change="uploadImg">
         <!--<input type="submit" name="submit" value="Upload" @click="uploadImg($e)"/>-->
       </form>
 
       <img v-if="userinfo.headimgurl" :src="userinfo.headimgurl" class="avatar">
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      <i v-else class="el-icon-plus avatar-uploader-icon"/>
     </main>
   </div>
 </template>

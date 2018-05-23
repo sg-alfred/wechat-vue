@@ -7,7 +7,7 @@
   <div class="userprofile-page">
 
     <header-section :go-back="true" :head-title="headTitle">
-      <section slot="userOperate" class="head-operate right" @click="showOperate">
+      <section slot="userOperate" class="head-operate right" @click="isShowOperate = !isShowOperate">
         <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <circle cx="20" cy="12" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
           <circle cx="20" cy="20" r="2" stroke-width="1" fill="rgb(255,255,255)"/>
@@ -20,10 +20,10 @@
 
       <section class="base-info placeholder">
         <span>
-          <img :src="info.headimgurl" alt="avatar"/>
+          <img :src="info.headimgurl" alt="avatar">
         </span>
         <div class="name-info">
-          <p>{{ info.mobilephone }}</p><i></i>
+          <p>{{ info.mobilephone }}</p><i/>
           <p>微信号：{{ info.wechatno }}</p>
           <p>昵称：{{ info.nickname }}</p>
         </div>
@@ -58,8 +58,8 @@
       <section class="contact-section placeholder">
         <div v-if="isFriend">
           <el-button type="success" @click="goto('/chatrooms/' + contactid)">发送消息</el-button>
-          <br/>
-          <el-button :plain="true" type="success" @click="">视频聊天</el-button>
+          <br>
+          <el-button :plain="true" type="success">视频聊天</el-button>
         </div>
         <div v-else>
           <el-button type="success" @click="goto('/addSend/' + contactid)">添加到通讯录</el-button>
@@ -78,7 +78,7 @@
         <ul class="picker-content">
           <!-- 需要拆开？因为每个操作功能都不一样！！？ -->
           <li v-for="item in operateList" :key="item.id">
-            <img :src="item.icon" alt="icon"/>
+            <img :src="item.icon" alt="icon">
             <span class="operate-text">
               {{ item.name }}
             </span>
@@ -90,20 +90,22 @@
 </template>
 
 <script>
-  import {mapState, mapActions} from 'vuex'
-  import {getUserOperate} from '@/api'
-  import {localStorage} from '@/utils'
-  import HeaderSection from '@/components/HeaderSection'
+import {mapState, mapActions} from 'vuex'
+import {localStorage} from '@/utils'
+import HeaderSection from '@/components/HeaderSection'
 
-  export default {
-    name: 'UserProfile',
-    data() {
-      return {
-        headTitle: '详细资料',
-        isFriend: false,
-        contactid: '',
-        info: {
-          /* :
+export default {
+  name: 'UserProfile',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '详细资料',
+      isFriend: false,
+      contactid: '',
+      info: {
+        /* :
            id: 0,
            wechatno: 'sgchenjz',
            nickname: '钻',
@@ -113,82 +115,79 @@
            headimgurl: '',
            tags: ''
            */
-        },
-        isShowOperate: false,
-        operateList: [{
-          "id": 0,
-          "icon": "static/image/operate/icon-setRemark.png",
-          "name": "设置备注及标签"
-        }, {
-          "id": 1,
-          "icon": "static/image/operate/icon-starred.png",
-          "name": "标为星标朋友"
-        }, {
-          "id": 2,
-          "icon": "static/image/operate/icon-moment.png",
-          "name": "朋友圈设置"
-        }, {
-          "id": 3,
-          "icon": "static/image/operate/icon-shareContact.png",
-          "name": "发送该名片"
-        }, {
-          "id": 4,
-          "icon": "static/image/operate/icon-report.png",
-          "name": "投诉"
-        }, {
-          "id": 5,
-          "icon": "static/image/operate/icon-addToBlock.png",
-          "name": "加入黑名单"
-        }, {
-          "id": 6,
-          "icon": "static/image/operate/icon-delete.png",
-          "name": "删除"
-        }, {
-          "id": 7,
-          "icon": "static/image/operate/icon-addToDesk.png",
-          "name": "添加到桌面"
-        }]
-      }
-    },
-    components: {
-      HeaderSection
-    },
-    computed: {
-      ...mapState(['userinfo', 'contacts'])
-    },
-    beforeMount() {
-      // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
-      // 但是 create之前，根本还没有获取 data!! —— 可以改成 created
-
-      this.contactid = this.$route.params.contactid
-
-      // let info = this.contacts[this.contactid]
-      // if (!info) {
-      //    info = this.initFuserinfo();        // 这个进程并不会 被阻塞！！
-      // }
-      // this.info = info;   // 首先执行！因此，第一次还是 空的！
-
-      this.isFriend = !!this.contacts[this.contactid] || this.contactid === this.userinfo._id
-
-      // 点击朋友或者自己的！
-      this.info = this.contactid === this.userinfo._id
-        ? this.userinfo
-        : (this.isFriend
-          ? this.contacts[this.contactid]
-          : JSON.parse(localStorage(this.contactid)))
-    },
-    methods: {
-      ...mapActions(['updateContact']),
-      async initFuserinfo() {
-        // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
-        //  const response = await getFuserinfo()
-        //  this.fuserinfo = response.data
       },
-      goto(path) {
-        this.$router.push(path)
-      }
+      isShowOperate: false,
+      operateList: [{
+        'id': 0,
+        'icon': 'static/image/operate/icon-setRemark.png',
+        'name': '设置备注及标签'
+      }, {
+        'id': 1,
+        'icon': 'static/image/operate/icon-starred.png',
+        'name': '标为星标朋友'
+      }, {
+        'id': 2,
+        'icon': 'static/image/operate/icon-moment.png',
+        'name': '朋友圈设置'
+      }, {
+        'id': 3,
+        'icon': 'static/image/operate/icon-shareContact.png',
+        'name': '发送该名片'
+      }, {
+        'id': 4,
+        'icon': 'static/image/operate/icon-report.png',
+        'name': '投诉'
+      }, {
+        'id': 5,
+        'icon': 'static/image/operate/icon-addToBlock.png',
+        'name': '加入黑名单'
+      }, {
+        'id': 6,
+        'icon': 'static/image/operate/icon-delete.png',
+        'name': '删除'
+      }, {
+        'id': 7,
+        'icon': 'static/image/operate/icon-addToDesk.png',
+        'name': '添加到桌面'
+      }]
+    }
+  },
+  computed: {
+    ...mapState(['userinfo', 'contacts'])
+  },
+  beforeMount() {
+    // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
+    // 但是 create之前，根本还没有获取 data!! —— 可以改成 created
+
+    this.contactid = this.$route.params.contactid
+
+    // let info = this.contacts[this.contactid]
+    // if (!info) {
+    //    info = this.initFuserinfo();        // 这个进程并不会 被阻塞！！
+    // }
+    // this.info = info;   // 首先执行！因此，第一次还是 空的！
+
+    this.isFriend = !!this.contacts[this.contactid] || this.contactid === this.userinfo._id
+
+    // 点击朋友或者自己的！
+    this.info = this.contactid === this.userinfo._id
+      ? this.userinfo
+      : (this.isFriend
+        ? this.contacts[this.contactid]
+        : JSON.parse(localStorage(this.contactid)))
+  },
+  methods: {
+    ...mapActions(['updateContact']),
+    async initFuserinfo() {
+      // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
+      //  const response = await getFuserinfo()
+      //  this.fuserinfo = response.data
+    },
+    goto(path) {
+      this.$router.push(path)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

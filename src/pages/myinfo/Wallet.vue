@@ -13,33 +13,33 @@
     <main class="wallet-container">
       这是 钱包界面！
 
-      <section class="base-section"></section>
-      <section class="hot-section"></section>
-      <section class="promotion-section"></section>
-      <section class="third-section"></section>
+      <section class="base-section"/>
+      <section class="hot-section"/>
+      <section class="promotion-section"/>
+      <section class="third-section"/>
     </main>
 
   </div>
 </template>
 
 <script>
-  import HeaderSection from '@/components/HeaderSection'
-  export default {
-    name: 'Wallet',
-    components: {
-      HeaderSection
-    },
-    data() {
-      return {
-        headTitle: '钱包'
-      }
-    },
-    methods: {
-      showOperate() {
+import HeaderSection from '@/components/HeaderSection'
+export default {
+  name: 'Wallet',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '钱包'
+    }
+  },
+  methods: {
+    showOperate() {
 
-      }
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

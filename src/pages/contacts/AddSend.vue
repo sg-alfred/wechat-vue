@@ -10,17 +10,16 @@
       <input v-model="formInfo.fid" hidden>
       <article>
         <p>你需要发送验证申请，等待对方通过</p>
-        <input v-model="formInfo.remark"/>
+        <input v-model="formInfo.remark">
       </article>
       <article>
         <p>为朋友设置备注</p>
-        <input v-model="formInfo.nickname"/>
+        <input v-model="formInfo.nickname">
       </article>
       <article class="share-div">
         <p>设置朋友圈权限</p>
         <el-switch v-model="formInfo.isshare" class="switch-label"
-                   on-color="#13ce66" off-color="grey">
-        </el-switch>
+                   on-color="#13ce66" off-color="grey"/>
         <p class="share-text">不让他(她)看我的朋友圈</p>
       </article>
     </main>
@@ -28,49 +27,49 @@
 </template>
 
 <script>
-  import {mapState, mapActions} from 'vuex'
-  import {addNewFriend} from '@/api'
-  import HeaderSection from '@/components/HeaderSection'
+import {mapState, mapActions} from 'vuex'
+import {addNewFriend} from '@/api'
+import HeaderSection from '@/components/HeaderSection'
 
-  export default {
-    name: 'AddSend',
-    data() {
-      return {
-        labelPosition: 'left',
-        headTitle: '验证申请',
-        addSet: {},
-        formInfo: {
-          isshare: true
-        },
-        formRules: {}
-      }
-    },
-    components: {
-      HeaderSection
-    },
-    created() {
-      this.formInfo.fid = this.$route.params.fid
-    },
-    computed: {
-      ...mapState([
-        'isLogin'
-      ])
-    },
-    methods: {
-      ...mapActions(['']),
-      async addFriend() {
-        // 数据校验！ 可以 把好友写入
-        const response = await addNewFriend(this.formInfo)
-        const result = response.data
+export default {
+  name: 'AddSend',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      labelPosition: 'left',
+      headTitle: '验证申请',
+      addSet: {},
+      formInfo: {
+        isshare: true
+      },
+      formRules: {}
+    }
+  },
+  computed: {
+    ...mapState([
+      'isLogin'
+    ])
+  },
+  created() {
+    this.formInfo.fid = this.$route.params.fid
+  },
+  methods: {
+    ...mapActions(['']),
+    async addFriend() {
+      // 数据校验！ 可以 把好友写入
+      const response = await addNewFriend(this.formInfo)
+      const result = response.data
 
-        // 或者，也放入 vuex 这样，也就可以直接取值了～不然就 放在localStorage里～
+      // 或者，也放入 vuex 这样，也就可以直接取值了～不然就 放在localStorage里～
 
-        this.$message(result.message)
+      this.$message(result.message)
 
-        this.$router.push('/userprofile/' + this.formInfo.fid)
-      }
+      this.$router.push('/userprofile/' + this.formInfo.fid)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

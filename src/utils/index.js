@@ -4,9 +4,8 @@
 'use strict'
 
 // import 后直接 export，可以 混写
-export { localStorage } from './localstorage'
-export { initSocketio } from './socket'
-
+import localStorage from './localstorage'
+import initSocketio from './socket'
 import kindOf from './kind-of'
 
 // 判断对象是否为空
@@ -33,7 +32,6 @@ export const convertImgToBase64 = (url, callback, outputFormat = 'image/png') =>
   img.src = url
 }
 
-
 // 节流，下拉刷新控制！
 export const debounce = (fn, wait = 0) => {
   var timeId
@@ -49,7 +47,7 @@ export const debounce = (fn, wait = 0) => {
 }
 
 export const throttle = (fn, wait = 0) => {
-  var timeId, lasttime = 0;
+  var timeId, lasttime = 0
 
   function throttled() {
     let nowtime = new Date()
@@ -80,5 +78,7 @@ export const gotoAddress = (path) => {
 }
 
 export {
+  localStorage,
+  initSocketio,
   kindOf
 }

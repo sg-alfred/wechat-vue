@@ -14,13 +14,13 @@
       <!-- 可以直接用绝对居中的！ -->
       <section class="code-header">
         <span>
-          <img :src="userinfo.headimgurl" alt="avatar"/>
+          <img :src="userinfo.headimgurl" alt="avatar">
         </span>
         <div>
-          <p>{{userinfo.remark}}</p><i></i>
-          <p>微信号：{{userinfo.wechatno}}</p>
-          <p>昵称：{{userinfo.nickname}}</p>
-          <p>手机：{{userinfo.mobilephone}}</p>
+          <p>{{ userinfo.remark }}</p><i/>
+          <p>微信号：{{ userinfo.wechatno }}</p>
+          <p>昵称：{{ userinfo.nickname }}</p>
+          <p>手机：{{ userinfo.mobilephone }}</p>
         </div>
       </section>
 
@@ -31,7 +31,7 @@
 
         <!-- 动态加载的，与 css 的 scoped 冲突
         https://github.com/vuejs/vue-loader/issues/749 -->
-        <div v-html="qrcode"></div>
+        <div v-html="qrcode"/>
 
       </section>
 
@@ -43,54 +43,54 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import {createQrcode} from '@/api'
-  import HeaderSection from '@/components/HeaderSection'
-  import { localStorage } from '@/utils'
+import {mapState} from 'vuex'
+import {createQrcode} from '@/api'
+import HeaderSection from '@/components/HeaderSection'
+import { localStorage } from '@/utils'
 
-  export default {
-    name: 'QRCode',
-    components: {
-      HeaderSection
-    },
-    data() {
-      return {
-        headTitle: '我的二维码',
-        qrcode: ''
-      }
-    },
-    computed: {
-      ...mapState(['userinfo'])
-    },
-    async beforeMount() {
-      // 生成的二维码图片！但是怎么展示啊？
+export default {
+  name: 'QRCode',
+  components: {
+    HeaderSection
+  },
+  data() {
+    return {
+      headTitle: '我的二维码',
+      qrcode: ''
+    }
+  },
+  computed: {
+    ...mapState(['userinfo'])
+  },
+  async beforeMount() {
+    // 生成的二维码图片！但是怎么展示啊？
 
-      // 后台能不能生成 base64的照片，这样的 'Content-Type': 'image/png'，不会啊，都不知道 哪里可以取到！！
-      // 直接 把 url 跟在 <img src=""> 或者 < style="background-image: url()"> 都不可以啊
+    // 后台能不能生成 base64的照片，这样的 'Content-Type': 'image/png'，不会啊，都不知道 哪里可以取到！！
+    // 直接 把 url 跟在 <img src=""> 或者 < style="background-image: url()"> 都不可以啊
 
-      // 就算生成了 svg 字符串，怎么弄？ ——  v-html
+    // 就算生成了 svg 字符串，怎么弄？ ——  v-html
 
-      const uid = this.userinfo._id
+    const uid = this.userinfo._id
 
-      let qrcode = localStorage(`qrcode-${uid}-addFriend`)
+    let qrcode = localStorage(`qrcode-${uid}-addFriend`)
 
-      if (!qrcode) {
-        // 二维码信息：handle - addFriend , id - uid
-        const response = await createQrcode(uid, 'addFriend')
-        qrcode = response.data.data.svg
+    if (!qrcode) {
+      // 二维码信息：handle - addFriend , id - uid
+      const response = await createQrcode(uid, 'addFriend')
+      qrcode = response.data.data.svg
 
-        // 可以缓存下来！
-        localStorage(`qrcode-${uid}-addFriend`, qrcode)
-      }
+      // 可以缓存下来！
+      localStorage(`qrcode-${uid}-addFriend`, qrcode)
+    }
 
-      this.qrcode = qrcode
-    },
-    methods: {
-      showOperate() {
+    this.qrcode = qrcode
+  },
+  methods: {
+    showOperate() {
 
-      }
     }
   }
+}
 </script>
 
 <style lang="scss">

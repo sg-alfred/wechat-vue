@@ -38,26 +38,24 @@ const initSocketio = async (userinfo, from) => {
   })
 }
 
-
 function notifyMe(msgObj) {
-
   let notification
 
   // 根据chatid 获取通讯录，才能跳转到 聊天室～
   const contact = Object.values(store.state.contacts).find(x => x.chatid === msgObj.chatid)
 
   let notifyObj = {
-    title: contact.nickname || contact.alias || contact.mobilephone,   // 好友
+    title: contact.nickname || contact.alias || contact.mobilephone, // 好友
     additional: {
-      body: msgObj.content,    // 消息内容
-      icon: contact.headimgurl    // 好友头像
+      body: msgObj.content, // 消息内容
+      icon: contact.headimgurl // 好友头像
     }
   }
 
   const handle = {
     onclick(note) {
       note.onclick = function(event) {
-        event.preventDefault(); // prevent the browser from focusing the Notification's tab
+        event.preventDefault() // prevent the browser from focusing the Notification's tab
 
         const contactid = contact._id
         router.push(`/chatrooms/${contactid}`)
@@ -66,24 +64,24 @@ function notifyMe(msgObj) {
   }
 
   // 先检查浏览器是否支持
-  if (!("Notification" in window)) {
-    alert("This browser does not support desktop notification");
+  if (!('Notification' in window)) {
+    alert('This browser does not support desktop notification')
   }
 
   // 检查用户是否同意接受通知
-  else if (Notification.permission === "granted") {
-    notification = new Notification(notifyObj.title, notifyObj.additional);
+  else if (Notification.permission === 'granted') {
+    notification = new Notification(notifyObj.title, notifyObj.additional)
     handle.onclick(notification)
   }
 
   // 否则我们需要向用户获取权限
   else if (Notification.permission !== 'denied') {
     Notification.requestPermission(function (permission) {
-      if (permission === "granted") {
-        notification = new Notification(notifyObj.title, notifyObj.additional);
+      if (permission === 'granted') {
+        notification = new Notification(notifyObj.title, notifyObj.additional)
         handle.onclick(notification)
       }
-    });
+    })
   }
 }
 

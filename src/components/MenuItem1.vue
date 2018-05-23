@@ -3,14 +3,14 @@
   <section class="item-section">
 
     <!-- 头部占位、分割 -->
-    <div :class="{placeholder: itemInfo.isFirst}"></div>
+    <div :class="{placeholder: itemInfo.isFirst}"/>
 
     <!-- 真正的功能菜单 -->
     <router-link :to="'/' + parent + '/' + itemInfo.type">
 
       <!-- 加载 sprite 图片 -->
-      <div class="gopng_icon"
-           :class="['gopng_' + itemInfo.type + '_outer', 'gopng_' + itemInfo.type]"
+      <div :class="['gopng_' + itemInfo.type + '_outer', 'gopng_' + itemInfo.type]"
+           class="gopng_icon"
       >
         <!-- 加载一张张图片，占用请求 -->
         <!--<img :src="itemInfo.imgUrl" />-->
@@ -25,31 +25,34 @@
     </router-link>
 
     <!-- 底部占位、分割 -->
-    <div :class="{placeholder: itemInfo.isEnd}"></div>
+    <div :class="{placeholder: itemInfo.isEnd}"/>
 
   </section>
 </template>
 
 <script>
-  export default {
-    name: 'MenuItem1',
-    props: {
-      parent: String,
-      itemInfo: {
-        type: Object,
-        required: true
-      }
+export default {
+  name: 'MenuItem1',
+  props: {
+    parent: {
+      type: String,
+      required: true
     },
-    data() {
-      return {}
-    },
-    methods: {
-      goto(path) {
-        // 跳转之前，需要设置一下 状态吧？
-        this.$router.push(path)
-      }
+    itemInfo: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {}
+  },
+  methods: {
+    goto(path) {
+      // 跳转之前，需要设置一下 状态吧？
+      this.$router.push(path)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
