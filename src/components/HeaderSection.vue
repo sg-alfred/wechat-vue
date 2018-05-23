@@ -220,7 +220,7 @@
       display: flex;
       border-top: .01rem solid #000000;
       text-align: left;
-      padding: 0 2rem;
+      padding: 1.5rem 2rem;
       justify-content: center;
       align-items: center;
       span {

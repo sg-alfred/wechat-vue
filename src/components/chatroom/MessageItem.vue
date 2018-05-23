@@ -57,7 +57,7 @@
 <style lang="scss" scoped>
 
   .message-item {
-    margin: .8rem 0;
+    padding: .4rem 0;
   }
 
   .sendtime-info {
@@ -69,7 +69,7 @@
   .message-friend, .message-self {
     display: flex;
     align-items: center;
-    margin: .8rem;
+    margin: .5rem;
     text-align: left;
 
     div {
@@ -78,6 +78,8 @@
       position: relative;
       padding: .8rem;
       max-width: 70%;
+      word-wrap: break-word;
+
       span {
         width: 0;  height: 0;
         font-size: 0;
@@ -113,7 +115,6 @@
         bottom: .8rem
       }
     }
-
   }
 
   img {

@@ -46,11 +46,11 @@
   }
 
   img {
-    width: 4rem;
+    width: 2.5rem;
   }
 
   .item-section a {
-    margin: 0 1rem;
+    margin: 0 .5rem;
     padding: .8rem;
     display: flex;
     justify-content: center;
@@ -60,7 +60,7 @@
   }
 
   .item-section span {
-    margin: 0 2rem;
+    margin: 0 .5rem;
     flex: 0 1 0;
   }
 

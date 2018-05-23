@@ -73,7 +73,7 @@
     </main>
 
     <!-- 参考 better-scroll, picker 组件的设计 -->
-    <section v-if="isShowOperate" class="picker" @click="hideOperate">
+    <section v-if="isShowOperate" class="picker" @click="isShowOperate = !isShowOperate">
       <transition name="picker-show">
         <ul class="picker-content">
           <!-- 需要拆开？因为每个操作功能都不一样！！？ -->
@@ -154,7 +154,7 @@
       HeaderSection
     },
     computed: {
-      ...mapState(['contacts'])
+      ...mapState(['userinfo', 'contacts'])
     },
     beforeMount() {
       // 放在 beforeCreate 里错了？这个之后才会执行 beforeMount，应该没有问题啊！
@@ -168,9 +168,14 @@
       // }
       // this.info = info;   // 首先执行！因此，第一次还是 空的！
 
-      this.isFriend = !!this.contacts[this.contactid]
+      this.isFriend = !!this.contacts[this.contactid] || this.contactid === this.userinfo._id
 
-      this.info = this.isFriend ? this.contacts[this.contactid] : JSON.parse(localStorage(this.contactid))
+      // 点击朋友或者自己的！
+      this.info = this.contactid === this.userinfo._id
+        ? this.userinfo
+        : (this.isFriend
+          ? this.contacts[this.contactid]
+          : JSON.parse(localStorage(this.contactid)))
     },
     methods: {
       ...mapActions(['updateContact']),
@@ -178,12 +183,6 @@
         // 还是再取一次？应该是要再取一次的吧，其实也没有必要缓存～ 本来的，可以只获取 id 就够了，到这个界面之后再获取详情
         //  const response = await getFuserinfo()
         //  this.fuserinfo = response.data
-      },
-      async showOperate() {
-        this.isShowOperate = true
-      },
-      async hideOperate() {
-        this.isShowOperate = false
       },
       goto(path) {
         this.$router.push(path)
