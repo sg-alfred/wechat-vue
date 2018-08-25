@@ -64,6 +64,7 @@
       </el-dropdown>
     </section>
 
+    <!-- 搜索按钮 -->
     <router-link v-if="searchType" :to="'/search/' + searchType" class="head_search">
       <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
         <circle cx="18" cy="18" r="7" stroke="rgb(255,255,255)" stroke-width="1" fill="none"/>
