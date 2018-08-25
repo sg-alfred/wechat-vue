@@ -11,7 +11,7 @@ process.env.NODE_ENV = 'production'
 
 checkVersion()
 
-var spinner = ora('building for production...')
+const spinner = ora('building for production...')
 spinner.start()
 
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {

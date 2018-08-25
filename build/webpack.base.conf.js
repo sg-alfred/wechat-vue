@@ -1,7 +1,8 @@
-var path = require('path')
-var utils = require('./utils')
-var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
+const path = require('path')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const utils = require('./utils')
+const config = require('../config')
+const vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -35,7 +36,11 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test')],
+        exclude: file => (
+          /node_modules/.test(file) &&
+          !/\.vue\.js/.test(file)
+        )
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -54,5 +59,27 @@ module.exports = {
         }
       }
     ]
+  },
+  plugins: [
+    new VueLoaderPlugin()
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      name: 'true',
+      cacheGroups: {
+        vendors: {
+          name: 'vendor',
+          test: /node_modules/,
+          priority: 10
+        },
+        default: {
+          name: 'common',
+          minChunks: 3,
+          priority: 2,
+          reuseExistingChunk: true
+        }
+      }
+    }
   }
 }

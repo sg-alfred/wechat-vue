@@ -17,9 +17,9 @@ export const isEmptyObject = (value) => {
 
 // 将图片转化为64位编码
 export const convertImgToBase64 = (url, callback, outputFormat = 'image/png') => {
-  let canvas = document.createElement('CANVAS'),
-    ctx = canvas.getContext('2d'),
-    img = new Image()
+  let canvas = document.createElement('CANVAS')
+  const ctx = canvas.getContext('2d')
+  const img = new Image()
   img.crossOrigin = 'Anonymous'
   img.onload = function () {
     canvas.height = img.height
@@ -32,7 +32,7 @@ export const convertImgToBase64 = (url, callback, outputFormat = 'image/png') =>
   img.src = url
 }
 
-// 节流，下拉刷新控制！
+// 防抖，下拉刷新控制！
 export const debounce = (fn, wait = 0) => {
   var timeId
 
@@ -46,8 +46,10 @@ export const debounce = (fn, wait = 0) => {
   return debounced
 }
 
+// 节流
 export const throttle = (fn, wait = 0) => {
-  var timeId, lasttime = 0
+  var timeId
+  var lasttime = 0
 
   function throttled() {
     let nowtime = new Date()
@@ -65,16 +67,6 @@ export const throttle = (fn, wait = 0) => {
   }
 
   return throttled
-}
-
-// this ！！function ? 箭头函数 ? 写在 main 函数里！
-export const gotoAddress = (path) => {
-  console.log('调转到：', path)
-  if (path === -1) {
-    this.$router.go(-1)
-  } else {
-    this.$router.push(path)
-  }
 }
 
 export {

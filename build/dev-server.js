@@ -30,7 +30,7 @@ let autoOpenBrowser = !!config.dev.autoOpenBrowser
 // https://github.com/chimurai/http-proxy-middleware
 let proxyTable = config.dev.proxyTable
 
-let app = express()   // Express服务
+let app = express() // Express服务
 
 let compiler = webpack(webpackConfig)
 
@@ -92,7 +92,7 @@ devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
   // when env is testing, don't need open it
   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
-    // opn(uri)     // 暂时关掉自动 打开浏览器
+    opn(uri)
   }
   _resolve()
 })

@@ -1,12 +1,16 @@
 {
-  "presets": ["env"],
+  "presets": [
+    "env",
+    "stage-1"
+  ],
   "plugins": [
-    "transform-object-rest-spread",
     "transform-runtime",
-    "transform-strict-mode",
-    "transform-es2015-modules-commonjs",
-    "transform-es2015-spread",
-    "transform-es2015-destructuring",
-    "transform-es2015-parameters"
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      }
+    ]
   ]
 }

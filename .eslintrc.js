@@ -3,8 +3,6 @@ module.exports = {
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
   extends: [
     'standard',
-    'plugin:vue/base',
-    "plugin:vue/essential",
     "plugin:vue/recommended"
   ],
   parserOptions: {
@@ -28,6 +26,6 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'eol-last': 0,
     'space-before-function-paren': 0,
-    "vue/max-attributes-per-line": [0]
+    "vue/max-attributes-per-line": [0],
   }
 }

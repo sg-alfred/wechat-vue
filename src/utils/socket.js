@@ -66,16 +66,12 @@ function notifyMe(msgObj) {
   // 先检查浏览器是否支持
   if (!('Notification' in window)) {
     alert('This browser does not support desktop notification')
-  }
-
-  // 检查用户是否同意接受通知
-  else if (Notification.permission === 'granted') {
+  } else if (Notification.permission === 'granted') {
+    // 检查用户是否同意接受通知
     notification = new Notification(notifyObj.title, notifyObj.additional)
     handle.onclick(notification)
-  }
-
-  // 否则我们需要向用户获取权限
-  else if (Notification.permission !== 'denied') {
+  } else if (Notification.permission !== 'denied') {
+    // 否则我们需要向用户获取权限
     Notification.requestPermission(function (permission) {
       if (permission === 'granted') {
         notification = new Notification(notifyObj.title, notifyObj.additional)
