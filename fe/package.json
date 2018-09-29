@@ -1,0 +1,102 @@
+{
+  "name": "wechat-vue",
+  "version": "1.0.0",
+  "description": "基于 vue+express 的仿微信项目——FE工程",
+  "author": "sgAlfred",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "dev": "babel-node build/dev-server.js",
+    "start": "babel-node build/dev-server.js",
+    "build": "babel-node build/build.js",
+    "analyze": "NODE_ENV=production npm_config_report=true npm run build",
+    "lint": "eslint --ext .js,.vue src --fix",
+    "electron": "electron .",
+    "package:osx": "electron-packager . Dva-Electron --platform=darwin --arch=x64 --out=./app --version=0.0.1",
+    "package:win": "electron-packager . Dva-Electron --platform=win32",
+    "package:linux": "electron-packager . Dva-Electron --platform=linux"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgAlfred/wechat-vue"
+  },
+  "standard": {
+    "ignore": [
+      "static/",
+      "test/"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "baidu-aip-sdk": "^2.3.3",
+    "connect-history-api-fallback": "^1.5.0",
+    "element-ui": "^2.4.6",
+    "socket.io": "^2.1.1",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.1.3",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.22.1",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-component": "^1.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.3.2",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-register": "^6.22.0",
+    "chalk": "^2.4.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^1.0.0",
+    "electron": "^1.8.2",
+    "electron-packager": "^11.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "eslint-plugin-vue": "^4.5.0",
+    "eventsource-polyfill": "^0.9.6",
+    "express": "^4.14.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^2.0.0",
+    "friendly-errors-webpack-plugin": "^1.1.3",
+    "html-webpack-plugin": "^3.2.0",
+    "http-proxy-middleware": "^0.17.3",
+    "mini-css-extract-plugin": "^0.4.2",
+    "morgan": "^1.9.0",
+    "node-sass": "^4.9.3",
+    "normalize.css": "^8.0.0",
+    "opn": "^4.0.2",
+    "optimize-css-assets-webpack-plugin": "^1.3.0",
+    "ora": "^1.2.0",
+    "rimraf": "^2.6.0",
+    "sass": "^1.0.0-beta.2",
+    "sass-loader": "^7.1.0",
+    "semver": "^5.3.0",
+    "serve-favicon": "^2.4.5",
+    "shelljs": "^0.7.6",
+    "url-loader": "^1.1.1",
+    "vue-loader": "^15.4.0",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^4.17.1",
+    "webpack-bundle-analyzer": "^2.2.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-middleware": "^3.2.0",
+    "webpack-hot-middleware": "^2.18.0",
+    "webpack-merge": "^4.1.0"
+  },
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
