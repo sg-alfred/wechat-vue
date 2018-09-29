@@ -7,11 +7,8 @@
 ## Build Setup
 
 ``` bash
-# download
-git clone https://github.com/sgAlfred/wechat-server.git
-
 # install dependencies
-npm install
+cd be && npm install
 
 # serve at localhost:8081
 npm start
@@ -19,28 +16,51 @@ npm start
 
 ## 目录树
 
-- config           — 配置文件
-- controller       — 业务处理
-    + chatroom
-    + contact
-    + moment
-    + user
-- dbHandle         — mongodb 数据库链接
-- middlewares      — 中间件
-    + baiduAip
-    + elasticsearch
-    + log4js
-- models           — mongodb 实例
-    + chatroom
-    + comment
-    + contact
-    + message
-    + moment
-    + user
-- routes           — 后端路由
-- test             — 单元测试
-- app.js           — 入口文件
-- package.json
+```
+.
+├── README.md
+├── app.js                  — 入口文件
+├── build
+│   └── check-versions.js
+├── config                  — 配置文件
+│   ├── dev.env.js
+│   ├── index.js
+│   └── prod.env.js
+├── controller              — 业务处理
+│   ├── chatroom.js
+│   ├── contact.js
+│   ├── moment.js
+│   ├── user.js
+│   └── utils
+├── dbHandle                — mongodb 数据库链接
+│   └── index.js
+├── middlewares             — 中间件
+│   ├── baiduAip.js         - 百度ai封装，实现人脸登录
+│   ├── check.js
+│   └── elasticsearch.js    - 日志
+├── models                  — mongodb 实例
+│   ├── chatroom.js
+│   ├── comment.js
+│   ├── contact.js
+│   ├── group.js
+│   ├── groupContact.js
+│   ├── message.js
+│   ├── moment.js
+│   └── user.js
+├── node_modules
+├── package.json
+├── routes                  — 后端路由
+│   ├── chatroom.js
+│   ├── contact.js
+│   ├── index.js
+│   ├── moment.js
+│   ├── session.js
+│   ├── tools.js
+│   └── user.js
+└── socket
+    └── index.js
+```
+
 
 ## TODO(接口能力)
 
@@ -71,7 +91,3 @@ npm start
 * [ ] DELETE /moments: 删除某条朋友圈
 * [ ] GET /moments/:mid/comments: 获取某条朋友圈的评论
 * [ ] POST /moments/:mid/comments: 发表评论(点赞？)
-
-## License
-[MIT](http://opensource.org/licenses/MIT)
-Copyright (c) 2017-present
