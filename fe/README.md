@@ -1,6 +1,8 @@
 # wechat-vue
 
+
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 
 > 基于 Vue 模仿微信App，实现部分微信功能。
 
@@ -42,6 +44,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 * [ ] 其他尝试
     * [X] 结合百度AI做人脸登录
     * [ ] redis 队列做数据推送？
+
 
 ## License
 [MIT](http://opensource.org/licenses/MIT)
