@@ -1,25 +1,23 @@
-FROM node:last
-MAINTAINER sgAlfred<sg_chenjz@163.com>
-
-RUN apt-get update && apt-get install -y nginx
+FROM node:12.12.0 as builder
+LABEL maintainer="sgAlfred<sg_chenjz@163.com>"
 
 WORKDIR /home/www/wechat-vue
 
+COPY package.json package.json
+COPY yarn.lock yarn.lock
+
 RUN yarn config set registry https://registry.npm.taobao.org
 
-COPY package.json .
-COPY build build
-COPY config config
-COPY src src
-COPY static static
-COPY .babelrc .bablerc
-COPY index.html index.html
-COPY main.js main.js
-COPY faicon@256.ico faicon@256.ico
+COPY public .
+COPY src .
+COPY vue.config.js .
+COPY main.js .
 
-RUN yarn install && yarn run build \
-	&& cp -r dist/* /var/www/html \
-	&& rm -rf ./*
+RUN yarn build
+
+FROM nginx:1.17.6-alpine
+
+COPY --from=builder /root/phoenix_web/fe/dist/ /usr/share/nginx/html/
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
