@@ -1,15 +1,15 @@
 /**
  * Created by chenjz on 2017/7/31.
  */
-'use strict'
+'use strict';
 
-import Vue from 'vue'
-import Vuex from 'vuex'
-import * as getters from './getters'
-import * as actions from './actions'
-import mutations from './mutations'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import * as getters from './getters';
+import * as actions from './actions';
+import mutations from './mutations';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const state = {
   isLogin: false,
@@ -22,7 +22,8 @@ const state = {
   },
   socket: null,
   currentContactID: null,
-  contacts: { // 通讯录 -> 聊天室
+  contacts: {
+    // 通讯录 -> 聊天室
     /*
     id: {
       id,
@@ -36,12 +37,12 @@ const state = {
       lastMessage
     }
     */
-  }
-}
+  },
+};
 
 export default new Vuex.Store({
   state,
   mutations,
   getters,
-  actions
-})
+  actions,
+});

@@ -1,15 +1,15 @@
 /**
  * Created by chenjz on 2017/9/14.
  */
-'use strict'
+'use strict';
 
-export const CHANGE_LOGININFO = 'CHANGE_LOGININFO'
-export const INIT_SOCKET = 'INIT_SOCKET'
+export const CHANGE_LOGININFO = 'CHANGE_LOGININFO';
+export const INIT_SOCKET = 'INIT_SOCKET';
 
-export const ALL_CONTACTS = 'ALL_CONTACTS'
-export const UPDATE_CONTACT = 'UPDATE_CONTACT'
+export const ALL_CONTACTS = 'ALL_CONTACTS';
+export const UPDATE_CONTACT = 'UPDATE_CONTACT';
 
-export const RECEIVE_ALL = 'RECEIVE_ALL'
-export const ADD_MESSAGE = 'ADD_MESSAGE'
+export const RECEIVE_ALL = 'RECEIVE_ALL';
+export const ADD_MESSAGE = 'ADD_MESSAGE';
 
-export const SWITCH_CHATROOM = 'SWITCH_CHATROOM'
+export const SWITCH_CHATROOM = 'SWITCH_CHATROOM';

@@ -14,25 +14,25 @@
  -->
 
 <template>
-  <section class="wechat-item" @click="$emit('into-chatroom', chatItem._id)">
-
-    <span>
-      <!-- 连接到 用户详情界面 -->
-      <!--<router-link :to=""></router-link>-->
-      <img :src="chatItem.headimgurl" alt="avatar">
-    </span>
-    <div>
-      <p class="padding-5">
-        <!-- 依次取 自己设置的备注名，好友的别名，手机号码 -->
-        <span>{{ chatItem.nickname || chatItem.alias || chatItem.mobilephone }}</span>
-        <span class="right">{{ chatItem.chatinfo.sendtime | formatTime }}</span>
-      </p>
-      <div class="padding-5 text-overflow">
-        {{ chatItem.chatinfo.content }}
-      </div>
+<section class="wechat-item" @click="$emit('into-chatroom', chatItem._id)">
+  <span>
+    <!-- 连接到 用户详情界面 -->
+    <!--<router-link :to=""></router-link>-->
+    <img :src="chatItem.headimgurl" alt="avatar" />
+  </span>
+  <div>
+    <p class="padding-5">
+      <!-- 依次取 自己设置的备注名，好友的别名，手机号码 -->
+      <span>{{
+          chatItem.nickname || chatItem.alias || chatItem.mobilephone
+        }}</span>
+      <span class="right">{{ chatItem.chatinfo.sendtime | formatTime }}</span>
+    </p>
+    <div class="padding-5 text-overflow">
+      {{ chatItem.chatinfo.content }}
     </div>
-
-  </section>
+  </div>
+</section>
 </template>
 
 <script>
@@ -41,42 +41,43 @@ export default {
   props: {
     chatItem: {
       type: Object,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  img {
-    width: 3.2rem;
-  }
+img {
+  width: 3.2rem;
+}
 
-  .wechat-item {
-    padding: .8rem;
-    margin: 0 1rem;
-    border-bottom: 1px solid #e8e8e8;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    div {
-      flex-grow: 1;
-    }
-  }
+.wechat-item {
+  padding: 0.8rem;
+  margin: 0 1rem;
+  border-bottom: 1px solid #e8e8e8;
+  text-align: left;
+  display: flex;
+  align-items: center;
 
-  .wechat-item > span {
-    margin: 0 1rem 0 0;
+  div {
+    flex-grow: 1;
   }
+}
 
-  /* 文本溢出用 … 代替 */
-  .text-overflow {
-    width: 15rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+.wechat-item>span {
+  margin: 0 1rem 0 0;
+}
 
-  .padding-5 {
-    padding: .3rem;
-  }
+/* 文本溢出用 … 代替 */
+.text-overflow {
+  width: 15rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.padding-5 {
+  padding: 0.3rem;
+}
 </style>

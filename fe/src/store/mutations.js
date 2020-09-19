@@ -1,30 +1,29 @@
 /**
  * Created by chenjz on 2017/7/31.
  */
-'use strict'
-import Vue from 'vue'
-import * as types from './mutation-types'
+'use strict';
+import Vue from 'vue';
+import * as types from './mutation-types';
 
 export default {
-
   /**
    * 修改登录信息, 设置 socket ~~
    * ---------------------------------------------
    * @param state
    * @param userinfo
    */
-  [types.CHANGE_LOGININFO] (state, userinfo) {
-    state.isLogin = !!userinfo
-    state.userinfo = userinfo
+  [types.CHANGE_LOGININFO](state, userinfo) {
+    state.isLogin = !!userinfo;
+    state.userinfo = userinfo;
     if (!userinfo) {
-      state.currentContactID = null
-      state.contacts = {}
-      state.socket = null
+      state.currentContactID = null;
+      state.contacts = {};
+      state.socket = null;
     }
   },
 
-  [types.INIT_SOCKET] (state, socket) {
-    state.socket = socket
+  [types.INIT_SOCKET](state, socket) {
+    state.socket = socket;
   },
 
   /**
@@ -34,12 +33,12 @@ export default {
    * @param state
    * @param contacts
    */
-  [types.ALL_CONTACTS] (state, contacts) {
+  [types.ALL_CONTACTS](state, contacts) {
     // console.log('vuex 缓存通讯录', JSON.stringify(contacts))
 
-    contacts.forEach(contact => {
-      addContact(state, contact)
-    })
+    contacts.forEach((contact) => {
+      addContact(state, contact);
+    });
   },
 
   /**
@@ -48,9 +47,9 @@ export default {
    * @param state
    * @param updateParams
    */
-  [types.UPDATE_CONTACT] (state, updateParams) {
-    let contact = state.contacts[updateParams._id]
-    Object.assign(contact, updateParams)
+  [types.UPDATE_CONTACT](state, updateParams) {
+    let contact = state.contacts[updateParams._id];
+    Object.assign(contact, updateParams);
   },
 
   /**
@@ -59,12 +58,12 @@ export default {
    * @param state
    * @param messages
    */
-  [types.RECEIVE_ALL] (state, { messages }) {
+  [types.RECEIVE_ALL](state, { messages }) {
     // 获取当前的 聊天室
-    let chatroom = getCurrentContact(state)
+    let chatroom = getCurrentContact(state);
 
     // 批量 添加到数组前面
-    chatroom.messages.unshift(...messages)
+    chatroom.messages.unshift(...messages);
 
     /* 不需要这样！！
     chatroom.messages.forEach(message => {
@@ -85,20 +84,20 @@ export default {
    * @param state
    * @param message
    */
-  [types.ADD_MESSAGE] (state, { message }) {
-    console.log('消息 - mutation', message)
+  [types.ADD_MESSAGE](state, { message }) {
+    console.log('消息 - mutation', message);
 
     // 又没有必要区分？
     // if ('send' === message.type) {
     //     chatroom = getCurrentContact(state)
     // } else if ('receive' === message.type) {
-    let chatroom = getContactByChatid(state, message.chatid)
+    let chatroom = getContactByChatid(state, message.chatid);
     // }å
 
-    chatroom.messages.push(message)
+    chatroom.messages.push(message);
 
     // 还需要维护 最后一条聊天
-    chatroom.chatinfo = message
+    chatroom.chatinfo = message;
   },
 
   /**
@@ -107,11 +106,10 @@ export default {
    * @param state
    * @param contactid
    */
-  [types.SWITCH_CHATROOM] (state, { contactid }) {
-    state.currentContactID = contactid
-  }
-
-}
+  [types.SWITCH_CHATROOM](state, { contactid }) {
+    state.currentContactID = contactid;
+  },
+};
 
 /**
  * 增加一个通讯录 到 vuex
@@ -119,20 +117,20 @@ export default {
  * @param state
  * @param contact
  */
-function addContact (state, contact) {
-  let finfo = Object.assign({}, contact.fid)
-  delete finfo._id
-  delete finfo.id // 为嘛还有这一个～
+function addContact(state, contact) {
+  let finfo = Object.assign({}, contact.fid);
+  delete finfo._id;
+  delete finfo.id; // 为嘛还有这一个～
 
-  contact.fid = contact.fid._id
-  Object.assign(contact, finfo)
+  contact.fid = contact.fid._id;
+  Object.assign(contact, finfo);
 
-  contact.chatinfo = contact.chatid
-  contact.chatid = contact.chatid._id
+  contact.chatinfo = contact.chatid;
+  contact.chatid = contact.chatid._id;
 
-  contact.messages = [] // 放置 聊天信息
+  contact.messages = []; // 放置 聊天信息
 
-  Vue.set(state.contacts, contact._id, contact)
+  Vue.set(state.contacts, contact._id, contact);
 }
 
 /**
@@ -141,8 +139,8 @@ function addContact (state, contact) {
  * @param state
  * @param contactid
  */
-function deleteContact (state, contactid) {
-  Vue.delete(state.contacts, contactid)
+function deleteContact(state, contactid) {
+  Vue.delete(state.contacts, contactid);
 }
 
 /**
@@ -150,10 +148,8 @@ function deleteContact (state, contactid) {
  * ---------------------------------------------
  * @param state
  */
-function getCurrentContact (state) {
-  return state.currentContactID
-    ? state.contacts[state.currentContactID]
-    : {}
+function getCurrentContact(state) {
+  return state.currentContactID ? state.contacts[state.currentContactID] : {};
 }
 
 /**
@@ -163,6 +159,6 @@ function getCurrentContact (state) {
  * @param chatid
  * @returns {Query|*|T}
  */
-function getContactByChatid (state, chatid) {
-  return Object.values(state.contacts).find(x => x.chatid === chatid)
+function getContactByChatid(state, chatid) {
+  return Object.values(state.contacts).find((x) => x.chatid === chatid);
 }
