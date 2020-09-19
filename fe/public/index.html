@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="screen-orientation" content="portrait" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="full-screen" content="yes">
+  <meta name="x5-fullscreen" content="true">
+
+  <title>微信</title>
+  <!-- font-awesome 太大了～ -->
+  <!--<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">-->
+
+  <!-- iconfont 阿里矢量图，拓展也还好，下载相应的 SVG，放到相应的位置就好～ -->
+  <!--<link href="./static/iconfont/iconfont.css" rel="stylesheet">-->
+  <script src="./iconfont/iconfont.js"></script>
+
+  <!-- sprite 样式 -->
+  <link href="./sprite/style.css" rel="stylesheet">
+
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+
+  <style type="text/css">
+    .icon {
+      width: 1em;
+      height: 1em;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script>
+    var _hmt = _hmt || [];
+    (function () {
+      let hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2e0197f894005e51f38961c7be42bde0";
+      let s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+</body>
+
+</html>
