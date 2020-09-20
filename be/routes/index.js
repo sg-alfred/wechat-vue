@@ -7,23 +7,23 @@
  * Created by chenjz on 2017/9/18.
  */
 
-'use strict'
+'use strict';
 
-import tools from './tools'
-import wxuser from './user'
-import session from './session'
-import contact from './contact'
-import chatroom from './chatroom'
-import moment from './moment'
+import tools from './tools';
+import wxuser from './user';
+import session from './session';
+import contact from './contact';
+import chatroom from './chatroom';
+import moment from './moment';
 
-export default app => {
-  app.use('/tools', tools)
-  app.use('/users', wxuser)
-  app.use('/session', session) // 用户登录的时候，type 可以使用 刷脸登录！
-  app.use('/contacts', contact)
-  app.use('/chatrooms', chatroom)
-  app.use('/moments', moment)
-}
+export default (app) => {
+  app.use('/tools', tools);
+  app.use('/users', wxuser);
+  app.use('/session', session); // 用户登录的时候，type 可以使用 刷脸登录！
+  app.use('/contacts', contact);
+  app.use('/chatrooms', chatroom);
+  app.use('/moments', moment);
+};
 
 /**
 登录实际是对应的资源是 session，因此

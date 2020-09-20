@@ -1,36 +1,38 @@
 /**
  * Created by chenjz on 2017/8/3.
  */
-'use strict'
+'use strict';
 
-import mongoose from 'mongoose'
-const schema = mongoose.Schema
+import mongoose from 'mongoose';
+const schema = mongoose.Schema;
 
 const GROUP_SCHEMA = {
   // groupid 自动生成
   groupname: {
     type: String,
-    default: '群聊'
+    default: '群聊',
   },
-  owner: { // 群主
+  owner: {
+    // 群主
     type: String,
-    required: true
+    required: true,
   },
-  notice: { // 群公告
-    type: String
+  notice: {
+    // 群公告
+    type: String,
   },
   createuser: {
-    type: schema.Types.ObjectId
+    type: schema.Types.ObjectId,
   },
   createtime: Date,
   updatetime: {
     type: Date,
-    default: Date.now()
-  }
-}
+    default: Date.now(),
+  },
+};
 
-const GroupSchema = schema(GROUP_SCHEMA)
+const GroupSchema = schema(GROUP_SCHEMA);
 
-const Group = mongoose.model('Group', GroupSchema)
+const Group = mongoose.model('Group', GroupSchema);
 
-export default Group
+export default Group;

@@ -2,16 +2,17 @@
  * 朋友圈的评论
  * Created by chenjz on 2017/10/19.
  */
-'use strict'
+'use strict';
 
-import mongoose from 'mongoose'
-const schema = mongoose.Schema
+import mongoose from 'mongoose';
+const schema = mongoose.Schema;
 
 const COMMENT_SCHEMA = {
   // 唯一id
-  mid: { // 状态 id
+  mid: {
+    // 状态 id
     type: schema.Types.ObjectId,
-    ref: 'Moment'
+    ref: 'Moment',
   },
   content: String, // 评论内容
   uid: String, // 评论人
@@ -19,12 +20,12 @@ const COMMENT_SCHEMA = {
   touid: String, // 给谁评论的
   createtime: {
     type: Date,
-    default: new Date()
-  }
-}
+    default: new Date(),
+  },
+};
 
-const CommentSchema = schema(COMMENT_SCHEMA)
+const CommentSchema = schema(COMMENT_SCHEMA);
 
-const Comment = mongoose.model('Comment', CommentSchema)
+const Comment = mongoose.model('Comment', CommentSchema);
 
-export default Comment
+export default Comment;

@@ -1,46 +1,49 @@
 /**
  * Created by chenjz on 2017/8/3.
  */
-'use strict'
+'use strict';
 
-import mongoose from 'mongoose'
-const schema = mongoose.Schema
+import mongoose from 'mongoose';
+const schema = mongoose.Schema;
 
 const GROUPCONTACT_SCHEMA = {
   _id: false,
   gid: {
     type: schema.Types.ObjectId,
     ref: 'Group',
-    required: true
+    required: true,
   },
   uid: {
     type: schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
   },
   alias: String, // 群别名，默认为 nickname
-  rank: { // 排名，升级群主
+  rank: {
+    // 排名，升级群主
     type: Number,
-    required: true
+    required: true,
   },
-  muteNotification: { // 是否屏蔽
+  muteNotification: {
+    // 是否屏蔽
     type: Boolean,
-    default: false
+    default: false,
   },
-  stickTop: { // 置顶
+  stickTop: {
+    // 置顶
     type: Boolean,
-    default: false
+    default: false,
   },
   status: {
     type: Number,
-    default: 0
-  }
-}
+    default: 0,
+  },
+};
 
-const GroupContactSchema = schema('GroupContact', GROUPCONTACT_SCHEMA)
+const GroupContactSchema = schema('GroupContact', GROUPCONTACT_SCHEMA);
 
-GroupContactSchema.index({'gid': 1, 'uid': 1}, {'unique': true})
+GroupContactSchema.index({ gid: 1, uid: 1 }, { unique: true });
 
-const GroupContact = mongoose.model('GroupContact', GroupContactSchema)
+const GroupContact = mongoose.model('GroupContact', GroupContactSchema);
 
-export default GroupContact
+export default GroupContact;

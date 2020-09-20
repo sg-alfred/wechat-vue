@@ -1,20 +1,20 @@
 /**
  * Created by chenjz on 2017/10/19.
  */
-'use strict'
+'use strict';
 
-import express from 'express'
-import Moment from '../controller/moment'
+import express from 'express';
+import Moment from '../controller/moment';
 
-const router = express.Router()
+const router = express.Router();
 
 // 获取朋友圈
-router.get('/', Moment.getAllMoments)
+router.get('/', Moment.getAllMoments);
 
 // 做评论
-router.post('/:mid', Moment.makeComment)
+router.post('/:mid', Moment.makeComment);
 
 // 删除某条评论
 // router.delete('/:id', Moment.deleteComment)
 
-export default router
+export default router;

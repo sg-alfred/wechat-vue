@@ -1,20 +1,20 @@
 /**
  * Created by chenjz on 2017/10/19.
  */
-'use strict'
+'use strict';
 
-import express from 'express'
-import User from '../controller/user'
+import express from 'express';
+import User from '../controller/user';
 
-const router = express.Router()
+const router = express.Router();
 
 // 检查用户登录
-router.get('/', User.checkLogin)
+router.get('/', User.checkLogin);
 
 // 用户登录
-router.post('/', User.login)
+router.post('/', User.login);
 
 // 注销登录
-router.delete('/', User.logout)
+router.delete('/', User.logout);
 
-export default router
+export default router;
