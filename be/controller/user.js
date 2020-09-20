@@ -145,6 +145,9 @@ class User {
 
     let params = req.body;
 
+    const random = Math.floor(Math.random() * 24);
+    params.headimgurl = `/images/${random}.jpg`;
+
     // 加盐的这一步，移到  presave 里面！！ 更加合理！
     params.salt = baseUtil.getRandomStr(4);
     params.password = baseUtil.createMd5(
