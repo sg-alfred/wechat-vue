@@ -1,146 +1,93 @@
 <template>
-  <header class="header-container">
-    <section v-if="goBack" class="head_goback" @click="$router.go(-1)">
-      <svg
-        width="40"
-        height="40"
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
-      >
-        <polyline
-          points="20,10 10,20 20,30"
-          style="fill:none;stroke:rgb(255,255,255);stroke-width:2"
-        />
-        <line
-          x1="10"
-          y1="20"
-          x2="30"
-          y2="20"
-          style="stroke:rgb(255,255,255);stroke-width:2"
-        />
-      </svg>
-    </section>
+<header class="header-container">
+  <section v-if="goBack" class="head_goback" @click="$router.go(-1)">
+    <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <polyline points="20,10 10,20 20,30" style="fill:none;stroke:rgb(255,255,255);stroke-width:2" />
+      <line x1="10" y1="20" x2="30" y2="20" style="stroke:rgb(255,255,255);stroke-width:2" />
+    </svg>
+  </section>
 
-    <section v-if="headTitle" class="head_title">
-      <span class="title_text">{{ headTitle }}</span>
-    </section>
+  <section v-if="headTitle" class="head_title">
+    <span class="title_text">{{ headTitle }}</span>
+  </section>
 
-    <section v-if="hasDropdown" class="head_dropdown">
-      <el-dropdown trigger="click" @command="handleCommand">
-        <span class="el-dropdown-link">
-          <svg
-            width="40"
-            height="40"
-            xmlns="http://www.w3.org/2000/svg"
-            version="1.1"
-          >
-            <line
-              x1="10"
-              y1="20"
-              x2="30"
-              y2="20"
-              style="stroke:rgb(255,255,255);stroke-width:2"
-            />
-            <line
-              x1="20"
-              y1="10"
-              x2="20"
-              y2="30"
-              style="stroke:rgb(255,255,255);stroke-width:2"
-            />
+  <section v-if="hasDropdown" class="head_dropdown">
+    <el-dropdown trigger="click" @command="handleCommand">
+      <span class="el-dropdown-link">
+        <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <line x1="10" y1="20" x2="30" y2="20" style="stroke:rgb(255,255,255);stroke-width:2" />
+          <line x1="20" y1="10" x2="20" y2="30" style="stroke:rgb(255,255,255);stroke-width:2" />
+        </svg>
+      </span>
+      <el-dropdown-menu sole="dropdown">
+        <el-dropdown-item command="groupChat">
+          <!--<img src="assets/image/icon-groupchat.png">-->
+          <svg class="icon fa-20x" aria-hidden="true">
+            <use xlink:href="#icon-message-active" />
           </svg>
-        </span>
-        <el-dropdown-menu sole="dropdown">
-          <el-dropdown-item command="groupChat">
-            <!--<img src="assets/image/icon-groupchat.png">-->
-            <svg class="icon fa-20x" aria-hidden="true">
-              <use xlink:href="#icon-message-active" />
-            </svg>
-            <span>发起群聊</span>
-          </el-dropdown-item>
-          <el-dropdown-item command="addFriend">
-            <!--<img src="assets/image/icon-addFriend.png">-->
-            <svg class="icon fa-20x" aria-hidden="true">
-              <use xlink:href="#icon-contacts-active" />
-            </svg>
-            <span>添加好友</span>
-          </el-dropdown-item>
-          <el-dropdown-item command="scanQRCode">
-            <!--<img src="assets/image/icon-scancode.png">-->
-            <svg class="icon fa-20x" aria-hidden="true">
-              <use xlink:href="#icon-saoyisao" />
-            </svg>
-            <span>扫一扫</span>
-          </el-dropdown-item>
-          <el-dropdown-item command="payment">
-            <!--<img src="assets/image/icon-payment.png">-->
-            <svg class="icon fa-20x" aria-hidden="true">
-              <use xlink:href="#icon-shoufukuan" />
-            </svg>
-            <span>收付款</span>
-          </el-dropdown-item>
-          <el-dropdown-item command="help">
-            <!--<img src="assets/image/icon-help.png">-->
-            <svg class="icon fa-20x" aria-hidden="true">
-              <use xlink:href="#icon-xiaoxi" />
-            </svg>
-            <span>帮助与反馈</span>
-          </el-dropdown-item>
-          <el-dropdown-item command="logout">
-            <i class="fa fa-sign-out" aria-hidden="true" />
-            <span>退出账号</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </section>
+          <span>发起群聊</span>
+        </el-dropdown-item>
+        <el-dropdown-item command="addFriend">
+          <!--<img src="assets/image/icon-addFriend.png">-->
+          <svg class="icon fa-20x" aria-hidden="true">
+            <use xlink:href="#icon-contacts-active" />
+          </svg>
+          <span>添加好友</span>
+        </el-dropdown-item>
+        <el-dropdown-item command="scanQRCode">
+          <!--<img src="assets/image/icon-scancode.png">-->
+          <svg class="icon fa-20x" aria-hidden="true">
+            <use xlink:href="#icon-saoyisao" />
+          </svg>
+          <span>扫一扫</span>
+        </el-dropdown-item>
+        <el-dropdown-item command="payment">
+          <!--<img src="assets/image/icon-payment.png">-->
+          <svg class="icon fa-20x" aria-hidden="true">
+            <use xlink:href="#icon-shoufukuan" />
+          </svg>
+          <span>收付款</span>
+        </el-dropdown-item>
+        <el-dropdown-item command="help">
+          <!--<img src="assets/image/icon-help.png">-->
+          <svg class="icon fa-20x" aria-hidden="true">
+            <use xlink:href="#icon-xiaoxi" />
+          </svg>
+          <span>帮助与反馈</span>
+        </el-dropdown-item>
+        <el-dropdown-item command="logout">
+          <i class="fa fa-sign-out" aria-hidden="true" />
+          <span>退出账号</span>
+        </el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+  </section>
 
-    <!-- 搜索按钮 -->
-    <router-link
-      v-if="searchType"
-      :to="'/search/' + searchType"
-      class="head_search"
-    >
-      <svg
-        width="40"
-        height="40"
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
-      >
-        <circle
-          cx="18"
-          cy="18"
-          r="7"
-          stroke="rgb(255,255,255)"
-          stroke-width="1"
-          fill="none"
-        />
-        <line
-          x1="24"
-          y1="24"
-          x2="30"
-          y2="30"
-          style="stroke:rgb(255,255,255);stroke-width:2"
-        />
-      </svg>
-    </router-link>
+  <!-- 搜索按钮 -->
+  <router-link v-if="searchType" :to="'/search/' + searchType" class="head_search">
+    <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <circle cx="18" cy="18" r="7" stroke="rgb(255,255,255)" stroke-width="1" fill="none" />
+      <line x1="24" y1="24" x2="30" y2="30" style="stroke:rgb(255,255,255);stroke-width:2" />
+    </svg>
+  </router-link>
 
-    <!-- 搜索输入框 -->
-    <slot name="searchFrm" />
+  <!-- 搜索输入框 -->
+  <slot name="searchFrm" />
 
-    <!-- 微信聊天室的 右上角的用户icon，点击 跳转到 聊天信息 的功能-->
-    <!-- 朋友圈右上角的 icon,点击弹出 视频或图片 发布  -->
-    <slot name="specialIcon" />
+  <!-- 微信聊天室的 右上角的用户icon，点击 跳转到 聊天信息 的功能-->
+  <!-- 朋友圈右上角的 icon,点击弹出 视频或图片 发布  -->
+  <slot name="specialIcon" />
 
-    <!-- 通讯录点击 进入 详细资料后，右上角有用户设置，点击下弹出，比如屏蔽、设置用户名等-->
-    <slot name="userOperate" />
+  <!-- 通讯录点击 进入 详细资料后，右上角有用户设置，点击下弹出，比如屏蔽、设置用户名等-->
+  <slot name="userOperate" />
 
-    <!-- 汉字，添加好友 -->
-    <slot name="addFriendText" />
+  <!-- 汉字，添加好友 -->
+  <slot name="addFriendText" />
 
-    <!-- 发送好友申请 按钮 -->
-    <!-- 保存 按钮 -->
-    <slot name="headerBtn" />
-  </header>
+  <!-- 发送好友申请 按钮 -->
+  <!-- 保存 按钮 -->
+  <slot name="headerBtn" />
+</header>
 </template>
 
 <script>
@@ -281,7 +228,6 @@ export default {
   padding: 0;
   border: 0;
   background-color: #434439;
-  color: #ffffff;
 
   .el-dropdown-menu__item {
     display: flex;
@@ -290,6 +236,7 @@ export default {
     padding: 1.5rem 2rem;
     justify-content: center;
     align-items: center;
+    color: white;
 
     span {
       flex: 0 1 0;
@@ -307,7 +254,6 @@ export default {
 
   .el-dropdown-menu__item:hover {
     background-color: #000000;
-    color: white;
   }
 }
 

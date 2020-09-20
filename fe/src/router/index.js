@@ -146,7 +146,7 @@ const router = new Router({
     },
     {
       path: '/addsend/:fid',
-      component: () => import('@/pages/contacts/AddFriend'),
+      component: () => import('@/pages/contacts/AddSend'),
       meta: {
         title: '添加好友',
       },

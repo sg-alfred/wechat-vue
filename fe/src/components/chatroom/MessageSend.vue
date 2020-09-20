@@ -1,48 +1,48 @@
 <template>
-  <section
-    ref="sendSection"
-    :class="{ 'show-panel': isShowEmoji || isShowShortcuts }"
-    class="send-section"
-  >
-    <section class="message-section">
-      <div @click="speak">
-        <svg class="icon fa-12x" aria-hidden="true">
-          <use xlink:href="#icon-yuyin" />
-        </svg>
-      </div>
-      <div>
-        <input v-model="content" @keyup.enter="doSendMessage" />
-      </div>
-      <div @click="showEmoji">
-        <svg class="icon fa-12x" aria-hidden="true">
-          <use xlink:href="#icon-biaoqing" />
-        </svg>
-      </div>
-      <div>
-        <el-button v-if="!content" icon="plus" @click="showShortcuts" />
-        <el-button v-else type="success" @click="doSendMessage">发送</el-button>
-      </div>
-    </section>
-
-    <!-- 表情包 -->
-    <section v-if="isShowEmoji" class="tool-panel">
-      <transition name="panel-show">
-        <img src="/assets/image/send-emoji.png" />
-      </transition>
-    </section>
-
-    <!-- 快捷 发送选项 -->
-    <section v-if="isShowShortcuts" class="tool-panel">
-      <transition name="panel-show">
-        <img src="/assets/image/send-shortcut.png" />
-      </transition>
-    </section>
+<section ref="sendSection" :class="{ 'show-panel': isShowEmoji || isShowShortcuts }" class="send-section">
+  <section class="message-section">
+    <div @click="speak">
+      <svg class="icon fa-12x" aria-hidden="true">
+        <use xlink:href="#icon-yuyin" />
+      </svg>
+    </div>
+    <div>
+      <input v-model="content" @keyup.enter="doSendMessage" />
+    </div>
+    <div @click="showEmoji">
+      <svg class="icon fa-12x" aria-hidden="true">
+        <use xlink:href="#icon-biaoqing" />
+      </svg>
+    </div>
+    <div>
+      <el-button v-if="!content" icon="plus" @click="showShortcuts" />
+      <el-button v-else type="success" @click="doSendMessage">发送</el-button>
+    </div>
   </section>
+
+  <!-- 表情包 -->
+  <section v-if="isShowEmoji" class="tool-panel">
+    <transition name="panel-show">
+      <img :src="require('@/assets/image/send-emoji.png')" />
+    </transition>
+  </section>
+
+  <!-- 快捷 发送选项 -->
+  <section v-if="isShowShortcuts" class="tool-panel">
+    <transition name="panel-show">
+      <img :src="require('@/assets/image/send-shortcut.png')" />
+    </transition>
+  </section>
+</section>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-import { sendMessage } from '@/api';
+import {
+  mapActions
+} from 'vuex';
+import {
+  sendMessage
+} from '@/api';
 
 export default {
   name: 'Message',
@@ -113,6 +113,7 @@ export default {
   width: 100%;
   z-index: 101;
 }
+
 .message-section {
   display: flex;
   justify-content: center;
@@ -120,12 +121,15 @@ export default {
   border-bottom: ghostwhite solid 0.1rem;
   box-sizing: border-box;
   padding: 0.4rem 0;
+
   div {
     margin: 0 0.8rem;
     flex: 0 1 0;
   }
+
   div:nth-child(2) {
     flex-grow: 1;
+
     input {
       border: hidden;
       border-bottom: 1px solid green;
@@ -135,23 +139,28 @@ export default {
     }
   }
 }
+
 .tool-panel {
   position: absolute;
   bottom: 0;
   height: 20rem;
+
   img {
     height: 20rem;
     width: 100%;
   }
 }
+
 .panel-show-enter,
 .panel-show-leave-active {
   transform: translate3d(0, 273px, 0);
 }
+
 .panel-show-enter-active,
 .panel-show-leave-active {
   transition: all 0.5s ease-in-out;
 }
+
 .fa-12x {
   font-size: 1.2rem;
 }
