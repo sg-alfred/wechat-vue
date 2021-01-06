@@ -19,7 +19,7 @@
     "url": "https://github.com/sgAlfred/wechat-vue"
   },
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "baidu-aip-sdk": "^2.4.6",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
